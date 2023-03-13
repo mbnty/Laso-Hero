@@ -1,0 +1,40 @@
+# depslib dependency file v1.0
+1678682159 source:c:\users\maaku\desktop\gamedev\lasoalpha\src\scene.cpp
+	"scene.h"
+	"Light.h"
+	"model.h"
+
+1678679310 c:\users\maaku\desktop\gamedev\lasoalpha\include\scene.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glut.h>
+	<iostream>
+
+1661974075 c:\users\maaku\desktop\gamedev\common\include\gl\glut.h
+	<windows.h>
+	<stdlib.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1678679744 c:\users\maaku\desktop\gamedev\lasoalpha\include\light.h
+	<GL/gl.h>
+	<scene.h>
+
+1678680549 source:c:\users\maaku\desktop\gamedev\lasoalpha\src\light.cpp
+	"Light.h"
+
+1678680594 source:c:\users\maaku\desktop\gamedev\lasoalpha\main.cpp
+	<windows.h>
+	<string>
+	<stdlib.h>
+	<iostream>
+	<windows.h>
+	<scene.h>
+
+1678681822 source:c:\users\maaku\desktop\gamedev\lasoalpha\src\model.cpp
+	"model.h"
+
+1678681806 c:\users\maaku\desktop\gamedev\lasoalpha\include\model.h
+	<windows.h>
+	<GL/glut.h>
+
