@@ -1,8 +1,10 @@
 #include "scene.h"
 #include "Light.h"
 #include "model.h"
+#include "inputs.h"
 
 model *startModel = new model();
+inputs *KbMs = new inputs();
 
 scene::scene()
 {
@@ -50,4 +52,37 @@ void scene::resizeSceneWin(GLsizei width, GLsizei height)
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+}
+
+int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    KbMs->updateWParam(wParam);
+
+    switch(uMsg) {
+        case WM_KEYDOWN:
+            break;
+
+        case WM_KEYUP:
+            break;
+
+        case WM_LBUTTONDOWN:
+            break;
+
+        case WM_RBUTTONDOWN:
+            break;
+
+        case WM_MBUTTONDOWN:
+            break;
+
+        case WM_LBUTTONUP:
+        case WM_RBUTTONUP:
+        case WM_MBUTTONUP:
+            break;
+
+        case WM_MOUSEMOVE:
+            break;
+
+        case WM_MOUSEWHEEL:
+            break;
+    }
 }
