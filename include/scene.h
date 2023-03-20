@@ -15,6 +15,7 @@ class scene
         int initScene();
         void resizeSceneWin(GLsizei, GLsizei);
 
+        int winMsg(HWND, UINT, WPARAM, LPARAM);
 
     protected:
 
