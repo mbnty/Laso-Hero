@@ -1,10 +1,12 @@
 # depslib dependency file v1.0
-1678682159 source:c:\users\maaku\desktop\gamedev\lasoalpha\src\scene.cpp
+1679471796 source:c:\users\maaku\desktop\gamedev\lasoalpha\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"
+	"inputs.h"
+	<enemy.h>
 
-1678679310 c:\users\maaku\desktop\gamedev\lasoalpha\include\scene.h
+1679471397 c:\users\maaku\desktop\gamedev\lasoalpha\include\scene.h
 	<windows.h>
 	<GL/gl.h>
 	<GL/glut.h>
@@ -23,7 +25,7 @@
 1678680549 source:c:\users\maaku\desktop\gamedev\lasoalpha\src\light.cpp
 	"Light.h"
 
-1678680594 source:c:\users\maaku\desktop\gamedev\lasoalpha\main.cpp
+1679471760 source:c:\users\maaku\desktop\gamedev\lasoalpha\main.cpp
 	<windows.h>
 	<string>
 	<stdlib.h>
@@ -31,10 +33,71 @@
 	<windows.h>
 	<scene.h>
 
-1678681822 source:c:\users\maaku\desktop\gamedev\lasoalpha\src\model.cpp
+1678682227 source:c:\users\maaku\desktop\gamedev\lasoalpha\src\model.cpp
 	"model.h"
 
 1678681806 c:\users\maaku\desktop\gamedev\lasoalpha\include\model.h
 	<windows.h>
 	<GL/glut.h>
+
+1678680594 source:c:\users\maaku\desktop\game\laso-hero\main.cpp
+	<windows.h>
+	<string>
+	<stdlib.h>
+	<iostream>
+	<windows.h>
+	<scene.h>
+
+1679365560 c:\users\maaku\desktop\game\laso-hero\include\scene.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glut.h>
+	<iostream>
+
+1678680549 source:c:\users\maaku\desktop\game\laso-hero\src\light.cpp
+	"Light.h"
+
+1678679744 c:\users\maaku\desktop\game\laso-hero\include\light.h
+	<GL/gl.h>
+	<scene.h>
+
+1678682227 source:c:\users\maaku\desktop\game\laso-hero\src\model.cpp
+	"model.h"
+
+1678681806 c:\users\maaku\desktop\game\laso-hero\include\model.h
+	<windows.h>
+	<GL/glut.h>
+
+1679365560 c:\users\maaku\desktop\gamedev\lasoalpha\include\inputs.h
+	<windows.h>
+	<model.h>
+
+1679365560 source:c:\users\maaku\desktop\gamedev\lasoalpha\src\inputs.cpp
+	"inputs.h"
+
+1679365560 source:c:\users\maaku\desktop\gamedev\lasoalpha\src\textureloader.cpp
+	"textureLoader.h"
+
+1679365560 c:\users\maaku\desktop\gamedev\lasoalpha\include\textureloader.h
+	<iostream>
+	<SOIL.h>
+	<GL/gl.h>
+
+1664388491 c:\users\maaku\desktop\gamedev\common\include\soil.h
+
+1679457598 source:c:\users\maaku\desktop\gamedev\lasoalpha\src\positions.cpp
+	"positions.h"
+
+1679457723 c:\users\maaku\desktop\gamedev\lasoalpha\include\positions.h
+
+1679476975 source:c:\users\maaku\desktop\gamedev\lasoalpha\src\enemy.cpp
+	"enemy.h"
+
+1679477003 c:\users\maaku\desktop\gamedev\lasoalpha\include\enemy.h
+	<string>
+	<GL/gl.h>
+	<GL/glut.h>
+	<textureLoader.h>
+	<positions.h>
+	<time.h>
 

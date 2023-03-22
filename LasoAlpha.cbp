@@ -43,12 +43,20 @@
 			<Add directory="../common/lib" />
 		</Linker>
 		<Unit filename="include/Light.h" />
+		<Unit filename="include/enemy.h" />
+		<Unit filename="include/inputs.h" />
 		<Unit filename="include/model.h" />
+		<Unit filename="include/positions.h" />
 		<Unit filename="include/scene.h" />
+		<Unit filename="include/textureLoader.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Light.cpp" />
+		<Unit filename="src/enemy.cpp" />
+		<Unit filename="src/inputs.cpp" />
 		<Unit filename="src/model.cpp" />
+		<Unit filename="src/positions.cpp" />
 		<Unit filename="src/scene.cpp" />
+		<Unit filename="src/textureLoader.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
