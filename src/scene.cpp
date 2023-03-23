@@ -4,11 +4,13 @@
 #include "inputs.h"
 #include <enemy.h>
 #include <parallax.h>
+#include <player.h>
 
 model *startModel = new model();
 inputs *KbMs = new inputs();
 enemy *walker = new enemy();
 parallax *prLX = new parallax();
+player *ply = new player();
 
 scene::scene()
 {
@@ -33,6 +35,10 @@ int scene::drawScene()
     startModel->drawModel();
     glPopMatrix();*/
 
+    glPushMatrix();
+    ply->drawPlayer();
+    glPopMatrix();
+
     glPushMatrix(); //matrix for the background parallax
     glScaled(3.33,3.33,1.0);
     prLX->drawSquare(screenWidth,screenHeight);
@@ -56,6 +62,7 @@ int scene::initScene()
 
     glEnable(GL_TEXTURE_2D);
 
+    ply->playerInit("images/eg-1.png", 6, 4);
     walker->enemySkin("images/mon.png");
     walker->initEnemy(walker->tex, 7, 1);
     walker->placeEnemy(pos3{0.0,0.0,-8.0});
@@ -83,9 +90,11 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     switch(uMsg) {
         case WM_KEYDOWN:
+            KbMs->keyPlayer(ply);
             break;
 
         case WM_KEYUP:
+            ply->actions(ply->IDLE);
             break;
 
         case WM_LBUTTONDOWN:
