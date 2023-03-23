@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1679471796 source:c:\users\maaku\desktop\gamedev\lasoalpha\src\scene.cpp
+1679530831 source:c:\users\maaku\desktop\gamedev\lasoalpha\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"

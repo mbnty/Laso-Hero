@@ -31,7 +31,7 @@ int scene::drawScene()
     startModel->drawModel();
     glPopMatrix();*/
 
-    //walker->drawEnemy(); //currently crashes unsure why
+    walker->drawEnemy(); //currently crashes unsure why
 }
 
 int scene::initScene()
