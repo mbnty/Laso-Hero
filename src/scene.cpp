@@ -3,10 +3,12 @@
 #include "model.h"
 #include "inputs.h"
 #include <enemy.h>
+#include <parallax.h>
 
 model *startModel = new model();
 inputs *KbMs = new inputs();
 enemy *walker = new enemy();
+parallax *prLX = new parallax();
 
 scene::scene()
 {
@@ -31,6 +33,11 @@ int scene::drawScene()
     startModel->drawModel();
     glPopMatrix();*/
 
+    glPushMatrix(); //matrix for the background parallax
+    glScaled(3.33,3.33,1.0);
+    prLX->drawSquare(screenWidth,screenHeight);
+    glPopMatrix();
+
     walker->drawEnemy(); //currently crashes unsure why
 }
 
@@ -47,9 +54,13 @@ int scene::initScene()
     Light Lite(GL_LIGHT0);
     Lite.setLight(GL_LIGHT0);
 
+    glEnable(GL_TEXTURE_2D);
+
     walker->enemySkin("images/mon.png");
     walker->initEnemy(walker->tex, 7, 1);
     walker->placeEnemy(pos3{0.0,0.0,-8.0});
+
+    prLX->initParallax("images/background.png"); //initializing parallax with background image
 }
 
 void scene::resizeSceneWin(GLsizei width, GLsizei height)

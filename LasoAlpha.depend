@@ -101,3 +101,85 @@
 	<positions.h>
 	<time.h>
 
+1679533084 source:c:\users\oskie\onedrive\documents\github\laso-hero\main.cpp
+	<windows.h>
+	<string>
+	<stdlib.h>
+	<iostream>
+	<windows.h>
+	<scene.h>
+
+1679533084 c:\users\oskie\onedrive\documents\github\laso-hero\include\scene.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glut.h>
+	<iostream>
+
+1674857191 c:\users\oskie\onedrive\documents\github\common\include\gl\glut.h
+	<windows.h>
+	<stdlib.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1679533084 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\enemy.cpp
+	"enemy.h"
+
+1679533084 c:\users\oskie\onedrive\documents\github\laso-hero\include\enemy.h
+	<string>
+	<GL/gl.h>
+	<GL/glut.h>
+	<textureLoader.h>
+	<positions.h>
+	<time.h>
+
+1679533084 c:\users\oskie\onedrive\documents\github\laso-hero\include\textureloader.h
+	<iostream>
+	<SOIL.h>
+	<GL/gl.h>
+
+1675127811 c:\users\oskie\onedrive\documents\github\common\include\soil.h
+
+1679533084 c:\users\oskie\onedrive\documents\github\laso-hero\include\positions.h
+
+1679533084 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\inputs.cpp
+	"inputs.h"
+
+1679533084 c:\users\oskie\onedrive\documents\github\laso-hero\include\inputs.h
+	<windows.h>
+	<model.h>
+
+1679533084 c:\users\oskie\onedrive\documents\github\laso-hero\include\model.h
+	<windows.h>
+	<GL/glut.h>
+
+1679533084 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\light.cpp
+	"Light.h"
+
+1679533084 c:\users\oskie\onedrive\documents\github\laso-hero\include\light.h
+	<GL/gl.h>
+	<scene.h>
+
+1679533084 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\model.cpp
+	"model.h"
+
+1679533084 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\positions.cpp
+	"positions.h"
+
+1679534856 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\scene.cpp
+	"scene.h"
+	"Light.h"
+	"model.h"
+	"inputs.h"
+	<enemy.h>
+	<parallax.h>
+
+1679533084 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\textureloader.cpp
+	"textureLoader.h"
+
+1679534044 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\parallax.cpp
+	"parallax.h"
+
+1679534049 c:\users\oskie\onedrive\documents\github\laso-hero\include\parallax.h
+	<textureLoader.h>
+	<time.h>
+

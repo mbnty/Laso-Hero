@@ -46,6 +46,7 @@
 		<Unit filename="include/enemy.h" />
 		<Unit filename="include/inputs.h" />
 		<Unit filename="include/model.h" />
+		<Unit filename="include/parallax.h" />
 		<Unit filename="include/positions.h" />
 		<Unit filename="include/scene.h" />
 		<Unit filename="include/textureLoader.h" />
@@ -54,6 +55,7 @@
 		<Unit filename="src/enemy.cpp" />
 		<Unit filename="src/inputs.cpp" />
 		<Unit filename="src/model.cpp" />
+		<Unit filename="src/parallax.cpp" />
 		<Unit filename="src/positions.cpp" />
 		<Unit filename="src/scene.cpp" />
 		<Unit filename="src/textureLoader.cpp" />
