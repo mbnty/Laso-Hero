@@ -11,6 +11,10 @@ class scene
     public:
         scene();
         virtual ~scene();
+
+        enum states{TITLE, PLAY};
+        states scne;
+
         int drawScene();
         int initScene();
         void resizeSceneWin(GLsizei, GLsizei);
@@ -18,6 +22,7 @@ class scene
         int winMsg(HWND, UINT, WPARAM, LPARAM);
 
         float screenWidth,screenHeight;
+
     protected:
 
     private:
