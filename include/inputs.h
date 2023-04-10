@@ -3,6 +3,8 @@
 
 #include <windows.h>
 #include <model.h>
+#include <player.h>
+#include <title.h>
 
 class inputs
 {
@@ -16,6 +18,8 @@ class inputs
         void mousePlayer();
 
         void keyEnv();
+        void keyPlayer(player*);
+        int keyTitle(title*);
 
         void keyUp();
         void mouseMove(double, double);
