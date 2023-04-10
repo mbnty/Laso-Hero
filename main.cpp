@@ -7,7 +7,7 @@
 #  include <windows.h>
 #endif
 
-#include<string>
+#include <string.h>
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
 
@@ -221,12 +221,13 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 	ShowWindow(hWnd,SW_SHOW);						// Show The Window
 	SetForegroundWindow(hWnd);						// Slightly Higher Priority
 	SetFocus(hWnd);									// Sets Keyboard Focus To The Window
-    Scene->resizeSceneWin(width,height);
 
-    if(!Scene->initScene()){
+	Scene->resizeSceneWin(width,height);
+	if(!Scene->initScene()) {
         KillGLWindow();
-        MessageBox(NULL, "Initialization Failed Dummy", "ERROR", MB_OK|MB_ICONEXCLAMATION);
-    }
+        MessageBox(NULL,"Initialization Failed","ERROR",MB_OK|MB_ICONEXCLAMATION);
+        return FALSE;
+	}
 
 	return TRUE;									// Success
 }
@@ -240,6 +241,7 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
 							WPARAM	wParam,			// Additional Message Information
 							LPARAM	lParam)			// Additional Message Information
 {
+    Scene->winMsg(hWnd, uMsg, wParam, lParam);
 	switch (uMsg)									// Check For Windows Messages
 	{
 		case WM_ACTIVATE:							// Watch For Window Activate Message
@@ -288,8 +290,7 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
 
 		case WM_SIZE:								// Resize The OpenGL Window
 		{
-            Scene->resizeSceneWin(LOWORD(lParam),HIWORD(lParam));
-                                                    // LoWord=Width, HiWord=Heigh
+            Scene->resizeSceneWin(LOWORD(lParam),HIWORD(lParam));     // LoWord=Width, HiWord=Heigh
 			return 0;								// Jump Back
 		}
 	}
@@ -349,7 +350,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 			}
 			else									// Not Time To Quit, Update Screen
 			{
-                Scene->drawScene();
+			    Scene->drawScene();
 				SwapBuffers(hDC);				// Swap Buffers (Double Buffering)
 			}
 
