@@ -27,7 +27,7 @@ void inputs::keyModel(model*)
     }
 }
 
-void inputs::keyPlayer()
+void inputs::keyPlayer(player* ply)
 {
     switch(wParam) {
         case VK_LEFT:       // Action for player by pressing "Left" key and "A" key
@@ -72,6 +72,30 @@ void inputs::mousePlayer()
 void inputs::keyEnv()
 {
 
+}
+
+int inputs::keyTitle(title* tl)
+{
+    switch(wParam) {
+        case VK_DOWN:
+            if (tl->selection < 3) {
+                tl->selection++;
+            }
+            break;
+
+        case VK_UP:
+            if (tl->selection > 1) {
+                tl->selection--;
+            }
+            break;
+
+        case VK_SPACE:
+            if (tl->selection == 1) {
+                return 1;
+            }
+            break;
+    }
+    return 0;
 }
 
 void inputs::keyUp()

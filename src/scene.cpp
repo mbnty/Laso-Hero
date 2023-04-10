@@ -5,18 +5,21 @@
 #include <enemy.h>
 #include <parallax.h>
 #include <player.h>
+#include <title.h>
 
 model *startModel = new model();
 inputs *KbMs = new inputs();
 enemy *walker = new enemy();
 parallax *prLX = new parallax();
 player *ply = new player();
+title *tl = new title();
 
 scene::scene()
 {
     //ctor
     screenHeight = GetSystemMetrics(SM_CYSCREEN);
     screenWidth  = GetSystemMetrics(SM_CXSCREEN);
+    scne = TITLE;
 }
 
 scene::~scene()
@@ -28,23 +31,48 @@ int scene::drawScene()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    /*
-    glColor3f(0.0f, 1.0f, 1.0f);
-    glTranslatef(0,0,-8.0f);
-    glPushMatrix();
-    startModel->drawModel();
-    glPopMatrix();*/
 
-    glPushMatrix();
-    ply->drawPlayer();
-    glPopMatrix();
+    if (scne == TITLE) {
+        glPushMatrix();
+        glScaled(4.2, 4.2, 1.0);
+        tl->drawTitle(screenWidth, screenHeight);
+        glPopMatrix();
 
-    glPushMatrix(); //matrix for the background parallax
-    glScaled(3.33,3.33,1.0);
-    prLX->drawSquare(screenWidth,screenHeight);
-    glPopMatrix();
+        glPushMatrix();
+        glTranslatef(3, -0.5, 0);
+        tl->drawSquare(screenWidth, screenHeight, 1);
+        glPopMatrix();
 
-    walker->drawEnemy(); //currently crashes unsure why
+        glPushMatrix();
+        glTranslatef(3.5, -1.3, 0);
+        tl->drawSquare(screenWidth, screenHeight, 2);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslatef(4, -2.1, 0);
+        tl->drawSquare(screenWidth, screenHeight, 3);
+        glPopMatrix();
+    }
+
+    else if (scne == PLAY) {
+        /*
+        glColor3f(0.0f, 1.0f, 1.0f);
+        glTranslatef(0,0,-8.0f);
+        glPushMatrix();
+        startModel->drawModel();
+        glPopMatrix();*/
+
+        glPushMatrix();
+        ply->drawPlayer();
+        glPopMatrix();
+
+        glPushMatrix(); //matrix for the background parallax
+        glScaled(3.33,3.33,1.0);
+        prLX->drawSquare(screenWidth,screenHeight);
+        glPopMatrix();
+
+        walker->drawEnemy(); //currently crashes unsure why
+    }
 }
 
 int scene::initScene()
@@ -68,6 +96,11 @@ int scene::initScene()
     walker->placeEnemy(pos3{0.0,0.0,-8.0});
 
     prLX->initParallax("images/background.png"); //initializing parallax with background image
+
+    tl->initTitle("images/kirb.jpg");
+    tl->initOption("images/start.png", 1);
+    tl->initOption("images/start.png", 2);
+    tl->initOption("images/start.png", 3);
 }
 
 void scene::resizeSceneWin(GLsizei width, GLsizei height)
@@ -90,11 +123,21 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     switch(uMsg) {
         case WM_KEYDOWN:
-            KbMs->keyPlayer(ply);
+            if (scne == PLAY) {
+                KbMs->keyPlayer(ply);
+            }
+            else if (scne == TITLE) {
+                int temp = KbMs->keyTitle(tl);
+                if (temp == 1) {
+                    scne = PLAY;
+                }
+            }
             break;
 
         case WM_KEYUP:
-            ply->actions(ply->IDLE);
+            if (scne == PLAY) {
+                ply->actions(ply->IDLE);
+            }
             break;
 
         case WM_LBUTTONDOWN:
