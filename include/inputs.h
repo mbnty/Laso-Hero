@@ -5,12 +5,15 @@
 #include <model.h>
 #include <player.h>
 #include <title.h>
+#include <whip.h>
 
 class inputs
 {
     public:
         inputs();
         virtual ~inputs();
+
+        void getRealMouse(int, int);
 
         void keyModel(model*);
 
@@ -20,8 +23,10 @@ class inputs
         void keyEnv();
         void keyPlayer(player*);
         int keyTitle(title*);
+        void keyWhip(whip*, player*);
 
         void keyUp();
+        void mouseWhip(whip*, player*, double, double);
         void mouseMove(double, double);
 
         void updateWParam(WPARAM);
@@ -33,6 +38,10 @@ class inputs
 
         double prev_Mx;
         double prev_My;
+
+        GLdouble realX;
+        GLdouble realY;
+        GLdouble realZ;
 };
 
 #endif // INPUTS_H

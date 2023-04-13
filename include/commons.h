@@ -4,7 +4,10 @@
 #define PI 3.14159
 
 #include <math.h>
+#include <GL/gl.h>
+#include <iostream>
 
+using namespace std;
 
 typedef struct
 {
