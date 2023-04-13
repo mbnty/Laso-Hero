@@ -1,7 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <GL/gl.h>
 #include <textureLoader.h>
 #include <commons.h>
 
