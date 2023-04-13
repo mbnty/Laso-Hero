@@ -183,3 +183,117 @@
 	<textureLoader.h>
 	<time.h>
 
+1681171959 source:c:\users\derek\desktop\gamedev\laso-hero-main\main.cpp
+	<windows.h>
+	<string.h>
+	<stdlib.h>
+	<iostream>
+	<windows.h>
+	<scene.h>
+
+1680127459 c:\users\derek\desktop\gamedev\laso-hero-main\include\scene.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glut.h>
+	<iostream>
+
+1661970085 c:\users\derek\desktop\gamedev\common\include\gl\glut.h
+	<windows.h>
+	<stdlib.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1679559470 source:c:\users\derek\desktop\gamedev\laso-hero-main\src\commons.cpp
+	"commons.h"
+
+1681343324 c:\users\derek\desktop\gamedev\laso-hero-main\include\commons.h
+	<math.h>
+	<GL/gl.h>
+	<iostream>
+
+1679559470 source:c:\users\derek\desktop\gamedev\laso-hero-main\src\enemy.cpp
+	"enemy.h"
+
+1681165263 c:\users\derek\desktop\gamedev\laso-hero-main\include\enemy.h
+	<string>
+	<GL/glut.h>
+	<textureLoader.h>
+	<positions.h>
+	<time.h>
+
+1679559470 c:\users\derek\desktop\gamedev\laso-hero-main\include\textureloader.h
+	<iostream>
+	<SOIL.h>
+	<GL/gl.h>
+
+1502810173 c:\users\derek\desktop\gamedev\common\include\soil.h
+
+1679559470 c:\users\derek\desktop\gamedev\laso-hero-main\include\positions.h
+
+1679559470 source:c:\users\derek\desktop\gamedev\laso-hero-main\src\light.cpp
+	"Light.h"
+
+1679559470 c:\users\derek\desktop\gamedev\laso-hero-main\include\light.h
+	<GL/gl.h>
+	<scene.h>
+
+1679559470 source:c:\users\derek\desktop\gamedev\laso-hero-main\src\model.cpp
+	"model.h"
+
+1679559470 c:\users\derek\desktop\gamedev\laso-hero-main\include\model.h
+	<windows.h>
+	<GL/glut.h>
+
+1679559470 source:c:\users\derek\desktop\gamedev\laso-hero-main\src\parallax.cpp
+	"parallax.h"
+
+1679559470 c:\users\derek\desktop\gamedev\laso-hero-main\include\parallax.h
+	<textureLoader.h>
+	<time.h>
+
+1681169143 source:c:\users\derek\desktop\gamedev\laso-hero-main\src\player.cpp
+	"player.h"
+
+1681165249 c:\users\derek\desktop\gamedev\laso-hero-main\include\player.h
+	<textureLoader.h>
+	<commons.h>
+
+1679559470 source:c:\users\derek\desktop\gamedev\laso-hero-main\src\positions.cpp
+	"positions.h"
+
+1679559470 source:c:\users\derek\desktop\gamedev\laso-hero-main\src\textureloader.cpp
+	"textureLoader.h"
+
+1681154820 source:c:\users\derek\desktop\gamedev\laso-hero-main\src\title.cpp
+	"title.h"
+
+1681152170 c:\users\derek\desktop\gamedev\laso-hero-main\include\title.h
+	<textureLoader.h>
+
+1681344525 source:c:\users\derek\desktop\gamedev\laso-hero-main\src\inputs.cpp
+	"inputs.h"
+
+1681343251 c:\users\derek\desktop\gamedev\laso-hero-main\include\inputs.h
+	<windows.h>
+	<model.h>
+	<player.h>
+	<title.h>
+	<whip.h>
+
+1681344235 source:c:\users\derek\desktop\gamedev\laso-hero-main\src\scene.cpp
+	"scene.h"
+	"Light.h"
+	"model.h"
+	"inputs.h"
+	<enemy.h>
+	<parallax.h>
+	<player.h>
+	<title.h>
+	<whip.h>
+
+1681344087 source:c:\users\derek\desktop\gamedev\laso-hero-main\src\whip.cpp
+	"whip.h"
+
+1681343368 c:\users\derek\desktop\gamedev\laso-hero-main\include\whip.h
+	<commons.h>
+
