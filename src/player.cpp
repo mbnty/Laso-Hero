@@ -3,10 +3,10 @@
 player::player()
 {
     //ctor
-    verts[0].x = -0.5, verts[0].y = -0.5, verts[0].z = -1.0;
-    verts[1].x = 0.5, verts[1].y = -0.5, verts[1].z = -1.0;
-    verts[2].x = 0.5, verts[2].y = 0.5, verts[2].z = -1.0;
-    verts[3].x = -0.5, verts[3].y = 0.5, verts[3].z = -1.0;
+    verts[0].x = -0.5; verts[0].y = -0.5; verts[0].z = -1.0;
+    verts[1].x = 0.5; verts[1].y = -0.5; verts[1].z = -1.0;
+    verts[2].x = 0.5; verts[2].y = 0.5; verts[2].z = -1.0;
+    verts[3].x = -0.5; verts[3].y = 0.5; verts[3].z = -1.0;
 
     runSpeed = 0;
     jumpSpeed = 0;
@@ -56,9 +56,9 @@ void player::playerInit(char* fileName, int vFrm, int hFrm)
     hFrames = hFrm;
 
     xMax = 1.0/(float)vFrm;
-    xMin = 0.0/(float)vFrm;
+    xMin = 0.0;
     yMax = 1.0/(float)hFrm;
-    yMin = 0.0/(float)hFrm;
+    yMin = 0.0;
 
     tLoad->loadTexture(fileName, tex);
 }
@@ -71,15 +71,15 @@ void player::actions(acts action)
     case IDLE:
         if(playerDir == 'R'){
             xMax = 1.0/(float)vFrames;
-            xMin = 0.0/(float)vFrames;
+            xMin = 0.0;
             yMax = 1.0/(float)hFrames;
-            yMin = 0.0/(float)hFrames;
+            yMin = 0.0;
         }
         else if(playerDir == 'L'){
             xMax = 0.0;
             xMin = 1.0/(float)vFrames;
             yMax = 1.0/(float)hFrames;
-            yMin = 0.0/(float)hFrames;
+            yMin = 0.0;
         }
         break;
 
