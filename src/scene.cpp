@@ -7,6 +7,7 @@
 #include <player.h>
 #include <title.h>
 #include <whip.h>
+#include <checkCollision.h>
 
 model *startModel = new model();
 inputs *KbMs = new inputs();
@@ -15,6 +16,8 @@ parallax *prLX = new parallax();
 player *ply = new player();
 title *tl = new title();
 whip* wep = new whip();
+checkCollision *hit = new checkCollision();
+
 
 float t = 0.2;
 clock_t start;
@@ -85,6 +88,17 @@ int scene::drawScene()
             wep->wPos.y = 10.0;
             wep->wPos.z = -2.0;
         }
+
+        /*
+        glPushMatrix();
+        if(hit->isRadialCollision(player x pos, enemy x pos, player y pos, enemy x pos, player z pos, enemy z pos)){
+            do stuff;
+        }
+        if(hit->isLinearCollision(player x pos, enemy x pos)){
+            do stuff;
+        }
+        glPopMatrix();
+        */
 
         //walker->drawEnemy(); //currently crashes unsure why
     }
