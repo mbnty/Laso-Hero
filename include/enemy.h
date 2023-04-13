@@ -1,7 +1,6 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 #include<string>
-#include<GL/gl.h>
 #include<GL/glut.h>
 #include<textureLoader.h>
 #include<positions.h>
