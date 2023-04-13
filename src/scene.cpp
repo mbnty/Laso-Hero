@@ -6,6 +6,7 @@
 #include <parallax.h>
 #include <player.h>
 #include <title.h>
+#include <whip.h>
 
 model *startModel = new model();
 inputs *KbMs = new inputs();
@@ -13,6 +14,10 @@ enemy *walker = new enemy();
 parallax *prLX = new parallax();
 player *ply = new player();
 title *tl = new title();
+whip* wep = new whip();
+
+float t = 0.2;
+clock_t start;
 
 scene::scene()
 {
@@ -55,23 +60,33 @@ int scene::drawScene()
     }
 
     else if (scne == PLAY) {
-        /*
-        glColor3f(0.0f, 1.0f, 1.0f);
-        glTranslatef(0,0,-8.0f);
-        glPushMatrix();
-        startModel->drawModel();
-        glPopMatrix();*/
-
-        glPushMatrix();
-        ply->drawPlayer();
-        glPopMatrix();
-
         glPushMatrix(); //matrix for the background parallax
         glScaled(3.33,3.33,1.0);
         prLX->drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
-        walker->drawEnemy(); //currently crashes unsure why
+        glPushMatrix();
+        ply->drawPlayer();
+        glPopMatrix();
+
+        glDisable(GL_TEXTURE_2D);
+        glPushMatrix();
+
+        wep->drawWhip(t);
+        glPopMatrix();
+        glEnable(GL_TEXTURE_2D);
+
+        if (t < 1 && clock() - start > 50) {
+            t += 0.1;
+            start = clock();
+        }
+        else if (t >= 1 && clock() - start > 120) {
+            wep->wPos.x = 0.0;
+            wep->wPos.y = 10.0;
+            wep->wPos.z = -2.0;
+        }
+
+        //walker->drawEnemy(); //currently crashes unsure why
     }
 }
 
@@ -80,17 +95,15 @@ int scene::initScene()
     glClearDepth(1.0f);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
-    glClearColor(0,0,0,0);
+    glClearColor(0.0f,0.0f,0.0f,0.0f);
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
     glEnable(GL_COLOR_MATERIAL);
-    Light Lite(GL_LIGHT0);
-    Lite.setLight(GL_LIGHT0);
 
     glEnable(GL_TEXTURE_2D);
 
-    ply->playerInit("images/eg-1.png", 6, 4);
+    ply->playerInit("images/knight.png", 4, 4);
     walker->enemySkin("images/mon.png");
     walker->initEnemy(walker->tex, 7, 1);
     walker->placeEnemy(pos3{0.0,0.0,-8.0});
@@ -101,6 +114,10 @@ int scene::initScene()
     tl->initOption("images/start.png", 1);
     tl->initOption("images/start.png", 2);
     tl->initOption("images/start.png", 3);
+
+    start = clock();
+
+    return true;
 }
 
 void scene::resizeSceneWin(GLsizei width, GLsizei height)
@@ -141,12 +158,12 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             break;
 
         case WM_LBUTTONDOWN:
-            break;
-
         case WM_RBUTTONDOWN:
-            break;
-
         case WM_MBUTTONDOWN:
+            if (scne == PLAY) {
+                KbMs->mouseWhip(wep, ply, LOWORD(lParam), HIWORD(lParam));
+                t = 0.2;
+            }
             break;
 
         case WM_LBUTTONUP:

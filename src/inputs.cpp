@@ -10,6 +10,24 @@ inputs::~inputs()
     //dtor
 }
 
+void inputs::getRealMouse(int x, int y) {
+    GLint viewPort[4];
+    GLdouble modelView[16];
+    GLdouble projectionMat[16];
+    GLfloat winX, winY, winZ;
+
+    glGetDoublev(GL_PROJECTION_MATRIX, projectionMat);
+    glGetDoublev(GL_MODELVIEW_MATRIX, modelView);
+    glGetIntegerv(GL_VIEWPORT, viewPort);
+
+    winX = (GLfloat)x;
+    winY = (GLfloat)viewPort[3] - (GLfloat)y;
+
+    glReadPixels(x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
+
+    gluUnProject(winX, winY, winZ, modelView, projectionMat, viewPort, &realX, &realY, &realZ);
+}
+
 void inputs::keyModel(model*)
 {
     switch(wParam) {
@@ -98,9 +116,40 @@ int inputs::keyTitle(title* tl)
     return 0;
 }
 
+void inputs::keyWhip(whip* wep, player* ply)
+{
+    switch(wParam) {
+        case VK_SPACE:
+            break;
+    }
+}
+
 void inputs::keyUp()
 {
 
+}
+
+void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
+{
+    prev_Mx = x;
+    prev_My = y;
+
+    switch(wParam) {
+        case MK_LBUTTON:
+            wep->wPos.x = ply->pPos.x;
+            wep->wPos.y = ply->pPos.y;
+            wep->wPos.z = ply->pPos.z;
+            getRealMouse(x, y);
+            wep->x = realX;
+            wep->y = realY + 2.6;
+            break;
+
+        case MK_RBUTTON:
+            break;
+
+        case MK_MBUTTON:
+            break;
+    }
 }
 
 void inputs::mouseMove(double x, double y)
