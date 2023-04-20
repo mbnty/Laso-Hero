@@ -16,6 +16,8 @@ enemy::enemy()
     enemySpeed.y = 0.0;
 
     currTime = clock();
+
+    indexTexture = 0;
 }
 
 enemy::~enemy()
@@ -28,7 +30,7 @@ void enemy::drawEnemy()
     tLoad->binder(tex);
 
     glPushMatrix();
-
+    glColor3f(0.0,0.0,0.0);
     glTranslated(enemyPosition.x, enemyPosition.y, enemyPosition.z);
     glRotatef(enemyRotation.x,1,0,0);
     glRotatef(enemyRotation.y,0,1,0);

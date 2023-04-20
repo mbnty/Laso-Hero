@@ -49,11 +49,17 @@ void inputs::keyPlayer(player* ply)
 {
     switch(wParam) {
         case VK_LEFT:       // Action for player by pressing "Left" key and "A" key
+            ply->actions(ply->WALKL);
+            break;
         case 0x41:
+            ply->actions(ply->WALKL);
             break;
 
         case VK_RIGHT:      // Action for player by pressing "Right" key and "D" key
+            ply->actions(ply->WALKR);
+            break;
         case 0x44:
+            ply->actions(ply->WALKR);
             break;
 
         case VK_UP:         // Action for player by pressing "Up" key and "W" key

@@ -297,3 +297,124 @@
 1681343368 c:\users\derek\desktop\gamedev\laso-hero-main\include\whip.h
 	<commons.h>
 
+1681281325 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\main.cpp
+	<windows.h>
+	<string.h>
+	<stdlib.h>
+	<iostream>
+	<windows.h>
+	<scene.h>
+
+1681281325 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\scene.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glut.h>
+	<iostream>
+
+1674857192 c:\users\maakuarsenal\desktop\gamedev\common\include\gl\glut.h
+	<windows.h>
+	<stdlib.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1680227297 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\commons.cpp
+	"commons.h"
+
+1682025197 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\commons.h
+	<math.h>
+	<GL/gl.h>
+	<iostream>
+
+1682031165 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\enemy.cpp
+	"enemy.h"
+
+1682026722 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\enemy.h
+	<string>
+	<GL/glut.h>
+	<textureLoader.h>
+	<positions.h>
+	<time.h>
+
+1680227297 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\textureloader.h
+	<iostream>
+	<SOIL.h>
+	<GL/gl.h>
+
+1675127812 c:\users\maakuarsenal\desktop\gamedev\common\include\soil.h
+
+1680227297 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\positions.h
+
+1682030301 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\inputs.cpp
+	"inputs.h"
+
+1682025197 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\inputs.h
+	<windows.h>
+	<model.h>
+	<player.h>
+	<title.h>
+	<whip.h>
+
+1680227297 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\model.h
+	<windows.h>
+	<GL/glut.h>
+
+1682025197 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\player.h
+	<textureLoader.h>
+	<commons.h>
+
+1681281325 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\title.h
+	<textureLoader.h>
+
+1682025197 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\whip.h
+	<commons.h>
+
+1680227297 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\light.cpp
+	"Light.h"
+
+1680227297 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\light.h
+	<GL/gl.h>
+	<scene.h>
+
+1680227297 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\model.cpp
+	"model.h"
+
+1680227297 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\parallax.cpp
+	"parallax.h"
+
+1680227297 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\parallax.h
+	<textureLoader.h>
+	<time.h>
+
+1682025197 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\player.cpp
+	"player.h"
+
+1680227297 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\positions.cpp
+	"positions.h"
+
+1682031393 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\scene.cpp
+	"scene.h"
+	"Light.h"
+	"model.h"
+	"inputs.h"
+	<enemy.h>
+	<parallax.h>
+	<player.h>
+	<title.h>
+	<whip.h>
+	<checkCollision.h>
+
+1682025197 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\checkcollision.h
+	<commons.h>
+
+1680227297 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\textureloader.cpp
+	"textureLoader.h"
+
+1681281325 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\title.cpp
+	"title.h"
+
+1682025197 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\whip.cpp
+	"whip.h"
+
+1682025197 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\checkcollision.cpp
+	"checkCollision.h"
+

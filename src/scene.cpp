@@ -27,7 +27,7 @@ scene::scene()
     //ctor
     screenHeight = GetSystemMetrics(SM_CYSCREEN);
     screenWidth  = GetSystemMetrics(SM_CXSCREEN);
-    scne = TITLE;
+    scne = PLAY;
 }
 
 scene::~scene()
@@ -68,6 +68,7 @@ int scene::drawScene()
         prLX->drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
+
         glPushMatrix();
         ply->drawPlayer();
         glPopMatrix();
@@ -89,6 +90,8 @@ int scene::drawScene()
             wep->wPos.z = -2.0;
         }
 
+        walker->drawEnemy();
+
         /*
         glPushMatrix();
         if(hit->isRadialCollision(player x pos, enemy x pos, player y pos, enemy x pos, player z pos, enemy z pos)){
@@ -99,8 +102,6 @@ int scene::drawScene()
         }
         glPopMatrix();
         */
-
-        //walker->drawEnemy(); //currently crashes unsure why
     }
 }
 
@@ -118,9 +119,9 @@ int scene::initScene()
     glEnable(GL_TEXTURE_2D);
 
     ply->playerInit("images/knight.png", 4, 4);
-    walker->enemySkin("images/mon.png");
+    walker->enemySkin("images/Walk.png");
     walker->initEnemy(walker->tex, 7, 1);
-    walker->placeEnemy(pos3{0.0,0.0,-8.0});
+    walker->placeEnemy(pos3{1.0,0.0,-2.0});
 
     prLX->initParallax("images/background.png"); //initializing parallax with background image
 

@@ -43,6 +43,7 @@
 			<Add directory="../common/lib" />
 		</Linker>
 		<Unit filename="include/Light.h" />
+		<Unit filename="include/checkCollision.h" />
 		<Unit filename="include/commons.h" />
 		<Unit filename="include/enemy.h" />
 		<Unit filename="include/inputs.h" />
@@ -56,6 +57,7 @@
 		<Unit filename="include/whip.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Light.cpp" />
+		<Unit filename="src/checkCollision.cpp" />
 		<Unit filename="src/commons.cpp" />
 		<Unit filename="src/enemy.cpp" />
 		<Unit filename="src/inputs.cpp" />
