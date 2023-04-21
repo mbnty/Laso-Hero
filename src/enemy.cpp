@@ -3,7 +3,7 @@
 enemy::enemy()
 {
     enemyPosition.x = 0.0;
-    enemyPosition.y = -0.5;
+    enemyPosition.y = -0.65;
     enemyPosition.z = -2.5;
 
     enemySize.x = 1.0;
@@ -14,6 +14,8 @@ enemy::enemy()
 
     enemySpeed.x = -0.01;
     enemySpeed.y = 0.0;
+
+    isHit = false;
 
     currTime = clock();
 

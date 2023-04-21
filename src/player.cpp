@@ -8,7 +8,7 @@ player::player()
     verts[2].x = 0.5; verts[2].y = 0.5; verts[2].z = -1.0;
     verts[3].x = -0.5; verts[3].y = 0.5; verts[3].z = -1.0;
 
-    runSpeed = 0;
+    runSpeed = 0.01;
     jumpSpeed = 0;
     actionTrigger = IDLE;
 
@@ -102,6 +102,11 @@ void player::actions(acts action)
             yMax += 1.0/(float)hFrames;
             yMin += 1.0/(float)hFrames;
         }
+        pPos.x += runSpeed;
+        if(pPos.x >= 2.5){
+            pPos.x = 2.5;
+        }
+
         actionTrigger = WALKR;
         break;
 
@@ -124,6 +129,11 @@ void player::actions(acts action)
             yMax += 1.0/(float)hFrames;
             yMin += 1.0/(float)hFrames;
         }
+        pPos.x -= runSpeed;
+        if(pPos.x <= -2.5){
+            pPos.x = -2.5;
+        }
+
         actionTrigger = WALKL;
         break;
     }

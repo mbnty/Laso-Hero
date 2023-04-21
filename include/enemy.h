@@ -35,6 +35,8 @@ class enemy
         GLuint tex;
         textureLoader *tLoad = new textureLoader();
 
+        bool isHit;
+
         clock_t currTime;
     protected:
 

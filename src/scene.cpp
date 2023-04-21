@@ -90,7 +90,13 @@ int scene::drawScene()
             wep->wPos.z = -2.0;
         }
 
-        walker->drawEnemy();
+        if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
+            walker->isHit = true ;
+        }
+
+        if(walker->isHit == false){
+            walker->drawEnemy();
+        }
 
         /*
         glPushMatrix();
@@ -121,7 +127,7 @@ int scene::initScene()
     ply->playerInit("images/knight.png", 4, 4);
     walker->enemySkin("images/Walk.png");
     walker->initEnemy(walker->tex, 7, 1);
-    walker->placeEnemy(pos3{1.0,0.0,-2.0});
+    walker->placeEnemy(pos3{1.0,-0.25,-2.0});
 
     prLX->initParallax("images/background.png"); //initializing parallax with background image
 
