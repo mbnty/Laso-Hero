@@ -6,6 +6,7 @@
 #include <math.h>
 #include <GL/gl.h>
 #include <iostream>
+#include <time.h>
 
 using namespace std;
 

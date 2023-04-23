@@ -71,6 +71,13 @@ int scene::drawScene()
 
         glPushMatrix();
         ply->drawPlayer();
+
+        if (ply->actionTrigger == ply->JUMP)
+            ply->actions(ply->JUMP);
+        else if (ply->actionTrigger == ply->IDLE) {
+            ply->actions(ply->IDLE);
+        }
+
         glPopMatrix();
 
         glDisable(GL_TEXTURE_2D);
@@ -161,7 +168,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     switch(uMsg) {
         case WM_KEYDOWN:
-            if (scne == PLAY) {
+            if (scne == PLAY && ply->actionTrigger != ply->JUMP) {
                 KbMs->keyPlayer(ply);
             }
             else if (scne == TITLE) {
