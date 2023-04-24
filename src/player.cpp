@@ -12,7 +12,7 @@ player::player()
     jumpSpeed = 0;
     actionTrigger = IDLE;
 
-    velocity = 55;
+    velocity = 65;
     theta = 30 * PI/180.0;
     t = 1;
     start = clock();

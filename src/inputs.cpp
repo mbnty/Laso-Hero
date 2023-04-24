@@ -121,20 +121,20 @@ int inputs::keyTitle(title* tl)
 {
     switch(wParam) {
         case VK_DOWN:
-            if (tl->selection < 3) {
+            if (tl->selection < 5) {
                 tl->selection++;
             }
             break;
 
         case VK_UP:
-            if (tl->selection > 1) {
+            if (tl->selection > 2) {
                 tl->selection--;
             }
             break;
 
         case VK_SPACE:
-            if (tl->selection == 1) {
-                return 1;
+            if (tl->selection >= 2 && tl->selection <= 5) {
+                return tl->selection;
             }
             break;
     }
@@ -165,8 +165,10 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
             wep->wPos.y = ply->pPos.y;
             wep->wPos.z = ply->pPos.z;
             getRealMouse(x, y);
-            wep->x = realX;
-            wep->y = realY + 2.6;
+            wep->wEnd.x = realX;
+            wep->wEnd.y = realY + 2.6;
+            wep->wEnd.z = realZ;
+            cout << wep->wEnd.x << wep->wEnd.y << wep->wEnd.z << endl;
             break;
 
         case MK_RBUTTON:

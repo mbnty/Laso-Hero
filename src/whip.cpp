@@ -20,11 +20,11 @@ void whip::drawWhip(float t)
     glScaled(0.25, 0.25, 1.0);
     glLineWidth(5.0);
 
-    GLfloat xpos = x * t;
-    GLfloat ypos = y * t;
+    GLfloat xpos = wEnd.x * t;
+    GLfloat ypos = wEnd.y * t;
 
     glBegin(GL_LINES);
     glVertex3f(0, 1.0, 0);
-    glVertex3f(xpos, ypos, 0);
+    glVertex3f(xpos, ypos, wEnd.z);
     glEnd();
 }

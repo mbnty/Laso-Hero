@@ -11,8 +11,7 @@ class whip
 
         void drawWhip(float);
         vec3 wPos;
-        GLfloat x;
-        GLfloat y;
+        vec3 wEnd;
 
     protected:
 

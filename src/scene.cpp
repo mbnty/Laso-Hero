@@ -38,7 +38,7 @@ scene::scene()
     //ctor
     screenHeight = GetSystemMetrics(SM_CYSCREEN);
     screenWidth  = GetSystemMetrics(SM_CXSCREEN);
-    scne = PLAY;
+    scne = TITLE;
 }
 
 scene::~scene()
@@ -56,20 +56,32 @@ int scene::drawScene()
         glScaled(4.2, 4.2, 1.0);
         tl->drawTitle(screenWidth, screenHeight);
         glPopMatrix();
+    }
 
+    else if (scne == MENU) {
         glPushMatrix();
-        glTranslatef(3, -0.5, 0);
-        tl->drawSquare(screenWidth, screenHeight, 1);
+        glScaled(4.2, 4.2, 1.0);
+        tl->drawMenu(screenWidth, screenHeight);
         glPopMatrix();
 
         glPushMatrix();
-        glTranslatef(3.5, -1.3, 0);
+        glTranslatef(0, 0, 0);
         tl->drawSquare(screenWidth, screenHeight, 2);
         glPopMatrix();
 
         glPushMatrix();
-        glTranslatef(4, -2.1, 0);
+        glTranslatef(0, -1, 0);
         tl->drawSquare(screenWidth, screenHeight, 3);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslatef(0, -2, 0);
+        tl->drawSquare(screenWidth, screenHeight, 4);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslatef(0, -3, 0);
+        tl->drawSquare(screenWidth, screenHeight, 5);
         glPopMatrix();
     }
 
@@ -112,9 +124,7 @@ int scene::drawScene()
             start = clock();
         }
         else if (t >= 1 && clock() - start > 120) {
-            wep->wPos.x = 0.0;
             wep->wPos.y = 10.0;
-            wep->wPos.z = -2.0;
         }
 
         if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
@@ -160,10 +170,12 @@ int scene::initScene()
 
     prLX->initParallax("images/background1.jpg"); //initializing parallax with background image
 
-    tl->initTitle("images/kirb.jpg");
-    tl->initOption("images/start.png", 1);
-    tl->initOption("images/start.png", 2);
-    tl->initOption("images/start.png", 3);
+    tl->initTitle("images/title.png", 0);
+    tl->initTitle("images/menu.png", 1);
+    tl->initTitle("images/start.png", 2);
+    tl->initTitle("images/help.png", 3);
+    tl->initTitle("images/credit.png", 4);
+    tl->initTitle("images/stop.png", 5);
 
     /*
     //initialization of the images for the platforms
@@ -203,11 +215,24 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 KbMs->keyPlayer(ply);
                 KbMs->keyEnv(prLX, 0.005);
                 KbMs->keyEnvL1(l1,0.05);
+                wep->wPos.y = 10.0;
             }
             else if (scne == TITLE) {
+                scne = MENU;
+            }
+            else if (scne == MENU) {
                 int temp = KbMs->keyTitle(tl);
-                if (temp == 1) {
+                if (temp == 2) {
                     scne = PLAY;
+                }
+                else if (temp == 3) {
+                    //scne = HELP;
+                }
+                else if (temp == 4) {
+                    //scne = CREDITS;
+                }
+                else if (temp == 5) {
+                    // How to close program?
                 }
             }
             break;
@@ -224,6 +249,9 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             if (scne == PLAY) {
                 KbMs->mouseWhip(wep, ply, LOWORD(lParam), HIWORD(lParam));
                 t = 0.2;
+            }
+            else if (scne == TITLE) {
+                scne = MENU;
             }
             break;
 

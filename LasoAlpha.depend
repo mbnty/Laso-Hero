@@ -436,7 +436,7 @@
 	<windows.h>
 	<scene.h>
 
-1681414223 c:\users\derek\desktop\vscode\laso-hero\include\scene.h
+1682360338 c:\users\derek\desktop\vscode\laso-hero\include\scene.h
 	<windows.h>
 	<GL/gl.h>
 	<GL/glut.h>
@@ -474,15 +474,17 @@
 
 1681414223 c:\users\derek\desktop\vscode\laso-hero\include\positions.h
 
-1682225394 source:c:\users\derek\desktop\vscode\laso-hero\src\inputs.cpp
+1682362611 source:c:\users\derek\desktop\vscode\laso-hero\src\inputs.cpp
 	"inputs.h"
 
-1681414223 c:\users\derek\desktop\vscode\laso-hero\include\inputs.h
+1682357855 c:\users\derek\desktop\vscode\laso-hero\include\inputs.h
 	<windows.h>
 	<model.h>
 	<player.h>
 	<title.h>
 	<whip.h>
+	<parallax.h>
+	<lvl1.h>
 
 1681414223 c:\users\derek\desktop\vscode\laso-hero\include\model.h
 	<windows.h>
@@ -492,10 +494,10 @@
 	<textureLoader.h>
 	<commons.h>
 
-1681414223 c:\users\derek\desktop\vscode\laso-hero\include\title.h
+1682361418 c:\users\derek\desktop\vscode\laso-hero\include\title.h
 	<textureLoader.h>
 
-1681414223 c:\users\derek\desktop\vscode\laso-hero\include\whip.h
+1682362509 c:\users\derek\desktop\vscode\laso-hero\include\whip.h
 	<commons.h>
 
 1681414223 source:c:\users\derek\desktop\vscode\laso-hero\src\light.cpp
@@ -515,13 +517,13 @@
 	<textureLoader.h>
 	<time.h>
 
-1682225171 source:c:\users\derek\desktop\vscode\laso-hero\src\player.cpp
+1682362007 source:c:\users\derek\desktop\vscode\laso-hero\src\player.cpp
 	"player.h"
 
 1681414223 source:c:\users\derek\desktop\vscode\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682225526 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
+1682361933 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"
@@ -532,14 +534,16 @@
 	<title.h>
 	<whip.h>
 	<checkCollision.h>
+	<platform.h>
+	<lvl1.h>
 
 1681414223 source:c:\users\derek\desktop\vscode\laso-hero\src\textureloader.cpp
 	"textureLoader.h"
 
-1681414223 source:c:\users\derek\desktop\vscode\laso-hero\src\title.cpp
+1682360967 source:c:\users\derek\desktop\vscode\laso-hero\src\title.cpp
 	"title.h"
 
-1681414223 source:c:\users\derek\desktop\vscode\laso-hero\src\whip.cpp
+1682362548 source:c:\users\derek\desktop\vscode\laso-hero\src\whip.cpp
 	"whip.h"
 
 1661970085 c:\users\derek\desktop\vscode\common\include\gl\glut.h
@@ -597,4 +601,18 @@
 1682299954 c:\users\oskie\onedrive\documents\github\laso-hero\include\lvl1.h
 	<commons.h>
 	<platform.h>
+
+1682357855 c:\users\derek\desktop\vscode\laso-hero\include\lvl1.h
+	<commons.h>
+	<platform.h>
+
+1682357855 c:\users\derek\desktop\vscode\laso-hero\include\platform.h
+	<commons.h>
+	<textureLoader.h>
+
+1682357855 source:c:\users\derek\desktop\vscode\laso-hero\src\platform.cpp
+	"platform.h"
+
+1682357855 source:c:\users\derek\desktop\vscode\laso-hero\src\lvl1.cpp
+	"lvl1.h"
 
