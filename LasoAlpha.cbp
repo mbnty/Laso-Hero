@@ -49,6 +49,7 @@
 		<Unit filename="include/inputs.h" />
 		<Unit filename="include/model.h" />
 		<Unit filename="include/parallax.h" />
+		<Unit filename="include/platform.h" />
 		<Unit filename="include/player.h" />
 		<Unit filename="include/positions.h" />
 		<Unit filename="include/scene.h" />
@@ -63,6 +64,7 @@
 		<Unit filename="src/inputs.cpp" />
 		<Unit filename="src/model.cpp" />
 		<Unit filename="src/parallax.cpp" />
+		<Unit filename="src/platform.cpp" />
 		<Unit filename="src/player.cpp" />
 		<Unit filename="src/positions.cpp" />
 		<Unit filename="src/scene.cpp" />

@@ -6,6 +6,8 @@
 #include <player.h>
 #include <title.h>
 #include <whip.h>
+#include <parallax.h>
+#include <lvl1.h>
 
 class inputs
 {
@@ -20,7 +22,7 @@ class inputs
         void keyPlayer();
         void mousePlayer();
 
-        void keyEnv();
+        void keyEnv(parallax *, float);
         void keyPlayer(player*);
         int keyTitle(title*);
         void keyWhip(whip*, player*);
@@ -30,6 +32,8 @@ class inputs
         void mouseMove(double, double);
 
         void updateWParam(WPARAM);
+
+        void keyEnvL1(lvl1 *, float);
 
     protected:
 

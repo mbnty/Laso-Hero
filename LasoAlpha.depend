@@ -101,15 +101,15 @@
 	<positions.h>
 	<time.h>
 
-1679533084 source:c:\users\oskie\onedrive\documents\github\laso-hero\main.cpp
+1682107312 source:c:\users\oskie\onedrive\documents\github\laso-hero\main.cpp
 	<windows.h>
-	<string>
+	<string.h>
 	<stdlib.h>
 	<iostream>
 	<windows.h>
 	<scene.h>
 
-1679533084 c:\users\oskie\onedrive\documents\github\laso-hero\include\scene.h
+1681157562 c:\users\oskie\onedrive\documents\github\laso-hero\include\scene.h
 	<windows.h>
 	<GL/gl.h>
 	<GL/glut.h>
@@ -121,12 +121,11 @@
 	<GL/gl.h>
 	<GL/glu.h>
 
-1679533084 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\enemy.cpp
+1682293545 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\enemy.cpp
 	"enemy.h"
 
-1679533084 c:\users\oskie\onedrive\documents\github\laso-hero\include\enemy.h
+1682293545 c:\users\oskie\onedrive\documents\github\laso-hero\include\enemy.h
 	<string>
-	<GL/gl.h>
 	<GL/glut.h>
 	<textureLoader.h>
 	<positions.h>
@@ -141,12 +140,17 @@
 
 1679533084 c:\users\oskie\onedrive\documents\github\laso-hero\include\positions.h
 
-1679533084 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\inputs.cpp
+1682300505 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\inputs.cpp
 	"inputs.h"
 
-1679533084 c:\users\oskie\onedrive\documents\github\laso-hero\include\inputs.h
+1682300481 c:\users\oskie\onedrive\documents\github\laso-hero\include\inputs.h
 	<windows.h>
 	<model.h>
+	<player.h>
+	<title.h>
+	<whip.h>
+	<parallax.h>
+	<lvl1.h>
 
 1679533084 c:\users\oskie\onedrive\documents\github\laso-hero\include\model.h
 	<windows.h>
@@ -165,13 +169,19 @@
 1679533084 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\positions.cpp
 	"positions.h"
 
-1679534856 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\scene.cpp
+1682300520 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"
 	"inputs.h"
 	<enemy.h>
 	<parallax.h>
+	<player.h>
+	<title.h>
+	<whip.h>
+	<checkCollision.h>
+	<platform.h>
+	<lvl1.h>
 
 1679533084 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\textureloader.cpp
 	"textureLoader.h"
@@ -539,4 +549,52 @@
 	<GL/glu.h>
 
 1502810173 c:\users\derek\desktop\vscode\common\include\soil.h
+
+1681774108 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\checkcollision.cpp
+	"checkCollision.h"
+
+1681774108 c:\users\oskie\onedrive\documents\github\laso-hero\include\checkcollision.h
+	<commons.h>
+
+1682293545 c:\users\oskie\onedrive\documents\github\laso-hero\include\commons.h
+	<math.h>
+	<GL/gl.h>
+	<iostream>
+	<time.h>
+
+1680122301 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\commons.cpp
+	"commons.h"
+
+1682293545 c:\users\oskie\onedrive\documents\github\laso-hero\include\player.h
+	<textureLoader.h>
+	<commons.h>
+
+1681157562 c:\users\oskie\onedrive\documents\github\laso-hero\include\title.h
+	<textureLoader.h>
+
+1681774108 c:\users\oskie\onedrive\documents\github\laso-hero\include\whip.h
+	<commons.h>
+
+1682293545 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\player.cpp
+	"player.h"
+
+1681157562 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\title.cpp
+	"title.h"
+
+1681774108 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\whip.cpp
+	"whip.h"
+
+1682298596 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\platform.cpp
+	"platform.h"
+
+1682297435 c:\users\oskie\onedrive\documents\github\laso-hero\include\platform.h
+	<commons.h>
+	<textureLoader.h>
+
+1682300586 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\lvl1.cpp
+	"lvl1.h"
+
+1682299954 c:\users\oskie\onedrive\documents\github\laso-hero\include\lvl1.h
+	<commons.h>
+	<platform.h>
 

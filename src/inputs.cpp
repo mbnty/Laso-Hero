@@ -90,9 +90,31 @@ void inputs::mousePlayer()
     }
 }
 
-void inputs::keyEnv()
+void inputs::keyEnv(parallax* plx, float speed)
 {
+    switch(wParam)
+    {
+        case VK_LEFT:
+            plx->xMax -= speed;
+            plx->xMin -= speed;
+            break;
 
+        case VK_RIGHT:
+            plx->xMax += speed;
+            plx->xMin += speed;
+            break;
+
+        case VK_UP:
+            //plx->yMax -=speed;
+            //plx->yMin -=speed;
+            break;
+
+        case VK_DOWN:
+            //plx->yMax += speed;
+            //plx->yMin += speed;
+            break;
+
+    }
 }
 
 int inputs::keyTitle(title* tl)
@@ -164,4 +186,29 @@ void inputs::mouseMove(double x, double y)
 void inputs::updateWParam(WPARAM param)
 {
     wParam = param;
+}
+
+void inputs::keyEnvL1(lvl1* L1, float speed)
+{
+    switch(wParam)
+    {
+        case VK_LEFT:
+            L1->levelPosX += speed;
+            break;
+
+        case VK_RIGHT:
+            L1->levelPosX -= speed;
+            break;
+
+        case VK_UP:
+            //plx->yMax -=speed;
+            //plx->yMin -=speed;
+            break;
+
+        case VK_DOWN:
+            //plx->yMax += speed;
+            //plx->yMin += speed;
+            break;
+
+    }
 }
