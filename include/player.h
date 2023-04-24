@@ -17,7 +17,10 @@ class player
 
         float runSpeed;
         float jumpSpeed;
+        float theta, velocity, t;
         acts actionTrigger;
+
+        int health, ammo;
 
         char playerDir;  //to find out where player is heading
 
@@ -33,6 +36,8 @@ class player
 
         GLuint tex;
         textureLoader *tLoad = new textureLoader();
+
+        clock_t start;
 
     protected:
 

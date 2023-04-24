@@ -3,7 +3,7 @@
 enemy::enemy()
 {
     enemyPosition.x = 0.0;
-    enemyPosition.y = -0.5;
+    enemyPosition.y = -0.65;
     enemyPosition.z = -2.5;
 
     enemySize.x = 1.0;
@@ -15,7 +15,11 @@ enemy::enemy()
     enemySpeed.x = -0.01;
     enemySpeed.y = 0.0;
 
+    isHit = false;
+
     currTime = clock();
+
+    indexTexture = 0;
 }
 
 enemy::~enemy()
@@ -28,7 +32,7 @@ void enemy::drawEnemy()
     tLoad->binder(tex);
 
     glPushMatrix();
-
+    glColor3f(0.0,0.0,0.0);
     glTranslated(enemyPosition.x, enemyPosition.y, enemyPosition.z);
     glRotatef(enemyRotation.x,1,0,0);
     glRotatef(enemyRotation.y,0,1,0);

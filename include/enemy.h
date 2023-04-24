@@ -31,8 +31,11 @@ class enemy
 
         pos3 enemyRotation;
 
+        int indexTexture;
         GLuint tex;
         textureLoader *tLoad = new textureLoader();
+
+        bool isHit;
 
         clock_t currTime;
     protected:

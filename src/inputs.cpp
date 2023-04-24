@@ -50,14 +50,17 @@ void inputs::keyPlayer(player* ply)
     switch(wParam) {
         case VK_LEFT:       // Action for player by pressing "Left" key and "A" key
         case 0x41:
+            ply->actions(ply->WALKL);
             break;
 
         case VK_RIGHT:      // Action for player by pressing "Right" key and "D" key
         case 0x44:
+            ply->actions(ply->WALKR);
             break;
 
         case VK_UP:         // Action for player by pressing "Up" key and "W" key
         case 0x57:
+            ply->actions(ply->JUMP);
             break;
 
         case VK_DOWN:       // Action for player by pressing "Down" key and "S" key
@@ -87,29 +90,51 @@ void inputs::mousePlayer()
     }
 }
 
-void inputs::keyEnv()
+void inputs::keyEnv(parallax* plx, float speed)
 {
+    switch(wParam)
+    {
+        case VK_LEFT:
+            plx->xMax -= speed;
+            plx->xMin -= speed;
+            break;
 
+        case VK_RIGHT:
+            plx->xMax += speed;
+            plx->xMin += speed;
+            break;
+
+        case VK_UP:
+            //plx->yMax -=speed;
+            //plx->yMin -=speed;
+            break;
+
+        case VK_DOWN:
+            //plx->yMax += speed;
+            //plx->yMin += speed;
+            break;
+
+    }
 }
 
 int inputs::keyTitle(title* tl)
 {
     switch(wParam) {
         case VK_DOWN:
-            if (tl->selection < 3) {
+            if (tl->selection < 5) {
                 tl->selection++;
             }
             break;
 
         case VK_UP:
-            if (tl->selection > 1) {
+            if (tl->selection > 2) {
                 tl->selection--;
             }
             break;
 
         case VK_SPACE:
-            if (tl->selection == 1) {
-                return 1;
+            if (tl->selection >= 2 && tl->selection <= 5) {
+                return tl->selection;
             }
             break;
     }
@@ -140,8 +165,10 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
             wep->wPos.y = ply->pPos.y;
             wep->wPos.z = ply->pPos.z;
             getRealMouse(x, y);
-            wep->x = realX;
-            wep->y = realY + 2.6;
+            wep->wEnd.x = realX;
+            wep->wEnd.y = realY + 2.6;
+            wep->wEnd.z = realZ;
+            cout << wep->wEnd.x << wep->wEnd.y << wep->wEnd.z << endl;
             break;
 
         case MK_RBUTTON:
@@ -161,4 +188,29 @@ void inputs::mouseMove(double x, double y)
 void inputs::updateWParam(WPARAM param)
 {
     wParam = param;
+}
+
+void inputs::keyEnvL1(lvl1* L1, float speed)
+{
+    switch(wParam)
+    {
+        case VK_LEFT:
+            L1->levelPosX += speed;
+            break;
+
+        case VK_RIGHT:
+            L1->levelPosX -= speed;
+            break;
+
+        case VK_UP:
+            //plx->yMax -=speed;
+            //plx->yMin -=speed;
+            break;
+
+        case VK_DOWN:
+            //plx->yMax += speed;
+            //plx->yMin += speed;
+            break;
+
+    }
 }
