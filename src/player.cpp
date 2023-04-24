@@ -107,6 +107,7 @@ void player::actions(acts action)
             yMax += 1.0/(float)hFrames;
             yMin += 1.0/(float)hFrames;
         }
+
         pPos.x += runSpeed;
         if(pPos.x >= 2.5){
             pPos.x = 2.5;
@@ -134,10 +135,12 @@ void player::actions(acts action)
             yMax += 1.0/(float)hFrames;
             yMin += 1.0/(float)hFrames;
         }
+
         pPos.x -= runSpeed;
         if(pPos.x <= -2.5){
             pPos.x = -2.5;
         }
+
 
         actionTrigger = WALKL;
         break;

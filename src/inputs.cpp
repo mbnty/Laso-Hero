@@ -168,7 +168,7 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
             wep->wEnd.x = realX;
             wep->wEnd.y = realY + 2.6;
             wep->wEnd.z = realZ;
-            cout << wep->wEnd.x << wep->wEnd.y << wep->wEnd.z << endl;
+            cout << wep->wEnd.x << " " << wep->wEnd.y << " " << wep->wEnd.z << endl;
             break;
 
         case MK_RBUTTON:

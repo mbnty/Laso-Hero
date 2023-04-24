@@ -47,6 +47,7 @@
 		<Unit filename="include/commons.h" />
 		<Unit filename="include/enemy.h" />
 		<Unit filename="include/inputs.h" />
+		<Unit filename="include/lvl1.h" />
 		<Unit filename="include/model.h" />
 		<Unit filename="include/parallax.h" />
 		<Unit filename="include/platform.h" />
@@ -62,6 +63,7 @@
 		<Unit filename="src/commons.cpp" />
 		<Unit filename="src/enemy.cpp" />
 		<Unit filename="src/inputs.cpp" />
+		<Unit filename="src/lvl1.cpp" />
 		<Unit filename="src/model.cpp" />
 		<Unit filename="src/parallax.cpp" />
 		<Unit filename="src/platform.cpp" />
