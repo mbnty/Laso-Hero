@@ -10,6 +10,8 @@
 #include <checkCollision.h>
 #include <platform.h>
 #include <lvl1.h>
+#include <ui.h>
+#include <fonts.h>
 
 model *startModel = new model();
 inputs *KbMs = new inputs();
@@ -19,6 +21,8 @@ player *ply = new player();
 title *tl = new title();
 whip* wep = new whip();
 checkCollision *hit = new checkCollision();
+ui *Hud = new ui();
+fonts *F = new fonts();
 
 /*
 //objects for the platforms for the first level
@@ -91,6 +95,11 @@ int scene::drawScene()
         prLX->drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
+        glPushMatrix();
+        glTranslatef(3, 2, 0);
+        Hud->drawSquare(screenWidth, screenHeight, 0);
+        glPopMatrix();
+
 
         glPushMatrix(); // this martix holds the platforms
         l1->drawLvl1();
@@ -135,6 +144,10 @@ int scene::drawScene()
             walker->drawEnemy();
         }
 
+
+        glPushMatrix();
+        F->drawFonts(ply->health);
+        glPopMatrix();
 
 
         /*
@@ -185,6 +198,11 @@ int scene::initScene()
     sp1->initPlatform("images/spikes.png",1,1);
     */
     l1->initLvl1();
+
+
+    Hud->initUi("images/heart.png", 0);
+    F->initFonts("images/font.png");
+    F->buildFonts((string)ply->health);
 
     start = clock();
 

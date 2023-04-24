@@ -20,6 +20,8 @@ class player
         float theta, velocity, t;
         acts actionTrigger;
 
+        int health, ammo;
+
         char playerDir;  //to find out where player is heading
 
         void drawPlayer();
