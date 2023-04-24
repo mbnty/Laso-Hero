@@ -109,7 +109,7 @@
 	<windows.h>
 	<scene.h>
 
-1681157562 c:\users\oskie\onedrive\documents\github\laso-hero\include\scene.h
+1682365318 c:\users\oskie\onedrive\documents\github\laso-hero\include\scene.h
 	<windows.h>
 	<GL/gl.h>
 	<GL/glut.h>
@@ -140,7 +140,7 @@
 
 1679533084 c:\users\oskie\onedrive\documents\github\laso-hero\include\positions.h
 
-1682300505 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\inputs.cpp
+1682365318 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\inputs.cpp
 	"inputs.h"
 
 1682300481 c:\users\oskie\onedrive\documents\github\laso-hero\include\inputs.h
@@ -169,7 +169,7 @@
 1679533084 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682300520 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\scene.cpp
+1682365318 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"
@@ -573,19 +573,19 @@
 	<textureLoader.h>
 	<commons.h>
 
-1681157562 c:\users\oskie\onedrive\documents\github\laso-hero\include\title.h
+1682365318 c:\users\oskie\onedrive\documents\github\laso-hero\include\title.h
 	<textureLoader.h>
 
-1681774108 c:\users\oskie\onedrive\documents\github\laso-hero\include\whip.h
+1682365318 c:\users\oskie\onedrive\documents\github\laso-hero\include\whip.h
 	<commons.h>
 
-1682293545 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\player.cpp
+1682365318 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\player.cpp
 	"player.h"
 
-1681157562 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\title.cpp
+1682365318 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\title.cpp
 	"title.h"
 
-1681774108 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\whip.cpp
+1682365318 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\whip.cpp
 	"whip.h"
 
 1682298596 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\platform.cpp
@@ -595,10 +595,10 @@
 	<commons.h>
 	<textureLoader.h>
 
-1682300586 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\lvl1.cpp
+1682365661 source:c:\users\oskie\onedrive\documents\github\laso-hero\src\lvl1.cpp
 	"lvl1.h"
 
-1682299954 c:\users\oskie\onedrive\documents\github\laso-hero\include\lvl1.h
+1682365586 c:\users\oskie\onedrive\documents\github\laso-hero\include\lvl1.h
 	<commons.h>
 	<platform.h>
 

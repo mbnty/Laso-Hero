@@ -18,7 +18,12 @@ class lvl1
         platform *pl1 = new platform();
         platform *pl2 = new platform();
         platform *pl3 = new platform();
+        platform *pl4 = new platform();
+        platform *pl5 = new platform();
+
         platform *sp1 = new platform();
+        platform *sp2 = new platform();
+        platform *sp3 = new platform();
 
     protected:
 
