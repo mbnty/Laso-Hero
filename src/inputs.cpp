@@ -130,7 +130,6 @@ void inputs::keyEnv(parallax& plx, float speed)
     }
 }
 
-<<<<<<< HEAD
 int inputs::keyPause(parallax& plx)
 {
     int check = 0;
@@ -140,14 +139,13 @@ int inputs::keyPause(parallax& plx)
             check = 1;
             break;
 
-        case VK_RETURN: //check if ENTER key is pressed
-            check = 2;
+        case 0x4D:
+            check = 2; //check if M key is pressed
             break;
     }
     return check;
 }
 
-=======
 void inputs::keyEnemy(enemy* en)
 {
     if(wParam == VK_RIGHT){
@@ -158,8 +156,6 @@ void inputs::keyEnemy(enemy* en)
     }
 }
 
-
->>>>>>> 7f8d252fa971be82b5ed5e5cfc5d0cfa42e33352
 int inputs::keyTitle(title* tl)
 {
     switch(wParam) {

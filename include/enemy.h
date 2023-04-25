@@ -21,6 +21,8 @@ class enemy
         void actions();
         acts movement;
 
+        char enDir; //direction enemy is facing
+
         int hFrames;
         int vFrames;
 

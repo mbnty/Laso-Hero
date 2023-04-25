@@ -848,10 +848,10 @@
 1681350195 source:f:\gamedev2023\projects\laso-hero\src\commons.cpp
 	"commons.h"
 
-1682401267 source:f:\gamedev2023\projects\laso-hero\src\enemy.cpp
+1682402307 source:f:\gamedev2023\projects\laso-hero\src\enemy.cpp
 	"enemy.h"
 
-1682401215 f:\gamedev2023\projects\laso-hero\include\enemy.h
+1682402278 f:\gamedev2023\projects\laso-hero\include\enemy.h
 	<string>
 	<GL/glut.h>
 	<textureLoader.h>
@@ -901,10 +901,10 @@
 
 1682394362 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\deleteme.h
 
-1682400154 source:f:\gamedev2023\projects\laso-hero\src\inputs.cpp
+1682403858 source:f:\gamedev2023\projects\laso-hero\src\inputs.cpp
 	"inputs.h"
 
-1682397554 f:\gamedev2023\projects\laso-hero\include\inputs.h
+1682401844 f:\gamedev2023\projects\laso-hero\include\inputs.h
 	<windows.h>
 	<model.h>
 	<player.h>
@@ -912,6 +912,7 @@
 	<whip.h>
 	<parallax.h>
 	<lvl1.h>
+	<enemy.h>
 
 1681350195 f:\gamedev2023\projects\laso-hero\include\model.h
 	<windows.h>
@@ -961,7 +962,7 @@
 1681350195 source:f:\gamedev2023\projects\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682401549 source:f:\gamedev2023\projects\laso-hero\src\scene.cpp
+1682403694 source:f:\gamedev2023\projects\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"

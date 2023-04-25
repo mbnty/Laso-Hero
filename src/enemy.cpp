@@ -98,6 +98,7 @@ void enemy::actions()
         enemyPosition.z += 0;
         break;
     case WALKR:
+        enDir = 'R';
         if(clock() - currTime > 60){
             xMax += 1.0/(float)vFrames;
             xMin += 1.0/(float)vFrames;
@@ -106,6 +107,7 @@ void enemy::actions()
         }
         break;
     case WALKL:
+        enDir = 'L';
         if(clock() - currTime > 60){
             xMax += 1.0/(float)vFrames;
             xMin += 1.0/(float)vFrames;
