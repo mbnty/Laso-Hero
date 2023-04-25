@@ -73,6 +73,21 @@ void player::playerInit(char* fileName, int vFrm, int hFrm)
 
 void player::actions(acts action)
 {
+    if(action == IDLE){
+        if(playerDir == 'R'){
+            xMax = 1.0/(float)vFrames;
+            xMin = 0.0;
+            yMax = 1.0/(float)hFrames;
+            yMin = 0.0;
+        }
+        else if(playerDir == 'L'){
+            xMax = 0.0;
+            xMin = 1.0/(float)vFrames;
+            yMax = 1.0/(float)hFrames;
+            yMin = 0.0;
+        }
+    }
+    /*
     switch(action)
     {
 
@@ -110,7 +125,7 @@ void player::actions(acts action)
             yMax += 1.0/(float)hFrames;
             yMin += 1.0/(float)hFrames;
         }
-        pPos.x += runSpeed;
+        //pPos.x += runSpeed;
         if(pPos.x >= 2.5){
             pPos.x = 2.5;
         }
@@ -137,7 +152,7 @@ void player::actions(acts action)
             yMax += 1.0/(float)hFrames;
             yMin += 1.0/(float)hFrames;
         }
-        pPos.x -= runSpeed;
+        //pPos.x -= runSpeed;
         if(pPos.x <= -2.5){
             pPos.x = -2.5;
         }
@@ -177,4 +192,5 @@ void player::actions(acts action)
 
         break;
    }
+   */
 }

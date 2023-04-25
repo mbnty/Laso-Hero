@@ -315,7 +315,7 @@
 	<windows.h>
 	<scene.h>
 
-1681281325 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\scene.h
+1682394362 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\scene.h
 	<windows.h>
 	<GL/gl.h>
 	<GL/glut.h>
@@ -330,10 +330,11 @@
 1680227297 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\commons.cpp
 	"commons.h"
 
-1682025197 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\commons.h
+1682302143 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\commons.h
 	<math.h>
 	<GL/gl.h>
 	<iostream>
+	<time.h>
 
 1682110824 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\enemy.cpp
 	"enemy.h"
@@ -354,28 +355,30 @@
 
 1680227297 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\positions.h
 
-1682030301 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\inputs.cpp
+1682395438 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\inputs.cpp
 	"inputs.h"
 
-1682025197 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\inputs.h
+1682302143 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\inputs.h
 	<windows.h>
 	<model.h>
 	<player.h>
 	<title.h>
 	<whip.h>
+	<parallax.h>
+	<lvl1.h>
 
 1680227297 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\model.h
 	<windows.h>
 	<GL/glut.h>
 
-1682025197 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\player.h
+1682394362 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\player.h
 	<textureLoader.h>
 	<commons.h>
 
-1681281325 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\title.h
+1682394362 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\title.h
 	<textureLoader.h>
 
-1682025197 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\whip.h
+1682394362 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\whip.h
 	<commons.h>
 
 1680227297 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\light.cpp
@@ -395,13 +398,13 @@
 	<textureLoader.h>
 	<time.h>
 
-1682110842 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\player.cpp
+1682395010 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\player.cpp
 	"player.h"
 
 1680227297 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682110842 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\scene.cpp
+1682394362 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"
@@ -412,6 +415,10 @@
 	<title.h>
 	<whip.h>
 	<checkCollision.h>
+	<platform.h>
+	<lvl1.h>
+	<ui.h>
+	<fonts.h>
 
 1682025197 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\checkcollision.h
 	<commons.h>
@@ -419,10 +426,10 @@
 1680227297 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\textureloader.cpp
 	"textureLoader.h"
 
-1681281325 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\title.cpp
+1682394362 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\title.cpp
 	"title.h"
 
-1682025197 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\whip.cpp
+1682394362 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\whip.cpp
 	"whip.h"
 
 1682025197 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\checkcollision.cpp
@@ -772,4 +779,38 @@
 
 1682376652 source:d:\gamedev 2023\projects\lso\laso-hero\src\lvl1.cpp
 	"lvl1.h"
+
+1682394362 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\fonts.cpp
+	"fonts.h"
+
+1682394362 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\fonts.h
+	<commons.h>
+	<textureLoader.h>
+	<string.h>
+
+1682394362 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\lvl1.h
+	<commons.h>
+	<platform.h>
+
+1682302143 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\platform.h
+	<commons.h>
+	<textureLoader.h>
+
+1682394362 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\lvl1.cpp
+	"lvl1.h"
+
+1682302143 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\platform.cpp
+	"platform.h"
+
+1682394362 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\ui.h
+	<textureLoader.h>
+	<player.h>
+
+1682394362 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\ui.cpp
+	"ui.h"
+
+1682394362 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\deleteme.cpp
+	"deleteme.h"
+
+1682394362 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\deleteme.h
 

@@ -47,14 +47,26 @@ void inputs::keyModel(model*)
 
 void inputs::keyPlayer(player* ply)
 {
+    if(wParam == VK_LEFT || wParam == 0x41){
+        ply->actions(ply->WALKL);
+    }
+    if(wParam == VK_RIGHT || wParam == 0x44){
+        ply->actions(ply->WALKR);
+    }
+    if(wParam == VK_UP || wParam == 0x57){
+         ply->actions(ply->JUMP);
+    }
+    /*
     switch(wParam) {
         case VK_LEFT:       // Action for player by pressing "Left" key and "A" key
         case 0x41:
+            cout << "Left" << endl;
             ply->actions(ply->WALKL);
             break;
 
         case VK_RIGHT:      // Action for player by pressing "Right" key and "D" key
         case 0x44:
+            cout << "Right" << endl;
             ply->actions(ply->WALKR);
             break;
 
@@ -67,6 +79,7 @@ void inputs::keyPlayer(player* ply)
         case 0x53:
             break;
     }
+    */
 }
 
 void inputs::mousePlayer()

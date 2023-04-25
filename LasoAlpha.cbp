@@ -32,19 +32,20 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="../../../Common/include" />
+			<Add directory="../common/include" />
 		</Compiler>
 		<Linker>
-			<Add library="../../../Common/lib/libSOIL.a" />
-			<Add library="../../../Common/lib/glut32.lib" />
+			<Add library="../common/lib/libSOIL.a" />
+			<Add library="../common/lib/glut32.lib" />
 			<Add library="opengl32" />
 			<Add library="glu32" />
 			<Add library="gdi32" />
-			<Add directory="../../../Common/lib" />
+			<Add directory="../common/lib" />
 		</Linker>
 		<Unit filename="include/Light.h" />
 		<Unit filename="include/checkCollision.h" />
 		<Unit filename="include/commons.h" />
+		<Unit filename="include/deleteme.h" />
 		<Unit filename="include/enemy.h" />
 		<Unit filename="include/fonts.h" />
 		<Unit filename="include/inputs.h" />
@@ -63,6 +64,7 @@
 		<Unit filename="src/Light.cpp" />
 		<Unit filename="src/checkCollision.cpp" />
 		<Unit filename="src/commons.cpp" />
+		<Unit filename="src/deleteme.cpp" />
 		<Unit filename="src/enemy.cpp" />
 		<Unit filename="src/fonts.cpp" />
 		<Unit filename="src/inputs.cpp" />
