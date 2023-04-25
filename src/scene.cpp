@@ -130,6 +130,14 @@ int scene::drawScene()
         }
         glPopMatrix();
 
+        if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
+            walker->isHit = true ;
+        }
+
+        if(walker->isHit == false){
+            walker->drawEnemy();
+        }
+
         glDisable(GL_TEXTURE_2D);
 
         glPushMatrix();
@@ -143,14 +151,6 @@ int scene::drawScene()
         }
         else if (t >= 1 && clock() - start > 120) {
             wep->wPos.y = 10.0;
-        }
-
-        if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
-            walker->isHit = true ;
-        }
-
-        if(walker->isHit == false){
-            walker->drawEnemy();
         }
 
         /*
@@ -236,6 +236,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 KbMs->keyPlayer(ply);
                 KbMs->keyEnv(prLX, 0.005);
                 KbMs->keyEnvL1(l1,0.05);
+                KbMs->keyEnemy(walker);
                 wep->wPos.y = 10.0;
             }
             else if (scne == TITLE) {

@@ -8,6 +8,7 @@
 #include <whip.h>
 #include <parallax.h>
 #include <lvl1.h>
+#include<enemy.h>
 
 class inputs
 {
@@ -26,6 +27,7 @@ class inputs
         void keyPlayer(player*);
         int keyTitle(title*);
         void keyWhip(whip*, player*);
+        void keyEnemy(enemy *);
 
         void keyUp();
         void mouseWhip(whip*, player*, double, double);

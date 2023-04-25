@@ -130,6 +130,17 @@ void inputs::keyEnv(parallax* plx, float speed)
     }
 }
 
+void inputs::keyEnemy(enemy* en)
+{
+    if(wParam == VK_RIGHT){
+        en->enemyPosition.x -= en->enemySpeed.x;
+    }
+    if(wParam == VK_LEFT){
+        en->enemyPosition.x += en->enemySpeed.x;
+    }
+}
+
+
 int inputs::keyTitle(title* tl)
 {
     switch(wParam) {
