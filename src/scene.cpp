@@ -143,10 +143,6 @@ int scene::drawScene()
             walker->drawEnemy();
         }
 
-        glPushMatrix();
-        F->drawFonts(ply->health);
-        glPopMatrix();
-
         for (int i = 0; i < 6; i++) {
             glPushMatrix();
             ammo[i].drawBullet();
@@ -290,7 +286,6 @@ int scene::initScene()
 
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
-    F->initFonts("images/font.png");
     //F->buildFonts((char*)ply->health);
 
     start = clock();
