@@ -8,8 +8,8 @@ player::player()
     verts[2].x = 0.5; verts[2].y = 0.5; verts[2].z = -1.0;
     verts[3].x = -0.5; verts[3].y = 0.5; verts[3].z = -1.0;
 
-    health = 5;
-    ammo = 3;
+    health = 5; //max of 5
+    ammo = 3; //max of 6
 
     runSpeed = 0.01;
     jumpSpeed = 0;

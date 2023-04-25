@@ -7,6 +7,8 @@ ui::ui()
     xMin = 0.0;
     yMax = 0.0;
     yMin = 1.0;
+    xPos = -13.0;
+    yPos = 2.0;
 }
 
 ui::~ui()
@@ -18,7 +20,7 @@ void ui::drawSquare(float width, float height, int num)
 {
     uLoad->binder(uTex[num]);
 
-    glScalef(0.08, 0.08, 1.0);
+    glScalef(0.09, 0.16, 1.0);
 
     glBegin(GL_POLYGON);
         glTexCoord2f(xMin, yMin);

@@ -11,18 +11,17 @@
 #include <platform.h>
 #include <lvl1.h>
 #include <ui.h>
-#include <fonts.h>
 
 model *startModel = new model();
 inputs *KbMs = new inputs();
 enemy *walker = new enemy();
 parallax *prLX = new parallax();
+//parallax *ammo = new parallax();
 player *ply = new player();
 title *tl = new title();
 whip* wep = new whip();
 checkCollision *hit = new checkCollision();
 ui *Hud = new ui();
-fonts *F = new fonts();
 
 /*
 //objects for the platforms for the first level
@@ -95,11 +94,21 @@ int scene::drawScene()
         prLX->drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
-        glPushMatrix();
-        glTranslatef(3, 2, 0);
-        Hud->drawSquare(screenWidth, screenHeight, 0);
-        glPopMatrix();
+        for(int i = 0; i < ply->health; i++){
+            glPushMatrix();
+            glTranslatef(((Hud->xPos) + i)/3, Hud->yPos, 0);
+            Hud->drawSquare(screenWidth, screenHeight, 0);
+            glPopMatrix();
+        }
 
+        /*
+        for(int i = 0; i < ply->ammo; i++){
+            glPushMatrix();
+            glTranslatef(((Hud->xPos) + i)/3, 1.5, 0);
+            Hud->drawSquare(screenWidth, screenHeight, 1);
+            glPopMatrix();
+        }
+        */
 
         glPushMatrix(); // this martix holds the platforms
         l1->drawLvl1();
@@ -143,12 +152,6 @@ int scene::drawScene()
         if(walker->isHit == false){
             walker->drawEnemy();
         }
-
-
-        glPushMatrix();
-        //F->drawFonts(xPos, yPos, zPos, ply->health);
-        glPopMatrix();
-
 
         /*
         glPushMatrix();
@@ -199,10 +202,10 @@ int scene::initScene()
     */
     l1->initLvl1();
 
-
     Hud->initUi("images/heart.png", 0);
-    F->initFonts("images/numbers.png");
-    F->buildFonts(ply->health);
+    //Hud->initUi("images/ammo.png", 1);
+
+    //cout << ply->health << endl;
 
     start = clock();
 
