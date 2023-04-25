@@ -28,9 +28,7 @@ void fonts::buildFonts(char* str)
         {
         case '0':
             C[cCnt].xMin = 0;
-            C[cCnt].xMax = 1.0/9,0;
-            C[cCnt].yMin = 5.0/7.0;
-            C[cCnt].yMax = 6.0/7.0;
+            C[cCnt].xMax = 1.0/5,0;
             break;
         }
     }

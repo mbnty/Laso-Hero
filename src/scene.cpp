@@ -146,7 +146,7 @@ int scene::drawScene()
 
 
         glPushMatrix();
-        F->drawFonts(ply->health);
+        //F->drawFonts(xPos, yPos, zPos, ply->health);
         glPopMatrix();
 
 
@@ -201,8 +201,8 @@ int scene::initScene()
 
 
     Hud->initUi("images/heart.png", 0);
-    F->initFonts("images/font.png");
-    F->buildFonts((string)ply->health);
+    F->initFonts("images/numbers.png");
+    F->buildFonts(ply->health);
 
     start = clock();
 

@@ -19,8 +19,8 @@ class fonts
         virtual ~fonts();
 
         void initFonts(char *);
-        void buildFonts(char *);
-        void drawFonts(int);
+        void buildFonts(int);
+        void drawFonts(float, float, float, int);
         charset C[1024];
 
         vec3 Rotate;
