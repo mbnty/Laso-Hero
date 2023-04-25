@@ -336,7 +336,7 @@
 	<iostream>
 	<time.h>
 
-1682110824 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\enemy.cpp
+1682399546 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\enemy.cpp
 	"enemy.h"
 
 1682110655 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\enemy.h
@@ -355,10 +355,10 @@
 
 1680227297 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\positions.h
 
-1682395438 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\inputs.cpp
+1682400078 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\inputs.cpp
 	"inputs.h"
 
-1682302143 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\inputs.h
+1682399895 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\inputs.h
 	<windows.h>
 	<model.h>
 	<player.h>
@@ -366,6 +366,7 @@
 	<whip.h>
 	<parallax.h>
 	<lvl1.h>
+	<enemy.h>
 
 1680227297 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\model.h
 	<windows.h>
@@ -398,13 +399,13 @@
 	<textureLoader.h>
 	<time.h>
 
-1682395010 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\player.cpp
+1682397280 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\player.cpp
 	"player.h"
 
 1680227297 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682396846 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\scene.cpp
+1682400126 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"

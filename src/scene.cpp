@@ -128,6 +128,14 @@ int scene::drawScene()
         }
         glPopMatrix();
 
+        if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
+            walker->isHit = true ;
+        }
+
+        if(walker->isHit == false){
+            walker->drawEnemy();
+        }
+
         glDisable(GL_TEXTURE_2D);
 
         glPushMatrix();
@@ -143,6 +151,7 @@ int scene::drawScene()
             wep->wPos.y = 10.0;
         }
 
+<<<<<<< HEAD
         if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
             walker->isHit = true ;
         }
@@ -156,6 +165,16 @@ int scene::drawScene()
         glPushMatrix(); //matrix for the background parallax
         glScaled(3.33,3.33,1.0);
         prLx[2].drawSquare(screenWidth,screenHeight);
+=======
+        /*
+        glPushMatrix();
+        if(hit->isRadialCollision(player x pos, enemy x pos, player y pos, enemy x pos, player z pos, enemy z pos)){
+            do stuff;
+        }
+        if(hit->isLinearCollision(player x pos, enemy x pos)){
+            do stuff;
+        }
+>>>>>>> 7f8d252fa971be82b5ed5e5cfc5d0cfa42e33352
         glPopMatrix();
 
         for(int i = 0; i < ply->health; i++){
@@ -264,6 +283,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 KbMs->keyPlayer(ply);
                 KbMs->keyEnv(prLx[1], 0.005);
                 KbMs->keyEnvL1(l1,0.05);
+                KbMs->keyEnemy(walker);
                 wep->wPos.y = 10.0;
                 if((KbMs->keyPause(prLx[1])) == true){ //if H key is pressed
                     scne = PAUSE; //pause the game

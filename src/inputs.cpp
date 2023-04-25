@@ -130,6 +130,7 @@ void inputs::keyEnv(parallax& plx, float speed)
     }
 }
 
+<<<<<<< HEAD
 int inputs::keyPause(parallax& plx)
 {
     int check = 0;
@@ -146,6 +147,19 @@ int inputs::keyPause(parallax& plx)
     return check;
 }
 
+=======
+void inputs::keyEnemy(enemy* en)
+{
+    if(wParam == VK_RIGHT){
+        en->enemyPosition.x -= en->enemySpeed.x;
+    }
+    if(wParam == VK_LEFT){
+        en->enemyPosition.x += en->enemySpeed.x;
+    }
+}
+
+
+>>>>>>> 7f8d252fa971be82b5ed5e5cfc5d0cfa42e33352
 int inputs::keyTitle(title* tl)
 {
     switch(wParam) {
