@@ -7,6 +7,7 @@
 #include <player.h>
 #include <title.h>
 #include <whip.h>
+#include <bullet.h>
 #include <checkCollision.h>
 #include <platform.h>
 #include <lvl1.h>
@@ -20,6 +21,7 @@ parallax *prLX = new parallax();
 player *ply = new player();
 title *tl = new title();
 whip* wep = new whip();
+bullet ammo[6];
 checkCollision *hit = new checkCollision();
 ui *Hud = new ui();
 fonts *F = new fonts();
@@ -35,6 +37,7 @@ lvl1 *l1 = new lvl1();
 
 
 float t = 0.2;
+int numBullet;
 clock_t start;
 
 scene::scene()
@@ -100,7 +103,6 @@ int scene::drawScene()
         Hud->drawSquare(screenWidth, screenHeight, 0);
         glPopMatrix();
 
-
         glPushMatrix(); // this martix holds the platforms
         l1->drawLvl1();
         /*
@@ -108,9 +110,9 @@ int scene::drawScene()
         //pl2->drawPlatform(5,0,3,1);
         //pl3->drawPlatform(8,0,1,1);
         sp1->drawPlatform(1,-1.4,0.5,0.5);
-        */
-        glPopMatrix();
 
+        glPopMatrix();
+        */
 
         glPushMatrix();
         ply->drawPlayer();
@@ -120,6 +122,28 @@ int scene::drawScene()
             ply->actions(ply->IDLE);
         }
         glPopMatrix();
+
+        glPushMatrix();
+        F->drawFonts(ply->health);
+        glPopMatrix();
+
+        for (int i = 0; i < 6; i++) {
+            glPushMatrix();
+            ammo[i].drawBullet();
+            glPopMatrix();
+
+            if (ammo[i].bPos.x >= 8.0 || ammo[i].bPos.x <= -8.0) {
+                ammo[i].act = ammo->IDLE;
+            }
+        }
+
+        if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
+            walker->isHit = true ;
+        }
+
+        if(walker->isHit == false){
+            walker->drawEnemy();
+        }
 
         glDisable(GL_TEXTURE_2D);
 
@@ -135,20 +159,6 @@ int scene::drawScene()
         else if (t >= 1 && clock() - start > 120) {
             wep->wPos.y = 10.0;
         }
-
-        if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
-            walker->isHit = true ;
-        }
-
-        if(walker->isHit == false){
-            walker->drawEnemy();
-        }
-
-
-        glPushMatrix();
-        F->drawFonts(ply->health);
-        glPopMatrix();
-
 
         /*
         glPushMatrix();
@@ -190,6 +200,11 @@ int scene::initScene()
     tl->initTitle("images/credit.png", 4);
     tl->initTitle("images/stop.png", 5);
 
+    ammo[0].projTexture("images/bullet.png");
+    for (int i = 1; i < 6; i++) {
+        ammo[i].initBullet(ammo[0].tex);
+    }
+
     /*
     //initialization of the images for the platforms
     pl1->initPlatform("images/platform1.png",1,1);
@@ -202,7 +217,7 @@ int scene::initScene()
 
     Hud->initUi("images/heart.png", 0);
     F->initFonts("images/font.png");
-    F->buildFonts((string)ply->health);
+    //F->buildFonts((char*)ply->health);
 
     start = clock();
 
@@ -233,6 +248,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 KbMs->keyPlayer(ply);
                 KbMs->keyEnv(prLX, 0.005);
                 KbMs->keyEnvL1(l1,0.05);
+                KbMs->keyBullet(ammo, ply);
                 wep->wPos.y = 10.0;
             }
             else if (scne == TITLE) {
@@ -250,7 +266,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     //scne = CREDITS;
                 }
                 else if (temp == 5) {
-                    // How to close program?
+                    PostQuitMessage(0);
                 }
             }
             break;
@@ -262,8 +278,6 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             break;
 
         case WM_LBUTTONDOWN:
-        case WM_RBUTTONDOWN:
-        case WM_MBUTTONDOWN:
             if (scne == PLAY) {
                 KbMs->mouseWhip(wep, ply, LOWORD(lParam), HIWORD(lParam));
                 t = 0.2;
@@ -271,6 +285,21 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             else if (scne == TITLE) {
                 scne = MENU;
             }
+            break;
+
+        case WM_RBUTTONDOWN:
+            numBullet = ply->ammo - 1;
+            if (numBullet >= 0) {
+                ammo[numBullet].placeBullet(ply->pPos);
+                if (ply->playerDir == 'L')
+                    ammo[numBullet].act = ammo->MOVEL;
+                else if (ply->playerDir == 'R')
+                    ammo[numBullet].act = ammo->MOVER;
+                ply->ammo--;
+            }
+            break;
+
+        case WM_MBUTTONDOWN:
             break;
 
         case WM_LBUTTONUP:

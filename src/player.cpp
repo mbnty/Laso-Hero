@@ -9,7 +9,7 @@ player::player()
     verts[3].x = -0.5; verts[3].y = 0.5; verts[3].z = -1.0;
 
     health = 5;
-    ammo = 3;
+    ammo = 6;
 
     runSpeed = 0.01;
     jumpSpeed = 0;

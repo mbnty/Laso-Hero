@@ -457,7 +457,7 @@
 1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\commons.cpp
 	"commons.h"
 
-1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\enemy.cpp
+1682377707 source:c:\users\derek\desktop\vscode\laso-hero\src\enemy.cpp
 	"enemy.h"
 
 1682372199 c:\users\derek\desktop\vscode\laso-hero\include\enemy.h
@@ -474,15 +474,16 @@
 
 1682372199 c:\users\derek\desktop\vscode\laso-hero\include\positions.h
 
-1682372954 source:c:\users\derek\desktop\vscode\laso-hero\src\inputs.cpp
+1682376709 source:c:\users\derek\desktop\vscode\laso-hero\src\inputs.cpp
 	"inputs.h"
 
-1682372199 c:\users\derek\desktop\vscode\laso-hero\include\inputs.h
+1682375187 c:\users\derek\desktop\vscode\laso-hero\include\inputs.h
 	<windows.h>
 	<model.h>
 	<player.h>
 	<title.h>
 	<whip.h>
+	<bullet.h>
 	<parallax.h>
 	<lvl1.h>
 
@@ -490,7 +491,7 @@
 	<windows.h>
 	<GL/glut.h>
 
-1682372199 c:\users\derek\desktop\vscode\laso-hero\include\player.h
+1682373962 c:\users\derek\desktop\vscode\laso-hero\include\player.h
 	<textureLoader.h>
 	<commons.h>
 
@@ -517,13 +518,13 @@
 	<textureLoader.h>
 	<time.h>
 
-1682373706 source:c:\users\derek\desktop\vscode\laso-hero\src\player.cpp
+1682376746 source:c:\users\derek\desktop\vscode\laso-hero\src\player.cpp
 	"player.h"
 
 1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
+1682377560 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"
@@ -533,9 +534,12 @@
 	<player.h>
 	<title.h>
 	<whip.h>
+	<bullet.h>
 	<checkCollision.h>
 	<platform.h>
 	<lvl1.h>
+	<ui.h>
+	<fonts.h>
 
 1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\textureloader.cpp
 	"textureLoader.h"
@@ -615,4 +619,31 @@
 
 1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\lvl1.cpp
 	"lvl1.h"
+
+1682377612 source:c:\users\derek\desktop\vscode\laso-hero\src\bullet.cpp
+	"bullet.h"
+
+1682374642 c:\users\derek\desktop\vscode\laso-hero\include\bullet.h
+	<textureLoader.h>
+	<commons.h>
+
+1682373962 source:c:\users\derek\desktop\vscode\laso-hero\src\deleteme.cpp
+	"deleteme.h"
+
+1682373961 c:\users\derek\desktop\vscode\laso-hero\include\deleteme.h
+
+1682373962 source:c:\users\derek\desktop\vscode\laso-hero\src\fonts.cpp
+	"fonts.h"
+
+1682373962 c:\users\derek\desktop\vscode\laso-hero\include\fonts.h
+	<commons.h>
+	<textureLoader.h>
+	<string.h>
+
+1682373962 source:c:\users\derek\desktop\vscode\laso-hero\src\ui.cpp
+	"ui.h"
+
+1682373962 c:\users\derek\desktop\vscode\laso-hero\include\ui.h
+	<textureLoader.h>
+	<player.h>
 

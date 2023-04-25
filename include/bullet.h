@@ -15,11 +15,11 @@ class bullet
         void initBullet(GLuint);
         void projTexture(char *);
 
-        enum acts{IDLE, MOVE};
+        enum acts{IDLE, MOVEL, MOVER};
         acts act;
         void actions();
 
-        vec3 pos;
+        vec3 bPos;
         GLuint tex;
 
     protected:
