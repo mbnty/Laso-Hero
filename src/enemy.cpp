@@ -9,6 +9,10 @@ enemy::enemy()
     enemySize.x = 1.0;
     enemySize.y = 0.5;
 
+    enemyColor.x = 1.0;
+    enemyColor.y = 1.0;
+    enemyColor.z = 1.0;
+
     enemyRotation.x = enemyRotation.y = enemyRotation.z = 0;
     movement = WALKL;
 
@@ -16,6 +20,7 @@ enemy::enemy()
     enemySpeed.y = 0.0;
 
     isHit = false;
+    isDead = false;
 
     currTime = clock();
 
@@ -32,7 +37,7 @@ void enemy::drawEnemy()
     tLoad->binder(tex);
 
     glPushMatrix();
-    glColor3f(1.0,1.0,1.0);
+    glColor3f(enemyColor.x,enemyColor.y,enemyColor.z);
     glTranslated(enemyPosition.x, enemyPosition.y, enemyPosition.z);
     glRotatef(enemyRotation.x,1,0,0);
     glRotatef(enemyRotation.y,0,1,0);
@@ -98,7 +103,14 @@ void enemy::actions()
         enemyPosition.z += 0;
         break;
     case WALKR:
-        enDir = 'R';
+        if(enDir != 'R'){
+            enDir = 'R';
+            xMin = 1.0/(float)vFrames;
+            xMax = 0.0;
+            yMax = 1.0/(float)hFrames;
+            yMin = 0.0;
+        }
+
         if(clock() - currTime > 60){
             xMax += 1.0/(float)vFrames;
             xMin += 1.0/(float)vFrames;
@@ -107,12 +119,27 @@ void enemy::actions()
         }
         break;
     case WALKL:
-        enDir = 'L';
+        if(enDir != 'L'){
+            enDir = 'L';
+            xMax = 1.0/(float)vFrames;
+            xMin = 0.0;
+            yMax = 1.0/(float)hFrames;
+            yMin = 0.0;
+        }
         if(clock() - currTime > 60){
             xMax += 1.0/(float)vFrames;
             xMin += 1.0/(float)vFrames;
             enemyPosition.x -= enemySpeed.x;
             currTime = clock();
+        }
+        break;
+    case DIE:
+        if(isDead == false){
+            enemyColor.y = 0.0;
+            enemyColor.z = 0.0;
+            enemyPosition.y -= 0.3;
+            enemyRotation.z = -90.0;
+            isDead = true;
         }
         break;
     }

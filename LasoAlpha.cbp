@@ -32,15 +32,15 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="../../Common/include" />
+			<Add directory="../common/include" />
 		</Compiler>
 		<Linker>
-			<Add library="../../Common/lib/libSOIL.a" />
-			<Add library="../../Common/lib/glut32.lib" />
+			<Add library="../common/lib/libSOIL.a" />
+			<Add library="../common/lib/glut32.lib" />
 			<Add library="opengl32" />
 			<Add library="glu32" />
 			<Add library="gdi32" />
-			<Add directory="../../Common/lib" />
+			<Add directory="../common/lib" />
 		</Linker>
 		<Unit filename="include/Light.h" />
 		<Unit filename="include/bullet.h" />
