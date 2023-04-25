@@ -20,7 +20,7 @@ void ui::drawSquare(float width, float height, int num)
 {
     uLoad->binder(uTex[num]);
 
-    glScalef(0.09, 0.16, 1.0);
+    glScalef(0.09, 0.16, 1.0); //for 16:9 aspect ratio monitors
 
     glBegin(GL_POLYGON);
         glTexCoord2f(xMin, yMin);
@@ -39,7 +39,7 @@ void ui::drawSquare(float width, float height, int num)
 
 void ui::initUi(char* fileName, int num)
 {
-    if(num >= 0 && num <= 100){
+    if(num >= 0 && num <= 10){
         uLoad->loadTexture(fileName, uTex[num]);
     }
 }

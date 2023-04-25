@@ -90,18 +90,18 @@ void inputs::mousePlayer()
     }
 }
 
-void inputs::keyEnv(parallax* plx, float speed)
+void inputs::keyEnv(parallax& plx, float speed)
 {
     switch(wParam)
     {
         case VK_LEFT:
-            plx->xMax -= speed;
-            plx->xMin -= speed;
+            plx.xMax -= speed;
+            plx.xMin -= speed;
             break;
 
         case VK_RIGHT:
-            plx->xMax += speed;
-            plx->xMin += speed;
+            plx.xMax += speed;
+            plx.xMin += speed;
             break;
 
         case VK_UP:
@@ -115,6 +115,22 @@ void inputs::keyEnv(parallax* plx, float speed)
             break;
 
     }
+}
+
+int inputs::keyPause(parallax& plx)
+{
+    int check = 0;
+    switch(wParam)
+    {
+        case 0x48: //check if H key is pressed
+            check = 1;
+            break;
+
+        case VK_RETURN: //check if ENTER key is pressed
+            check = 2;
+            break;
+    }
+    return check;
 }
 
 int inputs::keyTitle(title* tl)

@@ -22,10 +22,11 @@ class inputs
         void keyPlayer();
         void mousePlayer();
 
-        void keyEnv(parallax *, float);
+        void keyEnv(parallax &, float);
         void keyPlayer(player*);
         int keyTitle(title*);
         void keyWhip(whip*, player*);
+        int keyPause(parallax&);
 
         void keyUp();
         void mouseWhip(whip*, player*, double, double);
