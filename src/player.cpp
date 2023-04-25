@@ -87,6 +87,88 @@ void player::actions(acts action)
             yMin = 0.0;
         }
     }
+    if(action == WALKR){
+        if(playerDir != 'R'){
+            float tmp;
+            tmp = xMax;
+            xMax = xMin;
+            xMin = tmp;
+            playerDir = 'R';
+        }
+
+        playerDir = 'R';
+        xMin += 1.0/(float)vFrames;
+        xMax += 1.0/(float)vFrames;
+        if(xMax > 1){
+            xMax = 1.0/(float)vFrames;
+            xMin = 0.0;
+
+            yMax += 1.0/(float)hFrames;
+            yMin += 1.0/(float)hFrames;
+        }
+        //pPos.x += runSpeed;
+        if(pPos.x >= 2.5){
+            pPos.x = 2.5;
+        }
+
+        actionTrigger = WALKR;
+    }
+    if(action == WALKL){
+        if(playerDir != 'L'){
+            float tmp;
+            tmp = xMax;
+            xMax = xMin;
+            xMin = tmp;
+            playerDir = 'L';
+        }
+        playerDir = 'L';
+        xMin += 1.0/(float)vFrames;
+        xMax += 1.0/(float)vFrames;
+
+        if(xMin > 1){
+            xMax = 0.0/(float)vFrames;
+            xMin = 1.0/(float)vFrames;
+
+            yMax += 1.0/(float)hFrames;
+            yMin += 1.0/(float)hFrames;
+        }
+        //pPos.x -= runSpeed;
+        if(pPos.x <= -2.5){
+            pPos.x = -2.5;
+        }
+
+        actionTrigger = WALKL;
+    }
+    if(action == JUMP){
+        yMax = 2.0/(float)hFrames;
+        yMin = 1.0/(float)hFrames;
+
+        if (clock() - start > 30) {
+            // Calculate jump speed
+            jumpSpeed = (velocity * t * sin(theta) - 0.5 * GRVITY * t * t) / 700.0;
+            pPos.y += jumpSpeed;
+
+            xMax += 1.0/(float)vFrames;
+            xMin += 1.0/(float)vFrames;
+
+            if (playerDir == 'L')
+                pPos.x -= runSpeed;
+            else if (playerDir == 'R')
+                pPos.x += runSpeed;
+
+            if (pPos.y >= -0.65) {      // While in jump animation, update Timer
+                t += 0.2;
+                actionTrigger = JUMP;   // Update actionTrigger
+            }
+
+            else {                      // Once character reaches ground, reset Timer, character y position, and return to idle
+                t = 1;
+                pPos.y = -0.65;
+                actionTrigger = IDLE;   // Update actionTrigger
+            }
+            start = clock();
+        }
+    }
     /*
     switch(action)
     {
