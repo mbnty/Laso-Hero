@@ -10,9 +10,9 @@ enemy::enemy()
     enemySize.y = 0.5;
 
     enemyRotation.x = enemyRotation.y = enemyRotation.z = 0;
-    movement = IDLE;
+    movement = WALKL;
 
-    enemySpeed.x = -0.01;
+    enemySpeed.x = 0.01;
     enemySpeed.y = 0.0;
 
     isHit = false;
@@ -32,7 +32,7 @@ void enemy::drawEnemy()
     tLoad->binder(tex);
 
     glPushMatrix();
-    //glColor3f(0.0,0.0,0.0);
+    glColor3f(1.0,1.0,1.0);
     glTranslated(enemyPosition.x, enemyPosition.y, enemyPosition.z);
     glRotatef(enemyRotation.x,1,0,0);
     glRotatef(enemyRotation.y,0,1,0);
@@ -92,10 +92,24 @@ void enemy::enemySkin(char* fileName)
 void enemy::actions()
 {
     switch(movement){
-    case IDLE:
+    case IDLE: //stops the enemy from moving
+        enemyPosition.x += 0;
+        enemyPosition.y += 0;
+        enemyPosition.z += 0;
+        break;
+    case WALKR:
         if(clock() - currTime > 60){
             xMax += 1.0/(float)vFrames;
             xMin += 1.0/(float)vFrames;
+            enemyPosition.x += enemySpeed.x;
+            currTime = clock();
+        }
+        break;
+    case WALKL:
+        if(clock() - currTime > 60){
+            xMax += 1.0/(float)vFrames;
+            xMin += 1.0/(float)vFrames;
+            enemyPosition.x -= enemySpeed.x;
             currTime = clock();
         }
         break;

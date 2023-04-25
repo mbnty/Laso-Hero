@@ -13,10 +13,12 @@ class parallax
         void drawSquare(float, float);      //used to draw the square to hold the background
         void initParallax(char *);         //initialization
         void scroll(bool, string, float);   //used to scroll the image
+        void initPopUp(char*, int);
+        void drawPopUp(float, float, int);
 
         float xMax,xMin, yMax,yMin;         //used hold the points of the image
 
-        GLuint bTex;                                 //texture handler
+        GLuint bTex[3];                                 //texture handler
         textureLoader *bLoad = new textureLoader();  //create instance of texture loader
 
         clock_t startTime;

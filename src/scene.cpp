@@ -12,19 +12,18 @@
 #include <platform.h>
 #include <lvl1.h>
 #include <ui.h>
-#include <fonts.h>
 
 model *startModel = new model();
 inputs *KbMs = new inputs();
 enemy *walker = new enemy();
-parallax *prLX = new parallax();
 player *ply = new player();
 title *tl = new title();
 whip* wep = new whip();
 bullet ammo[6];
 checkCollision *hit = new checkCollision();
 ui *Hud = new ui();
-fonts *F = new fonts();
+
+parallax prLx[4];
 
 /*
 //objects for the platforms for the first level
@@ -95,9 +94,22 @@ int scene::drawScene()
     else if (scne == PLAY) {
         glPushMatrix(); //matrix for the background parallax
         glScaled(3.33,3.33,1.0);
-        prLX->drawSquare(screenWidth,screenHeight);
+        prLx[1].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
+        for(int i = 0; i < ply->health; i++){
+            glPushMatrix();
+            glTranslatef(((Hud->xPos) + i)/3, Hud->yPos, 0);
+            Hud->drawSquare(screenWidth, screenHeight, 0);
+            glPopMatrix();
+        }
+
+        for(int i = 0; i < ply->ammo; i++){
+            glPushMatrix();
+            glTranslatef(((Hud->xPos) + i)/3, 1.7, 0);
+            Hud->drawSquare(screenWidth, screenHeight, 1);
+            glPopMatrix();
+        }
         glPushMatrix();
         glTranslatef(3, 2, 0);
         Hud->drawSquare(screenWidth, screenHeight, 0);
@@ -122,6 +134,14 @@ int scene::drawScene()
             ply->actions(ply->IDLE);
         }
         glPopMatrix();
+
+        if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
+            walker->isHit = true ;
+        }
+
+        if(walker->isHit == false){
+            walker->drawEnemy();
+        }
 
         glPushMatrix();
         F->drawFonts(ply->health);
@@ -160,6 +180,22 @@ int scene::drawScene()
             wep->wPos.y = 10.0;
         }
 
+<<<<<<< HEAD
+        if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
+            walker->isHit = true ;
+        }
+
+        if(walker->isHit == false){
+            walker->drawEnemy();
+        }
+    }
+
+    else if(scne == PAUSE){
+        glPushMatrix(); //matrix for the background parallax
+        glScaled(3.33,3.33,1.0);
+        prLx[2].drawSquare(screenWidth,screenHeight);
+=======
+
         /*
         glPushMatrix();
         if(hit->isRadialCollision(player x pos, enemy x pos, player y pos, enemy x pos, player z pos, enemy z pos)){
@@ -168,8 +204,43 @@ int scene::drawScene()
         if(hit->isLinearCollision(player x pos, enemy x pos)){
             do stuff;
         }
+>>>>>>> 7f8d252fa971be82b5ed5e5cfc5d0cfa42e33352
         glPopMatrix();
+
+        for(int i = 0; i < ply->health; i++){
+            glPushMatrix();
+            glTranslatef(((Hud->xPos) + i)/3, Hud->yPos, 0);
+            Hud->drawSquare(screenWidth, screenHeight, 0);
+            glPopMatrix();
+        }
+        for(int i = 0; i < ply->ammo; i++){
+            glPushMatrix();
+            glTranslatef(((Hud->xPos) + i)/3, 1.7, 0);
+            Hud->drawSquare(screenWidth, screenHeight, 1);
+            glPopMatrix();
+        }
+
+        glPushMatrix(); // this martix holds the platforms
+        l1->drawLvl1();
+        /*
+        pl1->drawPlatform(1,0,3,1);
+        //pl2->drawPlatform(5,0,3,1);
+        //pl3->drawPlatform(8,0,1,1);
+        sp1->drawPlatform(1,-1.4,0.5,0.5);
         */
+        glPopMatrix();
+
+        glPushMatrix();
+        ply->drawPlayer();
+        glPopMatrix();
+
+        glPushMatrix();
+        wep->drawWhip(t);
+        glPopMatrix();
+
+        walker->drawEnemy();
+
+
     }
 }
 
@@ -191,7 +262,8 @@ int scene::initScene()
     walker->initEnemy(walker->tex, 7, 1);
     walker->placeEnemy(pos3{1.0,-0.25,-2.0});
 
-    prLX->initParallax("images/background1.jpg"); //initializing parallax with background image
+    prLx[1].initParallax("images/background1.jpg"); //initializing parallax with background image
+    prLx[2].initParallax("images/menu.png");
 
     tl->initTitle("images/title.png", 0);
     tl->initTitle("images/menu.png", 1);
@@ -214,8 +286,8 @@ int scene::initScene()
     */
     l1->initLvl1();
 
-
     Hud->initUi("images/heart.png", 0);
+    Hud->initUi("images/ammo.png", 1);
     F->initFonts("images/font.png");
     //F->buildFonts((char*)ply->health);
 
@@ -246,10 +318,14 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_KEYDOWN:
             if (scne == PLAY && ply->actionTrigger != ply->JUMP) {
                 KbMs->keyPlayer(ply);
-                KbMs->keyEnv(prLX, 0.005);
+                KbMs->keyEnv(prLx[1], 0.005);
                 KbMs->keyEnvL1(l1,0.05);
+                KbMs->keyEnemy(walker);
                 KbMs->keyBullet(ammo, ply);
                 wep->wPos.y = 10.0;
+                if((KbMs->keyPause(prLx[1])) == true){ //if H key is pressed
+                    scne = PAUSE; //pause the game
+                }
             }
             else if (scne == TITLE) {
                 scne = MENU;
@@ -269,6 +345,14 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     PostQuitMessage(0);
                 }
             }
+            else if(scne = PAUSE){
+                if((KbMs->keyPause(prLx[2])) == 1){ //check if ESC key is pressed
+                    scne = PLAY; //resume game
+                }
+            else if((KbMs->keyPause(prLx[2])) == 2){
+                scne = TITLE; //return to title screen
+            }
+        }
             break;
 
         case WM_KEYUP:

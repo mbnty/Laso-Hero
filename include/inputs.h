@@ -9,6 +9,7 @@
 #include <bullet.h>
 #include <parallax.h>
 #include <lvl1.h>
+#include<enemy.h>
 
 class inputs
 {
@@ -23,10 +24,15 @@ class inputs
         void keyPlayer();
         void mousePlayer();
 
-        void keyEnv(parallax *, float);
+        void keyEnv(parallax &, float);
         void keyPlayer(player*);
         int keyTitle(title*);
         void keyWhip(whip*, player*);
+<<<<<<< HEAD
+        int keyPause(parallax&);
+=======
+        void keyEnemy(enemy *);
+>>>>>>> 7f8d252fa971be82b5ed5e5cfc5d0cfa42e33352
 
         void keyUp();
         void mouseWhip(whip*, player*, double, double);

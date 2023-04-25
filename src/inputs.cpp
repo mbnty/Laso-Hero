@@ -47,14 +47,26 @@ void inputs::keyModel(model*)
 
 void inputs::keyPlayer(player* ply)
 {
+    if(wParam == VK_LEFT || wParam == 0x41){
+        ply->actions(ply->WALKL);
+    }
+    if(wParam == VK_RIGHT || wParam == 0x44){
+        ply->actions(ply->WALKR);
+    }
+    if(wParam == VK_UP || wParam == 0x57){
+         ply->actions(ply->JUMP);
+    }
+    /*
     switch(wParam) {
         case VK_LEFT:       // Action for player by pressing "Left" key and "A" key
         case 0x41:
+            cout << "Left" << endl;
             ply->actions(ply->WALKL);
             break;
 
         case VK_RIGHT:      // Action for player by pressing "Right" key and "D" key
         case 0x44:
+            cout << "Right" << endl;
             ply->actions(ply->WALKR);
             break;
 
@@ -67,6 +79,7 @@ void inputs::keyPlayer(player* ply)
         case 0x53:
             break;
     }
+    */
 }
 
 void inputs::mousePlayer()
@@ -90,18 +103,18 @@ void inputs::mousePlayer()
     }
 }
 
-void inputs::keyEnv(parallax* plx, float speed)
+void inputs::keyEnv(parallax& plx, float speed)
 {
     switch(wParam)
     {
         case VK_LEFT:
-            plx->xMax -= speed;
-            plx->xMin -= speed;
+            plx.xMax -= speed;
+            plx.xMin -= speed;
             break;
 
         case VK_RIGHT:
-            plx->xMax += speed;
-            plx->xMin += speed;
+            plx.xMax += speed;
+            plx.xMin += speed;
             break;
 
         case VK_UP:
@@ -117,6 +130,36 @@ void inputs::keyEnv(parallax* plx, float speed)
     }
 }
 
+<<<<<<< HEAD
+int inputs::keyPause(parallax& plx)
+{
+    int check = 0;
+    switch(wParam)
+    {
+        case 0x48: //check if H key is pressed
+            check = 1;
+            break;
+
+        case VK_RETURN: //check if ENTER key is pressed
+            check = 2;
+            break;
+    }
+    return check;
+}
+
+=======
+void inputs::keyEnemy(enemy* en)
+{
+    if(wParam == VK_RIGHT){
+        en->enemyPosition.x -= en->enemySpeed.x;
+    }
+    if(wParam == VK_LEFT){
+        en->enemyPosition.x += en->enemySpeed.x;
+    }
+}
+
+
+>>>>>>> 7f8d252fa971be82b5ed5e5cfc5d0cfa42e33352
 int inputs::keyTitle(title* tl)
 {
     switch(wParam) {
