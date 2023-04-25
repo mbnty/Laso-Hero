@@ -16,6 +16,7 @@ class enemy
         void placeEnemy(pos3);
         void initEnemy(GLuint, int, int);
         void enemySkin(char *);
+        void checkPosition();
 
         enum acts{IDLE, WALKR, WALKL, JUMP, ATTACK, DIE};
         void actions();
@@ -29,6 +30,7 @@ class enemy
         float xMax, yMax, xMin, yMin;
         pos3 enemyPosition;
         pos2 enemySize;
+        pos3 enemyColor;
         pos2 enemySpeed;
 
         pos3 enemyRotation;
@@ -38,6 +40,7 @@ class enemy
         textureLoader *tLoad = new textureLoader();
 
         bool isHit;
+        bool isDead;
 
         clock_t currTime;
     protected:

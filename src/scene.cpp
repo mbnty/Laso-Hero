@@ -127,14 +127,23 @@ int scene::drawScene()
             ply->actions(ply->IDLE);
         }
         glPopMatrix();
-
+        /*
         if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
-            walker->isHit = true ;
+            //walker->isHit = true ;
         }
+        */
+
+        if(walker->enemyPosition.x > ply->pPos.x){
+            walker->movement = walker->WALKL;
+        }else{
+            walker->movement = walker->WALKR;
+        }
+
 
         if(walker->isHit == false){
             walker->drawEnemy();
         }
+
 
         glDisable(GL_TEXTURE_2D);
 
@@ -150,7 +159,7 @@ int scene::drawScene()
         else if (t >= 1 && clock() - start > 120) {
             wep->wPos.y = 10.0;
         }
-
+        /*
         if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
             walker->isHit = true ;
         }
@@ -164,6 +173,7 @@ int scene::drawScene()
             }
             walker->drawEnemy();
         }
+        */
     }
 
     else if(scne == PAUSE){
