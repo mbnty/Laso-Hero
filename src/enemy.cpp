@@ -92,12 +92,10 @@ void enemy::enemySkin(char* fileName)
 void enemy::actions()
 {
     switch(movement){
-    case IDLE:
-        if(clock() - currTime > 60){
-            xMax += 1.0/(float)vFrames;
-            xMin += 1.0/(float)vFrames;
-            currTime = clock();
-        }
+    case IDLE: //stops the enemy from moving
+        enemyPosition.x += 0;
+        enemyPosition.y += 0;
+        enemyPosition.z += 0;
         break;
     }
 }

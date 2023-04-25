@@ -181,6 +181,14 @@ int scene::drawScene()
         */
         glPopMatrix();
 
+        glPushMatrix();
+        ply->drawPlayer();
+        glPopMatrix();
+
+        glPushMatrix();
+        wep->drawWhip(t);
+        glPopMatrix();
+
         walker->drawEnemy();
 
 
