@@ -15,6 +15,7 @@ class ui
         void initUi(char*, int);
 
         float xMax,xMin, yMax,yMin;
+        float xPos, yPos;
 
         GLuint uTex[100];
         textureLoader *uLoad = new textureLoader();

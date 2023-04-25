@@ -773,3 +773,160 @@
 1682376652 source:d:\gamedev 2023\projects\lso\laso-hero\src\lvl1.cpp
 	"lvl1.h"
 
+1682364317 source:f:\gamedev2023\projects\laso-hero\main.cpp
+	<windows.h>
+	<string.h>
+	<stdlib.h>
+	<iostream>
+	<windows.h>
+	<scene.h>
+
+1682364317 f:\gamedev2023\projects\laso-hero\include\scene.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glut.h>
+	<iostream>
+
+1682364317 source:f:\gamedev2023\projects\laso-hero\src\checkcollision.cpp
+	"checkCollision.h"
+
+1681350195 f:\gamedev2023\projects\laso-hero\include\checkcollision.h
+	<commons.h>
+
+1682364317 f:\gamedev2023\projects\laso-hero\include\commons.h
+	<math.h>
+	<GL/gl.h>
+	<iostream>
+	<time.h>
+
+1681350195 source:f:\gamedev2023\projects\laso-hero\src\commons.cpp
+	"commons.h"
+
+1682364317 source:f:\gamedev2023\projects\laso-hero\src\enemy.cpp
+	"enemy.h"
+
+1682364317 f:\gamedev2023\projects\laso-hero\include\enemy.h
+	<string>
+	<GL/glut.h>
+	<textureLoader.h>
+	<positions.h>
+	<time.h>
+
+1681350195 f:\gamedev2023\projects\laso-hero\include\textureloader.h
+	<iostream>
+	<SOIL.h>
+	<GL/gl.h>
+
+1681350195 f:\gamedev2023\projects\laso-hero\include\positions.h
+
+1682393703 source:f:\gamedev2023\projects\laso-hero\src\fonts.cpp
+	"fonts.h"
+
+1682386101 f:\gamedev2023\projects\laso-hero\include\fonts.h
+	<commons.h>
+	<textureLoader.h>
+	<string.h>
+
+1682364317 source:f:\gamedev2023\projects\laso-hero\src\inputs.cpp
+	"inputs.h"
+
+1682364317 f:\gamedev2023\projects\laso-hero\include\inputs.h
+	<windows.h>
+	<model.h>
+	<player.h>
+	<title.h>
+	<whip.h>
+	<parallax.h>
+	<lvl1.h>
+
+1681350195 f:\gamedev2023\projects\laso-hero\include\model.h
+	<windows.h>
+	<GL/glut.h>
+
+1682372284 f:\gamedev2023\projects\laso-hero\include\player.h
+	<textureLoader.h>
+	<commons.h>
+
+1682364317 f:\gamedev2023\projects\laso-hero\include\title.h
+	<textureLoader.h>
+
+1682364317 f:\gamedev2023\projects\laso-hero\include\whip.h
+	<commons.h>
+
+1681350195 f:\gamedev2023\projects\laso-hero\include\parallax.h
+	<textureLoader.h>
+	<time.h>
+
+1682373836 f:\gamedev2023\projects\laso-hero\include\lvl1.h
+	<commons.h>
+	<platform.h>
+
+1682364317 f:\gamedev2023\projects\laso-hero\include\platform.h
+	<commons.h>
+	<textureLoader.h>
+
+1681350195 source:f:\gamedev2023\projects\laso-hero\src\light.cpp
+	"Light.h"
+
+1681350195 f:\gamedev2023\projects\laso-hero\include\light.h
+	<GL/gl.h>
+	<scene.h>
+
+1682373836 source:f:\gamedev2023\projects\laso-hero\src\lvl1.cpp
+	"lvl1.h"
+
+1681350195 source:f:\gamedev2023\projects\laso-hero\src\model.cpp
+	"model.h"
+
+1681350195 source:f:\gamedev2023\projects\laso-hero\src\parallax.cpp
+	"parallax.h"
+
+1682364317 source:f:\gamedev2023\projects\laso-hero\src\platform.cpp
+	"platform.h"
+
+1681350195 source:f:\gamedev2023\projects\laso-hero\src\positions.cpp
+	"positions.h"
+
+1682395542 source:f:\gamedev2023\projects\laso-hero\src\scene.cpp
+	"scene.h"
+	"Light.h"
+	"model.h"
+	"inputs.h"
+	<enemy.h>
+	<parallax.h>
+	<player.h>
+	<title.h>
+	<whip.h>
+	<checkCollision.h>
+	<platform.h>
+	<lvl1.h>
+	<ui.h>
+	<fonts.h>
+
+1682395113 f:\gamedev2023\projects\laso-hero\include\ui.h
+	<textureLoader.h>
+	<player.h>
+
+1681350195 source:f:\gamedev2023\projects\laso-hero\src\textureloader.cpp
+	"textureLoader.h"
+
+1682364317 source:f:\gamedev2023\projects\laso-hero\src\title.cpp
+	"title.h"
+
+1682395690 source:f:\gamedev2023\projects\laso-hero\src\ui.cpp
+	"ui.h"
+
+1682364317 source:f:\gamedev2023\projects\laso-hero\src\whip.cpp
+	"whip.h"
+
+1675127686 f:\gamedev2023\common\include\gl\glut.h
+	<windows.h>
+	<stdlib.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1668646408 f:\gamedev2023\common\include\soil.h
+
+1682394944 source:f:\gamedev2023\projects\laso-hero\src\player.cpp
+	"player.h"
+
