@@ -151,12 +151,17 @@ int scene::drawScene()
             wep->wPos.y = 10.0;
         }
 
-<<<<<<< HEAD
         if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
             walker->isHit = true ;
         }
 
-        if(walker->isHit == false){
+        if(walker->isHit == false){ //gets the enemy to rewalk
+            if(walker->enDir == 'R'){
+                walker->movement = walker->WALKR;
+            }
+            if(walker->enDir == 'L'){
+                walker->movement = walker->WALKL;
+            }
             walker->drawEnemy();
         }
     }
@@ -165,16 +170,11 @@ int scene::drawScene()
         glPushMatrix(); //matrix for the background parallax
         glScaled(3.33,3.33,1.0);
         prLx[2].drawSquare(screenWidth,screenHeight);
-=======
-        /*
+        glPopMatrix();
+
         glPushMatrix();
-        if(hit->isRadialCollision(player x pos, enemy x pos, player y pos, enemy x pos, player z pos, enemy z pos)){
-            do stuff;
-        }
-        if(hit->isLinearCollision(player x pos, enemy x pos)){
-            do stuff;
-        }
->>>>>>> 7f8d252fa971be82b5ed5e5cfc5d0cfa42e33352
+        glTranslatef(0, 0.5, 3);
+        prLx[3].drawPopUp(screenWidth, screenHeight, 3);
         glPopMatrix();
 
         for(int i = 0; i < ply->health; i++){
@@ -208,8 +208,10 @@ int scene::drawScene()
         wep->drawWhip(t);
         glPopMatrix();
 
-        walker->drawEnemy();
-
+        walker->movement = walker->IDLE;
+        if(walker->isHit == false){
+            walker->drawEnemy();
+        }
 
     }
 }
@@ -234,6 +236,7 @@ int scene::initScene()
 
     prLx[1].initParallax("images/background1.jpg"); //initializing parallax with background image
     prLx[2].initParallax("images/menu.png");
+    prLx[3].initPopUp("images/tempPause.png", 3);
 
     tl->initTitle("images/title.png", 0);
     tl->initTitle("images/menu.png", 1);
@@ -312,7 +315,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     scne = PLAY; //resume game
                 }
             else if((KbMs->keyPause(prLx[2])) == 2){
-                scne = TITLE; //return to title screen
+                scne = MENU; //return to title screen
             }
         }
             break;
