@@ -140,6 +140,10 @@ void enemy::actions()
             enemyPosition.y -= 0.3;
             enemyRotation.z = -90.0;
             isDead = true;
+            currTime = clock();
+        }
+        if(clock() - currTime >= 2000){
+            enemyPosition.y = -10;
         }
         break;
     }
