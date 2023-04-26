@@ -837,12 +837,13 @@
 	<GL/glut.h>
 	<iostream>
 
-1682485717 source:f:\gamedev2023\projects\laso-hero\src\checkcollision.cpp
+1682489605 source:f:\gamedev2023\projects\laso-hero\src\checkcollision.cpp
 	"checkCollision.h"
 
-1682485717 f:\gamedev2023\projects\laso-hero\include\checkcollision.h
+1682489605 f:\gamedev2023\projects\laso-hero\include\checkcollision.h
 	<commons.h>
 	<player.h>
+	<enemy.h>
 	<platform.h>
 
 1682364317 f:\gamedev2023\projects\laso-hero\include\commons.h
@@ -854,7 +855,7 @@
 1681350195 source:f:\gamedev2023\projects\laso-hero\src\commons.cpp
 	"commons.h"
 
-1682469288 source:f:\gamedev2023\projects\laso-hero\src\enemy.cpp
+1682489605 source:f:\gamedev2023\projects\laso-hero\src\enemy.cpp
 	"enemy.h"
 
 1682469288 f:\gamedev2023\projects\laso-hero\include\enemy.h
@@ -926,7 +927,7 @@
 	<windows.h>
 	<GL/glut.h>
 
-1682485717 f:\gamedev2023\projects\laso-hero\include\player.h
+1682489605 f:\gamedev2023\projects\laso-hero\include\player.h
 	<textureLoader.h>
 	<commons.h>
 
@@ -1012,7 +1013,7 @@
 
 1668646408 f:\gamedev2023\common\include\soil.h
 
-1682485717 source:f:\gamedev2023\projects\laso-hero\src\player.cpp
+1682489605 source:f:\gamedev2023\projects\laso-hero\src\player.cpp
 	"player.h"
 
 1682469288 source:f:\gamedev2023\projects\laso-hero\src\bullet.cpp
