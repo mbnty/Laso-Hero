@@ -45,6 +45,7 @@ float t = 0;
 int numBullet;
 int level = 0;
 clock_t start;
+clock_t run;
 
 scene::scene()
 {
@@ -254,6 +255,26 @@ int scene::drawScene()
                 wep->run = false;
             }
         }
+
+        if (clock() - run > 30) {
+            KbMs->keyPlayer(ply);
+            KbMs->keyEnv(prLx[1], 0.005);
+            KbMs->keyEnemy(walker);
+
+            KbMs->keyEnvL1(pl1,0.05);
+            KbMs->keyEnvL1(pl2,0.05);
+            KbMs->keyEnvL1(pl3,0.05);
+            KbMs->keyEnvL1(pl4,0.05);
+            KbMs->keyEnvL1(pl5,0.05);
+
+            KbMs->keyEnvL1(sp1,0.05);
+            KbMs->keyEnvL1(sp2,0.05);
+            KbMs->keyEnvL1(sp3,0.05);
+
+            KbMs->keyPowerUp(spec, 0.05);
+            run = clock();
+        }
+
         /*
         if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
             walker->isHit = true ;
@@ -574,7 +595,7 @@ int scene::initScene()
     Hud->initUi("images/ammo.png", 1);
     //F->buildFonts((char*)ply->health);
 
-    start = clock();
+    start = run = clock();
 
     return true;
 }
@@ -599,24 +620,10 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     switch(uMsg) {
         case WM_KEYDOWN:
+            KbMs->keys[wParam] = true;
             if (scne == LV1 && ply->actionTrigger != ply->JUMP) {
-                KbMs->keyPlayer(ply);
-                KbMs->keyEnv(prLx[1], 0.005);
-                KbMs->keyEnemy(walker);
-                //KbMs->keyBullet(ammo, ply);
                 wep->wPos.y = 10.0;
                 //keyboard movement for the platforms level 1
-                KbMs->keyEnvL1(pl1,0.05);
-                KbMs->keyEnvL1(pl2,0.05);
-                KbMs->keyEnvL1(pl3,0.05);
-                KbMs->keyEnvL1(pl4,0.05);
-                KbMs->keyEnvL1(pl5,0.05);
-
-                KbMs->keyEnvL1(sp1,0.05);
-                KbMs->keyEnvL1(sp2,0.05);
-                KbMs->keyEnvL1(sp3,0.05);
-
-                KbMs->keyPowerUp(spec, 0.05);
 
                 if(KbMs->keyPause() == 1){ //if H key is pressed
                     scne = PAUSE; //pause the game
@@ -686,6 +693,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             break;
 
         case WM_KEYUP:
+            KbMs->keys[wParam] = false;
             if (scne == LV1 || scne == LV2 || scne == LV3) {
                 ply->actions(ply->IDLE);
             }

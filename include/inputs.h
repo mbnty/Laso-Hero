@@ -18,6 +18,8 @@ class inputs
         inputs();
         virtual ~inputs();
 
+        bool keys[256];
+
         void getRealMouse(int, int);
 
         void keyModel(model*);

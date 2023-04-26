@@ -47,13 +47,13 @@ void inputs::keyModel(model*)
 
 void inputs::keyPlayer(player* ply)
 {
-    if(wParam == VK_LEFT || wParam == 0x41){
+    if(keys[VK_LEFT] || keys[0x41]){
         ply->actions(ply->WALKL);
     }
-    if(wParam == VK_RIGHT || wParam == 0x44){
+    if(keys[VK_RIGHT] || keys[0x44]){
         ply->actions(ply->WALKR);
     }
-    if(wParam == VK_UP || wParam == 0x57){
+    if(keys[VK_UP] || keys[VK_SPACE] && ply->actionTrigger != ply->JUMP){
          ply->actions(ply->JUMP);
     }
     /*
@@ -105,18 +105,16 @@ void inputs::mousePlayer()
 
 void inputs::keyEnv(parallax& plx, float speed)
 {
-    switch(wParam)
-    {
-        case VK_LEFT:
-            plx.xMax -= speed;
-            plx.xMin -= speed;
-            break;
+    if (keys[VK_LEFT]) {
+        plx.xMax -= speed;
+        plx.xMin -= speed;
+    }
 
-        case VK_RIGHT:
-            plx.xMax += speed;
-            plx.xMin += speed;
-            break;
-
+    if (keys[VK_RIGHT]) {
+        plx.xMax += speed;
+        plx.xMin += speed;
+    }
+/*
         case VK_UP:
             //plx->yMax -=speed;
             //plx->yMin -=speed;
@@ -127,7 +125,7 @@ void inputs::keyEnv(parallax& plx, float speed)
             //plx->yMin += speed;
             break;
 
-    }
+    }*/
 }
 
 int inputs::keyPause()
@@ -146,10 +144,10 @@ int inputs::keyPause()
 
 void inputs::keyEnemy(enemy* en)
 {
-    if(wParam == VK_RIGHT){
+    if(keys[VK_RIGHT]){
         en->enemyPosition.x -= en->enemySpeed.x;
     }
-    if(wParam == VK_LEFT){
+    if(keys[VK_LEFT]){
         en->enemyPosition.x += en->enemySpeed.x;
     }
 }
@@ -269,18 +267,14 @@ void inputs::updateWParam(WPARAM param)
 
 void inputs::keyEnvL1(platform* p, float speed)
 {
-    switch(wParam)
-    {
-        case VK_LEFT:
-            case 0x41:
-            p->pos.x += speed;
-            break;
+    if (keys[VK_LEFT] || keys[0x41]) {
+        p->pos.x += speed;
+    }
 
-        case VK_RIGHT:
-            case 0x44:
-            p->pos.x -= speed;
-            break;
-
+    if (keys[VK_RIGHT] || keys[0x44]) {
+        p->pos.x -= speed;
+    }
+/*
         case VK_UP:
             //plx->yMax -=speed;
             //plx->yMin -=speed;
@@ -291,23 +285,19 @@ void inputs::keyEnvL1(platform* p, float speed)
             //plx->yMin += speed;
             break;
 
-    }
+    }*/
 }
 
 void inputs::keyPowerUp(powerups* pow, float speed)
 {
-    switch(wParam)
-    {
-        case VK_LEFT:
-            case 0x41:
-            pow->powPos.x += speed;
-            break;
+    if (keys[VK_LEFT] || keys[0x41]) {
+        pow->powPos.x += speed;
+    }
 
-        case VK_RIGHT:
-            case 0x44:
-            pow->powPos.x -= speed;
-            break;
-
+    if (keys[VK_RIGHT] || keys[0x44]) {
+        pow->powPos.x -= speed;
+    }
+/*
         case VK_UP:
             //plx->yMax -=speed;
             //plx->yMin -=speed;
@@ -318,6 +308,6 @@ void inputs::keyPowerUp(powerups* pow, float speed)
             //plx->yMin += speed;
             break;
 
-    }
+    }*/
 }
 
