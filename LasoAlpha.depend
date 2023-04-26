@@ -1047,7 +1047,7 @@
 	<iostream>
 	<time.h>
 
-1682469746 source:c:\users\oskiez\desktop\graphics\laso-hero\src\checkcollision.cpp
+1682476024 source:c:\users\oskiez\desktop\graphics\laso-hero\src\checkcollision.cpp
 	"checkCollision.h"
 
 1682469746 c:\users\oskiez\desktop\graphics\laso-hero\include\checkcollision.h
@@ -1070,10 +1070,10 @@
 
 1682461290 c:\users\oskiez\desktop\graphics\laso-hero\include\positions.h
 
-1682469284 source:c:\users\oskiez\desktop\graphics\laso-hero\src\inputs.cpp
+1682469862 source:c:\users\oskiez\desktop\graphics\laso-hero\src\inputs.cpp
 	"inputs.h"
 
-1682469284 c:\users\oskiez\desktop\graphics\laso-hero\include\inputs.h
+1682469862 c:\users\oskiez\desktop\graphics\laso-hero\include\inputs.h
 	<windows.h>
 	<model.h>
 	<player.h>
@@ -1126,7 +1126,7 @@
 1682461290 source:c:\users\oskiez\desktop\graphics\laso-hero\src\parallax.cpp
 	"parallax.h"
 
-1682469669 source:c:\users\oskiez\desktop\graphics\laso-hero\src\platform.cpp
+1682475744 source:c:\users\oskiez\desktop\graphics\laso-hero\src\platform.cpp
 	"platform.h"
 
 1682469284 source:c:\users\oskiez\desktop\graphics\laso-hero\src\player.cpp
@@ -1135,7 +1135,7 @@
 1682461290 source:c:\users\oskiez\desktop\graphics\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682469284 source:c:\users\oskiez\desktop\graphics\laso-hero\src\scene.cpp
+1682476271 source:c:\users\oskiez\desktop\graphics\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"
