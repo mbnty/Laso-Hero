@@ -205,18 +205,55 @@ int scene::drawScene()
         }
 
 
-        //check if collision with top of platform
+        //check if collision with top of platform 1
         if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl1))
         {
             ply->groundValue = (pl1->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4;
-        }
-        else if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl1))
-        {   //scuffed version of getting on the platform
-            ply->actions(ply->JUMP);
-            ply->t = 8.2;
-            ply->groundValue = -0.65;
+            cout << ply->actionTrigger << endl;
         }
 
+        else if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl1))
+        {   //scuffed version of getting on the platform
+            ply->t = 8.2;
+            ply->actions(ply->JUMP);
+            ply->groundValue = -0.65;
+            if(ply->pPos.y == -0.65)
+            {
+                ply->actionTrigger = ply->IDLE;
+                ply->t = 1 ;
+            }
+        }
+        //check if collision with top of platform 2
+        if ((ply->pPos.y ) >= (pl2->pos.y +(0.25 * pl2->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl2))
+        {
+            ply->groundValue = (pl2->pos.y +(0.25 * pl2->scaleSize.y)) + 0.4;
+            if(ply->pPos.y == (pl1->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4)
+            {
+                ply->actionTrigger = ply->IDLE;
+                ply->t = 1;
+            }
+        }
+        //check if collision with top of platform 3
+        if ((ply->pPos.y ) >= (pl3->pos.y +(0.25 * pl3->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl3))
+        {
+            ply->groundValue = (pl3->pos.y +(0.25 * pl3->scaleSize.y)) + 0.4;
+            ply->actions(ply->IDLE);
+            cout << ply->t << endl;
+        }
+        //check if collision with top of platform 4
+        if ((ply->pPos.y ) >= (pl4->pos.y +(0.25 * pl2->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl4))
+        {
+            ply->groundValue = (pl4->pos.y +(0.25 * pl4->scaleSize.y)) + 0.4;
+            ply->actions(ply->IDLE);
+            cout << ply->t << endl;
+        }
+        //check if collision with top of platform 4
+        if ((ply->pPos.y ) >= (pl5->pos.y +(0.25 * pl5->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl5))
+        {
+            ply->groundValue = (pl5->pos.y +(0.25 * pl5->scaleSize.y)) + 0.4;
+            ply->actions(ply->IDLE);
+            cout << ply->t << endl;
+        }
 
 
         //check if collision with spikes
