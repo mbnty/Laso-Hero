@@ -174,12 +174,15 @@ int inputs::keyTitle(title* tl)
             break;
 
         case VK_NUMPAD1:
+        case 0x31:
             return 2;
             break;
         case VK_NUMPAD2:
+        case 0x32:
             return 6;
             break;
         case VK_NUMPAD3:
+        case 0x33:
             return 7;
             break;
     }
