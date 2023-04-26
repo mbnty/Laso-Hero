@@ -6,6 +6,7 @@
 #include <player.h>
 #include <title.h>
 #include <whip.h>
+#include <bullet.h>
 #include <parallax.h>
 #include <lvl1.h>
 #include<enemy.h>
@@ -33,6 +34,8 @@ class inputs
         void keyUp();
         void mouseWhip(whip*, player*, double, double);
         void mouseMove(double, double);
+
+        void keyBullet(bullet*, player*);
 
         void updateWParam(WPARAM);
 

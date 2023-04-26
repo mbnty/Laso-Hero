@@ -188,6 +188,21 @@ void inputs::keyWhip(whip* wep, player* ply)
     }
 }
 
+void inputs::keyBullet(bullet* ammo, player* ply)
+{
+    if (wParam == VK_SPACE) {
+        int n = ply->ammo - 1;
+        if (n >= 0) {
+            ammo[n].placeBullet(ply->pPos);
+            if (ply->playerDir == 'L')
+                ammo[n].act = ammo->MOVEL;
+            else if (ply->playerDir == 'R')
+                ammo[n].act = ammo->MOVER;
+            ply->ammo--;
+        }
+    }
+}
+
 void inputs::keyUp()
 {
 
@@ -207,7 +222,7 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
             wep->wEnd.x = realX;
             wep->wEnd.y = realY + 2.6;
             wep->wEnd.z = realZ;
-            cout << wep->wEnd.x << wep->wEnd.y << wep->wEnd.z << endl;
+            cout << wep->wEnd.x << " " << wep->wEnd.y << " " << wep->wEnd.z << endl;
             break;
 
         case MK_RBUTTON:

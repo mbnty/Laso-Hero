@@ -239,6 +239,7 @@ void player::actions(acts action)
             pPos.x = -2.5;
         }
 
+
         actionTrigger = WALKL;
         break;
 
