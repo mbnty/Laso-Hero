@@ -32,23 +32,21 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="../common/include" />
+			<Add directory="../../Common/include" />
 		</Compiler>
 		<Linker>
-			<Add library="../common/lib/libSOIL.a" />
-			<Add library="../common/lib/glut32.lib" />
+			<Add library="../../Common/lib/glut32.lib" />
+			<Add library="../../Common/lib/libSOIL.a" />
 			<Add library="opengl32" />
 			<Add library="glu32" />
 			<Add library="gdi32" />
-			<Add directory="../common/lib" />
+			<Add directory="../../Common/lib" />
 		</Linker>
 		<Unit filename="include/Light.h" />
 		<Unit filename="include/bullet.h" />
 		<Unit filename="include/checkCollision.h" />
 		<Unit filename="include/commons.h" />
-		<Unit filename="include/deleteme.h" />
 		<Unit filename="include/enemy.h" />
-		<Unit filename="include/fonts.h" />
 		<Unit filename="include/inputs.h" />
 		<Unit filename="include/lvl1.h" />
 		<Unit filename="include/model.h" />
@@ -56,6 +54,7 @@
 		<Unit filename="include/platform.h" />
 		<Unit filename="include/player.h" />
 		<Unit filename="include/positions.h" />
+		<Unit filename="include/powerups.h" />
 		<Unit filename="include/scene.h" />
 		<Unit filename="include/textureLoader.h" />
 		<Unit filename="include/title.h" />
@@ -66,9 +65,7 @@
 		<Unit filename="src/bullet.cpp" />
 		<Unit filename="src/checkCollision.cpp" />
 		<Unit filename="src/commons.cpp" />
-		<Unit filename="src/deleteme.cpp" />
 		<Unit filename="src/enemy.cpp" />
-		<Unit filename="src/fonts.cpp" />
 		<Unit filename="src/inputs.cpp" />
 		<Unit filename="src/lvl1.cpp" />
 		<Unit filename="src/model.cpp" />
@@ -76,6 +73,7 @@
 		<Unit filename="src/platform.cpp" />
 		<Unit filename="src/player.cpp" />
 		<Unit filename="src/positions.cpp" />
+		<Unit filename="src/powerups.cpp" />
 		<Unit filename="src/scene.cpp" />
 		<Unit filename="src/textureLoader.cpp" />
 		<Unit filename="src/title.cpp" />
