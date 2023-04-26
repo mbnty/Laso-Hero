@@ -17,8 +17,9 @@ class platform
         int hFrames; //horizontal frames
         int vFrames; //vertical frames
 
-        void drawPlatform(float,float,float,float);
+        void drawPlatform();
         void initPlatform(char *, int, int);
+        void place(float,float,float,float);
 
         GLuint tex;
         textureLoader *tLoad = new textureLoader();
