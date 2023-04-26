@@ -175,9 +175,6 @@ int scene::drawScene()
         ply->drawPlayer();
         if (ply->actionTrigger == ply->JUMP)
             ply->actions(ply->JUMP);
-        else if (ply->actionTrigger == ply->IDLE) {
-            ply->actions(ply->IDLE);
-        }
         glPopMatrix();
 
         /*
@@ -241,7 +238,8 @@ int scene::drawScene()
 
         if (wep->run == true) {
             if (hit->isQuadCollisionWhip(wep, walker)) {
-                walker->movement = walker->DIE;
+                //walker->movement = walker->DIE;
+                cout << "hit" << endl;
             }
 
             if (wep->t < 1) {
@@ -427,9 +425,6 @@ int scene::drawScene()
         ply->drawPlayer();
         if (ply->actionTrigger == ply->JUMP)
             ply->actions(ply->JUMP);
-        else if (ply->actionTrigger == ply->IDLE) {
-            ply->actions(ply->IDLE);
-        }
         glPopMatrix();
 
         if (!walker->isDead && hit->isQuadCollisionEnemy(ply, walker) && clock() - ply->damage > 2000) {
@@ -684,7 +679,6 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_LBUTTONDOWN:
             if (scne == LV1 || scne == LV2 || scne == LV3) {
                 KbMs->mouseWhip(wep, ply, LOWORD(lParam), HIWORD(lParam));
-                wep->t = 0;
             }
             else if (scne == TITLE) {
                 scne = MENU;

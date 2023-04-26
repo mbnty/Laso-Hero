@@ -53,7 +53,7 @@ void inputs::keyPlayer(player* ply)
     if(keys[VK_RIGHT] || keys[0x44]){
         ply->actions(ply->WALKR);
     }
-    if(keys[VK_UP] || keys[VK_SPACE] && ply->actionTrigger != ply->JUMP){
+    if(keys[VK_UP] && ply->actionTrigger != ply->JUMP){
          ply->actions(ply->JUMP);
     }
     /*
@@ -234,7 +234,7 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
 
             wep->wPos.x = ply->pPos.x;
             wep->wPos.y = ply->pPos.y;
-            wep->wPos.z = ply->pPos.z;
+            //wep->wPos.z = ply->pPos.z;
             if (ply->playerDir == 'L') {
                 wep->wEnd.x = -3.0;
                 wep->wEnd.y = 1.0;
@@ -243,6 +243,7 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
                 wep->wEnd.x = 3.0;
                 wep->wEnd.y = 1.0;
             }
+            wep->t = 0;
             wep->run = true;
             break;
 

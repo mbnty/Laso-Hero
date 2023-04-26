@@ -21,7 +21,7 @@ player::player()
     start = clock();
     damage = clock();
 
-    playerDir = 'I';
+    playerDir = 'R';
 
     pPos.x = 0;
     pPos.y = -0.65;
@@ -175,6 +175,7 @@ void player::actions(acts action)
                 t = 1;
                 pPos.y = groundValue;
                 actionTrigger = IDLE;   // Update actionTrigger
+                isIdle = true;
             }
             start = clock();
         }
