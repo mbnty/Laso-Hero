@@ -19,11 +19,11 @@ enemy *walker = new enemy();
 player *ply = new player();
 title *tl = new title();
 whip* wep = new whip();
-bullet ammo[6];
 checkCollision *hit = new checkCollision();
 ui *Hud = new ui();
 
 parallax prLx[4];
+bullet ammo[6];
 
 /*
 //objects for the platforms for the first level
@@ -110,10 +110,12 @@ int scene::drawScene()
             Hud->drawSquare(screenWidth, screenHeight, 1);
             glPopMatrix();
         }
+        /*
         glPushMatrix();
         glTranslatef(3, 2, 0);
         Hud->drawSquare(screenWidth, screenHeight, 0);
         glPopMatrix();
+        */
 
         glPushMatrix(); // this martix holds the platforms
         l1->drawLvl1();
@@ -126,6 +128,22 @@ int scene::drawScene()
         glPopMatrix();
         */
 
+        for (int i = 0; i < 6; i++) {
+            glPushMatrix();
+            ammo[i].drawBullet();
+            glPopMatrix();
+
+            if (ammo[i].bPos.x >= 7.0 || ammo[i].bPos.x <= -7.0)
+                ammo[i].act = ammo->IDLE;
+
+            if (walker->movement != walker->DIE) {
+                if (hit->isRadialCollision(ammo[i].bPos.x, walker->enemyPosition.x, ammo[i].bPos.y, walker->enemyPosition.y, 0.1, 0.5)) {
+                    walker->movement = walker->DIE;
+                    ammo[i].act = ammo->IDLE;
+                }
+            }
+        }
+
         glPushMatrix();
         ply->drawPlayer();
         if (ply->actionTrigger == ply->JUMP)
@@ -134,15 +152,17 @@ int scene::drawScene()
             ply->actions(ply->IDLE);
         }
         glPopMatrix();
+
         /*
         if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
             //walker->isHit = true ;
         }
         */
 
-        if(walker->enemyPosition.x > ply->pPos.x){
+        if(walker->enemyPosition.x > ply->pPos.x && walker->movement != walker->DIE){
             walker->movement = walker->WALKL;
-        }else{
+        }
+        else if (walker->enemyPosition.x < ply->pPos.x && walker->movement != walker->DIE) {
             walker->movement = walker->WALKR;
         }
 
@@ -182,6 +202,7 @@ int scene::drawScene()
         }
         */
     }
+
 
     else if(scne == PAUSE){
         glPushMatrix(); //matrix for the background parallax

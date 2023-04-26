@@ -24,16 +24,16 @@ void bullet::drawBullet()
 
     glBegin(GL_POLYGON);
         glTexCoord2f(xMin, yMin);
-        glVertex3f(0.1, 0.1, -2.0);
+        glVertex3f(0.15, 0.15, -2.0);
 
         glTexCoord2f(xMax, yMin);
-        glVertex3f(-0.1, 0.1, -2.0);
+        glVertex3f(-0.15, 0.15, -2.0);
 
         glTexCoord2f(xMax, yMax);
-        glVertex3f(-0.1, -0.1, -2.0);
+        glVertex3f(-0.15, -0.15, -2.0);
 
         glTexCoord2f(xMin, yMax);
-        glVertex3f(0.1, -0.1, -2.0);
+        glVertex3f(0.15, -0.15, -2.0);
     glEnd();
     actions();
 }
@@ -42,7 +42,7 @@ void bullet::placeBullet(vec3 pos)
 {
     bPos.x = pos.x;
     bPos.y = pos.y;
-    bPos.z = pos.z + 0.01;
+    bPos.z = pos.z + 0.1;
 }
 
 void bullet::initBullet(GLuint tex)
@@ -65,28 +65,26 @@ void bullet::projTexture(char* fileName)
 
 void bullet::actions()
 {
-    switch(act) {
-        case IDLE:
-            bPos.x = 0;
-            bPos.y = 15;
-            break;
+    if (act == IDLE) {
+        bPos.x = 0;
+        bPos.y = 15;
+    }
 
-        case MOVEL:
-            xMax = 0.0;
-            xMin = 1.0;
-            if (clock() - start > 60) {
-                bPos.x -= 0.5;
-                start = clock();
-            }
-            break;
+    if (act == MOVEL) {
+        xMax = 0.0;
+        xMin = 1.0;
+        if (clock() - start > 60) {
+            bPos.x -= 0.3;
+            start = clock();
+        }
+    }
 
-        case MOVER:
-            xMax = 1.0;
-            xMin = 0.0;
-            if (clock() - start > 60) {
-                bPos.x += 0.5;
-                start = clock();
-            }
-            break;
+    if (act == MOVER) {
+        xMax = 1.0;
+        xMin = 0.0;
+        if (clock() - start > 60) {
+            bPos.x += 0.3;
+            start = clock();
+        }
     }
 }
