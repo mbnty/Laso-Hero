@@ -10,7 +10,7 @@ platform::platform()
 
     pos.x = 0;
     pos.y = 0.0;
-    pos.z = -3;
+    pos.z = -2;
 
     scaleSize.x = 1.0;
     scaleSize.y = 1.0;

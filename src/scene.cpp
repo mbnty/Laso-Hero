@@ -175,9 +175,20 @@ int scene::drawScene()
             walker->drawEnemy();
         }
 
+        //check if collision with spikes
         if (hit->isQuadCollisionPlatform(ply,sp1))
         {
             cout << "Spike 1 Hit" << endl;
+        }
+
+        if (hit->isQuadCollisionPlatform(ply,sp2))
+        {
+            cout << "Spike 2 Hit" << endl;
+        }
+
+        if (hit->isQuadCollisionPlatform(ply,sp3))
+        {
+            cout << "Spike 3 Hit" << endl;
         }
 
 
@@ -310,13 +321,13 @@ int scene::initScene()
     sp3->initPlatform("images/spikes.png",1,1);
 
     pl1->place(0,0,5,1);
-    sp1->place(1,-1.4,1,0.5);
+    sp1->place(1,-1.0,1,0.5);
     pl2->place(6,0,3,1);
     pl3->place(10,0,2,1);
-    sp2->place(11,-1.4,1,0.5);
+    sp2->place(11,-1.0,1,0.5);
     pl4->place(11.5,0,2,1);
     pl5->place(18,0,5,1);
-    sp2->place(18,-1.4,2,0.5);
+    sp3->place(18,-1.0,2,0.5);
 
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
