@@ -449,12 +449,13 @@
 	<GL/glut.h>
 	<iostream>
 
-1682477013 source:c:\users\derek\desktop\vscode\laso-hero\src\checkcollision.cpp
+1682488844 source:c:\users\derek\desktop\vscode\laso-hero\src\checkcollision.cpp
 	"checkCollision.h"
 
-1682471949 c:\users\derek\desktop\vscode\laso-hero\include\checkcollision.h
+1682487268 c:\users\derek\desktop\vscode\laso-hero\include\checkcollision.h
 	<commons.h>
 	<player.h>
+	<enemy.h>
 	<platform.h>
 
 1682372199 c:\users\derek\desktop\vscode\laso-hero\include\commons.h
@@ -466,7 +467,7 @@
 1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\commons.cpp
 	"commons.h"
 
-1682465768 source:c:\users\derek\desktop\vscode\laso-hero\src\enemy.cpp
+1682488634 source:c:\users\derek\desktop\vscode\laso-hero\src\enemy.cpp
 	"enemy.h"
 
 1682465768 c:\users\derek\desktop\vscode\laso-hero\include\enemy.h
@@ -501,7 +502,7 @@
 	<windows.h>
 	<GL/glut.h>
 
-1682373962 c:\users\derek\desktop\vscode\laso-hero\include\player.h
+1682489029 c:\users\derek\desktop\vscode\laso-hero\include\player.h
 	<textureLoader.h>
 	<commons.h>
 
@@ -529,13 +530,13 @@
 	<textureLoader.h>
 	<time.h>
 
-1682476940 source:c:\users\derek\desktop\vscode\laso-hero\src\player.cpp
+1682489220 source:c:\users\derek\desktop\vscode\laso-hero\src\player.cpp
 	"player.h"
 
 1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682476973 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
+1682489450 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"

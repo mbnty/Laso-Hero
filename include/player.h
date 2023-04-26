@@ -11,6 +11,7 @@ class player
         virtual ~player();
 
         vec3 scaleSize;
+        vec3 pColor;
         vec3 verts[4];
 
         enum acts{IDLE, WALKR, WALKL, JUMP, ATTACK, DIE};
@@ -37,7 +38,7 @@ class player
         GLuint tex;
         textureLoader *tLoad = new textureLoader();
 
-        clock_t start;
+        clock_t start, damage;
 
         float groundValue;
 

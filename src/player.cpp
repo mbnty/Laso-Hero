@@ -19,12 +19,17 @@ player::player()
     theta = 30 * PI/180.0;
     t = 1;
     start = clock();
+    damage = clock();
 
     playerDir = 'L';
 
     pPos.x = 0;
     pPos.y = -0.65;
     pPos.z = -2;
+
+    pColor.x = 1;
+    pColor.y = 1;
+    pColor.z = 1;
 
     groundValue = -0.65;
 }
@@ -39,6 +44,7 @@ void player::drawPlayer()
     tLoad->binder(tex);
 
     glTranslated(pPos.x, pPos.y, pPos.z);
+    glColor3f(pColor.x, pColor.y, pColor.z);
 
     glBegin(GL_QUADS);
 
