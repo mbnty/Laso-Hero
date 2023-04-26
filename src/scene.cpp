@@ -481,7 +481,7 @@ int scene::drawScene()
             glPopMatrix();
         }
 
-        if (scne == LV1) {
+        if (level = 1) {
             glPushMatrix(); // this martix holds the platforms
             pl1->drawPlatform();
             sp1->drawPlatform();
@@ -618,7 +618,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
                 KbMs->keyPowerUp(spec, 0.05);
 
-                if((KbMs->keyPause(prLx[1])) == 1){ //if H key is pressed
+                if(KbMs->keyPause() == 1){ //if H key is pressed
                     scne = PAUSE; //pause the game
                 }
             }
@@ -628,7 +628,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 KbMs->keyEnv(prLx[2], 0.005);
                 wep->wPos.y = 10.0;
 
-                if((KbMs->keyPause(prLx[1])) == 1){ //if H key is pressed
+                if(KbMs->keyPause() == 1){ //if H key is pressed
                     scne = PAUSE; //pause the game
                 }
             }
@@ -638,7 +638,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 KbMs->keyEnv(prLx[3], 0.005);
                 wep->wPos.y = 10.0;
 
-                if((KbMs->keyPause(prLx[1])) == 1){ //if H key is pressed
+                if(KbMs->keyPause() == 1){ //if H key is pressed
                     scne = PAUSE; //pause the game
                 }
             }
@@ -670,8 +670,8 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     level = 3;
                 }
             }
-            else if(scne = PAUSE){
-                if((KbMs->keyPause(prLx[2])) == 1){ //check if ESC key is pressed
+            else if(scne == PAUSE){
+                if(KbMs->keyPause() == 1){ //check if ESC key is pressed
                     if (level == 1) //resume game
                         scne = LV1;
                     else if (level == 2)
@@ -679,7 +679,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     else if (level == 3)
                         scne = LV3;
                 }
-                else if((KbMs->keyPause(prLx[2])) == 2){
+                else if(KbMs->keyPause() == 2){
                     scne = MENU; //return to title screen
                 }
             }
