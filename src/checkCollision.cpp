@@ -50,3 +50,13 @@ bool checkCollision::isQuadCollisionEnemy(player* ply, enemy en)
 
     return collisionX && collisionY;
 }
+
+bool checkCollision::isQuadCollisionWhip(whip* wep, enemy* en)
+{
+    bool collisionX = (wep->wEnd.x * 0.8) * wep->t >= en->enemyPosition.x - 0.1 &&
+        en->enemyPosition.x + 0.2 >= (wep->wEnd.x * 0.8) * wep->t;
+    bool collisionY = (wep->wPos.y * 0.8) >= en->enemyPosition.y - 0.5 &&
+        en->enemyPosition.y + 0.4 >= (wep->wPos.y * 0.8);
+
+    return collisionX && collisionY;
+}

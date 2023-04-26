@@ -21,7 +21,7 @@ player::player()
     start = clock();
     damage = clock();
 
-    playerDir = 'I';
+    playerDir = 'R';
 
     pPos.x = 0;
     pPos.y = -0.65;
@@ -128,7 +128,7 @@ void player::actions(acts action)
 
         }
 
-        actionTrigger = WALKR;
+        //actionTrigger = WALKR;
     }
     if(action == WALKL){
         if(playerDir != 'L'){
@@ -152,7 +152,7 @@ void player::actions(acts action)
             xMin = 1.0/(float)vFrames;
         }
 
-        actionTrigger = WALKL;
+        //actionTrigger = WALKL;
     }
     if(action == JUMP){
         yMax = 2.0/(float)hFrames;
@@ -175,6 +175,7 @@ void player::actions(acts action)
                 t = 1;
                 pPos.y = groundValue;
                 actionTrigger = IDLE;   // Update actionTrigger
+                isIdle = true;
             }
             start = clock();
         }
