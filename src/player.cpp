@@ -111,7 +111,7 @@ void player::actions(acts action)
             pPos.x = 2.5;
         }
 
-        actionTrigger = WALKR;
+        //actionTrigger = WALKR;
     }
     if(action == WALKL){
         if(playerDir != 'L'){
@@ -137,7 +137,7 @@ void player::actions(acts action)
             pPos.x = -2.5;
         }
 
-        actionTrigger = WALKL;
+        //actionTrigger = WALKL;
     }
     if(action == JUMP){
         yMax = 2.0/(float)hFrames;
@@ -151,10 +151,12 @@ void player::actions(acts action)
             xMax += 1.0/(float)vFrames;
             xMin += 1.0/(float)vFrames;
 
+            /*
             if (playerDir == 'L')
                 pPos.x -= runSpeed;
             else if (playerDir == 'R')
                 pPos.x += runSpeed;
+            */
 
             if (pPos.y >= -0.65) {      // While in jump animation, update Timer
                 t += 0.2;

@@ -443,17 +443,19 @@
 	<windows.h>
 	<scene.h>
 
-1682401781 c:\users\derek\desktop\vscode\laso-hero\include\scene.h
+1682476349 c:\users\derek\desktop\vscode\laso-hero\include\scene.h
 	<windows.h>
 	<GL/gl.h>
 	<GL/glut.h>
 	<iostream>
 
-1682471517 source:c:\users\derek\desktop\vscode\laso-hero\src\checkcollision.cpp
+1682475896 source:c:\users\derek\desktop\vscode\laso-hero\src\checkcollision.cpp
 	"checkCollision.h"
 
-1682372199 c:\users\derek\desktop\vscode\laso-hero\include\checkcollision.h
+1682471949 c:\users\derek\desktop\vscode\laso-hero\include\checkcollision.h
 	<commons.h>
+	<player.h>
+	<platform.h>
 
 1682372199 c:\users\derek\desktop\vscode\laso-hero\include\commons.h
 	<math.h>
@@ -481,10 +483,10 @@
 
 1682372199 c:\users\derek\desktop\vscode\laso-hero\include\positions.h
 
-1682471399 source:c:\users\derek\desktop\vscode\laso-hero\src\inputs.cpp
+1682471949 source:c:\users\derek\desktop\vscode\laso-hero\src\inputs.cpp
 	"inputs.h"
 
-1682404024 c:\users\derek\desktop\vscode\laso-hero\include\inputs.h
+1682471949 c:\users\derek\desktop\vscode\laso-hero\include\inputs.h
 	<windows.h>
 	<model.h>
 	<player.h>
@@ -533,7 +535,7 @@
 1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682471723 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
+1682476372 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"
@@ -618,14 +620,14 @@
 	<commons.h>
 	<platform.h>
 
-1682372199 c:\users\derek\desktop\vscode\laso-hero\include\platform.h
+1682471949 c:\users\derek\desktop\vscode\laso-hero\include\platform.h
 	<commons.h>
 	<textureLoader.h>
 
-1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\platform.cpp
+1682471949 source:c:\users\derek\desktop\vscode\laso-hero\src\platform.cpp
 	"platform.h"
 
-1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\lvl1.cpp
+1682471949 source:c:\users\derek\desktop\vscode\laso-hero\src\lvl1.cpp
 	"lvl1.h"
 
 1682386101 D

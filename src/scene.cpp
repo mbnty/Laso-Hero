@@ -95,7 +95,7 @@ int scene::drawScene()
         glPopMatrix();
     }
 
-    else if (scne == PLAY) {
+    else if (scne == LV1) {
         glPushMatrix(); //matrix for the background parallax
         glScaled(3.33,3.33,1.0);
         prLx[1].drawSquare(screenWidth,screenHeight);
@@ -185,11 +185,11 @@ int scene::drawScene()
         wep->drawWhip(t);
         glPopMatrix();
 
-        if (hit->isLinearCollision(wep->wEnd.x * t, walker->enemyPosition.x)) {
-            walker->movement = walker->DIE;
-        }
-
         if (wep->run == true) {
+            if (hit->isLinearCollision(wep->wEnd.x * t, walker->enemyPosition.x)) {
+                walker->movement = walker->DIE;
+            }
+
             if (t < 1) {
                 t += 0.01;
                 start = clock();
@@ -351,7 +351,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     switch(uMsg) {
         case WM_KEYDOWN:
-            if (scne == PLAY && ply->actionTrigger != ply->JUMP) {
+            if (scne == LV1 && ply->actionTrigger != ply->JUMP) {
                 KbMs->keyPlayer(ply);
                 KbMs->keyEnv(prLx[1], 0.005);
                 KbMs->keyEnemy(walker);
@@ -378,7 +378,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             else if (scne == MENU) {
                 int temp = KbMs->keyTitle(tl);
                 if (temp == 2) {
-                    scne = PLAY;
+                    scne = LV1;
                 }
                 else if (temp == 3) {
                     //scne = HELP;
@@ -392,7 +392,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             }
             else if(scne = PAUSE){
                 if((KbMs->keyPause(prLx[2])) == 1){ //check if ESC key is pressed
-                    scne = PLAY; //resume game
+                    scne = LV1; //resume game
                 }
             else if((KbMs->keyPause(prLx[2])) == 2){
                 scne = MENU; //return to title screen
@@ -401,13 +401,13 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             break;
 
         case WM_KEYUP:
-            if (scne == PLAY) {
+            if (scne == LV1) {
                 ply->actions(ply->IDLE);
             }
             break;
 
         case WM_LBUTTONDOWN:
-            if (scne == PLAY) {
+            if (scne == LV1) {
                 KbMs->mouseWhip(wep, ply, LOWORD(lParam), HIWORD(lParam));
                 t = 0;
             }
