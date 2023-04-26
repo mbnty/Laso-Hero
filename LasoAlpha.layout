@@ -3,6 +3,7 @@
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<File name="src\platform.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="613" topLine="34" />
@@ -17,11 +18,14 @@
 			<Cursor1 position="870" topLine="28" />
 		</Cursor>
 	</File>
+=======
+>>>>>>> 13826a2eb8365e8e447341dd4e2c129da5828959
 	<File name="include\scene.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="88" topLine="0" />
 		</Cursor>
 	</File>
+<<<<<<< HEAD
 	<File name="src\whip.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="125" topLine="19" />
@@ -44,13 +48,16 @@
 			<Cursor1 position="4466" topLine="132" />
 		</Cursor>
 	</File>
+=======
+>>>>>>> 13826a2eb8365e8e447341dd4e2c129da5828959
 	<File name="include\whip.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="278" topLine="5" />
 		</Cursor>
 	</File>
-	<File name="include\checkCollision.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\scene.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
+<<<<<<< HEAD
 			<Cursor1 position="115" topLine="0" />
 		</Cursor>
 	</File>
@@ -101,6 +108,9 @@
 	<File name="src\platform.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="367" topLine="0" />
+=======
+			<Cursor1 position="15573" topLine="13" />
+>>>>>>> 13826a2eb8365e8e447341dd4e2c129da5828959
 		</Cursor>
 	</File>
 	<File name="src\bullet.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -109,6 +119,7 @@
 			<Cursor1 position="916" topLine="6" />
 		</Cursor>
 	</File>
+<<<<<<< HEAD
 <<<<<<< HEAD
 	<File name="src\bullet.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
@@ -119,20 +130,66 @@
 		<Cursor>
 			<Cursor1 position="187" topLine="0" />
 =======
+=======
+	<File name="src\checkCollision.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1247" topLine="22" />
+		</Cursor>
+	</File>
+	<File name="src\inputs.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4466" topLine="132" />
+		</Cursor>
+	</File>
+	<File name="src\enemy.cpp" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3220" topLine="117" />
+		</Cursor>
+	</File>
+	<File name="src\whip.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="125" topLine="19" />
+		</Cursor>
+	</File>
+	<File name="include\checkCollision.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="115" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\parallax.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="870" topLine="28" />
+		</Cursor>
+	</File>
+	<File name="src\player.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2365" topLine="93" />
+		</Cursor>
+	</File>
+>>>>>>> 13826a2eb8365e8e447341dd4e2c129da5828959
 	<File name="src\lvl1.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="803" topLine="30" />
 		</Cursor>
 	</File>
-	<File name="src\player.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\platform.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="891" topLine="60" />
+			<Cursor1 position="367" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\enemy.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\enemy.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
+<<<<<<< HEAD
 			<Cursor1 position="1951" topLine="96" />
 >>>>>>> 5daaca9734a7dfd3805c3e22c28d7ef0c84fc713
+=======
+			<Cursor1 position="52" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\player.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="942" topLine="16" />
+>>>>>>> 13826a2eb8365e8e447341dd4e2c129da5828959
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
