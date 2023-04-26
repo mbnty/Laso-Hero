@@ -38,7 +38,15 @@ platform *sp1 = new platform();
 platform *sp2 = new platform();
 platform *sp3 = new platform();
 
-platform plats[5];
+//objects for the platforms for the second level
+platform *pl21 = new platform();
+platform *pl22 = new platform();
+platform *pl23 = new platform();
+platform *pl24 = new platform();
+platform *pl25 = new platform();
+
+
+
 
 
 float t = 0;
@@ -227,7 +235,7 @@ int scene::drawScene()
         if ((ply->pPos.y ) >= (pl2->pos.y +(0.25 * pl2->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl2))
         {
             ply->groundValue = (pl2->pos.y +(0.25 * pl2->scaleSize.y)) + 0.4;
-            if(ply->pPos.y == (pl1->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4)
+            if(ply->pPos.y == (pl2->pos.y +(0.25 * pl2->scaleSize.y)) + 0.4)
             {
                 ply->actionTrigger = ply->IDLE;
                 ply->t = 1;
@@ -241,13 +249,13 @@ int scene::drawScene()
             cout << ply->t << endl;
         }
         //check if collision with top of platform 4
-        if ((ply->pPos.y ) >= (pl4->pos.y +(0.25 * pl2->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl4))
+        if ((ply->pPos.y ) >= (pl4->pos.y +(0.25 * pl4->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl4))
         {
             ply->groundValue = (pl4->pos.y +(0.25 * pl4->scaleSize.y)) + 0.4;
             ply->actions(ply->IDLE);
             cout << ply->t << endl;
         }
-        //check if collision with top of platform 4
+        //check if collision with top of platform 5
         if ((ply->pPos.y ) >= (pl5->pos.y +(0.25 * pl5->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl5))
         {
             ply->groundValue = (pl5->pos.y +(0.25 * pl5->scaleSize.y)) + 0.4;
@@ -328,6 +336,14 @@ int scene::drawScene()
             glPopMatrix();
         }
 
+        glPushMatrix(); // this martix holds the platforms
+        pl21->drawPlatform();
+        pl22->drawPlatform();
+        pl23->drawPlatform();
+        pl24->drawPlatform();
+        pl25->drawPlatform();
+        glPopMatrix();
+
         for (int i = 0; i < 6; i++) {
             glPushMatrix();
             ammo[i].drawBullet();
@@ -378,6 +394,56 @@ int scene::drawScene()
             ply->pColor.y = 0; ply->pColor.z = 0;
             ply->health--;
             ply->damage = clock();
+        }
+
+        //check if collision with top of platform 1
+        if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl21))
+        {
+            ply->groundValue = (pl21->pos.y +(0.25 * pl21->scaleSize.y)) + 0.4;
+            cout << ply->actionTrigger << endl;
+        }
+
+        else if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl21))
+        {   //scuffed version of getting on the platform
+            ply->t = 8.2;
+            ply->actions(ply->JUMP);
+            ply->groundValue = -0.65;
+            if(ply->pPos.y == -0.65)
+            {
+                ply->actionTrigger = ply->IDLE;
+                ply->t = 1 ;
+            }
+        }
+        //check if collision with top of platform 2
+        if ((ply->pPos.y ) >= (pl22->pos.y +(0.25 * pl22->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl22))
+        {
+            ply->groundValue = (pl22->pos.y +(0.25 * pl22->scaleSize.y)) + 0.4;
+            if(ply->pPos.y == (pl22->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4)
+            {
+                ply->actionTrigger = ply->IDLE;
+                ply->t = 1;
+            }
+        }
+        //check if collision with top of platform 3
+        if ((ply->pPos.y ) >= (pl23->pos.y +(0.25 * pl23->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl23))
+        {
+            ply->groundValue = (pl23->pos.y +(0.25 * pl23->scaleSize.y)) + 0.4;
+            ply->actions(ply->IDLE);
+            cout << ply->t << endl;
+        }
+        //check if collision with top of platform 4
+        if ((ply->pPos.y ) >= (pl24->pos.y +(0.25 * pl24->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl24))
+        {
+            ply->groundValue = (pl24->pos.y +(0.25 * pl24->scaleSize.y)) + 0.4;
+            ply->actions(ply->IDLE);
+            cout << ply->t << endl;
+        }
+        //check if collision with top of platform 5
+        if ((ply->pPos.y ) >= (pl25->pos.y +(0.25 * pl25->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl25))
+        {
+            ply->groundValue = (pl25->pos.y +(0.25 * pl25->scaleSize.y)) + 0.4;
+            ply->actions(ply->IDLE);
+            cout << ply->t << endl;
         }
 
         glPushMatrix();
@@ -588,6 +654,7 @@ int scene::initScene()
     spec->initPowerUp(spec->powTex);
 
     //initialization of the images for the platforms
+    //level 1
     pl1->initPlatform("images/platform1.png",1,1);
     pl2->initPlatform("images/platform1.png",1,1);
     pl3->initPlatform("images/platform1.png",1,1);
@@ -606,6 +673,20 @@ int scene::initScene()
     pl4->place(11.5,0,2,1);
     pl5->place(18,0,5,1);
     sp3->place(18,-1.0,2,0.5);
+
+    //level 2
+    pl21->initPlatform("images/platform2.png",1,1);
+    pl22->initPlatform("images/platform2.png",1,1);
+    pl23->initPlatform("images/platform2.png",1,1);
+    pl24->initPlatform("images/platform2.png",1,1);
+    pl25->initPlatform("images/platform2.png",1,1);
+
+    pl21->place(0,0,5,1);
+    pl22->place(6,0,3,1);
+    pl23->place(10,0,2,1);
+    pl24->place(14.5,0,2,1);
+    pl25->place(18,0,5,1);
+
 
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
@@ -642,6 +723,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 KbMs->keyEnemy(walker);
                 //KbMs->keyBullet(ammo, ply);
                 wep->wPos.y = 10.0;
+
                 //keyboard movement for the platforms level 1
                 KbMs->keyEnvL1(pl1,0.05);
                 KbMs->keyEnvL1(pl2,0.05);
@@ -664,6 +746,13 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 KbMs->keyPlayer(ply);
                 KbMs->keyEnv(prLx[2], 0.005);
                 wep->wPos.y = 10.0;
+
+                //keyboard movement for the platforms level 2
+                KbMs->keyEnvL1(pl21,0.05);
+                KbMs->keyEnvL1(pl22,0.05);
+                KbMs->keyEnvL1(pl23,0.05);
+                KbMs->keyEnvL1(pl24,0.05);
+                KbMs->keyEnvL1(pl25,0.05);
 
                 if(KbMs->keyPause() == 1){ //if H key is pressed
                     scne = PAUSE; //pause the game
