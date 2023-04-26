@@ -9,7 +9,8 @@
 #include <bullet.h>
 #include <parallax.h>
 #include <lvl1.h>
-#include<enemy.h>
+#include <enemy.h>
+#include <powerups.h>
 
 class inputs
 {
@@ -40,6 +41,8 @@ class inputs
         void updateWParam(WPARAM);
 
         void keyEnvL1(platform*, float);
+
+        void keyPowerUp(powerups*, float);
 
     protected:
 

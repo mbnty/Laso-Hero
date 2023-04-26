@@ -285,3 +285,31 @@ void inputs::keyEnvL1(platform* p, float speed)
 
     }
 }
+
+void inputs::keyPowerUp(powerups* pow, float speed)
+{
+    switch(wParam)
+    {
+        case VK_LEFT:
+            case 0x41:
+            pow->powPos.x += speed;
+            break;
+
+        case VK_RIGHT:
+            case 0x44:
+            pow->powPos.x -= speed;
+            break;
+
+        case VK_UP:
+            //plx->yMax -=speed;
+            //plx->yMin -=speed;
+            break;
+
+        case VK_DOWN:
+            //plx->yMax += speed;
+            //plx->yMin += speed;
+            break;
+
+    }
+}
+

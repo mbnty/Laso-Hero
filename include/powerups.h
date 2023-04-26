@@ -15,11 +15,16 @@ class powerups
         void powTexture(char*);
         int dropPowerUp(pos3);
 
+        enum acts{IDLE, MOVEL, MOVER};
+        acts act;
+        void actions();
+
         float xMax, xMin, yMax, yMin;
 
         vec3 powPos;
+        vec3 scaleSize;
 
-        bool isHit;
+        int isHit;
 
         GLuint powTex;
         textureLoader *powLoad = new textureLoader();

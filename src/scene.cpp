@@ -22,10 +22,10 @@ title *tl = new title();
 whip* wep = new whip();
 checkCollision *hit = new checkCollision();
 ui *Hud = new ui();
+powerups *spec = new powerups();
 
 parallax prLx[4];
 bullet ammo[6];
-powerups spec[6];
 
 //objects for the platforms for the first level
 platform *pl1 = new platform();
@@ -150,14 +150,21 @@ int scene::drawScene()
             }
         }
 
-        for(int i = 0; i < 6; i++){
-            glPushMatrix();
-            spec[i].drawSquare();
-            glPopMatrix();
-            if(walker->movement == walker->DIE){
-                spec[i].dropPowerUp(walker->enemyPosition);
-            }
+        if(walker->movement == walker->DIE){
+            spec->dropPowerUp(walker->enemyPosition);
+            spec->powPos.z = -2.0;
         }
+
+        if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
+            spec->isHit++;
+        }
+        if(spec->isHit == 1){
+            spec->act = spec->IDLE;
+            ply->ammo++;
+        }
+        glPushMatrix();
+        spec->drawSquare();
+        glPopMatrix();
 
         glPushMatrix();
         ply->drawPlayer();
@@ -342,10 +349,8 @@ int scene::initScene()
         ammo[i].initBullet(ammo[0].tex);
     }
 
-    spec[0].powTexture("images/ammo.png");
-    for(int i = 1; i < 6; i++){
-        spec[i].initPowerUp(spec[0].powTex);
-    }
+    spec->powTexture("images/ammo.png");
+    spec->initPowerUp(spec->powTex);
 
     //initialization of the images for the platforms
     pl1->initPlatform("images/platform1.png",1,1);
@@ -402,10 +407,6 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 KbMs->keyEnemy(walker);
                 //KbMs->keyBullet(ammo, ply);
                 wep->wPos.y = 10.0;
-                if((KbMs->keyPause(prLx[1])) == true){ //if H key is pressed
-                    scne = PAUSE; //pause the game
-                }
-
                 //keyboard movement for the platforms level 1
                 KbMs->keyEnvL1(pl1,0.05);
                 KbMs->keyEnvL1(pl2,0.05);
@@ -416,6 +417,12 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 KbMs->keyEnvL1(sp1,0.05);
                 KbMs->keyEnvL1(sp2,0.05);
                 KbMs->keyEnvL1(sp3,0.05);
+
+                KbMs->keyPowerUp(spec, 0.05);
+
+                if((KbMs->keyPause(prLx[1])) == 1){ //if H key is pressed
+                    scne = PAUSE; //pause the game
+                }
             }
             else if (scne == TITLE) {
                 scne = MENU;
