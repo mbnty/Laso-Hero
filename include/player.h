@@ -39,6 +39,8 @@ class player
 
         clock_t start;
 
+        float groundValue;
+
     protected:
 
     private:

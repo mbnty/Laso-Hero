@@ -36,7 +36,7 @@ platform *sp1 = new platform();
 platform *sp2 = new platform();
 platform *sp3 = new platform();
 
-//lvl1 *l1 = new lvl1();
+platform plats[5];
 
 
 float t = 0;
@@ -174,6 +174,21 @@ int scene::drawScene()
         if(walker->isHit == false){
             walker->drawEnemy();
         }
+
+
+        //check if collision with top of platform
+        if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl1))
+        {
+            ply->groundValue = (pl1->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4;
+        }
+        else if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl1))
+        {   //scuffed version of getting on the platform
+            ply->actions(ply->JUMP);
+            ply->t = 8.2;
+            ply->groundValue = -0.65;
+        }
+
+
 
         //check if collision with spikes
         if (hit->isQuadCollisionPlatform(ply,sp1))

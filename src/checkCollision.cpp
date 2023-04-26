@@ -32,11 +32,12 @@ bool checkCollision::isSphereCollision(vec3 x, vec3 y)
 bool checkCollision::isQuadCollisionPlatform(player* ply, platform* plat)
 {
     // collision x-axis
-    bool collisionX = ply->pPos.x + 0.5 >= plat->pos.x - (0.25 * plat->scaleSize.x) &&
-        plat->pos.x + (0.25 * plat->scaleSize.x) >= ply->pPos.x - 0.5;
+    bool collisionX = ply->pPos.x + 0.2 >= plat->pos.x - (0.25 * plat->scaleSize.x) &&
+        plat->pos.x + (0.25 * plat->scaleSize.x) >= ply->pPos.x - 0.2;
     // collision y-axis
-    bool collisionY = ply->pPos.y + 0.5 >= plat->pos.y - (0.25 * plat->scaleSize.y) &&
+    bool collisionY = ply->pPos.y + 0.4 >= plat->pos.y - (0.25 * plat->scaleSize.y) &&
         plat->pos.y + (0.25 * plat->scaleSize.y) >= ply->pPos.y - 0.5;
 
     return collisionX && collisionY;
 }
+
