@@ -10,7 +10,7 @@ platform::platform()
 
     pos.x = 0;
     pos.y = 0.0;
-    pos.z = -3;
+    pos.z = -2;
 
     scaleSize.x = 1.0;
     scaleSize.y = 1.0;
@@ -22,13 +22,8 @@ platform::~platform()
     //dtor
 }
 
-void platform::drawPlatform(float posX, float posY, float scaleX, float scaleY)
+void platform::drawPlatform()
 {
-    pos.x = posX;
-    pos.y = posY;
-    scaleSize.x = scaleX;
-    scaleSize.y = scaleY;
-
     tLoad->binder(tex);
     glPushMatrix();
     glTranslated(pos.x, pos.y, pos.z);
@@ -67,4 +62,12 @@ void platform::initPlatform(char* fileName, int vFrm, int hFrm)
     yMin = 0.0;
 
     tLoad->loadTexture(fileName, tex);
+}
+
+void platform::place(float posX, float posY, float scaleX, float scaleY)
+{
+    pos.x = posX;
+    pos.y = posY;
+    scaleSize.x = scaleX;
+    scaleSize.y = scaleY;
 }

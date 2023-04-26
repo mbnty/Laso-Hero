@@ -12,7 +12,7 @@ class scene
         scene();
         virtual ~scene();
 
-        enum states{TITLE, MENU, HELP, PLAY, CREDITS, PAUSE};
+        enum states{TITLE, MENU, HELP, LV1, LV2, LV3, CREDITS, PAUSE};
         states scne;
 
         int drawScene();

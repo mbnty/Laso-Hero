@@ -14,7 +14,7 @@ checkCollision::~checkCollision()
 
 bool checkCollision::isLinearCollision(float x1, float x2)
 {
-    if((fabs(x1-x2)) < 0.1) return true;
+    if((fabs(x1-x2)) < 0.05) return true;
     else return false;
 }
 
@@ -29,7 +29,15 @@ bool checkCollision::isSphereCollision(vec3 x, vec3 y)
 
 }
 
-bool checkCollision::isQuadCollision(vec2 x, vec2 y)
+bool checkCollision::isQuadCollisionPlatform(player* ply, platform* plat)
 {
+    // collision x-axis
+    bool collisionX = ply->pPos.x + 0.2 >= plat->pos.x - (0.25 * plat->scaleSize.x) &&
+        plat->pos.x + (0.25 * plat->scaleSize.x) >= ply->pPos.x - 0.2;
+    // collision y-axis
+    bool collisionY = ply->pPos.y + 0.4 >= plat->pos.y - (0.25 * plat->scaleSize.y) &&
+        plat->pos.y + (0.25 * plat->scaleSize.y) >= ply->pPos.y - 0.5;
 
+    return collisionX && collisionY;
 }
+

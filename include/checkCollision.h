@@ -2,6 +2,8 @@
 #define CHECKCOLLISION_H
 #include <commons.h>
 
+#include <player.h>
+#include <platform.h>
 
 class checkCollision
 {
@@ -12,7 +14,8 @@ class checkCollision
         bool isLinearCollision(float, float);
         bool isRadialCollision(float, float, float, float, float, float);
         bool isSphereCollision(vec3 x, vec3 y);
-        bool isQuadCollision(vec2 x, vec2 y);
+        bool isQuadCollisionPlatform(player*, platform*);
+
 
     protected:
 

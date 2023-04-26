@@ -27,17 +27,21 @@ parallax prLx[4];
 bullet ammo[6];
 powerups spec[6];
 
-/*
 //objects for the platforms for the first level
 platform *pl1 = new platform();
 platform *pl2 = new platform();
 platform *pl3 = new platform();
+platform *pl4 = new platform();
+platform *pl5 = new platform();
+
 platform *sp1 = new platform();
-*/
-lvl1 *l1 = new lvl1();
+platform *sp2 = new platform();
+platform *sp3 = new platform();
+
+platform plats[5];
 
 
-float t = 0.2;
+float t = 0;
 int numBullet;
 clock_t start;
 
@@ -93,7 +97,7 @@ int scene::drawScene()
         glPopMatrix();
     }
 
-    else if (scne == PLAY) {
+    else if (scne == LV1) {
         glPushMatrix(); //matrix for the background parallax
         glScaled(3.33,3.33,1.0);
         prLx[1].drawSquare(screenWidth,screenHeight);
@@ -120,15 +124,15 @@ int scene::drawScene()
         */
 
         glPushMatrix(); // this martix holds the platforms
-        l1->drawLvl1();
-        /*
-        pl1->drawPlatform(1,0,3,1);
-        //pl2->drawPlatform(5,0,3,1);
-        //pl3->drawPlatform(8,0,1,1);
-        sp1->drawPlatform(1,-1.4,0.5,0.5);
-
+        pl1->drawPlatform();
+        sp1->drawPlatform();
+        pl2->drawPlatform();
+        pl3->drawPlatform();
+        sp2->drawPlatform();
+        pl4->drawPlatform();
+        pl5->drawPlatform();
+        sp2->drawPlatform();
         glPopMatrix();
-        */
 
         for (int i = 0; i < 6; i++) {
             glPushMatrix();
@@ -183,19 +187,54 @@ int scene::drawScene()
         }
 
 
-        glDisable(GL_TEXTURE_2D);
+        //check if collision with top of platform
+        if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl1))
+        {
+            ply->groundValue = (pl1->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4;
+        }
+        else if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl1))
+        {   //scuffed version of getting on the platform
+            ply->actions(ply->JUMP);
+            ply->t = 8.2;
+            ply->groundValue = -0.65;
+        }
+
+
+
+        //check if collision with spikes
+        if (hit->isQuadCollisionPlatform(ply,sp1))
+        {
+            cout << "Spike 1 Hit" << endl;
+        }
+
+        if (hit->isQuadCollisionPlatform(ply,sp2))
+        {
+            cout << "Spike 2 Hit" << endl;
+        }
+
+        if (hit->isQuadCollisionPlatform(ply,sp3))
+        {
+            cout << "Spike 3 Hit" << endl;
+        }
+
 
         glPushMatrix();
         wep->drawWhip(t);
         glPopMatrix();
 
-        glEnable(GL_TEXTURE_2D);
-        if (t < 1 && clock() - start > 50) {
-            t += 0.1;
-            start = clock();
-        }
-        else if (t >= 1 && clock() - start > 120) {
-            wep->wPos.y = 10.0;
+        if (wep->run == true) {
+            if (hit->isLinearCollision(wep->wEnd.x * t, walker->enemyPosition.x)) {
+                walker->movement = walker->DIE;
+            }
+
+            if (t < 1) {
+                t += 0.01;
+                start = clock();
+            }
+            else if (t >= 1 && clock() - start > 120) {
+                wep->wPos.y = 10.0;
+                wep->run = false;
+            }
         }
         /*
         if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
@@ -240,13 +279,14 @@ int scene::drawScene()
         }
 
         glPushMatrix(); // this martix holds the platforms
-        l1->drawLvl1();
-        /*
-        pl1->drawPlatform(1,0,3,1);
-        //pl2->drawPlatform(5,0,3,1);
-        //pl3->drawPlatform(8,0,1,1);
-        sp1->drawPlatform(1,-1.4,0.5,0.5);
-        */
+        pl1->drawPlatform();
+        sp1->drawPlatform();
+        pl2->drawPlatform();
+        pl3->drawPlatform();
+        sp2->drawPlatform();
+        pl4->drawPlatform();
+        pl5->drawPlatform();
+        sp2->drawPlatform();
         glPopMatrix();
 
         glPushMatrix();
@@ -307,14 +347,25 @@ int scene::initScene()
         spec[i].initPowerUp(spec[0].powTex);
     }
 
-    /*
     //initialization of the images for the platforms
     pl1->initPlatform("images/platform1.png",1,1);
     pl2->initPlatform("images/platform1.png",1,1);
     pl3->initPlatform("images/platform1.png",1,1);
+    pl4->initPlatform("images/platform1.png",1,1);
+    pl5->initPlatform("images/platform1.png",1,1);
+
     sp1->initPlatform("images/spikes.png",1,1);
-    */
-    l1->initLvl1();
+    sp2->initPlatform("images/spikes.png",1,1);
+    sp3->initPlatform("images/spikes.png",1,1);
+
+    pl1->place(0,0,5,1);
+    sp1->place(1,-1.0,1,0.5);
+    pl2->place(6,0,3,1);
+    pl3->place(10,0,2,1);
+    sp2->place(11,-1.0,1,0.5);
+    pl4->place(11.5,0,2,1);
+    pl5->place(18,0,5,1);
+    sp3->place(18,-1.0,2,0.5);
 
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
@@ -345,16 +396,26 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     switch(uMsg) {
         case WM_KEYDOWN:
-            if (scne == PLAY && ply->actionTrigger != ply->JUMP) {
+            if (scne == LV1 && ply->actionTrigger != ply->JUMP) {
                 KbMs->keyPlayer(ply);
                 KbMs->keyEnv(prLx[1], 0.005);
-                KbMs->keyEnvL1(l1,0.05);
                 KbMs->keyEnemy(walker);
-                KbMs->keyBullet(ammo, ply);
+                //KbMs->keyBullet(ammo, ply);
                 wep->wPos.y = 10.0;
                 if((KbMs->keyPause(prLx[1])) == true){ //if H key is pressed
                     scne = PAUSE; //pause the game
                 }
+
+                //keyboard movement for the platforms level 1
+                KbMs->keyEnvL1(pl1,0.05);
+                KbMs->keyEnvL1(pl2,0.05);
+                KbMs->keyEnvL1(pl3,0.05);
+                KbMs->keyEnvL1(pl4,0.05);
+                KbMs->keyEnvL1(pl5,0.05);
+
+                KbMs->keyEnvL1(sp1,0.05);
+                KbMs->keyEnvL1(sp2,0.05);
+                KbMs->keyEnvL1(sp3,0.05);
             }
             else if (scne == TITLE) {
                 scne = MENU;
@@ -362,7 +423,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             else if (scne == MENU) {
                 int temp = KbMs->keyTitle(tl);
                 if (temp == 2) {
-                    scne = PLAY;
+                    scne = LV1;
                 }
                 else if (temp == 3) {
                     //scne = HELP;
@@ -376,7 +437,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             }
             else if(scne = PAUSE){
                 if((KbMs->keyPause(prLx[2])) == 1){ //check if ESC key is pressed
-                    scne = PLAY; //resume game
+                    scne = LV1; //resume game
                 }
             else if((KbMs->keyPause(prLx[2])) == 2){
                 scne = MENU; //return to title screen
@@ -385,15 +446,15 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             break;
 
         case WM_KEYUP:
-            if (scne == PLAY) {
+            if (scne == LV1) {
                 ply->actions(ply->IDLE);
             }
             break;
 
         case WM_LBUTTONDOWN:
-            if (scne == PLAY) {
+            if (scne == LV1) {
                 KbMs->mouseWhip(wep, ply, LOWORD(lParam), HIWORD(lParam));
-                t = 0.2;
+                t = 0;
             }
             else if (scne == TITLE) {
                 scne = MENU;

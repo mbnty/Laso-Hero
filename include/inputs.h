@@ -39,7 +39,7 @@ class inputs
 
         void updateWParam(WPARAM);
 
-        void keyEnvL1(lvl1 *, float);
+        void keyEnvL1(platform*, float);
 
     protected:
 

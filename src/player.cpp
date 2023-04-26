@@ -25,6 +25,8 @@ player::player()
     pPos.x = 0;
     pPos.y = -0.65;
     pPos.z = -2;
+
+    groundValue = -0.65;
 }
 
 player::~player()
@@ -111,7 +113,7 @@ void player::actions(acts action)
             pPos.x = 2.5;
         }
 
-        actionTrigger = WALKR;
+        //actionTrigger = WALKR;
     }
     if(action == WALKL){
         if(playerDir != 'L'){
@@ -137,7 +139,7 @@ void player::actions(acts action)
             pPos.x = -2.5;
         }
 
-        actionTrigger = WALKL;
+        //actionTrigger = WALKL;
     }
     if(action == JUMP){
         yMax = 2.0/(float)hFrames;
@@ -151,19 +153,21 @@ void player::actions(acts action)
             xMax += 1.0/(float)vFrames;
             xMin += 1.0/(float)vFrames;
 
+            /*
             if (playerDir == 'L')
                 pPos.x -= runSpeed;
             else if (playerDir == 'R')
                 pPos.x += runSpeed;
+            */
 
-            if (pPos.y >= -0.65) {      // While in jump animation, update Timer
+            if (pPos.y >= groundValue) {      // While in jump animation, update Timer
                 t += 0.2;
                 actionTrigger = JUMP;   // Update actionTrigger
             }
 
             else {                      // Once character reaches ground, reset Timer, character y position, and return to idle
                 t = 1;
-                pPos.y = -0.65;
+                pPos.y = groundValue;
                 actionTrigger = IDLE;   // Update actionTrigger
             }
             start = clock();
