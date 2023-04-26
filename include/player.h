@@ -42,6 +42,8 @@ class player
 
         float groundValue;
 
+        bool isIdle;
+
     protected:
 
     private:

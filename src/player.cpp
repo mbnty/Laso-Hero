@@ -21,7 +21,7 @@ player::player()
     start = clock();
     damage = clock();
 
-    playerDir = 'L';
+    playerDir = 'I';
 
     pPos.x = 0;
     pPos.y = -0.65;
@@ -32,6 +32,8 @@ player::player()
     pColor.z = 1;
 
     groundValue = -0.65;
+
+    isIdle = true;
 }
 
 player::~player()
@@ -82,18 +84,26 @@ void player::playerInit(char* fileName, int vFrm, int hFrm)
 void player::actions(acts action)
 {
     if(action == IDLE){
-        if(playerDir == 'R'){
+        if(playerDir == 'R' && isIdle == false){
             xMax = 1.0/(float)vFrames;
             xMin = 0.0;
             yMax = 1.0/(float)hFrames;
             yMin = 0.0;
+            isIdle = true;
         }
-        else if(playerDir == 'L'){
+        else if(playerDir == 'L'&& isIdle == false){
             xMax = 0.0;
             xMin = 1.0/(float)vFrames;
             yMax = 1.0/(float)hFrames;
             yMin = 0.0;
+            isIdle = true;
         }
+        if(clock() - start >= 100){
+            xMax += 1.0/(float)vFrames;
+            xMin += 1.0/(float)vFrames;
+            start = clock();
+        }
+
     }
     if(action == WALKR){
         if(playerDir != 'R'){
@@ -103,6 +113,11 @@ void player::actions(acts action)
             xMin = tmp;
             playerDir = 'R';
         }
+        if(isIdle == true){
+            yMax = 2.0/(float)hFrames;
+            yMin = 1.0/(float)hFrames;
+            isIdle = false;
+        }
 
         playerDir = 'R';
         xMin += 1.0/(float)vFrames;
@@ -111,15 +126,9 @@ void player::actions(acts action)
             xMax = 1.0/(float)vFrames;
             xMin = 0.0;
 
-            yMax += 1.0/(float)hFrames;
-            yMin += 1.0/(float)hFrames;
-        }
-        //pPos.x += runSpeed;
-        if(pPos.x >= 2.5){
-            pPos.x = 2.5;
         }
 
-        //actionTrigger = WALKR;
+        actionTrigger = WALKR;
     }
     if(action == WALKL){
         if(playerDir != 'L'){
@@ -129,6 +138,11 @@ void player::actions(acts action)
             xMin = tmp;
             playerDir = 'L';
         }
+        if(isIdle == true){
+            yMax = 2.0/(float)hFrames;
+            yMin = 1.0/(float)hFrames;
+            isIdle = false;
+        }
         playerDir = 'L';
         xMin += 1.0/(float)vFrames;
         xMax += 1.0/(float)vFrames;
@@ -136,16 +150,9 @@ void player::actions(acts action)
         if(xMin > 1){
             xMax = 0.0/(float)vFrames;
             xMin = 1.0/(float)vFrames;
-
-            yMax += 1.0/(float)hFrames;
-            yMin += 1.0/(float)hFrames;
-        }
-        //pPos.x -= runSpeed;
-        if(pPos.x <= -2.5){
-            pPos.x = -2.5;
         }
 
-        //actionTrigger = WALKL;
+        actionTrigger = WALKL;
     }
     if(action == JUMP){
         yMax = 2.0/(float)hFrames;
@@ -158,13 +165,6 @@ void player::actions(acts action)
 
             xMax += 1.0/(float)vFrames;
             xMin += 1.0/(float)vFrames;
-
-            /*
-            if (playerDir == 'L')
-                pPos.x -= runSpeed;
-            else if (playerDir == 'R')
-                pPos.x += runSpeed;
-            */
 
             if (pPos.y >= groundValue) {      // While in jump animation, update Timer
                 t += 0.2;
