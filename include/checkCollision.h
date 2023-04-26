@@ -16,6 +16,7 @@ class checkCollision
         bool isSphereCollision(vec3 x, vec3 y);
         bool isQuadCollisionPlatform(player*, platform*);
 
+
     protected:
 
     private:

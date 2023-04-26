@@ -25,6 +25,8 @@ player::player()
     pPos.x = 0;
     pPos.y = -0.65;
     pPos.z = -2;
+
+    groundValue = -0.65;
 }
 
 player::~player()
@@ -158,14 +160,14 @@ void player::actions(acts action)
                 pPos.x += runSpeed;
             */
 
-            if (pPos.y >= -0.65) {      // While in jump animation, update Timer
+            if (pPos.y >= groundValue) {      // While in jump animation, update Timer
                 t += 0.2;
                 actionTrigger = JUMP;   // Update actionTrigger
             }
 
             else {                      // Once character reaches ground, reset Timer, character y position, and return to idle
                 t = 1;
-                pPos.y = -0.65;
+                pPos.y = groundValue;
                 actionTrigger = IDLE;   // Update actionTrigger
             }
             start = clock();
