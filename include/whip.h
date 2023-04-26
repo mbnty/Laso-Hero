@@ -11,10 +11,12 @@ class whip
         virtual ~whip();
 
         void initWhip(char*);
-        void drawWhip(float);
+        void drawWhip();
         vec3 wPos;
         vec3 wEnd;
         bool run;
+
+        float t;
 
     protected:
 

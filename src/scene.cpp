@@ -40,8 +40,6 @@ platform *sp3 = new platform();
 
 platform plats[5];
 
-
-float t = 0;
 int numBullet;
 int level = 0;
 clock_t start;
@@ -238,19 +236,19 @@ int scene::drawScene()
 
 
         glPushMatrix();
-        wep->drawWhip(t);
+        wep->drawWhip();
         glPopMatrix();
 
         if (wep->run == true) {
-            if (hit->isLinearCollision(wep->wEnd.x * t, walker->enemyPosition.x)) {
+            if (hit->isQuadCollisionWhip(wep, walker)) {
                 walker->movement = walker->DIE;
             }
 
-            if (t < 1) {
-                t += 0.01;
+            if (wep->t < 1) {
+                wep->t += 0.01;
                 start = clock();
             }
-            else if (t >= 1 && clock() - start > 120) {
+            else if (wep->t >= 1 && clock() - start > 120) {
                 wep->wPos.y = 10.0;
                 wep->run = false;
             }
@@ -274,22 +272,6 @@ int scene::drawScene()
             KbMs->keyPowerUp(spec, 0.05);
             run = clock();
         }
-
-        /*
-        if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
-            walker->isHit = true ;
-        }
-
-        if(walker->isHit == false){ //gets the enemy to rewalk
-            if(walker->enDir == 'R'){
-                walker->movement = walker->WALKR;
-            }
-            if(walker->enDir == 'L'){
-                walker->movement = walker->WALKL;
-            }
-            walker->drawEnemy();
-        }
-        */
     }
 
     else if (scne == LV2) {
@@ -365,19 +347,19 @@ int scene::drawScene()
         }
 
         glPushMatrix();
-        wep->drawWhip(t);
+        wep->drawWhip();
         glPopMatrix();
 
         if (wep->run == true) {
-            if (hit->isLinearCollision(wep->wEnd.x * t, walker->enemyPosition.x)) {
+            if (hit->isQuadCollisionWhip(wep, walker)) {
                 walker->movement = walker->DIE;
             }
 
-            if (t < 1) {
-                t += 0.01;
+            if (wep->t < 1) {
+                wep->t += 0.01;
                 start = clock();
             }
-            else if (t >= 1 && clock() - start > 120) {
+            else if (wep->t >= 1 && clock() - start > 120) {
                 wep->wPos.y = 10.0;
                 wep->run = false;
             }
@@ -457,19 +439,19 @@ int scene::drawScene()
         }
 
         glPushMatrix();
-        wep->drawWhip(t);
+        wep->drawWhip();
         glPopMatrix();
 
         if (wep->run == true) {
-            if (hit->isLinearCollision(wep->wEnd.x * t, walker->enemyPosition.x)) {
+            if (hit->isQuadCollisionWhip(wep, walker)) {
                 walker->movement = walker->DIE;
             }
 
-            if (t < 1) {
-                t += 0.01;
+            if (wep->t < 1) {
+                wep->t += 0.01;
                 start = clock();
             }
-            else if (t >= 1 && clock() - start > 120) {
+            else if (wep->t >= 1 && clock() - start > 120) {
                 wep->wPos.y = 10.0;
                 wep->run = false;
             }
@@ -528,7 +510,7 @@ int scene::drawScene()
         glPopMatrix();
 
         glPushMatrix();
-        wep->drawWhip(t);
+        wep->drawWhip();
         glPopMatrix();
     }
 }
@@ -702,7 +684,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_LBUTTONDOWN:
             if (scne == LV1 || scne == LV2 || scne == LV3) {
                 KbMs->mouseWhip(wep, ply, LOWORD(lParam), HIWORD(lParam));
-                t = 0;
+                wep->t = 0;
             }
             else if (scne == TITLE) {
                 scne = MENU;

@@ -128,7 +128,7 @@ void player::actions(acts action)
 
         }
 
-        actionTrigger = WALKR;
+        //actionTrigger = WALKR;
     }
     if(action == WALKL){
         if(playerDir != 'L'){
@@ -152,7 +152,7 @@ void player::actions(acts action)
             xMin = 1.0/(float)vFrames;
         }
 
-        actionTrigger = WALKL;
+        //actionTrigger = WALKL;
     }
     if(action == JUMP){
         yMax = 2.0/(float)hFrames;

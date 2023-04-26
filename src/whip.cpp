@@ -7,6 +7,7 @@ whip::whip()
     wPos.y = 10.0;
     wPos.z = -2.0;
     run = false;
+    t = 0;
 }
 
 whip::~whip()
@@ -19,7 +20,7 @@ void whip::initWhip(char* fileName)
     tLoad->loadTexture(fileName, tex);
 }
 
-void whip::drawWhip(float t)
+void whip::drawWhip()
 {
     tLoad->binder(tex);
 
