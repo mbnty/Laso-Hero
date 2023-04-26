@@ -215,6 +215,7 @@ int scene::drawScene()
         //check if collision with top of platform 1
         if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl1))
         {
+            ply->actions(ply->IDLE);
             ply->groundValue = (pl1->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4;
         }
 
@@ -235,7 +236,7 @@ int scene::drawScene()
             ply->groundValue = (pl2->pos.y +(0.25 * pl2->scaleSize.y)) + 0.4;
             if(ply->pPos.y == (pl2->pos.y +(0.25 * pl2->scaleSize.y)) + 0.4)
             {
-                ply->actionTrigger = ply->IDLE;
+                //ply->actionTrigger = ply->IDLE;
                 ply->t = 1;
             }
         }
@@ -288,8 +289,7 @@ int scene::drawScene()
 
         if (wep->run == true) {
             if (hit->isQuadCollisionWhip(wep, walker)) {
-                //walker->movement = walker->DIE;
-                cout << "hit" << endl;
+                walker->movement = walker->DIE;
             }
 
             if (wep->t < 1) {

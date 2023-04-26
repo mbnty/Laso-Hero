@@ -491,7 +491,7 @@
 
 1682372199 c:\users\derek\desktop\vscode\laso-hero\include\positions.h
 
-1682546989 source:c:\users\derek\desktop\vscode\laso-hero\src\inputs.cpp
+1682547820 source:c:\users\derek\desktop\vscode\laso-hero\src\inputs.cpp
 	"inputs.h"
 
 1682540381 c:\users\derek\desktop\vscode\laso-hero\include\inputs.h
@@ -544,7 +544,7 @@
 1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682546511 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
+1682548271 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"
