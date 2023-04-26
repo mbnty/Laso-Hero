@@ -24,7 +24,7 @@ checkCollision *hit = new checkCollision();
 ui *Hud = new ui();
 powerups *spec = new powerups();
 
-parallax prLx[4];
+parallax prLx[5];
 bullet ammo[6];
 
 //objects for the platforms for the first level
@@ -271,6 +271,190 @@ int scene::drawScene()
         */
     }
 
+    else if (scne == LV2) {
+        glPushMatrix(); //matrix for the background parallax
+        glScaled(3.33,3.33,1.0);
+        prLx[level].drawSquare(screenWidth,screenHeight);
+        glPopMatrix();
+
+        for(int i = 0; i < ply->health; i++){
+            glPushMatrix();
+            glTranslatef(((Hud->xPos) + i)/3, Hud->yPos, 0);
+            Hud->drawSquare(screenWidth, screenHeight, 0);
+            glPopMatrix();
+        }
+
+        for(int i = 0; i < ply->ammo; i++){
+            glPushMatrix();
+            glTranslatef(((Hud->xPos) + i)/3, 1.7, 0);
+            Hud->drawSquare(screenWidth, screenHeight, 1);
+            glPopMatrix();
+        }
+
+        for (int i = 0; i < 6; i++) {
+            glPushMatrix();
+            ammo[i].drawBullet();
+            glPopMatrix();
+
+            if (ammo[i].bPos.x >= 7.0 || ammo[i].bPos.x <= -7.0)
+                ammo[i].act = ammo->IDLE;
+
+            if (walker->movement != walker->DIE) {
+                if (hit->isRadialCollision(ammo[i].bPos.x, walker->enemyPosition.x, ammo[i].bPos.y, walker->enemyPosition.y, 0.1, 0.5)) {
+                    walker->movement = walker->DIE;
+                    ammo[i].act = ammo->IDLE;
+                }
+            }
+        }
+
+        if(walker->movement == walker->DIE){
+            spec->dropPowerUp(walker->enemyPosition);
+            spec->powPos.z = -2.0;
+        }
+
+        if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
+            spec->isHit++;
+        }
+        if(spec->isHit == 1){
+            spec->act = spec->IDLE;
+            ply->ammo++;
+        }
+        glPushMatrix();
+        spec->drawSquare();
+        glPopMatrix();
+
+        if (ply->pColor.y < 1) {
+            ply->pColor.y += 0.003;
+            ply->pColor.z += 0.003;
+        }
+
+        glPushMatrix();
+        ply->drawPlayer();
+        if (ply->actionTrigger == ply->JUMP)
+            ply->actions(ply->JUMP);
+        else if (ply->actionTrigger == ply->IDLE) {
+            ply->actions(ply->IDLE);
+        }
+        glPopMatrix();
+
+        if (!walker->isDead && hit->isQuadCollisionEnemy(ply, walker) && clock() - ply->damage > 2000) {
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+        }
+
+        glPushMatrix();
+        wep->drawWhip(t);
+        glPopMatrix();
+
+        if (wep->run == true) {
+            if (hit->isLinearCollision(wep->wEnd.x * t, walker->enemyPosition.x)) {
+                walker->movement = walker->DIE;
+            }
+
+            if (t < 1) {
+                t += 0.01;
+                start = clock();
+            }
+            else if (t >= 1 && clock() - start > 120) {
+                wep->wPos.y = 10.0;
+                wep->run = false;
+            }
+        }
+    }
+
+    else if (scne == LV3) {
+        glPushMatrix(); //matrix for the background parallax
+        glScaled(3.33,3.33,1.0);
+        prLx[level].drawSquare(screenWidth,screenHeight);
+        glPopMatrix();
+
+        for(int i = 0; i < ply->health; i++){
+            glPushMatrix();
+            glTranslatef(((Hud->xPos) + i)/3, Hud->yPos, 0);
+            Hud->drawSquare(screenWidth, screenHeight, 0);
+            glPopMatrix();
+        }
+
+        for(int i = 0; i < ply->ammo; i++){
+            glPushMatrix();
+            glTranslatef(((Hud->xPos) + i)/3, 1.7, 0);
+            Hud->drawSquare(screenWidth, screenHeight, 1);
+            glPopMatrix();
+        }
+
+        for (int i = 0; i < 6; i++) {
+            glPushMatrix();
+            ammo[i].drawBullet();
+            glPopMatrix();
+
+            if (ammo[i].bPos.x >= 7.0 || ammo[i].bPos.x <= -7.0)
+                ammo[i].act = ammo->IDLE;
+
+            if (walker->movement != walker->DIE) {
+                if (hit->isRadialCollision(ammo[i].bPos.x, walker->enemyPosition.x, ammo[i].bPos.y, walker->enemyPosition.y, 0.1, 0.5)) {
+                    walker->movement = walker->DIE;
+                    ammo[i].act = ammo->IDLE;
+                }
+            }
+        }
+
+        if(walker->movement == walker->DIE){
+            spec->dropPowerUp(walker->enemyPosition);
+            spec->powPos.z = -2.0;
+        }
+
+        if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
+            spec->isHit++;
+        }
+        if(spec->isHit == 1){
+            spec->act = spec->IDLE;
+            ply->ammo++;
+        }
+        glPushMatrix();
+        spec->drawSquare();
+        glPopMatrix();
+
+        if (ply->pColor.y < 1) {
+            ply->pColor.y += 0.003;
+            ply->pColor.z += 0.003;
+        }
+
+        glPushMatrix();
+        ply->drawPlayer();
+        if (ply->actionTrigger == ply->JUMP)
+            ply->actions(ply->JUMP);
+        else if (ply->actionTrigger == ply->IDLE) {
+            ply->actions(ply->IDLE);
+        }
+        glPopMatrix();
+
+        if (!walker->isDead && hit->isQuadCollisionEnemy(ply, walker) && clock() - ply->damage > 2000) {
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+        }
+
+        glPushMatrix();
+        wep->drawWhip(t);
+        glPopMatrix();
+
+        if (wep->run == true) {
+            if (hit->isLinearCollision(wep->wEnd.x * t, walker->enemyPosition.x)) {
+                walker->movement = walker->DIE;
+            }
+
+            if (t < 1) {
+                t += 0.01;
+                start = clock();
+            }
+            else if (t >= 1 && clock() - start > 120) {
+                wep->wPos.y = 10.0;
+                wep->run = false;
+            }
+        }
+    }
+
 
     else if(scne == PAUSE){
         glPushMatrix(); //matrix for the background parallax
@@ -281,7 +465,7 @@ int scene::drawScene()
         glPushMatrix();
         glScalef(0.3, 0.3, 1);
         glTranslatef(0, 0, -2);
-        prLx[3].drawPopUp(screenWidth, screenHeight, 3);
+        prLx[4].drawPopUp(screenWidth, screenHeight, 3);
         glPopMatrix();
 
         for(int i = 0; i < ply->health; i++){
@@ -297,16 +481,26 @@ int scene::drawScene()
             glPopMatrix();
         }
 
-        glPushMatrix(); // this martix holds the platforms
-        pl1->drawPlatform();
-        sp1->drawPlatform();
-        pl2->drawPlatform();
-        pl3->drawPlatform();
-        sp2->drawPlatform();
-        pl4->drawPlatform();
-        pl5->drawPlatform();
-        sp2->drawPlatform();
-        glPopMatrix();
+        if (scne == LV1) {
+            glPushMatrix(); // this martix holds the platforms
+            pl1->drawPlatform();
+            sp1->drawPlatform();
+            pl2->drawPlatform();
+            pl3->drawPlatform();
+            sp2->drawPlatform();
+            pl4->drawPlatform();
+            pl5->drawPlatform();
+            sp2->drawPlatform();
+            glPopMatrix();
+
+            //walker->movement = walker->IDLE;
+            if(!walker->isDead){
+                walker->movement = walker->IDLE;
+            }
+            if(walker->isHit == false){
+                walker->drawEnemy();
+            }
+        }
 
         glPushMatrix();
         ply->drawPlayer();
@@ -315,14 +509,6 @@ int scene::drawScene()
         glPushMatrix();
         wep->drawWhip(t);
         glPopMatrix();
-
-        //walker->movement = walker->IDLE;
-        if(!walker->DIE){
-            walker->movement = walker->IDLE;
-        }
-        if(walker->isHit == false){
-            walker->drawEnemy();
-        }
     }
 }
 
@@ -345,8 +531,9 @@ int scene::initScene()
     walker->placeEnemy(pos3{1.0,-0.25,-2.0});
 
     prLx[1].initParallax("images/background1.jpg"); //initializing parallax with background image
-    prLx[2].initParallax("images/background1.png");
-    prLx[3].initPopUp("images/tempPause.png", 3);
+    prLx[2].initParallax("images/background2.jpg");
+    prLx[3].initParallax("images/background3.png");
+    prLx[4].initPopUp("images/tempPause.png", 3);
 
     tl->initTitle("images/title.png", 0);
     tl->initTitle("images/menu.png", 1);
@@ -435,6 +622,27 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     scne = PAUSE; //pause the game
                 }
             }
+
+            else if (scne == LV2 && ply->actionTrigger != ply->JUMP) {
+                KbMs->keyPlayer(ply);
+                KbMs->keyEnv(prLx[2], 0.005);
+                wep->wPos.y = 10.0;
+
+                if((KbMs->keyPause(prLx[1])) == 1){ //if H key is pressed
+                    scne = PAUSE; //pause the game
+                }
+            }
+
+            else if (scne == LV3 && ply->actionTrigger != ply->JUMP) {
+                KbMs->keyPlayer(ply);
+                KbMs->keyEnv(prLx[3], 0.005);
+                wep->wPos.y = 10.0;
+
+                if((KbMs->keyPause(prLx[1])) == 1){ //if H key is pressed
+                    scne = PAUSE; //pause the game
+                }
+            }
+
             else if (scne == TITLE) {
                 scne = MENU;
             }
@@ -453,25 +661,38 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 else if (temp == 5) {
                     PostQuitMessage(0);
                 }
+                else if (temp == 6) {
+                    scne = LV2;
+                    level = 2;
+                }
+                else if (temp == 7) {
+                    scne = LV3;
+                    level = 3;
+                }
             }
             else if(scne = PAUSE){
                 if((KbMs->keyPause(prLx[2])) == 1){ //check if ESC key is pressed
-                    scne = LV1; //resume game
+                    if (level == 1) //resume game
+                        scne = LV1;
+                    else if (level == 2)
+                        scne = LV2;
+                    else if (level == 3)
+                        scne = LV3;
                 }
-            else if((KbMs->keyPause(prLx[2])) == 2){
-                scne = MENU; //return to title screen
+                else if((KbMs->keyPause(prLx[2])) == 2){
+                    scne = MENU; //return to title screen
+                }
             }
-        }
             break;
 
         case WM_KEYUP:
-            if (scne == LV1) {
+            if (scne == LV1 || scne == LV2 || scne == LV3) {
                 ply->actions(ply->IDLE);
             }
             break;
 
         case WM_LBUTTONDOWN:
-            if (scne == LV1) {
+            if (scne == LV1 || scne == LV2 || scne == LV3) {
                 KbMs->mouseWhip(wep, ply, LOWORD(lParam), HIWORD(lParam));
                 t = 0;
             }
@@ -481,14 +702,16 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             break;
 
         case WM_RBUTTONDOWN:
-            numBullet = ply->ammo - 1;
-            if (numBullet >= 0) {
-                ammo[numBullet].placeBullet(ply->pPos);
-                if (ply->playerDir == 'L')
-                    ammo[numBullet].act = ammo->MOVEL;
-                else if (ply->playerDir == 'R')
-                    ammo[numBullet].act = ammo->MOVER;
-                ply->ammo--;
+            if (scne == LV1 || scne == LV2 || scne == LV3) {
+                numBullet = ply->ammo - 1;
+                if (numBullet >= 0) {
+                    ammo[numBullet].placeBullet(ply->pPos);
+                    if (ply->playerDir == 'L')
+                        ammo[numBullet].act = ammo->MOVEL;
+                    else if (ply->playerDir == 'R')
+                        ammo[numBullet].act = ammo->MOVER;
+                    ply->ammo--;
+                }
             }
             break;
 

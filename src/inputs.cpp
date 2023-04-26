@@ -176,6 +176,16 @@ int inputs::keyTitle(title* tl)
                 return tl->selection;
             }
             break;
+
+        case VK_NUMPAD1:
+            return 2;
+            break;
+        case VK_NUMPAD2:
+            return 6;
+            break;
+        case VK_NUMPAD3:
+            return 7;
+            break;
     }
     return 0;
 }
