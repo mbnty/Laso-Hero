@@ -910,7 +910,7 @@
 
 1682394362 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\deleteme.h
 
-1682541453 source:f:\gamedev2023\projects\laso-hero\src\inputs.cpp
+1682542692 source:f:\gamedev2023\projects\laso-hero\src\inputs.cpp
 	"inputs.h"
 
 1682540622 f:\gamedev2023\projects\laso-hero\include\inputs.h
@@ -929,7 +929,7 @@
 	<windows.h>
 	<GL/glut.h>
 
-1682489605 f:\gamedev2023\projects\laso-hero\include\player.h
+1682542555 f:\gamedev2023\projects\laso-hero\include\player.h
 	<textureLoader.h>
 	<commons.h>
 
@@ -974,7 +974,7 @@
 1681350195 source:f:\gamedev2023\projects\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682541048 source:f:\gamedev2023\projects\laso-hero\src\scene.cpp
+1682542660 source:f:\gamedev2023\projects\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"
@@ -1015,7 +1015,7 @@
 
 1668646408 f:\gamedev2023\common\include\soil.h
 
-1682489605 source:f:\gamedev2023\projects\laso-hero\src\player.cpp
+1682542555 source:f:\gamedev2023\projects\laso-hero\src\player.cpp
 	"player.h"
 
 1682469288 source:f:\gamedev2023\projects\laso-hero\src\bullet.cpp
@@ -1028,10 +1028,10 @@
 1682489219 source:f:\gamedev2023\projects\laso-hero\src\powerups.cpp
 	"powerups.h"
 
-1682488400 f:\gamedev2023\projects\laso-hero\include\powerups.h
-	<textureLoader.h>
-	<enemy.h>
+1682542837 f:\gamedev2023\projects\laso-hero\include\powerups.h
 	<commons.h>
+	<textureLoader.h>
+	<positions.h>
 
 1682471747 >
 

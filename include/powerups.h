@@ -3,6 +3,7 @@
 
 #include <commons.h>
 #include <textureLoader.h>
+#include <positions.h>
 
 class powerups
 {
@@ -19,7 +20,6 @@ class powerups
         void actions();
 
         float xMax, xMin, yMax, yMin;
-
         vec3 powPos;
         vec3 scaleSize;
 

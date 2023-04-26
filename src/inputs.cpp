@@ -302,7 +302,7 @@ void inputs::keyPowerUp(powerups* pow, float speed)
         case VK_LEFT:
             case 0x41:
             pow->powPos.x += speed;
-            cout << pow->powPos.x <<  "speed: " << speed << endl;
+            cout << pow->powPos.x << endl;
             break;
 
         case VK_RIGHT:
