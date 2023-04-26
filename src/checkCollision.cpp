@@ -29,7 +29,14 @@ bool checkCollision::isSphereCollision(vec3 x, vec3 y)
 
 }
 
-bool checkCollision::isQuadCollision(vec2 x, vec2 y)
+bool checkCollision::isQuadCollisionPlatform(player* p1, platform* pl)
 {
-
+    // collision x-axis
+    bool collisionX = p1->pPos.x + 0.5 >= pl->pos.x &&
+        pl->pos.x + (0.25 * pl->scaleSize.x) >= p1->pPos.x;
+    // collision y-axis
+    bool collisionY = p1->pPos.y + 0.5 >= pl->pos.y &&
+        pl->pos.y + (0.25 * pl->scaleSize.y) >= p1->pPos.y;
+    // collision only if on both axes
+    return collisionX && collisionY;
 }

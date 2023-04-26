@@ -25,14 +25,18 @@ ui *Hud = new ui();
 parallax prLx[4];
 bullet ammo[6];
 
-/*
 //objects for the platforms for the first level
 platform *pl1 = new platform();
 platform *pl2 = new platform();
 platform *pl3 = new platform();
+platform *pl4 = new platform();
+platform *pl5 = new platform();
+
 platform *sp1 = new platform();
-*/
-lvl1 *l1 = new lvl1();
+platform *sp2 = new platform();
+platform *sp3 = new platform();
+
+//lvl1 *l1 = new lvl1();
 
 
 float t = 0;
@@ -118,15 +122,15 @@ int scene::drawScene()
         */
 
         glPushMatrix(); // this martix holds the platforms
-        l1->drawLvl1();
-        /*
-        pl1->drawPlatform(1,0,3,1);
-        //pl2->drawPlatform(5,0,3,1);
-        //pl3->drawPlatform(8,0,1,1);
-        sp1->drawPlatform(1,-1.4,0.5,0.5);
-
+        pl1->drawPlatform();
+        sp1->drawPlatform();
+        pl2->drawPlatform();
+        pl3->drawPlatform();
+        sp2->drawPlatform();
+        pl4->drawPlatform();
+        pl5->drawPlatform();
+        sp2->drawPlatform();
         glPopMatrix();
-        */
 
         for (int i = 0; i < 6; i++) {
             glPushMatrix();
@@ -170,6 +174,12 @@ int scene::drawScene()
         if(walker->isHit == false){
             walker->drawEnemy();
         }
+
+        if (hit->isQuadCollisionPlatform(ply,sp1))
+        {
+            cout << "Spike 1 Hit" << endl;
+        }
+
 
         glPushMatrix();
         wep->drawWhip(t);
@@ -232,13 +242,14 @@ int scene::drawScene()
         }
 
         glPushMatrix(); // this martix holds the platforms
-        l1->drawLvl1();
-        /*
-        pl1->drawPlatform(1,0,3,1);
-        //pl2->drawPlatform(5,0,3,1);
-        //pl3->drawPlatform(8,0,1,1);
-        sp1->drawPlatform(1,-1.4,0.5,0.5);
-        */
+        pl1->drawPlatform();
+        sp1->drawPlatform();
+        pl2->drawPlatform();
+        pl3->drawPlatform();
+        sp2->drawPlatform();
+        pl4->drawPlatform();
+        pl5->drawPlatform();
+        sp2->drawPlatform();
         glPopMatrix();
 
         glPushMatrix();
@@ -291,14 +302,25 @@ int scene::initScene()
         ammo[i].initBullet(ammo[0].tex);
     }
 
-    /*
     //initialization of the images for the platforms
     pl1->initPlatform("images/platform1.png",1,1);
     pl2->initPlatform("images/platform1.png",1,1);
     pl3->initPlatform("images/platform1.png",1,1);
+    pl4->initPlatform("images/platform1.png",1,1);
+    pl5->initPlatform("images/platform1.png",1,1);
+
     sp1->initPlatform("images/spikes.png",1,1);
-    */
-    l1->initLvl1();
+    sp2->initPlatform("images/spikes.png",1,1);
+    sp3->initPlatform("images/spikes.png",1,1);
+
+    pl1->place(0,0,5,1);
+    sp1->place(1,-1.4,1,0.5);
+    pl2->place(6,0,3,1);
+    pl3->place(10,0,2,1);
+    sp2->place(11,-1.4,1,0.5);
+    pl4->place(11.5,0,2,1);
+    pl5->place(18,0,5,1);
+    sp2->place(18,-1.4,2,0.5);
 
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
@@ -332,13 +354,23 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             if (scne == PLAY && ply->actionTrigger != ply->JUMP) {
                 KbMs->keyPlayer(ply);
                 KbMs->keyEnv(prLx[1], 0.005);
-                KbMs->keyEnvL1(l1,0.05);
                 KbMs->keyEnemy(walker);
                 //KbMs->keyBullet(ammo, ply);
                 wep->wPos.y = 10.0;
                 if((KbMs->keyPause(prLx[1])) == true){ //if H key is pressed
                     scne = PAUSE; //pause the game
                 }
+
+                //keyboard movement for the platforms level 1
+                KbMs->keyEnvL1(pl1,0.05);
+                KbMs->keyEnvL1(pl2,0.05);
+                KbMs->keyEnvL1(pl3,0.05);
+                KbMs->keyEnvL1(pl4,0.05);
+                KbMs->keyEnvL1(pl5,0.05);
+
+                KbMs->keyEnvL1(sp1,0.05);
+                KbMs->keyEnvL1(sp2,0.05);
+                KbMs->keyEnvL1(sp3,0.05);
             }
             else if (scne == TITLE) {
                 scne = MENU;
