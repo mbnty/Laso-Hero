@@ -910,10 +910,10 @@
 
 1682394362 c:\users\maakuarsenal\desktop\gamedev\laso-hero\include\deleteme.h
 
-1682488622 source:f:\gamedev2023\projects\laso-hero\src\inputs.cpp
+1682541453 source:f:\gamedev2023\projects\laso-hero\src\inputs.cpp
 	"inputs.h"
 
-1682489020 f:\gamedev2023\projects\laso-hero\include\inputs.h
+1682540622 f:\gamedev2023\projects\laso-hero\include\inputs.h
 	<windows.h>
 	<model.h>
 	<player.h>
@@ -965,7 +965,7 @@
 1681350195 source:f:\gamedev2023\projects\laso-hero\src\model.cpp
 	"model.h"
 
-1682399066 source:f:\gamedev2023\projects\laso-hero\src\parallax.cpp
+1682540622 source:f:\gamedev2023\projects\laso-hero\src\parallax.cpp
 	"parallax.h"
 
 1682485717 source:f:\gamedev2023\projects\laso-hero\src\platform.cpp
@@ -974,7 +974,7 @@
 1681350195 source:f:\gamedev2023\projects\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682488890 source:f:\gamedev2023\projects\laso-hero\src\scene.cpp
+1682541048 source:f:\gamedev2023\projects\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"

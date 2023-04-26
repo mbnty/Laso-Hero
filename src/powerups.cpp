@@ -3,8 +3,8 @@
 powerups::powerups()
 {
     //ctor
-    powPos.x = 10;
-    powPos.y = 15;
+    powPos.x = 10.0;
+    powPos.y = 15.0;
     powPos.z = -2.0;
 
     scaleSize.x = 1.0;

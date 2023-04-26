@@ -296,11 +296,13 @@ void inputs::keyEnvL1(platform* p, float speed)
 
 void inputs::keyPowerUp(powerups* pow, float speed)
 {
+    cout << "IN KEY POWERUP" << endl;
     switch(wParam)
     {
         case VK_LEFT:
             case 0x41:
             pow->powPos.x += speed;
+            cout << pow->powPos.x <<  "speed: " << speed << endl;
             break;
 
         case VK_RIGHT:

@@ -1,9 +1,8 @@
 #ifndef POWERUPS_H
 #define POWERUPS_H
 
-#include <textureLoader.h>
-#include <enemy.h>
 #include <commons.h>
+#include <textureLoader.h>
 
 class powerups
 {
