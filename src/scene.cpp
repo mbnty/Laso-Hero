@@ -41,6 +41,7 @@ platform plats[5];
 
 float t = 0;
 int numBullet;
+int level = 0;
 clock_t start;
 
 scene::scene()
@@ -98,7 +99,7 @@ int scene::drawScene()
     else if (scne == LV1) {
         glPushMatrix(); //matrix for the background parallax
         glScaled(3.33,3.33,1.0);
-        prLx[1].drawSquare(screenWidth,screenHeight);
+        prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
         for(int i = 0; i < ply->health; i++){
@@ -256,11 +257,12 @@ int scene::drawScene()
     else if(scne == PAUSE){
         glPushMatrix(); //matrix for the background parallax
         glScaled(3.33,3.33,1.0);
-        prLx[2].drawSquare(screenWidth,screenHeight);
+        prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
         glPushMatrix();
-        glTranslatef(0, 0.5, 3);
+        glScalef(0.3, 0.3, 1);
+        glTranslatef(0, 0, -2);
         prLx[3].drawPopUp(screenWidth, screenHeight, 3);
         glPopMatrix();
 
@@ -300,7 +302,6 @@ int scene::drawScene()
         if(walker->isHit == false){
             walker->drawEnemy();
         }
-
     }
 }
 
@@ -415,6 +416,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 int temp = KbMs->keyTitle(tl);
                 if (temp == 2) {
                     scne = LV1;
+                    level = 1;
                 }
                 else if (temp == 3) {
                     //scne = HELP;

@@ -523,7 +523,7 @@
 1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\model.cpp
 	"model.h"
 
-1682401781 source:c:\users\derek\desktop\vscode\laso-hero\src\parallax.cpp
+1682489881 source:c:\users\derek\desktop\vscode\laso-hero\src\parallax.cpp
 	"parallax.h"
 
 1682401781 c:\users\derek\desktop\vscode\laso-hero\include\parallax.h
@@ -536,7 +536,7 @@
 1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682489450 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
+1682489826 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"

@@ -30,16 +30,16 @@ void parallax::drawPopUp(float width, float height, int num)
 
     glBegin(GL_POLYGON);
         glTexCoord2f(xMin, yMin);
-        glVertex3f(-1.0 * width/height, -1.0, -7.0);
+        glVertex3f(-1.0 * width/height, -1.0, 0);
 
         glTexCoord2f(xMax, yMin);
-        glVertex3f(width/height, -1.0, -7.0);
+        glVertex3f(width/height, -1.0, 0);
 
         glTexCoord2f(xMax, yMax);
-        glVertex3f(width/height, 1.0, -7.0);
+        glVertex3f(width/height, 1.0, 0);
 
         glTexCoord2f(xMin, yMax);
-        glVertex3f(-1.0 * width/height, 1.0, -7.0);
+        glVertex3f(-1.0 * width/height, 1.0, 0);
     glEnd();
 }
 
