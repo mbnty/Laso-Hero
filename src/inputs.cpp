@@ -215,6 +215,7 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
 
     switch(wParam) {
         case MK_LBUTTON:
+            /*
             wep->wPos.x = ply->pPos.x;
             wep->wPos.y = ply->pPos.y;
             wep->wPos.z = ply->pPos.z;
@@ -223,6 +224,20 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
             wep->wEnd.y = realY + 2.6;
             wep->wEnd.z = realZ;
             cout << wep->wEnd.x << " " << wep->wEnd.y << " " << wep->wEnd.z << endl;
+            */
+
+            wep->wPos.x = ply->pPos.x;
+            wep->wPos.y = ply->pPos.y;
+            wep->wPos.z = ply->pPos.z;
+            if (ply->playerDir == 'L') {
+                wep->wEnd.x = -3.0;
+                wep->wEnd.y = 1.0;
+            }
+            else if (ply->playerDir == 'R') {
+                wep->wEnd.x = 3.0;
+                wep->wEnd.y = 1.0;
+            }
+            wep->run = true;
             break;
 
         case MK_RBUTTON:

@@ -35,7 +35,7 @@ platform *sp1 = new platform();
 lvl1 *l1 = new lvl1();
 
 
-float t = 0.2;
+float t = 0;
 int numBullet;
 clock_t start;
 
@@ -171,20 +171,23 @@ int scene::drawScene()
             walker->drawEnemy();
         }
 
-
-        glDisable(GL_TEXTURE_2D);
-
         glPushMatrix();
         wep->drawWhip(t);
         glPopMatrix();
 
-        glEnable(GL_TEXTURE_2D);
-        if (t < 1 && clock() - start > 50) {
-            t += 0.1;
-            start = clock();
+        if (hit->isLinearCollision(wep->wEnd.x * t, walker->enemyPosition.x)) {
+            walker->movement = walker->DIE;
         }
-        else if (t >= 1 && clock() - start > 120) {
-            wep->wPos.y = 10.0;
+
+        if (wep->run == true) {
+            if (t < 1) {
+                t += 0.01;
+                start = clock();
+            }
+            else if (t >= 1 && clock() - start > 120) {
+                wep->wPos.y = 10.0;
+                wep->run = false;
+            }
         }
         /*
         if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
@@ -331,7 +334,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 KbMs->keyEnv(prLx[1], 0.005);
                 KbMs->keyEnvL1(l1,0.05);
                 KbMs->keyEnemy(walker);
-                KbMs->keyBullet(ammo, ply);
+                //KbMs->keyBullet(ammo, ply);
                 wep->wPos.y = 10.0;
                 if((KbMs->keyPause(prLx[1])) == true){ //if H key is pressed
                     scne = PAUSE; //pause the game
@@ -374,7 +377,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_LBUTTONDOWN:
             if (scne == PLAY) {
                 KbMs->mouseWhip(wep, ply, LOWORD(lParam), HIWORD(lParam));
-                t = 0.2;
+                t = 0;
             }
             else if (scne == TITLE) {
                 scne = MENU;

@@ -2,6 +2,7 @@
 #define WHIP_H
 
 #include <commons.h>
+#include <textureLoader.h>
 
 class whip
 {
@@ -9,13 +10,17 @@ class whip
         whip();
         virtual ~whip();
 
+        void initWhip(char*);
         void drawWhip(float);
         vec3 wPos;
         vec3 wEnd;
+        bool run;
 
     protected:
 
     private:
+        GLuint tex;
+        textureLoader *tLoad = new textureLoader();
 };
 
 #endif // WHIP_H
