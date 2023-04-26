@@ -148,6 +148,11 @@ int scene::drawScene()
             }
         }
 
+        if (ply->pColor.y < 1) {
+            ply->pColor.y += 0.003;
+            ply->pColor.z += 0.003;
+        }
+
         glPushMatrix();
         ply->drawPlayer();
         if (ply->actionTrigger == ply->JUMP)
@@ -170,6 +175,11 @@ int scene::drawScene()
             walker->movement = walker->WALKR;
         }
 
+        if (!walker->isDead && hit->isQuadCollisionEnemy(ply, walker) && clock() - ply->damage > 2000) {
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+        }
 
         if(walker->isHit == false){
             walker->drawEnemy();

@@ -4,7 +4,7 @@ enemy::enemy()
 {
     enemyPosition.x = 0.0;
     enemyPosition.y = -0.65;
-    enemyPosition.z = -2.5;
+    enemyPosition.z = -3;
 
     enemySize.x = 1.0;
     enemySize.y = 0.5;
@@ -43,7 +43,7 @@ void enemy::drawEnemy()
     glRotatef(enemyRotation.y,0,1,0);
     glRotatef(enemyRotation.z,0,0,1);
 
-    glScalef(enemySize.x,enemySize.y, 1);
+    glScalef(1,enemySize.y, 1);
 
     glBegin(GL_POLYGON);
 

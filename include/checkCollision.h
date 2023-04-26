@@ -3,6 +3,7 @@
 #include <commons.h>
 
 #include <player.h>
+#include <enemy.h>
 #include <platform.h>
 
 class checkCollision
@@ -15,6 +16,7 @@ class checkCollision
         bool isRadialCollision(float, float, float, float, float, float);
         bool isSphereCollision(vec3 x, vec3 y);
         bool isQuadCollisionPlatform(player*, platform*);
+        bool isQuadCollisionEnemy(player*, enemy*);
 
 
     protected:
