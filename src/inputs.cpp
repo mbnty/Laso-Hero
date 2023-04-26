@@ -130,20 +130,18 @@ void inputs::keyEnv(parallax& plx, float speed)
     }
 }
 
-int inputs::keyPause(parallax& plx)
+int inputs::keyPause()
 {
-    int check = 0;
     switch(wParam)
     {
         case 0x48: //check if H key is pressed
-            check = 1;
+            return 1;
             break;
 
         case 0x4D:
-            check = 2; //check if M key is pressed
+            return 2; //check if M key is pressed
             break;
     }
-    return check;
 }
 
 void inputs::keyEnemy(enemy* en)
@@ -175,6 +173,16 @@ int inputs::keyTitle(title* tl)
             if (tl->selection >= 2 && tl->selection <= 5) {
                 return tl->selection;
             }
+            break;
+
+        case VK_NUMPAD1:
+            return 2;
+            break;
+        case VK_NUMPAD2:
+            return 6;
+            break;
+        case VK_NUMPAD3:
+            return 7;
             break;
     }
     return 0;

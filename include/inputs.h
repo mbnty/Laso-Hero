@@ -29,7 +29,7 @@ class inputs
         void keyPlayer(player*);
         int keyTitle(title*);
         void keyWhip(whip*, player*);
-        int keyPause(parallax&);
+        int keyPause();
         void keyEnemy(enemy *);
 
         void keyUp();
