@@ -98,6 +98,9 @@ int scene::drawScene()
     }
 
     else if (scne == LV1) {
+        if (ply->health < 0)
+            PostQuitMessage(0);
+
         glPushMatrix(); //matrix for the background parallax
         glScaled(3.33,3.33,1.0);
         prLx[level].drawSquare(screenWidth,screenHeight);
@@ -205,7 +208,6 @@ int scene::drawScene()
         if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl1))
         {
             ply->groundValue = (pl1->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4;
-            cout << ply->actionTrigger << endl;
         }
 
         else if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl1))
@@ -234,38 +236,41 @@ int scene::drawScene()
         {
             ply->groundValue = (pl3->pos.y +(0.25 * pl3->scaleSize.y)) + 0.4;
             ply->actions(ply->IDLE);
-            cout << ply->t << endl;
         }
         //check if collision with top of platform 4
         if ((ply->pPos.y ) >= (pl4->pos.y +(0.25 * pl2->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl4))
         {
             ply->groundValue = (pl4->pos.y +(0.25 * pl4->scaleSize.y)) + 0.4;
             ply->actions(ply->IDLE);
-            cout << ply->t << endl;
         }
         //check if collision with top of platform 4
         if ((ply->pPos.y ) >= (pl5->pos.y +(0.25 * pl5->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl5))
         {
             ply->groundValue = (pl5->pos.y +(0.25 * pl5->scaleSize.y)) + 0.4;
             ply->actions(ply->IDLE);
-            cout << ply->t << endl;
         }
 
 
         //check if collision with spikes
-        if (hit->isQuadCollisionPlatform(ply,sp1))
+        if (hit->isQuadCollisionPlatform(ply,sp1) && clock() - ply->damage > 2000)
         {
-            cout << "Spike 1 Hit" << endl;
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
         }
 
-        if (hit->isQuadCollisionPlatform(ply,sp2))
+        if (hit->isQuadCollisionPlatform(ply,sp2) && clock() - ply->damage > 2000)
         {
-            cout << "Spike 2 Hit" << endl;
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
         }
 
-        if (hit->isQuadCollisionPlatform(ply,sp3))
+        if (hit->isQuadCollisionPlatform(ply,sp3) && clock() - ply->damage > 2000)
         {
-            cout << "Spike 3 Hit" << endl;
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
         }
 
 
