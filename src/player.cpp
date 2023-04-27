@@ -21,7 +21,7 @@ player::player()
     start = clock();
     damage = clock();
 
-    playerDir = 'I';
+    playerDir = 'R';
 
     pPos.x = 0;
     pPos.y = -0.65;
@@ -103,8 +103,8 @@ void player::actions(acts action)
             xMin += 1.0/(float)vFrames;
             start = clock();
         }
-
     }
+
     if(action == WALKR){
         if(playerDir != 'R'){
             float tmp;
@@ -113,6 +113,7 @@ void player::actions(acts action)
             xMin = tmp;
             playerDir = 'R';
         }
+
         if(isIdle == true){
             yMax = 2.0/(float)hFrames;
             yMin = 1.0/(float)hFrames;
@@ -127,9 +128,8 @@ void player::actions(acts action)
             xMin = 0.0;
 
         }
-
-        actionTrigger = WALKR;
     }
+
     if(action == WALKL){
         if(playerDir != 'L'){
             float tmp;
@@ -138,11 +138,13 @@ void player::actions(acts action)
             xMin = tmp;
             playerDir = 'L';
         }
+
         if(isIdle == true){
             yMax = 2.0/(float)hFrames;
             yMin = 1.0/(float)hFrames;
             isIdle = false;
         }
+
         playerDir = 'L';
         xMin += 1.0/(float)vFrames;
         xMax += 1.0/(float)vFrames;
@@ -151,12 +153,13 @@ void player::actions(acts action)
             xMax = 0.0/(float)vFrames;
             xMin = 1.0/(float)vFrames;
         }
-
-        actionTrigger = WALKL;
     }
     if(action == JUMP){
-        yMax = 2.0/(float)hFrames;
-        yMin = 1.0/(float)hFrames;
+        if(isIdle == true){
+            yMax = 2.0/(float)hFrames;
+            yMin = 1.0/(float)hFrames;
+            isIdle = false;
+        }
 
         if (clock() - start > 30) {
             // Calculate jump speed
@@ -174,116 +177,10 @@ void player::actions(acts action)
             else {                      // Once character reaches ground, reset Timer, character y position, and return to idle
                 t = 1;
                 pPos.y = groundValue;
-                actionTrigger = IDLE;   // Update actionTrigger
+                actionTrigger = IDLE;
+                actions(IDLE);
             }
             start = clock();
         }
     }
-    /*
-    switch(action)
-    {
-
-    case IDLE:
-        if(playerDir == 'R'){
-            xMax = 1.0/(float)vFrames;
-            xMin = 0.0;
-            yMax = 1.0/(float)hFrames;
-            yMin = 0.0;
-        }
-        else if(playerDir == 'L'){
-            xMax = 0.0;
-            xMin = 1.0/(float)vFrames;
-            yMax = 1.0/(float)hFrames;
-            yMin = 0.0;
-        }
-        break;
-
-    case WALKR: //walk right
-        if(playerDir != 'R'){
-            float tmp;
-            tmp = xMax;
-            xMax = xMin;
-            xMin = tmp;
-            playerDir = 'R';
-        }
-
-        playerDir = 'R';
-        xMin += 1.0/(float)vFrames;
-        xMax += 1.0/(float)vFrames;
-        if(xMax > 1){
-            xMax = 1.0/(float)vFrames;
-            xMin = 0.0;
-
-            yMax += 1.0/(float)hFrames;
-            yMin += 1.0/(float)hFrames;
-        }
-        //pPos.x += runSpeed;
-        if(pPos.x >= 2.5){
-            pPos.x = 2.5;
-        }
-
-        actionTrigger = WALKR;
-        break;
-
-    case WALKL: //walk left
-        if(playerDir != 'L'){
-            float tmp;
-            tmp = xMax;
-            xMax = xMin;
-            xMin = tmp;
-            playerDir = 'L';
-        }
-        playerDir = 'L';
-        xMin += 1.0/(float)vFrames;
-        xMax += 1.0/(float)vFrames;
-
-        if(xMin > 1){
-            xMax = 0.0/(float)vFrames;
-            xMin = 1.0/(float)vFrames;
-
-            yMax += 1.0/(float)hFrames;
-            yMin += 1.0/(float)hFrames;
-        }
-        //pPos.x -= runSpeed;
-        if(pPos.x <= -2.5){
-            pPos.x = -2.5;
-        }
-
-
-        actionTrigger = WALKL;
-        break;
-
-    case JUMP:
-        yMax = 2.0/(float)hFrames;
-        yMin = 1.0/(float)hFrames;
-
-        if (clock() - start > 30) {
-            // Calculate jump speed
-            jumpSpeed = (velocity * t * sin(theta) - 0.5 * GRVITY * t * t) / 700.0;
-            pPos.y += jumpSpeed;
-
-            xMax += 1.0/(float)vFrames;
-            xMin += 1.0/(float)vFrames;
-
-            if (playerDir == 'L')
-                pPos.x -= runSpeed;
-            else if (playerDir == 'R')
-                pPos.x += runSpeed;
-
-            if (pPos.y >= -0.65) {      // While in jump animation, update Timer
-                t += 0.2;
-                actionTrigger = JUMP;   // Update actionTrigger
-            }
-
-            else {                      // Once character reaches ground, reset Timer, character y position, and return to idle
-                t = 1;
-                pPos.y = -0.65;
-                actionTrigger = IDLE;   // Update actionTrigger
-            }
-            start = clock();
-        }
-
-        break;
-   }
-   */
 }

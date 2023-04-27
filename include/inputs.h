@@ -18,6 +18,8 @@ class inputs
         inputs();
         virtual ~inputs();
 
+        bool keys[256];
+
         void getRealMouse(int, int);
 
         void keyModel(model*);
@@ -30,7 +32,7 @@ class inputs
         int keyTitle(title*);
         void keyWhip(whip*, player*);
         int keyPause();
-        void keyEnemy(enemy *);
+        void keyEnemy(enemy&);
 
         void keyUp();
         void mouseWhip(whip*, player*, double, double);

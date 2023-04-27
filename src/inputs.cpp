@@ -47,13 +47,13 @@ void inputs::keyModel(model*)
 
 void inputs::keyPlayer(player* ply)
 {
-    if(wParam == VK_LEFT || wParam == 0x41){
+    if(keys[VK_LEFT] || keys[0x41]){
         ply->actions(ply->WALKL);
     }
-    if(wParam == VK_RIGHT || wParam == 0x44){
+    if(keys[VK_RIGHT] || keys[0x44]){
         ply->actions(ply->WALKR);
     }
-    if(wParam == VK_UP || wParam == 0x57){
+    if(keys[VK_UP] || keys[0x57] && ply->actionTrigger != ply->JUMP){
          ply->actions(ply->JUMP);
     }
     /*
@@ -105,18 +105,16 @@ void inputs::mousePlayer()
 
 void inputs::keyEnv(parallax& plx, float speed)
 {
-    switch(wParam)
-    {
-        case VK_LEFT:
-            plx.xMax -= speed;
-            plx.xMin -= speed;
-            break;
+    if (keys[VK_LEFT]) {
+        plx.xMax -= speed;
+        plx.xMin -= speed;
+    }
 
-        case VK_RIGHT:
-            plx.xMax += speed;
-            plx.xMin += speed;
-            break;
-
+    if (keys[VK_RIGHT]) {
+        plx.xMax += speed;
+        plx.xMin += speed;
+    }
+/*
         case VK_UP:
             //plx->yMax -=speed;
             //plx->yMin -=speed;
@@ -127,7 +125,7 @@ void inputs::keyEnv(parallax& plx, float speed)
             //plx->yMin += speed;
             break;
 
-    }
+    }*/
 }
 
 int inputs::keyPause()
@@ -148,13 +146,13 @@ int inputs::keyPause()
     }
 }
 
-void inputs::keyEnemy(enemy* en)
+void inputs::keyEnemy(enemy& en)
 {
-    if(wParam == VK_RIGHT){
-        en->enemyPosition.x -= en->enemySpeed.x;
+    if (keys[VK_RIGHT]) {
+        en.enemyPosition.x -= en.enemySpeed.x;
     }
-    if(wParam == VK_LEFT){
-        en->enemyPosition.x += en->enemySpeed.x;
+    if (keys[VK_LEFT]){
+        en.enemyPosition.x += en.enemySpeed.x;
     }
 }
 
@@ -180,12 +178,15 @@ int inputs::keyTitle(title* tl)
             break;
 
         case VK_NUMPAD1:
+        case 0x31:
             return 2;
             break;
         case VK_NUMPAD2:
+        case 0x32:
             return 6;
             break;
         case VK_NUMPAD3:
+        case 0x33:
             return 7;
             break;
     }
@@ -240,7 +241,7 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
 
             wep->wPos.x = ply->pPos.x;
             wep->wPos.y = ply->pPos.y;
-            wep->wPos.z = ply->pPos.z;
+            //wep->wPos.z = ply->pPos.z;
             if (ply->playerDir == 'L') {
                 wep->wEnd.x = -3.0;
                 wep->wEnd.y = 1.0;
@@ -249,6 +250,7 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
                 wep->wEnd.x = 3.0;
                 wep->wEnd.y = 1.0;
             }
+            wep->t = 0;
             wep->run = true;
             break;
 
@@ -273,18 +275,14 @@ void inputs::updateWParam(WPARAM param)
 
 void inputs::keyEnvL1(platform* p, float speed)
 {
-    switch(wParam)
-    {
-        case VK_LEFT:
-            case 0x41:
-            p->pos.x += speed;
-            break;
+    if (keys[VK_LEFT] || keys[0x41]) {
+        p->pos.x += speed;
+    }
 
-        case VK_RIGHT:
-            case 0x44:
-            p->pos.x -= speed;
-            break;
-
+    if (keys[VK_RIGHT] || keys[0x44]) {
+        p->pos.x -= speed;
+    }
+/*
         case VK_UP:
             //plx->yMax -=speed;
             //plx->yMin -=speed;
@@ -295,25 +293,19 @@ void inputs::keyEnvL1(platform* p, float speed)
             //plx->yMin += speed;
             break;
 
-    }
+    }*/
 }
 
 void inputs::keyPowerUp(powerups* pow, float speed)
 {
-    cout << "IN KEY POWERUP" << endl;
-    switch(wParam)
-    {
-        case VK_LEFT:
-            case 0x41:
-            pow->powPos.x += speed;
-            cout << pow->powPos.x << endl;
-            break;
+    if (keys[VK_LEFT] || keys[0x41]) {
+        pow->powPos.x += speed;
+    }
 
-        case VK_RIGHT:
-            case 0x44:
-            pow->powPos.x -= speed;
-            break;
-
+    if (keys[VK_RIGHT] || keys[0x44]) {
+        pow->powPos.x -= speed;
+    }
+/*
         case VK_UP:
             //plx->yMax -=speed;
             //plx->yMin -=speed;
@@ -324,6 +316,6 @@ void inputs::keyPowerUp(powerups* pow, float speed)
             //plx->yMin += speed;
             break;
 
-    }
+    }*/
 }
 

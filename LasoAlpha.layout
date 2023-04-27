@@ -4,6 +4,7 @@
 	<ActiveTarget name="Debug" />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<File name="src\platform.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="613" topLine="34" />
@@ -21,10 +22,29 @@
 =======
 >>>>>>> 13826a2eb8365e8e447341dd4e2c129da5828959
 	<File name="include\scene.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+=======
+	<File name="src\enemy.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1951" topLine="96" />
+		</Cursor>
+	</File>
+	<File name="src\player.cpp" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3478" topLine="128" />
+		</Cursor>
+	</File>
+	<File name="include\checkCollision.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="593" topLine="8" />
+		</Cursor>
+	</File>
+	<File name="include\scene.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+>>>>>>> ec7d8deff9995983b13bcd7b95cbb201448a211b
 		<Cursor>
 			<Cursor1 position="88" topLine="0" />
 		</Cursor>
 	</File>
+<<<<<<< HEAD
 <<<<<<< HEAD
 	<File name="src\whip.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
@@ -172,9 +192,26 @@
 			<Cursor1 position="803" topLine="30" />
 		</Cursor>
 	</File>
+=======
+>>>>>>> ec7d8deff9995983b13bcd7b95cbb201448a211b
 	<File name="src\platform.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="367" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\bullet.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1555" topLine="69" />
+		</Cursor>
+	</File>
+	<File name="src\lvl1.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="803" topLine="30" />
+		</Cursor>
+	</File>
+	<File name="src\whip.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="264" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="include\enemy.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -186,10 +223,44 @@
 			<Cursor1 position="52" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\player.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\inputs.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
+<<<<<<< HEAD
 			<Cursor1 position="942" topLine="16" />
 >>>>>>> 13826a2eb8365e8e447341dd4e2c129da5828959
+=======
+			<Cursor1 position="1265" topLine="44" />
+		</Cursor>
+	</File>
+	<File name="include\inputs.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="350" topLine="15" />
+		</Cursor>
+	</File>
+	<File name="src\checkCollision.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1420" topLine="45" />
+		</Cursor>
+	</File>
+	<File name="src\scene.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="20379" topLine="663" />
+		</Cursor>
+	</File>
+	<File name="include\player.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="214" topLine="4" />
+		</Cursor>
+	</File>
+	<File name="include\whip.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="212" topLine="5" />
+		</Cursor>
+	</File>
+	<File name="src\parallax.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="870" topLine="28" />
+>>>>>>> ec7d8deff9995983b13bcd7b95cbb201448a211b
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

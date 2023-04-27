@@ -73,7 +73,7 @@ void enemy::placeEnemy(pos3 placement)
     enemyPosition.z = placement.z;
 }
 
-void enemy::initEnemy(GLuint textSkin, int verticalFrames, int horizontalFrames)
+void enemy::initEnemy(GLuint tex, int verticalFrames, int horizontalFrames)
 {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -135,11 +135,11 @@ void enemy::actions()
         break;
     case DIE:
         if(isDead == false){
+            isDead = true;
             enemyColor.y = 0.0;
             enemyColor.z = 0.0;
             enemyPosition.y -= 0.3;
             enemyRotation.z = -90.0;
-            isDead = true;
             currTime = clock();
         }
         if(clock() - currTime >= 2000){
