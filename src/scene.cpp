@@ -27,6 +27,9 @@ powerups *spec = new powerups();
 parallax prLx[5];
 bullet ammo[6];
 
+int const enemyCount1 = 5;
+enemy spearman[enemyCount1];
+
 //objects for the platforms for the first level
 platform *pl1 = new platform();
 platform *pl2 = new platform();
@@ -195,7 +198,7 @@ int scene::drawScene()
             //walker->isHit = true ;
         }
         */
-
+        /*
         if(walker->enemyPosition.x > ply->pPos.x && walker->movement != walker->DIE){
             walker->movement = walker->WALKL;
         }
@@ -211,6 +214,25 @@ int scene::drawScene()
 
         if(walker->isHit == false){
             walker->drawEnemy();
+        }
+        */
+
+        for(int i = 0; i < enemyCount1; i++){
+            if(spearman[i].enemyPosition.x > ply->pPos.x && spearman[i].movement != spearman[i].DIE){
+                spearman[i].movement = spearman[i].WALKL;
+            }
+
+            if(spearman[i].enemyPosition.x < ply->pPos.x && spearman[i].movement != spearman[i].DIE){
+                spearman[i].movement = spearman[i].WALKR;
+            }
+            if (!spearman[i].isDead && hit->isQuadCollisionEnemy(ply, spearman[i]) && clock() - ply->damage > 2000) {
+                ply->pColor.y = 0; ply->pColor.z = 0;
+                ply->health--;
+                ply->damage = clock();
+            }
+            if(spearman[i].isHit == false){
+                spearman[i].drawEnemy();
+            }
         }
 
 
@@ -254,6 +276,7 @@ int scene::drawScene()
             ply->groundValue = (pl4->pos.y +(0.25 * pl4->scaleSize.y)) + 0.4;
             ply->actions(ply->IDLE);
         }
+        //check if collision with top of platform 5
         //check if collision with top of platform 5
         if ((ply->pPos.y ) >= (pl5->pos.y +(0.25 * pl5->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl5))
         {
@@ -361,12 +384,22 @@ int scene::drawScene()
             if (ammo[i].bPos.x >= 7.0 || ammo[i].bPos.x <= -7.0)
                 ammo[i].act = ammo->IDLE;
 
+            for(int i = 0; i < enemyCount1; i++){
+                if(spearman[i].movement != spearman[i].DIE){
+                    if (hit->isRadialCollision(ammo[i].bPos.x, spearman[i].enemyPosition.x, ammo[i].bPos.y, spearman[i].enemyPosition.y, 0.1, 0.5)) {
+                        spearman[i].movement = spearman[i].DIE;
+                        ammo[i].act = ammo->IDLE;
+                    }
+                }
+            }
+            /*
             if (walker->movement != walker->DIE) {
                 if (hit->isRadialCollision(ammo[i].bPos.x, walker->enemyPosition.x, ammo[i].bPos.y, walker->enemyPosition.y, 0.1, 0.5)) {
                     walker->movement = walker->DIE;
                     ammo[i].act = ammo->IDLE;
                 }
             }
+            */
         }
 
         if(walker->movement == walker->DIE){
@@ -398,12 +431,13 @@ int scene::drawScene()
             ply->actions(ply->IDLE);
         }
         glPopMatrix();
-
+        /*
         if (!walker->isDead && hit->isQuadCollisionEnemy(ply, walker) && clock() - ply->damage > 2000) {
             ply->pColor.y = 0; ply->pColor.z = 0;
             ply->health--;
             ply->damage = clock();
         }
+        */
 
         //check if collision with top of platform 1
         if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl21))
@@ -537,12 +571,13 @@ int scene::drawScene()
         if (ply->actionTrigger == ply->JUMP)
             ply->actions(ply->JUMP);
         glPopMatrix();
-
+        /*
         if (!walker->isDead && hit->isQuadCollisionEnemy(ply, walker) && clock() - ply->damage > 2000) {
             ply->pColor.y = 0; ply->pColor.z = 0;
             ply->health--;
             ply->damage = clock();
         }
+        */
 
         glPushMatrix();
         wep->drawWhip();
@@ -635,9 +670,22 @@ int scene::initScene()
     glEnable(GL_TEXTURE_2D);
 
     ply->playerInit("images/knight.png", 4, 4);
+
     walker->enemySkin("images/Walk.png");
     walker->initEnemy(walker->tex, 7, 1);
     walker->placeEnemy(pos3{1.0,-0.25,-2.0});
+
+    spearman[0].enemySkin("images/Walk.png");
+    spearman[0].placeEnemy(pos3{0.0,-0.25,-2.0});
+
+    for(int i = 0; i < enemyCount1; i++){
+        spearman[i].initEnemy(spearman[0].tex, 7, 1);
+        if(i == 0){
+            spearman[0].placeEnemy(pos3{1.0,-0.25,-2.0});
+            continue;
+        }
+        spearman[i].placeEnemy(pos3{spearman[i-1].enemyPosition.x+2.0, -0.25, -2.0});
+    }
 
     prLx[1].initParallax("images/background1.jpg"); //initializing parallax with background image
     prLx[2].initParallax("images/background2.jpg");
@@ -725,6 +773,13 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_KEYDOWN:
             KbMs->keys[wParam] = true;
             if (scne == LV1 && ply->actionTrigger != ply->JUMP) {
+                KbMs->keyPlayer(ply);
+                KbMs->keyEnv(prLx[1], 0.005);
+                KbMs->keyEnemy(walker);
+                for(int i = 0; i < enemyCount1; i++){
+                    KbMs->keyEnemy2(spearman[i]);
+                }
+                //KbMs->keyBullet(ammo, ply);
                 wep->wPos.y = 10.0;
 
                 //keyboard movement for the platforms level 1

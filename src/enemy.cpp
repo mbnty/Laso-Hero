@@ -86,7 +86,7 @@ void enemy::initEnemy(GLuint textSkin, int verticalFrames, int horizontalFrames)
     yMax = 1.0/(float)horizontalFrames;
     yMin = 0.0;
 
-    this->tex = tex;
+    tex = textSkin;
 }
 
 void enemy::enemySkin(char* fileName)
