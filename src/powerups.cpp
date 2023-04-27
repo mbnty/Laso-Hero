@@ -12,6 +12,7 @@ powerups::powerups()
     scaleSize.z = 1.0;
 
     isHit = 0;
+    act = INIT;
 }
 
 powerups::~powerups()
@@ -60,7 +61,7 @@ void powerups::drawSquare()
     glEnd();
 }
 
-int powerups::dropPowerUp(pos3 pos)
+int powerups::dropPowerUp(pos3 pos) //mod divide by position, if a certain range, drop at the enemy location
 {
     powPos.x = pos.x;
     powPos.y = pos.y;
@@ -69,9 +70,24 @@ int powerups::dropPowerUp(pos3 pos)
 
 void powerups::actions()
 {
-    if (act == IDLE) {
-        powPos.x = 10;
-        powPos.y = 15;
+    switch(act){
+    case IDLE:
+        powPos.x += 0;
+        powPos.y += 0;
+        powPos.z += 0;
+        break;
+
+    case INIT:
+        powPos.x = 10.0;
+        powPos.y = 15.0;
+        powPos.z = -2.0;
+        break;
+
+    case PICKUP:
+        powPos.x = 10.0;
+        powPos.y = 15.0;
+        powPos.z = -2.0;
+        break;
     }
 }
 

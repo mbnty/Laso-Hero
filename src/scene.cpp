@@ -24,7 +24,7 @@ checkCollision *hit = new checkCollision();
 ui *Hud = new ui();
 powerups *spec = new powerups();
 
-parallax prLx[5];
+parallax prLx[10];
 bullet ammo[6];
 
 //objects for the platforms for the first level
@@ -68,6 +68,27 @@ int scene::drawScene()
         glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
         tl->drawTitle(screenWidth, screenHeight);
+        glPopMatrix();
+    }
+
+    else if(scne == HELP){
+        glPushMatrix();
+        glScaled(3.33, 3.33, 1.0);
+        prLx[5].drawSquare(screenWidth, screenHeight);
+        glPopMatrix();
+    }
+
+    else if(scne == CREDITS){
+        glPushMatrix();
+        glScaled(3.33, 3.33, 1.0);
+        prLx[6].drawSquare(screenWidth, screenHeight);
+        glPopMatrix();
+    }
+
+    else if(scne == CONTROLS){
+        glPushMatrix();
+        glScaled(3.33, 3.33, 1.0);
+        prLx[7].drawSquare(screenWidth, screenHeight);
         glPopMatrix();
     }
 
@@ -151,6 +172,10 @@ int scene::drawScene()
             }
         }
 
+        glPushMatrix();
+        spec->drawSquare();
+        glPopMatrix();
+
         if(walker->movement == walker->DIE){
             spec->dropPowerUp(walker->enemyPosition);
             spec->powPos.z = -2.0;
@@ -158,14 +183,11 @@ int scene::drawScene()
 
         if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
             spec->isHit++;
+            spec->act = spec->PICKUP;
         }
         if(spec->isHit == 1){
-            spec->act = spec->IDLE;
             ply->ammo++;
         }
-        glPushMatrix();
-        spec->drawSquare();
-        glPopMatrix();
 
         if (ply->pColor.y < 1) {
             ply->pColor.y += 0.003;
@@ -458,13 +480,13 @@ int scene::drawScene()
 
     else if(scne == PAUSE){
         glPushMatrix(); //matrix for the background parallax
-        glScaled(3.33,3.33,1.0);
+        glScaled(3.33,3.33, 1.0);
         prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
         glPushMatrix();
         glScalef(0.3, 0.3, 1);
-        glTranslatef(0, 0, -2);
+        glTranslatef(0, 0, -1.9);
         prLx[4].drawPopUp(screenWidth, screenHeight, 3);
         glPopMatrix();
 
@@ -481,7 +503,7 @@ int scene::drawScene()
             glPopMatrix();
         }
 
-        if (level = 1) {
+        if (level == 1) {
             glPushMatrix(); // this martix holds the platforms
             pl1->drawPlatform();
             sp1->drawPlatform();
@@ -533,7 +555,10 @@ int scene::initScene()
     prLx[1].initParallax("images/background1.jpg"); //initializing parallax with background image
     prLx[2].initParallax("images/background2.jpg");
     prLx[3].initParallax("images/background3.png");
-    prLx[4].initPopUp("images/tempPause.png", 3);
+    prLx[4].initPopUp("images/Pause.png", 3); //pause screen popup
+    prLx[5].initParallax("images/helpScreen.png"); //help screen
+    prLx[6].initParallax("images/creditScreen.png"); //credits screen
+    prLx[7].initParallax("images/controlScreen.png"); //control screen
 
     tl->initTitle("images/title.png", 0);
     tl->initTitle("images/menu.png", 1);
@@ -572,7 +597,6 @@ int scene::initScene()
 
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
-    //F->buildFonts((char*)ply->health);
 
     start = clock();
 
@@ -653,10 +677,10 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     level = 1;
                 }
                 else if (temp == 3) {
-                    //scne = HELP;
+                    scne = HELP;
                 }
                 else if (temp == 4) {
-                    //scne = CREDITS;
+                    scne = CREDITS;
                 }
                 else if (temp == 5) {
                     PostQuitMessage(0);
@@ -670,6 +694,28 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     level = 3;
                 }
             }
+
+            else if(scne == HELP){
+                if(KbMs->keyPause() == 2){ //if M is pressed
+                    scne = MENU;
+                }
+                if(KbMs->keyPause() == 3){ //if C is pressed
+                    scne = CONTROLS;
+                }
+            }
+
+            else if(scne == CONTROLS){
+                if(KbMs->keyPause() == 2){ //if M is pressed
+                    scne = MENU;
+                }
+            }
+
+            else if(scne == CREDITS){
+                if(KbMs->keyPause() == 2){ //if M is pressed
+                    scne = MENU;
+                }
+            }
+
             else if(scne == PAUSE){
                 if(KbMs->keyPause() == 1){ //check if ESC key is pressed
                     if (level == 1) //resume game

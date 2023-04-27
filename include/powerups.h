@@ -15,7 +15,7 @@ class powerups
         void powTexture(char*);
         int dropPowerUp(pos3);
 
-        enum acts{IDLE, MOVEL, MOVER};
+        enum acts{INIT, IDLE, DROP, PICKUP, MOVEL, MOVER};
         acts act;
         void actions();
 
