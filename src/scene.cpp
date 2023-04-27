@@ -50,7 +50,7 @@ platform *pl25 = new platform();
 
 int numBullet;
 int level = 0;
-int numOfEn = 2;
+int numOfEn = 5;
 clock_t start;
 clock_t run;
 
@@ -107,17 +107,19 @@ int scene::drawScene()
     }
 
     else if (scne == LV1) {
-        if (ply->health == 0 )
+        if (ply->health == 0 )      // Close program once player dies *CHANGE LATER*
             PostQuitMessage(0);
 
-        if (numOfEn == 0)
+        if (numOfEn == 0)           // Move to level 2 once all enemies are killed
             scne = LV2;
 
-        glPushMatrix(); //matrix for the background parallax
+        //matrix for the background parallax
+        glPushMatrix();
         glScaled(3.33,3.33,1.0);
         prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
+        // draw hud
         for(int i = 0; i < ply->health; i++){
             glPushMatrix();
             glTranslatef(((Hud->xPos) + i)/3, Hud->yPos, 0);
@@ -131,14 +133,9 @@ int scene::drawScene()
             Hud->drawSquare(screenWidth, screenHeight, 1);
             glPopMatrix();
         }
-        /*
-        glPushMatrix();
-        glTranslatef(3, 2, 0);
-        Hud->drawSquare(screenWidth, screenHeight, 0);
-        glPopMatrix();
-        */
 
-        glPushMatrix(); // this martix holds the platforms
+        // this martix holds the platforms
+        glPushMatrix();
         pl1->drawPlatform();
         sp1->drawPlatform();
         pl2->drawPlatform();
@@ -149,23 +146,17 @@ int scene::drawScene()
         sp2->drawPlatform();
         glPopMatrix();
 
+        // draw bullet
         for (int i = 0; i < 6; i++) {
             glPushMatrix();
             ammo[i].drawBullet();
             glPopMatrix();
 
-            if (ammo[i].bPos.x >= 7.0 || ammo[i].bPos.x <= -7.0)
+            if (ammo[i].bPos.x >= 3 || ammo[i].bPos.x <= -3)
                 ammo[i].act = ammo->IDLE;
-
-            if (walker->movement != walker->DIE) {
-                if (hit->isRadialCollision(ammo[i].bPos.x, walker->enemyPosition.x, ammo[i].bPos.y, walker->enemyPosition.y, 0.1, 0.5)) {
-                    walker->movement = walker->DIE;
-                    //numOfEn--;
-                    ammo[i].act = ammo->IDLE;
-                }
-            }
         }
 
+        // draw drops
         if(walker->movement == walker->DIE){
             spec->dropPowerUp(walker->enemyPosition);
             spec->powPos.z = -2.0;
@@ -174,62 +165,66 @@ int scene::drawScene()
         if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
             spec->isHit++;
         }
+
         if(spec->isHit == 1){
             spec->act = spec->IDLE;
             ply->ammo++;
         }
+
         glPushMatrix();
         spec->drawSquare();
         glPopMatrix();
 
+        // draw player
         if (ply->pColor.y < 1) {
             ply->pColor.y += 0.003;
             ply->pColor.z += 0.003;
         }
 
-        glPushMatrix();
-        ply->drawPlayer();
         if (ply->actionTrigger == ply->JUMP)
             ply->actions(ply->JUMP);
+        else if (ply->isIdle)
+            ply->actions(ply->IDLE);
+
+        glPushMatrix();
+        ply->drawPlayer();
         glPopMatrix();
 
-        /*
-        if(hit->isLinearCollision(ply->pPos.x, walker->enemyPosition.x)){
-            //walker->isHit = true ;
-        }
-        */
-        /*
-        if(walker->enemyPosition.x > ply->pPos.x && walker->movement != walker->DIE){
-            walker->movement = walker->WALKL;
-        }
-        else if (walker->enemyPosition.x < ply->pPos.x && walker->movement != walker->DIE) {
-            walker->movement = walker->WALKR;
-        }
-
-        if (!walker->isDead && hit->isQuadCollisionEnemy(ply, walker) && clock() - ply->damage > 2000) {
-            ply->pColor.y = 0; ply->pColor.z = 0;
-            ply->health--;
-            ply->damage = clock();
-        }
-
-        if(walker->isHit == false){
-            walker->drawEnemy();
-        }
-        */
-
+        // draw enemies
         for(int i = 0; i < enemyCount1; i++){
-            if(spearman[i].enemyPosition.x > ply->pPos.x && spearman[i].movement != spearman[i].DIE){
+            if(spearman[i].enemyPosition.x > ply->pPos.x && !spearman[i].isDead){
                 spearman[i].movement = spearman[i].WALKL;
             }
 
-            if(spearman[i].enemyPosition.x < ply->pPos.x && spearman[i].movement != spearman[i].DIE){
+            else if(spearman[i].enemyPosition.x < ply->pPos.x && !spearman[i].isDead){
                 spearman[i].movement = spearman[i].WALKR;
             }
+
             if (!spearman[i].isDead && hit->isQuadCollisionEnemy(ply, spearman[i]) && clock() - ply->damage > 2000) {
                 ply->pColor.y = 0; ply->pColor.z = 0;
                 ply->health--;
                 ply->damage = clock();
             }
+
+            for (int j = 0; j < 6; j++) {
+                if (!spearman[i].isDead) {
+                    if (hit->isRadialCollision(ammo[j].bPos.x, spearman[i].enemyPosition.x, ammo[j].bPos.y, spearman[i].enemyPosition.y, 0.1, 0.5)) {
+                        spearman[i].movement = spearman->DIE;
+                        ammo[j].act = ammo->IDLE;
+                        numOfEn--;
+                    }
+                }
+            }
+
+            if (wep->run == true) {
+                if (!spearman[i].isDead) {
+                    if (hit->isQuadCollisionWhip(wep, spearman[i])) {
+                        spearman[i].movement = spearman->DIE;
+                        numOfEn--;
+                    }
+                }
+            }
+
             if(spearman[i].isHit == false){
                 spearman[i].drawEnemy();
             }
@@ -239,7 +234,6 @@ int scene::drawScene()
         //check if collision with top of platform 1
         if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl1))
         {
-            ply->actions(ply->IDLE);
             ply->groundValue = (pl1->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4;
         }
 
@@ -248,12 +242,8 @@ int scene::drawScene()
             ply->t = 8.2;
             ply->actions(ply->JUMP);
             ply->groundValue = -0.65;
-            if(ply->pPos.y == -0.65)
-            {
-                ply->actionTrigger = ply->IDLE;
-                ply->t = 1 ;
-            }
         }
+
         //check if collision with top of platform 2
         if ((ply->pPos.y ) >= (pl2->pos.y +(0.25 * pl2->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl2))
         {
@@ -300,24 +290,19 @@ int scene::drawScene()
             ply->damage = clock();
         }
 
-        /*
         if (hit->isQuadCollisionPlatform(ply,sp3) && clock() - ply->damage > 2000)
         {
             ply->pColor.y = 0; ply->pColor.z = 0;
             ply->health--;
             ply->damage = clock();
-        }*/
+        }
 
+        // draw whip
         glPushMatrix();
         wep->drawWhip();
         glPopMatrix();
 
         if (wep->run == true) {
-            if (hit->isQuadCollisionWhip(wep, walker)) {
-                walker->movement = walker->DIE;
-                //numOfEn--;
-            }
-
             if (wep->t < 1) {
                 wep->t += 0.01;
                 start = clock();
@@ -331,7 +316,8 @@ int scene::drawScene()
         if (clock() - run > 30) {
             KbMs->keyPlayer(ply);
             KbMs->keyEnv(prLx[1], 0.005);
-            KbMs->keyEnemy(walker);
+            for (int i = 0; i < enemyCount1; i++)
+                KbMs->keyEnemy(spearman[i]);
 
             KbMs->keyEnvL1(pl1,0.05);
             KbMs->keyEnvL1(pl2,0.05);
@@ -392,14 +378,14 @@ int scene::drawScene()
                     }
                 }
             }
-            /*
+
             if (walker->movement != walker->DIE) {
                 if (hit->isRadialCollision(ammo[i].bPos.x, walker->enemyPosition.x, ammo[i].bPos.y, walker->enemyPosition.y, 0.1, 0.5)) {
                     walker->movement = walker->DIE;
                     ammo[i].act = ammo->IDLE;
                 }
             }
-            */
+
         }
 
         if(walker->movement == walker->DIE){
@@ -427,9 +413,8 @@ int scene::drawScene()
         ply->drawPlayer();
         if (ply->actionTrigger == ply->JUMP)
             ply->actions(ply->JUMP);
-        else if (ply->actionTrigger == ply->IDLE) {
+        else if (ply->actionTrigger == ply->IDLE)
             ply->actions(ply->IDLE);
-        }
         glPopMatrix();
         /*
         if (!walker->isDead && hit->isQuadCollisionEnemy(ply, walker) && clock() - ply->damage > 2000) {
@@ -494,9 +479,9 @@ int scene::drawScene()
         glPopMatrix();
 
         if (wep->run == true) {
-            if (hit->isQuadCollisionWhip(wep, walker)) {
-                walker->movement = walker->DIE;
-            }
+            //if (hit->isQuadCollisionWhip(wep, walker)) {
+                //walker->movement = walker->DIE;
+            //}
 
             if (wep->t < 1) {
                 wep->t += 0.01;
@@ -584,9 +569,9 @@ int scene::drawScene()
         glPopMatrix();
 
         if (wep->run == true) {
-            if (hit->isQuadCollisionWhip(wep, walker)) {
-                walker->movement = walker->DIE;
-            }
+            //if (hit->isQuadCollisionWhip(wep, walker)) {
+                //walker->movement = walker->DIE;
+            //}
 
             if (wep->t < 1) {
                 wep->t += 0.01;
@@ -625,7 +610,7 @@ int scene::drawScene()
             glPopMatrix();
         }
 
-        if (level = 1) {
+        if (level == 1) {
             glPushMatrix(); // this martix holds the platforms
             pl1->drawPlatform();
             sp1->drawPlatform();
@@ -637,12 +622,21 @@ int scene::drawScene()
             sp3->drawPlatform();
             glPopMatrix();
 
+            /*
             //walker->movement = walker->IDLE;
             if(!walker->isDead){
                 walker->movement = walker->IDLE;
             }
             if(walker->isHit == false){
                 walker->drawEnemy();
+            }
+            */
+
+            for (int i = 0; i < enemyCount1; i++) {
+                if (!spearman[i].isDead)
+                    spearman[i].movement = spearman->IDLE;
+                if (spearman[i].isHit == false)
+                    spearman[i].drawEnemy();
             }
         }
 
@@ -676,15 +670,10 @@ int scene::initScene()
     walker->placeEnemy(pos3{1.0,-0.25,-2.0});
 
     spearman[0].enemySkin("images/Walk.png");
-    spearman[0].placeEnemy(pos3{0.0,-0.25,-2.0});
 
     for(int i = 0; i < enemyCount1; i++){
         spearman[i].initEnemy(spearman[0].tex, 7, 1);
-        if(i == 0){
-            spearman[0].placeEnemy(pos3{1.0,-0.25,-2.0});
-            continue;
-        }
-        spearman[i].placeEnemy(pos3{spearman[i-1].enemyPosition.x+2.0, -0.25, -2.0});
+        spearman[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
     }
 
     prLx[1].initParallax("images/background1.jpg"); //initializing parallax with background image
@@ -726,7 +715,7 @@ int scene::initScene()
     sp2->place(11,-1.0,1,0.5);
     pl4->place(11.5,0,2,1);
     pl5->place(18,0,5,1);
-    //sp3->place(18,-1.0,2,0.5);
+    sp3->place(18,-1.0,2,0.5);
 
     //level 2
     pl21->initPlatform("images/platform2.png",1,1);
@@ -741,10 +730,8 @@ int scene::initScene()
     pl24->place(14.5,0,2,1);
     pl25->place(18,0,5,1);
 
-
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
-    //F->buildFonts((char*)ply->health);
 
     start = run = clock();
 
@@ -772,17 +759,8 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     switch(uMsg) {
         case WM_KEYDOWN:
             KbMs->keys[wParam] = true;
-            if (scne == LV1 && ply->actionTrigger != ply->JUMP) {
-                KbMs->keyPlayer(ply);
-                KbMs->keyEnv(prLx[1], 0.005);
-                KbMs->keyEnemy(walker);
-                for(int i = 0; i < enemyCount1; i++){
-                    KbMs->keyEnemy2(spearman[i]);
-                }
-                //KbMs->keyBullet(ammo, ply);
+            if (scne == LV1) {
                 wep->wPos.y = 10.0;
-
-                //keyboard movement for the platforms level 1
 
                 if(KbMs->keyPause() == 1){ //if H key is pressed
                     scne = PAUSE; //pause the game

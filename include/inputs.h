@@ -32,8 +32,7 @@ class inputs
         int keyTitle(title*);
         void keyWhip(whip*, player*);
         int keyPause();
-        void keyEnemy(enemy *);
-        void keyEnemy2(enemy);
+        void keyEnemy(enemy&);
 
         void keyUp();
         void mouseWhip(whip*, player*, double, double);

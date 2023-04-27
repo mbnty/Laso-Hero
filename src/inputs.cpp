@@ -53,7 +53,7 @@ void inputs::keyPlayer(player* ply)
     if(keys[VK_RIGHT] || keys[0x44]){
         ply->actions(ply->WALKR);
     }
-    if(keys[VK_UP] && ply->actionTrigger != ply->JUMP){
+    if(keys[VK_UP] || keys[0x57] && ply->actionTrigger != ply->JUMP){
          ply->actions(ply->JUMP);
     }
     /*
@@ -142,22 +142,12 @@ int inputs::keyPause()
     }
 }
 
-void inputs::keyEnemy(enemy* en)
+void inputs::keyEnemy(enemy& en)
 {
-    if(keys[VK_RIGHT]){
-        en->enemyPosition.x -= en->enemySpeed.x;
-    }
-    if(keys[VK_LEFT]){
-        en->enemyPosition.x += en->enemySpeed.x;
-    }
-}
-
-void inputs::keyEnemy2(enemy en)
-{
-    if(wParam == VK_RIGHT){
+    if (keys[VK_RIGHT]) {
         en.enemyPosition.x -= en.enemySpeed.x;
     }
-    if(wParam == VK_LEFT){
+    if (keys[VK_LEFT]){
         en.enemyPosition.x += en.enemySpeed.x;
     }
 }
