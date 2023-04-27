@@ -538,13 +538,13 @@
 	<textureLoader.h>
 	<time.h>
 
-1682545568 source:c:\users\derek\desktop\vscode\laso-hero\src\player.cpp
+1682548320 source:c:\users\derek\desktop\vscode\laso-hero\src\player.cpp
 	"player.h"
 
 1682372199 source:c:\users\derek\desktop\vscode\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682548271 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
+1682551676 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"

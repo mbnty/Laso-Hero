@@ -45,11 +45,9 @@ platform *pl23 = new platform();
 platform *pl24 = new platform();
 platform *pl25 = new platform();
 
-
-
-
 int numBullet;
 int level = 0;
+int numOfEn = 2;
 clock_t start;
 clock_t run;
 
@@ -106,8 +104,11 @@ int scene::drawScene()
     }
 
     else if (scne == LV1) {
-        if (ply->health < 0)
+        if (ply->health == 0 )
             PostQuitMessage(0);
+
+        if (numOfEn == 0)
+            scne = LV2;
 
         glPushMatrix(); //matrix for the background parallax
         glScaled(3.33,3.33,1.0);
@@ -156,6 +157,7 @@ int scene::drawScene()
             if (walker->movement != walker->DIE) {
                 if (hit->isRadialCollision(ammo[i].bPos.x, walker->enemyPosition.x, ammo[i].bPos.y, walker->enemyPosition.y, 0.1, 0.5)) {
                     walker->movement = walker->DIE;
+                    //numOfEn--;
                     ammo[i].act = ammo->IDLE;
                 }
             }
@@ -275,13 +277,13 @@ int scene::drawScene()
             ply->damage = clock();
         }
 
+        /*
         if (hit->isQuadCollisionPlatform(ply,sp3) && clock() - ply->damage > 2000)
         {
             ply->pColor.y = 0; ply->pColor.z = 0;
             ply->health--;
             ply->damage = clock();
-        }
-
+        }*/
 
         glPushMatrix();
         wep->drawWhip();
@@ -290,6 +292,7 @@ int scene::drawScene()
         if (wep->run == true) {
             if (hit->isQuadCollisionWhip(wep, walker)) {
                 walker->movement = walker->DIE;
+                //numOfEn--;
             }
 
             if (wep->t < 1) {
@@ -596,7 +599,7 @@ int scene::drawScene()
             sp2->drawPlatform();
             pl4->drawPlatform();
             pl5->drawPlatform();
-            sp2->drawPlatform();
+            sp3->drawPlatform();
             glPopMatrix();
 
             //walker->movement = walker->IDLE;
@@ -675,7 +678,7 @@ int scene::initScene()
     sp2->place(11,-1.0,1,0.5);
     pl4->place(11.5,0,2,1);
     pl5->place(18,0,5,1);
-    sp3->place(18,-1.0,2,0.5);
+    //sp3->place(18,-1.0,2,0.5);
 
     //level 2
     pl21->initPlatform("images/platform2.png",1,1);
