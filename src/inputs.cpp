@@ -53,33 +53,9 @@ void inputs::keyPlayer(player* ply)
     if(keys[VK_RIGHT] || keys[0x44]){
         ply->actions(ply->WALKR);
     }
-    if(keys[VK_UP] || keys[0x57] && ply->actionTrigger != ply->JUMP){
+    if(keys[VK_UP] && ply->actionTrigger != ply->JUMP){
          ply->actions(ply->JUMP);
     }
-    /*
-    switch(wParam) {
-        case VK_LEFT:       // Action for player by pressing "Left" key and "A" key
-        case 0x41:
-            cout << "Left" << endl;
-            ply->actions(ply->WALKL);
-            break;
-
-        case VK_RIGHT:      // Action for player by pressing "Right" key and "D" key
-        case 0x44:
-            cout << "Right" << endl;
-            ply->actions(ply->WALKR);
-            break;
-
-        case VK_UP:         // Action for player by pressing "Up" key and "W" key
-        case 0x57:
-            ply->actions(ply->JUMP);
-            break;
-
-        case VK_DOWN:       // Action for player by pressing "Down" key and "S" key
-        case 0x53:
-            break;
-    }
-    */
 }
 
 void inputs::mousePlayer()
@@ -114,18 +90,6 @@ void inputs::keyEnv(parallax& plx, float speed)
         plx.xMax += speed;
         plx.xMin += speed;
     }
-/*
-        case VK_UP:
-            //plx->yMax -=speed;
-            //plx->yMin -=speed;
-            break;
-
-        case VK_DOWN:
-            //plx->yMax += speed;
-            //plx->yMin += speed;
-            break;
-
-    }*/
 }
 
 int inputs::keyPause()
@@ -228,16 +192,6 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
 
     switch(wParam) {
         case MK_LBUTTON:
-            /*
-            wep->wPos.x = ply->pPos.x;
-            wep->wPos.y = ply->pPos.y;
-            wep->wPos.z = ply->pPos.z;
-            getRealMouse(x, y);
-            wep->wEnd.x = realX;
-            wep->wEnd.y = realY + 2.6;
-            wep->wEnd.z = realZ;
-            cout << wep->wEnd.x << " " << wep->wEnd.y << " " << wep->wEnd.z << endl;
-            */
 
             wep->wPos.x = ply->pPos.x;
             wep->wPos.y = ply->pPos.y;
@@ -282,18 +236,6 @@ void inputs::keyEnvL1(platform* p, float speed)
     if (keys[VK_RIGHT] || keys[0x44]) {
         p->pos.x -= speed;
     }
-/*
-        case VK_UP:
-            //plx->yMax -=speed;
-            //plx->yMin -=speed;
-            break;
-
-        case VK_DOWN:
-            //plx->yMax += speed;
-            //plx->yMin += speed;
-            break;
-
-    }*/
 }
 
 void inputs::keyPowerUp(powerups* pow, float speed)
@@ -305,17 +247,5 @@ void inputs::keyPowerUp(powerups* pow, float speed)
     if (keys[VK_RIGHT] || keys[0x44]) {
         pow->powPos.x -= speed;
     }
-/*
-        case VK_UP:
-            //plx->yMax -=speed;
-            //plx->yMin -=speed;
-            break;
-
-        case VK_DOWN:
-            //plx->yMax += speed;
-            //plx->yMin += speed;
-            break;
-
-    }*/
 }
 
