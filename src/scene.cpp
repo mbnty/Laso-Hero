@@ -177,25 +177,6 @@ int scene::drawScene()
                 ammo[i].act = ammo->IDLE;
         }
 
-        // draw drops
-        if(walker->movement == walker->DIE){
-            spec->dropPowerUp(walker->enemyPosition);
-            spec->powPos.z = -2.0;
-        }
-
-        if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
-            spec->isHit++;
-            spec->act = spec->PICKUP;
-        }
-
-        if(spec->isHit == 1){
-            ply->ammo++;
-        }
-
-        glPushMatrix();
-        spec->drawSquare();
-        glPopMatrix();
-
         // draw player
         if (ply->pColor.y < 1) {
             ply->pColor.y += 0.003;
@@ -235,6 +216,11 @@ int scene::drawScene()
                         numOfEn--;
                     }
                 }
+                else if((spearman[i].isDead) && !spec->isDropped) {
+                    spec->dropPowerUp(spearman[i].enemyPosition);
+                    spec->powPos.z = -2.0;
+                    spec->isDropped = true;
+                }
             }
 
             if (wep->run == true) {
@@ -246,10 +232,27 @@ int scene::drawScene()
                 }
             }
 
+            if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
+                spec->isHit++;
+                spec->act = spec->PICKUP;
+                cout << "in pickup" << endl;
+                cout << spec->powPos.x << ", " << spec->powPos.y << ", " << spec->powPos.z << endl;
+            }
+
+            if(spec->isHit == 1){
+                cout << "in hit" << endl;
+                cout << spec->powPos.x << ", " << spec->powPos.y << ", " << spec->powPos.z << endl;
+                ply->ammo++;
+            }
+
             if(spearman[i].isHit == false){
                 spearman[i].drawEnemy();
             }
         }
+
+        glPushMatrix();
+        spec->drawSquare();
+        glPopMatrix();
 
 
         //check if collision with top of platform 1
@@ -333,7 +336,7 @@ int scene::drawScene()
                 wep->run = false;
             }
         }
-
+        /*
         if (clock() - run > 30) {
             KbMs->keyPlayer(ply);
             KbMs->keyEnv(prLx[1], 0.005);
@@ -352,7 +355,7 @@ int scene::drawScene()
 
             KbMs->keyPowerUp(spec, 0.05);
             run = clock();
-        }
+        }*/
     }
 
     else if (scne == LV2) {
@@ -784,9 +787,22 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_KEYDOWN:
             KbMs->keys[wParam] = true;
             if (scne == LV1) {
+                KbMs->keyPlayer(ply);
                 if (wParam == VK_UP || wParam == 0x57)
                     ply->actions(ply->JUMP);
                 wep->wPos.y = 10.0;
+
+                KbMs->keyEnvL1(pl1,0.05);
+                KbMs->keyEnvL1(pl2,0.05);
+                KbMs->keyEnvL1(pl3,0.05);
+                KbMs->keyEnvL1(pl4,0.05);
+                KbMs->keyEnvL1(pl5,0.05);
+
+                KbMs->keyEnvL1(sp1,0.05);
+                KbMs->keyEnvL1(sp2,0.05);
+                KbMs->keyEnvL1(sp3,0.05);
+
+                KbMs->keyPowerUp(spec, 0.05);
 
                 if(KbMs->keyPause() == 1){ //if H key is pressed
                     scne = PAUSE; //pause the game

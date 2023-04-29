@@ -13,6 +13,7 @@ powerups::powerups()
 
     isHit = 0;
     act = INIT;
+    isDropped = false;
 }
 
 powerups::~powerups()
@@ -43,7 +44,7 @@ void powerups::drawSquare()
 {
     powLoad->binder(powTex);
 
-    glTranslatef(powPos.x, -1, powPos.z);
+    glTranslated(powPos.x, -1, powPos.z);
     glScalef(scaleSize.x,scaleSize.y,scaleSize.z);
 
     glBegin(GL_QUADS);
@@ -65,6 +66,7 @@ int powerups::dropPowerUp(pos3 pos)
 {
     int chance = (int)rand()%5; //20% drop chance
     //if(chance == 2){ //if certain chance reached, drop the powerup
+        isDropped = true;
         powPos.x = pos.x;
         powPos.y = pos.y;
         powPos.z = pos.z;
@@ -87,9 +89,7 @@ void powerups::actions()
         break;
 
     case PICKUP:
-        powPos.x = 10.0;
         powPos.y = 15.0;
-        powPos.z = -2.0;
         break;
     }
 }
