@@ -53,9 +53,11 @@ void inputs::keyPlayer(player* ply)
     if(keys[VK_RIGHT] || keys[0x44]){
         ply->actions(ply->WALKR);
     }
+    /*
     if(keys[VK_UP] && ply->actionTrigger != ply->JUMP){
          ply->actions(ply->JUMP);
     }
+    */
 }
 
 void inputs::mousePlayer()
@@ -81,12 +83,12 @@ void inputs::mousePlayer()
 
 void inputs::keyEnv(parallax& plx, float speed)
 {
-    if (keys[VK_LEFT]) {
+    if (keys[VK_LEFT] || keys[0x41]) {
         plx.xMax -= speed;
         plx.xMin -= speed;
     }
 
-    if (keys[VK_RIGHT]) {
+    if (keys[VK_RIGHT] || keys[0x44]) {
         plx.xMax += speed;
         plx.xMin += speed;
     }
@@ -112,10 +114,10 @@ int inputs::keyPause()
 
 void inputs::keyEnemy(enemy& en)
 {
-    if (keys[VK_RIGHT]) {
+    if (keys[VK_RIGHT] || keys[0x44]) {
         en.enemyPosition.x -= en.enemySpeed.x;
     }
-    if (keys[VK_LEFT]){
+    if (keys[VK_LEFT] || keys[0x41]){
         en.enemyPosition.x += en.enemySpeed.x;
     }
 }
@@ -167,6 +169,7 @@ void inputs::keyWhip(whip* wep, player* ply)
 
 void inputs::keyBullet(bullet* ammo, player* ply)
 {
+    /*
     if (wParam == VK_SPACE) {
         int n = ply->ammo - 1;
         if (n >= 0) {
@@ -178,6 +181,7 @@ void inputs::keyBullet(bullet* ammo, player* ply)
             ply->ammo--;
         }
     }
+    */
 }
 
 void inputs::keyUp()
