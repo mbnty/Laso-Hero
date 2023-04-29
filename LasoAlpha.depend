@@ -850,14 +850,15 @@
 	<GL/glut.h>
 	<iostream>
 
-1682489605 source:f:\gamedev2023\projects\laso-hero\src\checkcollision.cpp
+1682575395 source:f:\gamedev2023\projects\laso-hero\src\checkcollision.cpp
 	"checkCollision.h"
 
-1682489605 f:\gamedev2023\projects\laso-hero\include\checkcollision.h
+1682575395 f:\gamedev2023\projects\laso-hero\include\checkcollision.h
 	<commons.h>
 	<player.h>
 	<enemy.h>
 	<platform.h>
+	<whip.h>
 
 1682364317 f:\gamedev2023\projects\laso-hero\include\commons.h
 	<math.h>
@@ -868,7 +869,7 @@
 1681350195 source:f:\gamedev2023\projects\laso-hero\src\commons.cpp
 	"commons.h"
 
-1682544513 source:f:\gamedev2023\projects\laso-hero\src\enemy.cpp
+1682575395 source:f:\gamedev2023\projects\laso-hero\src\enemy.cpp
 	"enemy.h"
 
 1682469288 f:\gamedev2023\projects\laso-hero\include\enemy.h
@@ -947,7 +948,7 @@
 1682364317 f:\gamedev2023\projects\laso-hero\include\title.h
 	<textureLoader.h>
 
-1682485717 f:\gamedev2023\projects\laso-hero\include\whip.h
+1682575395 f:\gamedev2023\projects\laso-hero\include\whip.h
 	<commons.h>
 	<textureLoader.h>
 
@@ -1015,7 +1016,7 @@
 1682396456 source:f:\gamedev2023\projects\laso-hero\src\ui.cpp
 	"ui.h"
 
-1682485717 source:f:\gamedev2023\projects\laso-hero\src\whip.cpp
+1682575395 source:f:\gamedev2023\projects\laso-hero\src\whip.cpp
 	"whip.h"
 
 1675127686 f:\gamedev2023\common\include\gl\glut.h
@@ -1026,7 +1027,7 @@
 
 1668646408 f:\gamedev2023\common\include\soil.h
 
-1682542555 source:f:\gamedev2023\projects\laso-hero\src\player.cpp
+1682575395 source:f:\gamedev2023\projects\laso-hero\src\player.cpp
 	"player.h"
 
 1682469288 source:f:\gamedev2023\projects\laso-hero\src\bullet.cpp
