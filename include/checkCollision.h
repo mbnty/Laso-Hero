@@ -18,7 +18,6 @@ class checkCollision
         bool isSphereCollision(vec3 x, vec3 y);
         bool isQuadCollisionPlatform(player*, platform*);
         bool isQuadCollisionEnemy(player*, enemy);
-        //bool isQuadCollisionEnemy(player*, enemy*);
         bool isQuadCollisionWhip(whip*, enemy);
 
 
