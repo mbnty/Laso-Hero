@@ -61,11 +61,14 @@ void powerups::drawSquare()
     glEnd();
 }
 
-int powerups::dropPowerUp(pos3 pos) //mod divide by position, if a certain range, drop at the enemy location
+int powerups::dropPowerUp(pos3 pos)
 {
-    powPos.x = pos.x;
-    powPos.y = pos.y;
-    powPos.z = pos.z;
+    int chance = (int)rand()%5; //20% drop chance
+    //if(chance == 2){ //if certain chance reached, drop the powerup
+        powPos.x = pos.x;
+        powPos.y = pos.y;
+        powPos.z = pos.z;
+    //}
 }
 
 void powerups::actions()
