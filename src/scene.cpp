@@ -784,6 +784,8 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_KEYDOWN:
             KbMs->keys[wParam] = true;
             if (scne == LV1) {
+                if (wParam == VK_UP || wParam == 0x57)
+                    ply->actions(ply->JUMP);
                 wep->wPos.y = 10.0;
 
                 if(KbMs->keyPause() == 1){ //if H key is pressed
