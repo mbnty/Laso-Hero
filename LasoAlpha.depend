@@ -1064,7 +1064,7 @@
 	<windows.h>
 	<scene.h>
 
-1682477197 c:\users\oskiez\desktop\graphics\laso-hero\include\scene.h
+1682579470 c:\users\oskiez\desktop\graphics\laso-hero\include\scene.h
 	<windows.h>
 	<GL/gl.h>
 	<GL/glut.h>
@@ -1096,18 +1096,20 @@
 	<iostream>
 	<time.h>
 
-1682482378 source:c:\users\oskiez\desktop\graphics\laso-hero\src\checkcollision.cpp
+1682579470 source:c:\users\oskiez\desktop\graphics\laso-hero\src\checkcollision.cpp
 	"checkCollision.h"
 
-1682482378 c:\users\oskiez\desktop\graphics\laso-hero\include\checkcollision.h
+1682734797 c:\users\oskiez\desktop\graphics\laso-hero\include\checkcollision.h
 	<commons.h>
 	<player.h>
+	<enemy.h>
 	<platform.h>
+	<whip.h>
 
 1682461290 source:c:\users\oskiez\desktop\graphics\laso-hero\src\commons.cpp
 	"commons.h"
 
-1682468017 source:c:\users\oskiez\desktop\graphics\laso-hero\src\enemy.cpp
+1682579470 source:c:\users\oskiez\desktop\graphics\laso-hero\src\enemy.cpp
 	"enemy.h"
 
 1682468017 c:\users\oskiez\desktop\graphics\laso-hero\include\enemy.h
@@ -1119,10 +1121,10 @@
 
 1682461290 c:\users\oskiez\desktop\graphics\laso-hero\include\positions.h
 
-1682477197 source:c:\users\oskiez\desktop\graphics\laso-hero\src\inputs.cpp
+1682743542 source:c:\users\oskiez\desktop\graphics\laso-hero\src\inputs.cpp
 	"inputs.h"
 
-1682469862 c:\users\oskiez\desktop\graphics\laso-hero\include\inputs.h
+1682579470 c:\users\oskiez\desktop\graphics\laso-hero\include\inputs.h
 	<windows.h>
 	<model.h>
 	<player.h>
@@ -1132,19 +1134,20 @@
 	<parallax.h>
 	<lvl1.h>
 	<enemy.h>
+	<powerups.h>
 
 1682461290 c:\users\oskiez\desktop\graphics\laso-hero\include\model.h
 	<windows.h>
 	<GL/glut.h>
 
-1682482915 c:\users\oskiez\desktop\graphics\laso-hero\include\player.h
+1682579470 c:\users\oskiez\desktop\graphics\laso-hero\include\player.h
 	<textureLoader.h>
 	<commons.h>
 
 1682461290 c:\users\oskiez\desktop\graphics\laso-hero\include\title.h
 	<textureLoader.h>
 
-1682477197 c:\users\oskiez\desktop\graphics\laso-hero\include\whip.h
+1682579470 c:\users\oskiez\desktop\graphics\laso-hero\include\whip.h
 	<commons.h>
 	<textureLoader.h>
 
@@ -1173,19 +1176,19 @@
 1682461290 source:c:\users\oskiez\desktop\graphics\laso-hero\src\model.cpp
 	"model.h"
 
-1682461290 source:c:\users\oskiez\desktop\graphics\laso-hero\src\parallax.cpp
+1682579470 source:c:\users\oskiez\desktop\graphics\laso-hero\src\parallax.cpp
 	"parallax.h"
 
 1682475744 source:c:\users\oskiez\desktop\graphics\laso-hero\src\platform.cpp
 	"platform.h"
 
-1682484004 source:c:\users\oskiez\desktop\graphics\laso-hero\src\player.cpp
+1682579470 source:c:\users\oskiez\desktop\graphics\laso-hero\src\player.cpp
 	"player.h"
 
 1682461290 source:c:\users\oskiez\desktop\graphics\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682483844 source:c:\users\oskiez\desktop\graphics\laso-hero\src\scene.cpp
+1682892264 source:c:\users\oskiez\desktop\graphics\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"
@@ -1200,6 +1203,7 @@
 	<platform.h>
 	<lvl1.h>
 	<ui.h>
+	<powerups.h>
 
 1682461290 c:\users\oskiez\desktop\graphics\laso-hero\include\ui.h
 	<textureLoader.h>
@@ -1214,7 +1218,7 @@
 1682461290 source:c:\users\oskiez\desktop\graphics\laso-hero\src\ui.cpp
 	"ui.h"
 
-1682477197 source:c:\users\oskiez\desktop\graphics\laso-hero\src\whip.cpp
+1682579470 source:c:\users\oskiez\desktop\graphics\laso-hero\src\whip.cpp
 	"whip.h"
 
 1682477197 6ac6927860c3be88292e9ce4d9947cc46171b
@@ -1426,5 +1430,13 @@
 	<positions.h>
 
 1682745828 source:d:\gamedev 2023\projects\lso\laso-hero\src\powerups.cpp
+	"powerups.h"
+
+1682892264 c:\users\oskiez\desktop\graphics\laso-hero\include\powerups.h
+	<commons.h>
+	<textureLoader.h>
+	<positions.h>
+
+1682892264 source:c:\users\oskiez\desktop\graphics\laso-hero\src\powerups.cpp
 	"powerups.h"
 

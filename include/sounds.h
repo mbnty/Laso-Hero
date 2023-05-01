@@ -1,0 +1,23 @@
+#ifndef SOUNDS_H
+#define SOUNDS_H
+
+
+class sounds
+{
+    public:
+        sounds();
+        virtual ~sounds();
+
+        ISoundEngine engine = createIrrKlangDevice();
+
+        void playMusic(char);
+        void playSound(char );
+        void pauseSound(char);  //pause the sound when window minimized
+        int initSound();       //initialization of sounds
+
+    protected:
+
+    private:
+};
+
+#endif // SOUNDS_H

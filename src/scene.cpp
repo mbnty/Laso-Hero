@@ -48,6 +48,13 @@ platform *pl23 = new platform();
 platform *pl24 = new platform();
 platform *pl25 = new platform();
 
+//objects for the platforms for the second level
+platform *pl31 = new platform();
+platform *pl32 = new platform();
+platform *pl33 = new platform();
+platform *pl34 = new platform();
+platform *pl35 = new platform();
+
 int numBullet;
 int level = 0;
 int numOfEn = 5;
@@ -158,13 +165,14 @@ int scene::drawScene()
         // this martix holds the platforms
         glPushMatrix();
         pl1->drawPlatform();
-        sp1->drawPlatform();
         pl2->drawPlatform();
         pl3->drawPlatform();
-        sp2->drawPlatform();
         pl4->drawPlatform();
         pl5->drawPlatform();
+
+        sp1->drawPlatform();
         sp2->drawPlatform();
+        sp3->drawPlatform();
         glPopMatrix();
 
         // draw bullet
@@ -254,48 +262,37 @@ int scene::drawScene()
         spec->drawSquare();
         glPopMatrix();
 
-
-        //check if collision with top of platform 1
-        if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl1))
-        {
-            ply->groundValue = (pl1->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4;
-        }
-
-        else if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl1))
+        //check to see if player is not on platform
+        if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl1))
         {   //scuffed version of getting on the platform
             ply->t = 8.2;
             ply->actions(ply->JUMP);
             ply->groundValue = -0.65;
         }
-
+        //check if collision with top of platform 1
+        if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl1))
+        {
+            ply->groundValue = (pl1->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4;
+        }
         //check if collision with top of platform 2
         if ((ply->pPos.y ) >= (pl2->pos.y +(0.25 * pl2->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl2))
         {
             ply->groundValue = (pl2->pos.y +(0.25 * pl2->scaleSize.y)) + 0.4;
-            if(ply->pPos.y == (pl2->pos.y +(0.25 * pl2->scaleSize.y)) + 0.4)
-            {
-                //ply->actionTrigger = ply->IDLE;
-                ply->t = 1;
-            }
         }
         //check if collision with top of platform 3
         if ((ply->pPos.y ) >= (pl3->pos.y +(0.25 * pl3->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl3))
         {
             ply->groundValue = (pl3->pos.y +(0.25 * pl3->scaleSize.y)) + 0.4;
-            ply->actions(ply->IDLE);
         }
         //check if collision with top of platform 4
         if ((ply->pPos.y ) >= (pl4->pos.y +(0.25 * pl4->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl4))
         {
             ply->groundValue = (pl4->pos.y +(0.25 * pl4->scaleSize.y)) + 0.4;
-            ply->actions(ply->IDLE);
         }
-        //check if collision with top of platform 5
         //check if collision with top of platform 5
         if ((ply->pPos.y ) >= (pl5->pos.y +(0.25 * pl5->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl5))
         {
             ply->groundValue = (pl5->pos.y +(0.25 * pl5->scaleSize.y)) + 0.4;
-            ply->actions(ply->IDLE);
         }
 
 
@@ -448,54 +445,37 @@ int scene::drawScene()
         }
         */
 
-        //check if collision with top of platform 1
-        if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl21))
-        {
-            ply->groundValue = (pl21->pos.y +(0.25 * pl21->scaleSize.y)) + 0.4;
-            cout << ply->actionTrigger << endl;
-        }
-
-        else if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl21))
+        //check to see if player is not on platform
+        if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl21))
         {   //scuffed version of getting on the platform
             ply->t = 8.2;
             ply->actions(ply->JUMP);
             ply->groundValue = -0.65;
-            if(ply->pPos.y == -0.65)
-            {
-                ply->actionTrigger = ply->IDLE;
-                ply->t = 1 ;
-            }
+        }
+        //check if collision with top of platform 1
+        if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl21))
+        {
+            ply->groundValue = (pl21->pos.y +(0.25 * pl21->scaleSize.y)) + 0.4;
         }
         //check if collision with top of platform 2
         if ((ply->pPos.y ) >= (pl22->pos.y +(0.25 * pl22->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl22))
         {
             ply->groundValue = (pl22->pos.y +(0.25 * pl22->scaleSize.y)) + 0.4;
-            if(ply->pPos.y == (pl22->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4)
-            {
-                ply->actionTrigger = ply->IDLE;
-                ply->t = 1;
-            }
         }
         //check if collision with top of platform 3
         if ((ply->pPos.y ) >= (pl23->pos.y +(0.25 * pl23->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl23))
         {
             ply->groundValue = (pl23->pos.y +(0.25 * pl23->scaleSize.y)) + 0.4;
-            ply->actions(ply->IDLE);
-            cout << ply->t << endl;
         }
         //check if collision with top of platform 4
         if ((ply->pPos.y ) >= (pl24->pos.y +(0.25 * pl24->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl24))
         {
             ply->groundValue = (pl24->pos.y +(0.25 * pl24->scaleSize.y)) + 0.4;
-            ply->actions(ply->IDLE);
-            cout << ply->t << endl;
         }
         //check if collision with top of platform 5
         if ((ply->pPos.y ) >= (pl25->pos.y +(0.25 * pl25->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl25))
         {
             ply->groundValue = (pl25->pos.y +(0.25 * pl25->scaleSize.y)) + 0.4;
-            ply->actions(ply->IDLE);
-            cout << ply->t << endl;
         }
 
         glPushMatrix();
@@ -537,6 +517,14 @@ int scene::drawScene()
             Hud->drawSquare(screenWidth, screenHeight, 1);
             glPopMatrix();
         }
+
+        glPushMatrix(); // this martix holds the platforms
+        pl31->drawPlatform();
+        pl32->drawPlatform();
+        pl33->drawPlatform();
+        pl34->drawPlatform();
+        pl35->drawPlatform();
+        glPopMatrix();
 
         for (int i = 0; i < 6; i++) {
             glPushMatrix();
@@ -587,6 +575,39 @@ int scene::drawScene()
             ply->damage = clock();
         }
         */
+
+        //check to see if player is not on platform
+        if ((ply->pPos.y ) >= (pl31->pos.y +(0.25 * pl31->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl31))
+        {   //scuffed version of getting on the platform
+            ply->t = 8.2;
+            ply->actions(ply->JUMP);
+            ply->groundValue = -0.65;
+        }
+        //check if collision with top of platform 1
+        if ((ply->pPos.y ) >= (pl31->pos.y +(0.25 * pl31->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl31))
+        {
+            ply->groundValue = (pl31->pos.y +(0.25 * pl31->scaleSize.y)) + 0.4;
+        }
+        //check if collision with top of platform 2
+        if ((ply->pPos.y ) >= (pl32->pos.y +(0.25 * pl32->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl32))
+        {
+            ply->groundValue = (pl32->pos.y +(0.25 * pl32->scaleSize.y)) + 0.4;
+        }
+        //check if collision with top of platform 3
+        if ((ply->pPos.y ) >= (pl33->pos.y +(0.25 * pl33->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl33))
+        {
+            ply->groundValue = (pl33->pos.y +(0.25 * pl33->scaleSize.y)) + 0.4;
+        }
+        //check if collision with top of platform 4
+        if ((ply->pPos.y ) >= (pl34->pos.y +(0.25 * pl34->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl34))
+        {
+            ply->groundValue = (pl34->pos.y +(0.25 * pl34->scaleSize.y)) + 0.4;
+        }
+        //check if collision with top of platform 5
+        if ((ply->pPos.y ) >= (pl35->pos.y +(0.25 * pl35->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl35))
+        {
+            ply->groundValue = (pl35->pos.y +(0.25 * pl35->scaleSize.y)) + 0.4;
+        }
 
         glPushMatrix();
         wep->drawWhip();
@@ -736,12 +757,13 @@ int scene::initScene()
     sp3->initPlatform("images/spikes.png",1,1);
 
     pl1->place(0,0,5,1);
-    sp1->place(1,-1.0,1,0.5);
     pl2->place(6,0,3,1);
     pl3->place(10,0,2,1);
-    sp2->place(11,-1.0,1,0.5);
     pl4->place(11.5,0,2,1);
     pl5->place(18,0,5,1);
+
+    sp1->place(1,-1.0,1,0.5);
+    sp2->place(11,-1.0,1,0.5);
     sp3->place(18,-1.0,2,0.5);
 
     //level 2
@@ -756,6 +778,19 @@ int scene::initScene()
     pl23->place(10,0,2,1);
     pl24->place(14.5,0,2,1);
     pl25->place(18,0,5,1);
+
+    //level 3
+    pl31->initPlatform("images/platform3.png",1,1);
+    pl32->initPlatform("images/platform3.png",1,1);
+    pl33->initPlatform("images/platform3.png",1,1);
+    pl34->initPlatform("images/platform3.png",1,1);
+    pl35->initPlatform("images/platform3.png",1,1);
+
+    pl31->place(0,0,5,1);
+    pl32->place(6,0,3,1);
+    pl33->place(10,0,2,1);
+    pl34->place(14.5,0,2,1);
+    pl35->place(18,0,5,1);
 
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
