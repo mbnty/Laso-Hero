@@ -8,6 +8,9 @@
 #include <iostream>
 #include <time.h>
 
+#include <SNDS/irrKlang.h>
+using namespace irrklang;
+
 using namespace std;
 
 typedef struct

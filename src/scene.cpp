@@ -13,6 +13,7 @@
 #include <lvl1.h>
 #include <ui.h>
 #include <powerups.h>
+#include <sounds.h>
 
 model *startModel = new model();
 inputs *KbMs = new inputs();
@@ -135,11 +136,11 @@ int scene::drawScene()
     }
 
     else if (scne == LV1) {
-        if (ply->health == 0 )      // Close program once player dies *CHANGE LATER*
-            PostQuitMessage(0);
+        if (ply->health == 0)      // Close program once player dies *CHANGE LATER*
+            //PostQuitMessage(0);
 
         if (numOfEn == 0) {           // Move to level 2 once all enemies are killed
-            scne = LV2;
+            //scne = LV2;
         }
 
         //matrix for the background parallax
@@ -223,12 +224,13 @@ int scene::drawScene()
                         spearman[i].movement = spearman->DIE;
                         ammo[j].act = ammo->IDLE;
                         numOfEn--;
+
+                        if (!spec->isDropped) {
+                            spec->dropPowerUp(spearman[i].enemyPosition);
+                            spec->powPos.z = -2.0;
+                            spec->isDropped = true;
+                        }
                     }
-                }
-                else if((spearman[i].isDead) && !spec->isDropped) {
-                    spec->dropPowerUp(spearman[i].enemyPosition);
-                    spec->powPos.z = -2.0;
-                    spec->isDropped = true;
                 }
             }
 
@@ -238,26 +240,32 @@ int scene::drawScene()
                         spearman[i].movement = spearman->DIE;
                         wep->wPos.y = 10.0;
                         numOfEn--;
+
+                        if (!spec->isDropped) {
+                            spec->dropPowerUp(spearman[i].enemyPosition);
+                            spec->powPos.z = -2.0;
+                            spec->isDropped = true;
+                        }
                     }
                 }
-            }
-
-            if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
-                spec->isHit++;
-                spec->act = spec->PICKUP;
-                cout << "in pickup" << endl;
-                cout << spec->powPos.x << ", " << spec->powPos.y << ", " << spec->powPos.z << endl;
-            }
-
-            if(spec->isHit == 1){
-                cout << "in hit" << endl;
-                cout << spec->powPos.x << ", " << spec->powPos.y << ", " << spec->powPos.z << endl;
-                ply->ammo++;
             }
 
             if(spearman[i].isHit == false){
                 spearman[i].drawEnemy();
             }
+        }
+
+        if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
+            spec->isHit++;
+            spec->act = spec->PICKUP;
+            //cout << "in pickup" << endl;
+            //cout << spec->powPos.x << ", " << spec->powPos.y << ", " << spec->powPos.z << endl;
+        }
+
+        if(spec->isHit == 1){
+            //cout << "in hit" << endl;
+            //cout << spec->powPos.x << ", " << spec->powPos.y << ", " << spec->powPos.z << endl;
+            ply->ammo++;
         }
 
         glPushMatrix();
@@ -278,36 +286,34 @@ int scene::drawScene()
             ply->groundValue = (pl2->pos.y +(0.25 * pl2->scaleSize.y)) + 0.4;
         }
 
-        //else if ()
+        //check if collision with top of platform 3
+        else if ((ply->pPos.y ) >= (pl3->pos.y +(0.25 * pl3->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl3))
+        {
+            ply->onPlat = true;
+            ply->groundValue = (pl3->pos.y +(0.25 * pl3->scaleSize.y)) + 0.4;
+        }
 
+        //check if collision with top of platform 4
+        else if ((ply->pPos.y ) >= (pl4->pos.y +(0.25 * pl4->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl4))
+        {
+            ply->onPlat = true;
+            ply->groundValue = (pl4->pos.y +(0.25 * pl4->scaleSize.y)) + 0.4;
+        }
+
+        //check if collision with top of platform 5
+        else if ((ply->pPos.y ) >= (pl5->pos.y +(0.25 * pl5->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl5))
+        {
+            ply->onPlat = true;
+            ply->groundValue = (pl5->pos.y +(0.25 * pl5->scaleSize.y)) + 0.4;
+        }
+
+        //case for falling off platform
         else if (ply->onPlat == true)
-        {   //scuffed version of getting on the platform
+        {
             ply->t = 8.2;
             ply->groundValue = -0.65;
             ply->actions(ply->JUMP);
         }
-/*
-        //check if collision with top of platform 2
-        if ((ply->pPos.y ) >= (pl2->pos.y +(0.25 * pl2->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl2))
-        {
-            ply->groundValue = (pl2->pos.y +(0.25 * pl2->scaleSize.y)) + 0.4;
-        }
-        //check if collision with top of platform 3
-        if ((ply->pPos.y ) >= (pl3->pos.y +(0.25 * pl3->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl3))
-        {
-            ply->groundValue = (pl3->pos.y +(0.25 * pl3->scaleSize.y)) + 0.4;
-        }
-        //check if collision with top of platform 4
-        if ((ply->pPos.y ) >= (pl4->pos.y +(0.25 * pl4->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl4))
-        {
-            ply->groundValue = (pl4->pos.y +(0.25 * pl4->scaleSize.y)) + 0.4;
-        }
-        //check if collision with top of platform 5
-        if ((ply->pPos.y ) >= (pl5->pos.y +(0.25 * pl5->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl5))
-        {
-            ply->groundValue = (pl5->pos.y +(0.25 * pl5->scaleSize.y)) + 0.4;
-        }
-*/
 
         //check if collision with spikes
         if (hit->isQuadCollisionPlatform(ply,sp1) && clock() - ply->damage > 2000)
@@ -346,7 +352,7 @@ int scene::drawScene()
                 wep->run = false;
             }
         }
-        /*
+
         if (clock() - run > 30) {
             KbMs->keyPlayer(ply);
             KbMs->keyEnv(prLx[1], 0.005);
@@ -365,7 +371,7 @@ int scene::drawScene()
 
             KbMs->keyPowerUp(spec, 0.05);
             run = clock();
-        }*/
+        }
     }
 
     else if (scne == LV2) {
@@ -422,10 +428,6 @@ int scene::drawScene()
 
         }
 
-        if(walker->movement == walker->DIE){
-            spec->dropPowerUp(walker->enemyPosition);
-            spec->powPos.z = -2.0;
-        }
 
         if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
             spec->isHit++;
@@ -813,50 +815,9 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     switch(uMsg) {
         case WM_KEYDOWN:
             KbMs->keys[wParam] = true;
-            if (scne == LV1) {
-                KbMs->keyPlayer(ply);
+            if (scne == LV1 || scne == LV2 || scne == LV3) {
                 if (wParam == VK_UP || wParam == 0x57)
                     ply->actions(ply->JUMP);
-                wep->wPos.y = 10.0;
-
-                KbMs->keyEnvL1(pl1,0.05);
-                KbMs->keyEnvL1(pl2,0.05);
-                KbMs->keyEnvL1(pl3,0.05);
-                KbMs->keyEnvL1(pl4,0.05);
-                KbMs->keyEnvL1(pl5,0.05);
-
-                KbMs->keyEnvL1(sp1,0.05);
-                KbMs->keyEnvL1(sp2,0.05);
-                KbMs->keyEnvL1(sp3,0.05);
-
-                KbMs->keyPowerUp(spec, 0.05);
-
-                if(KbMs->keyPause() == 1){ //if H key is pressed
-                    scne = PAUSE; //pause the game
-                }
-            }
-
-            else if (scne == LV2 && ply->actionTrigger != ply->JUMP) {
-                KbMs->keyPlayer(ply);
-                KbMs->keyEnv(prLx[2], 0.005);
-                wep->wPos.y = 10.0;
-
-                //keyboard movement for the platforms level 2
-                KbMs->keyEnvL1(pl21,0.05);
-                KbMs->keyEnvL1(pl22,0.05);
-                KbMs->keyEnvL1(pl23,0.05);
-                KbMs->keyEnvL1(pl24,0.05);
-                KbMs->keyEnvL1(pl25,0.05);
-
-                if(KbMs->keyPause() == 1){ //if H key is pressed
-                    scne = PAUSE; //pause the game
-                }
-            }
-
-            else if (scne == LV3 && ply->actionTrigger != ply->JUMP) {
-                KbMs->keyPlayer(ply);
-                KbMs->keyEnv(prLx[3], 0.005);
-                wep->wPos.y = 10.0;
 
                 if(KbMs->keyPause() == 1){ //if H key is pressed
                     scne = PAUSE; //pause the game

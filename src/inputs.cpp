@@ -50,14 +50,10 @@ void inputs::keyPlayer(player* ply)
     if(keys[VK_LEFT] || keys[0x41]){
         ply->actions(ply->WALKL);
     }
+
     if(keys[VK_RIGHT] || keys[0x44]){
         ply->actions(ply->WALKR);
     }
-    /*
-    if(keys[VK_UP] && ply->actionTrigger != ply->JUMP){
-         ply->actions(ply->JUMP);
-    }
-    */
 }
 
 void inputs::mousePlayer()

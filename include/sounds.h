@@ -1,6 +1,7 @@
 #ifndef SOUNDS_H
 #define SOUNDS_H
 
+#include <commons.h>
 
 class sounds
 {
@@ -8,11 +9,11 @@ class sounds
         sounds();
         virtual ~sounds();
 
-        ISoundEngine engine = createIrrKlangDevice();
+        ISoundEngine *engine = createIrrKlangDevice();
 
-        void playMusic(char);
-        void playSound(char );
-        void pauseSound(char);  //pause the sound when window minimized
+        void playMusic(char*);
+        void playSound(char*);
+        void pauseSound(char*);  //pause the sound when window minimized
         int initSound();       //initialization of sounds
 
     protected:

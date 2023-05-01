@@ -18,7 +18,7 @@ class inputs
         inputs();
         virtual ~inputs();
 
-        bool keys[256];
+        bool keys[256] = { false };
 
         void getRealMouse(int, int);
 
