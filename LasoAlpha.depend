@@ -491,7 +491,7 @@
 
 1682741111 c:\users\derek\desktop\vscode\laso-hero\include\positions.h
 
-1682741111 source:c:\users\derek\desktop\vscode\laso-hero\src\inputs.cpp
+1682741501 source:c:\users\derek\desktop\vscode\laso-hero\src\inputs.cpp
 	"inputs.h"
 
 1682741111 c:\users\derek\desktop\vscode\laso-hero\include\inputs.h
@@ -510,7 +510,7 @@
 	<windows.h>
 	<GL/glut.h>
 
-1682741111 c:\users\derek\desktop\vscode\laso-hero\include\player.h
+1682976570 c:\users\derek\desktop\vscode\laso-hero\include\player.h
 	<textureLoader.h>
 	<commons.h>
 
@@ -538,13 +538,13 @@
 	<textureLoader.h>
 	<time.h>
 
-1682741111 source:c:\users\derek\desktop\vscode\laso-hero\src\player.cpp
+1682976854 source:c:\users\derek\desktop\vscode\laso-hero\src\player.cpp
 	"player.h"
 
 1682741111 source:c:\users\derek\desktop\vscode\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682741406 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
+1682976831 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"

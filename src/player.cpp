@@ -33,6 +33,7 @@ player::player()
 
     groundValue = -0.65;
 
+    onPlat = false;
     isIdle = true;
 }
 
@@ -179,6 +180,7 @@ void player::actions(acts action)
                 pPos.y = groundValue;
                 actionTrigger = IDLE;
                 actions(IDLE);
+                onPlat = false;
             }
             start = clock();
         }

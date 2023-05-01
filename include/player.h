@@ -42,6 +42,7 @@ class player
 
         float groundValue;
 
+        bool onPlat;
         bool isIdle;
 
     protected:

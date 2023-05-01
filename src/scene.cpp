@@ -131,8 +131,9 @@ int scene::drawScene()
         if (ply->health == 0 )      // Close program once player dies *CHANGE LATER*
             PostQuitMessage(0);
 
-        if (numOfEn == 0)           // Move to level 2 once all enemies are killed
+        if (numOfEn == 0) {           // Move to level 2 once all enemies are killed
             scne = LV2;
+        }
 
         //matrix for the background parallax
         glPushMatrix();
@@ -241,6 +242,7 @@ int scene::drawScene()
                 if (!spearman[i].isDead) {
                     if (hit->isQuadCollisionWhip(wep, spearman[i])) {
                         spearman[i].movement = spearman->DIE;
+                        wep->wPos.y = 10.0;
                         numOfEn--;
                     }
                 }
@@ -255,16 +257,26 @@ int scene::drawScene()
         //check if collision with top of platform 1
         if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl1))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl1->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4;
         }
 
-        else if ((ply->pPos.y ) >= (pl1->pos.y +(0.25 * pl1->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl1))
-        {   //scuffed version of getting on the platform
-            ply->t = 8.2;
-            ply->actions(ply->JUMP);
-            ply->groundValue = -0.65;
+        //check if collision with top of platform 2
+        else if ((ply->pPos.y ) >= (pl2->pos.y +(0.25 * pl2->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl2))
+        {
+            ply->onPlat = true;
+            ply->groundValue = (pl2->pos.y +(0.25 * pl2->scaleSize.y)) + 0.4;
         }
 
+        //else if ()
+
+        else if (ply->onPlat == true)
+        {   //scuffed version of getting on the platform
+            ply->t = 8.2;
+            ply->groundValue = -0.65;
+            ply->actions(ply->JUMP);
+        }
+/*
         //check if collision with top of platform 2
         if ((ply->pPos.y ) >= (pl2->pos.y +(0.25 * pl2->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl2))
         {
@@ -294,7 +306,7 @@ int scene::drawScene()
             ply->groundValue = (pl5->pos.y +(0.25 * pl5->scaleSize.y)) + 0.4;
             ply->actions(ply->IDLE);
         }
-
+*/
 
         //check if collision with spikes
         if (hit->isQuadCollisionPlatform(ply,sp1) && clock() - ply->damage > 2000)
@@ -437,19 +449,11 @@ int scene::drawScene()
         else if (ply->actionTrigger == ply->IDLE)
             ply->actions(ply->IDLE);
         glPopMatrix();
-        /*
-        if (!walker->isDead && hit->isQuadCollisionEnemy(ply, walker) && clock() - ply->damage > 2000) {
-            ply->pColor.y = 0; ply->pColor.z = 0;
-            ply->health--;
-            ply->damage = clock();
-        }
-        */
 
         //check if collision with top of platform 1
         if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl21))
         {
             ply->groundValue = (pl21->pos.y +(0.25 * pl21->scaleSize.y)) + 0.4;
-            cout << ply->actionTrigger << endl;
         }
 
         else if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl21))
@@ -460,9 +464,10 @@ int scene::drawScene()
             if(ply->pPos.y == -0.65)
             {
                 ply->actionTrigger = ply->IDLE;
-                ply->t = 1 ;
+                ply->t = 1;
             }
         }
+
         //check if collision with top of platform 2
         if ((ply->pPos.y ) >= (pl22->pos.y +(0.25 * pl22->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl22))
         {
@@ -473,6 +478,7 @@ int scene::drawScene()
                 ply->t = 1;
             }
         }
+
         //check if collision with top of platform 3
         if ((ply->pPos.y ) >= (pl23->pos.y +(0.25 * pl23->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl23))
         {
@@ -500,10 +506,6 @@ int scene::drawScene()
         glPopMatrix();
 
         if (wep->run == true) {
-            //if (hit->isQuadCollisionWhip(wep, walker)) {
-                //walker->movement = walker->DIE;
-            //}
-
             if (wep->t < 1) {
                 wep->t += 0.01;
                 start = clock();
@@ -642,16 +644,6 @@ int scene::drawScene()
             pl5->drawPlatform();
             sp3->drawPlatform();
             glPopMatrix();
-
-            /*
-            //walker->movement = walker->IDLE;
-            if(!walker->isDead){
-                walker->movement = walker->IDLE;
-            }
-            if(walker->isHit == false){
-                walker->drawEnemy();
-            }
-            */
 
             for (int i = 0; i < enemyCount1; i++) {
                 if (!spearman[i].isDead)
