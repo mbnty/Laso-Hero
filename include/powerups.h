@@ -24,6 +24,7 @@ class powerups
         vec3 scaleSize;
 
         int isHit;
+        bool isDropped;
 
         GLuint powTex;
         textureLoader *powLoad = new textureLoader();
