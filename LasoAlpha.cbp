@@ -32,7 +32,6 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-<<<<<<< HEAD
 			<Add directory="../../../Common/include" />
 		</Compiler>
 		<Linker>
@@ -43,18 +42,6 @@
 			<Add library="glu32" />
 			<Add library="gdi32" />
 			<Add directory="../../../Common/lib" />
-=======
-			<Add directory="../common/include" />
-		</Compiler>
-		<Linker>
-			<Add library="../common/lib/libSOIL.a" />
-			<Add library="../common/lib/glut32.lib" />
-			<Add library="../common/lib/libirrKlang.a" />
-			<Add library="opengl32" />
-			<Add library="glu32" />
-			<Add library="gdi32" />
-			<Add directory="../common/lib" />
->>>>>>> 77924bfee173517261e6b6b2b10de1b4190c95ae
 		</Linker>
 		<Unit filename="include/Light.h" />
 		<Unit filename="include/bullet.h" />
@@ -70,7 +57,6 @@
 		<Unit filename="include/positions.h" />
 		<Unit filename="include/powerups.h" />
 		<Unit filename="include/scene.h" />
-		<Unit filename="include/sounds.h" />
 		<Unit filename="include/textureLoader.h" />
 		<Unit filename="include/title.h" />
 		<Unit filename="include/ui.h" />
@@ -90,7 +76,6 @@
 		<Unit filename="src/positions.cpp" />
 		<Unit filename="src/powerups.cpp" />
 		<Unit filename="src/scene.cpp" />
-		<Unit filename="src/sounds.cpp" />
 		<Unit filename="src/textureLoader.cpp" />
 		<Unit filename="src/title.cpp" />
 		<Unit filename="src/ui.cpp" />
