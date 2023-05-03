@@ -455,7 +455,7 @@
 	<GL/glut.h>
 	<iostream>
 
-1682741111 source:c:\users\derek\desktop\vscode\laso-hero\src\checkcollision.cpp
+1683132354 source:c:\users\derek\desktop\vscode\laso-hero\src\checkcollision.cpp
 	"checkCollision.h"
 
 1682741111 c:\users\derek\desktop\vscode\laso-hero\include\checkcollision.h
@@ -492,7 +492,7 @@
 
 1682741111 c:\users\derek\desktop\vscode\laso-hero\include\positions.h
 
-1682979762 source:c:\users\derek\desktop\vscode\laso-hero\src\inputs.cpp
+1683132803 source:c:\users\derek\desktop\vscode\laso-hero\src\inputs.cpp
 	"inputs.h"
 
 1682979762 c:\users\derek\desktop\vscode\laso-hero\include\inputs.h
@@ -545,7 +545,7 @@
 1682741111 source:c:\users\derek\desktop\vscode\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682979642 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
+1683134799 source:c:\users\derek\desktop\vscode\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"
@@ -569,7 +569,7 @@
 1682741111 source:c:\users\derek\desktop\vscode\laso-hero\src\title.cpp
 	"title.h"
 
-1682741111 source:c:\users\derek\desktop\vscode\laso-hero\src\whip.cpp
+1683133176 source:c:\users\derek\desktop\vscode\laso-hero\src\whip.cpp
 	"whip.h"
 
 1661970085 c:\users\derek\desktop\vscode\common\include\gl\glut.h
@@ -1230,7 +1230,7 @@
 	<textureLoader.h>
 	<positions.h>
 
-1682977234 source:c:\users\derek\desktop\vscode\laso-hero\src\powerups.cpp
+1683134155 source:c:\users\derek\desktop\vscode\laso-hero\src\powerups.cpp
 	"powerups.h"
 
 1682546076 source:c:\users\maaku\desktop\gamedev\laso-hero\main.cpp

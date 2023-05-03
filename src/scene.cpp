@@ -137,10 +137,10 @@ int scene::drawScene()
 
     else if (scne == LV1) {
         if (ply->health == 0)      // Close program once player dies *CHANGE LATER*
-            //PostQuitMessage(0);
+            PostQuitMessage(0);
 
         if (numOfEn == 0) {           // Move to level 2 once all enemies are killed
-            //scne = LV2;
+            scne = LV2;
         }
 
         //matrix for the background parallax
@@ -227,7 +227,7 @@ int scene::drawScene()
 
                         if (!spec->isDropped) {
                             spec->dropPowerUp(spearman[i].enemyPosition);
-                            spec->powPos.z = -2.0;
+                            spec->act = spec->IDLE;
                             spec->isDropped = true;
                         }
                     }
@@ -243,7 +243,7 @@ int scene::drawScene()
 
                         if (!spec->isDropped) {
                             spec->dropPowerUp(spearman[i].enemyPosition);
-                            spec->powPos.z = -2.0;
+                            spec->act = spec->IDLE;
                             spec->isDropped = true;
                         }
                     }
@@ -256,16 +256,9 @@ int scene::drawScene()
         }
 
         if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
-            spec->isHit++;
-            spec->act = spec->PICKUP;
-            //cout << "in pickup" << endl;
-            //cout << spec->powPos.x << ", " << spec->powPos.y << ", " << spec->powPos.z << endl;
-        }
-
-        if(spec->isHit == 1){
-            //cout << "in hit" << endl;
-            //cout << spec->powPos.x << ", " << spec->powPos.y << ", " << spec->powPos.z << endl;
             ply->ammo++;
+            spec->act = spec->PICKUP;
+            spec->actions();
         }
 
         glPushMatrix();
@@ -369,25 +362,35 @@ int scene::drawScene()
             KbMs->keyEnvL1(sp2,0.05);
             KbMs->keyEnvL1(sp3,0.05);
 
-            KbMs->keyPowerUp(spec, 0.05);
+            if (spec->isDropped == true)
+                KbMs->keyPowerUp(spec, 0.04);
             run = clock();
         }
     }
 
     else if (scne == LV2) {
-        glPushMatrix(); //matrix for the background parallax
+        if (ply->health == 0)      // Close program once player dies *CHANGE LATER*
+            PostQuitMessage(0);
+
+        if (numOfEn == 0) {           // Move to level 3 once all enemies are killed
+            scne = LV3;
+        }
+
+        //matrix for the background parallax
+        glPushMatrix();
         glScaled(3.33,3.33,1.0);
         prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
-        for(int i = 0; i < ply->health; i++){
+        // draw hud
+        for(int i = 0; i < ply->health; i++) {
             glPushMatrix();
             glTranslatef(((Hud->xPos) + i)/3, Hud->yPos, 0);
             Hud->drawSquare(screenWidth, screenHeight, 0);
             glPopMatrix();
         }
 
-        for(int i = 0; i < ply->ammo; i++){
+        for(int i = 0; i < ply->ammo; i++) {
             glPushMatrix();
             glTranslatef(((Hud->xPos) + i)/3, 1.7, 0);
             Hud->drawSquare(screenWidth, screenHeight, 1);
@@ -402,90 +405,32 @@ int scene::drawScene()
         pl25->drawPlatform();
         glPopMatrix();
 
+        // draw bullet
         for (int i = 0; i < 6; i++) {
             glPushMatrix();
             ammo[i].drawBullet();
             glPopMatrix();
 
-            if (ammo[i].bPos.x >= 7.0 || ammo[i].bPos.x <= -7.0)
+            if (ammo[i].bPos.x >= 3 || ammo[i].bPos.x <= -3)
                 ammo[i].act = ammo->IDLE;
-
-            for(int i = 0; i < enemyCount1; i++){
-                if(spearman[i].movement != spearman[i].DIE){
-                    if (hit->isRadialCollision(ammo[i].bPos.x, spearman[i].enemyPosition.x, ammo[i].bPos.y, spearman[i].enemyPosition.y, 0.1, 0.5)) {
-                        spearman[i].movement = spearman[i].DIE;
-                        ammo[i].act = ammo->IDLE;
-                    }
-                }
-            }
-
-            if (walker->movement != walker->DIE) {
-                if (hit->isRadialCollision(ammo[i].bPos.x, walker->enemyPosition.x, ammo[i].bPos.y, walker->enemyPosition.y, 0.1, 0.5)) {
-                    walker->movement = walker->DIE;
-                    ammo[i].act = ammo->IDLE;
-                }
-            }
-
         }
 
-
-        if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
-            spec->isHit++;
-        }
-        if(spec->isHit == 1){
-            spec->act = spec->IDLE;
-            ply->ammo++;
-        }
-        glPushMatrix();
-        spec->drawSquare();
-        glPopMatrix();
-
+        // draw player
         if (ply->pColor.y < 1) {
             ply->pColor.y += 0.003;
             ply->pColor.z += 0.003;
         }
 
-        glPushMatrix();
-        ply->drawPlayer();
         if (ply->actionTrigger == ply->JUMP)
             ply->actions(ply->JUMP);
-        else if (ply->actionTrigger == ply->IDLE)
+        else if (ply->isIdle)
             ply->actions(ply->IDLE);
+
+        glPushMatrix();
+        ply->drawPlayer();
         glPopMatrix();
 
-        //check to see if player is not on platform
-        if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl21))
-        {   //scuffed version of getting on the platform
-            ply->t = 8.2;
-            ply->actions(ply->JUMP);
-            ply->groundValue = -0.65;
-        }
-        //check if collision with top of platform 1
-        if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl21))
-        {
-            ply->groundValue = (pl21->pos.y +(0.25 * pl21->scaleSize.y)) + 0.4;
-        }
-        //check if collision with top of platform 2
-        if ((ply->pPos.y ) >= (pl22->pos.y +(0.25 * pl22->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl22))
-        {
-            ply->groundValue = (pl22->pos.y +(0.25 * pl22->scaleSize.y)) + 0.4;
-        }
-        //check if collision with top of platform 3
-        if ((ply->pPos.y ) >= (pl23->pos.y +(0.25 * pl23->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl23))
-        {
-            ply->groundValue = (pl23->pos.y +(0.25 * pl23->scaleSize.y)) + 0.4;
-        }
-        //check if collision with top of platform 4
-        if ((ply->pPos.y ) >= (pl24->pos.y +(0.25 * pl24->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl24))
-        {
-            ply->groundValue = (pl24->pos.y +(0.25 * pl24->scaleSize.y)) + 0.4;
-        }
-        //check if collision with top of platform 5
-        if ((ply->pPos.y ) >= (pl25->pos.y +(0.25 * pl25->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl25))
-        {
-            ply->groundValue = (pl25->pos.y +(0.25 * pl25->scaleSize.y)) + 0.4;
-        }
-
+        // draw whip
         glPushMatrix();
         wep->drawWhip();
         glPopMatrix();
@@ -503,19 +448,28 @@ int scene::drawScene()
     }
 
     else if (scne == LV3) {
-        glPushMatrix(); //matrix for the background parallax
+        if (ply->health == 0)      // Close program once player dies *CHANGE LATER*
+            PostQuitMessage(0);
+
+        if (numOfEn == 0) {        // You win screen?
+
+        }
+
+        //matrix for the background parallax
+        glPushMatrix();
         glScaled(3.33,3.33,1.0);
         prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
-        for(int i = 0; i < ply->health; i++){
+        // draw hud
+        for(int i = 0; i < ply->health; i++) {
             glPushMatrix();
             glTranslatef(((Hud->xPos) + i)/3, Hud->yPos, 0);
             Hud->drawSquare(screenWidth, screenHeight, 0);
             glPopMatrix();
         }
 
-        for(int i = 0; i < ply->ammo; i++){
+        for(int i = 0; i < ply->ammo; i++) {
             glPushMatrix();
             glTranslatef(((Hud->xPos) + i)/3, 1.7, 0);
             Hud->drawSquare(screenWidth, screenHeight, 1);
@@ -530,98 +484,37 @@ int scene::drawScene()
         pl35->drawPlatform();
         glPopMatrix();
 
+        // draw bullet
         for (int i = 0; i < 6; i++) {
             glPushMatrix();
             ammo[i].drawBullet();
             glPopMatrix();
 
-            if (ammo[i].bPos.x >= 7.0 || ammo[i].bPos.x <= -7.0)
+            if (ammo[i].bPos.x >= 3 || ammo[i].bPos.x <= -3)
                 ammo[i].act = ammo->IDLE;
-
-            if (walker->movement != walker->DIE) {
-                if (hit->isRadialCollision(ammo[i].bPos.x, walker->enemyPosition.x, ammo[i].bPos.y, walker->enemyPosition.y, 0.1, 0.5)) {
-                    walker->movement = walker->DIE;
-                    ammo[i].act = ammo->IDLE;
-                }
-            }
         }
 
-        if(walker->movement == walker->DIE){
-            spec->dropPowerUp(walker->enemyPosition);
-            spec->powPos.z = -2.0;
-        }
-
-        if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
-            spec->isHit++;
-        }
-        if(spec->isHit == 1){
-            spec->act = spec->IDLE;
-            ply->ammo++;
-        }
-        glPushMatrix();
-        spec->drawSquare();
-        glPopMatrix();
-
+        // draw player
         if (ply->pColor.y < 1) {
             ply->pColor.y += 0.003;
             ply->pColor.z += 0.003;
         }
 
-        glPushMatrix();
-        ply->drawPlayer();
         if (ply->actionTrigger == ply->JUMP)
             ply->actions(ply->JUMP);
+        else if (ply->isIdle)
+            ply->actions(ply->IDLE);
+
+        glPushMatrix();
+        ply->drawPlayer();
         glPopMatrix();
-        /*
-        if (!walker->isDead && hit->isQuadCollisionEnemy(ply, walker) && clock() - ply->damage > 2000) {
-            ply->pColor.y = 0; ply->pColor.z = 0;
-            ply->health--;
-            ply->damage = clock();
-        }
-        */
 
-        //check to see if player is not on platform
-        if ((ply->pPos.y ) >= (pl31->pos.y +(0.25 * pl31->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl31))
-        {   //scuffed version of getting on the platform
-            ply->t = 8.2;
-            ply->actions(ply->JUMP);
-            ply->groundValue = -0.65;
-        }
-        //check if collision with top of platform 1
-        if ((ply->pPos.y ) >= (pl31->pos.y +(0.25 * pl31->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl31))
-        {
-            ply->groundValue = (pl31->pos.y +(0.25 * pl31->scaleSize.y)) + 0.4;
-        }
-        //check if collision with top of platform 2
-        if ((ply->pPos.y ) >= (pl32->pos.y +(0.25 * pl32->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl32))
-        {
-            ply->groundValue = (pl32->pos.y +(0.25 * pl32->scaleSize.y)) + 0.4;
-        }
-        //check if collision with top of platform 3
-        if ((ply->pPos.y ) >= (pl33->pos.y +(0.25 * pl33->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl33))
-        {
-            ply->groundValue = (pl33->pos.y +(0.25 * pl33->scaleSize.y)) + 0.4;
-        }
-        //check if collision with top of platform 4
-        if ((ply->pPos.y ) >= (pl34->pos.y +(0.25 * pl34->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl34))
-        {
-            ply->groundValue = (pl34->pos.y +(0.25 * pl34->scaleSize.y)) + 0.4;
-        }
-        //check if collision with top of platform 5
-        if ((ply->pPos.y ) >= (pl35->pos.y +(0.25 * pl35->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl35))
-        {
-            ply->groundValue = (pl35->pos.y +(0.25 * pl35->scaleSize.y)) + 0.4;
-        }
-
+        // draw whip
         glPushMatrix();
         wep->drawWhip();
         glPopMatrix();
 
         if (wep->run == true) {
-            //if (hit->isQuadCollisionWhip(wep, walker)) {
-                //walker->movement = walker->DIE;
-            //}
-
             if (wep->t < 1) {
                 wep->t += 0.01;
                 start = clock();
@@ -704,10 +597,6 @@ int scene::initScene()
 
     ply->playerInit("images/knight.png", 4, 4);
 
-    walker->enemySkin("images/Walk.png");
-    walker->initEnemy(walker->tex, 7, 1);
-    walker->placeEnemy(pos3{1.0,-0.25,-2.0});
-
     spearman[0].enemySkin("images/Walk.png");
 
     for(int i = 0; i < enemyCount1; i++){
@@ -729,6 +618,8 @@ int scene::initScene()
     tl->initTitle("images/help.png", 3);
     tl->initTitle("images/credit.png", 4);
     tl->initTitle("images/stop.png", 5);
+
+    wep->initWhip("images/whip.png");
 
     ammo[0].projTexture("images/bullet.png");
     for (int i = 1; i < 6; i++) {
