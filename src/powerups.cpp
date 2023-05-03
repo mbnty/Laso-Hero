@@ -59,6 +59,7 @@ void powerups::drawSquare()
 
         glTexCoord2f(xMin, yMin);
         glVertex3f(-0.1, 0.1, -1.0);
+    glEnd();
 }
 
 int powerups::dropPowerUp(pos3 pos)
