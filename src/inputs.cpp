@@ -192,17 +192,16 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
 
     switch(wParam) {
         case MK_LBUTTON:
-
             wep->wPos.x = ply->pPos.x;
-            wep->wPos.y = ply->pPos.y;
-            //wep->wPos.z = ply->pPos.z;
+            wep->wPos.y = (ply->pPos.y - 0.15) * 0.67;
+            wep->wPos.z = -2;
             if (ply->playerDir == 'L') {
                 wep->wEnd.x = -3.0;
-                wep->wEnd.y = 1.0;
+                wep->wEnd.y = 1.05;
             }
             else if (ply->playerDir == 'R') {
                 wep->wEnd.x = 3.0;
-                wep->wEnd.y = 1.0;
+                wep->wEnd.y = 1.05;
             }
             wep->t = 0;
             wep->run = true;
