@@ -665,7 +665,7 @@
 
 1682373962 c:\users\derek\desktop\vscode\laso-hero\include\fonts.h
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\main.cpp
+1682981964 source:d:\gamedev 2023\projects\lso\laso-hero\main.cpp
 	<windows.h>
 	<string.h>
 	<stdlib.h>
@@ -673,52 +673,53 @@
 	<windows.h>
 	<scene.h>
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\scene.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\scene.h
 	<windows.h>
 	<GL/gl.h>
 	<GL/glut.h>
 	<iostream>
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\checkcollision.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\checkcollision.cpp
 	"checkCollision.h"
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\checkcollision.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\checkcollision.h
 	<commons.h>
 	<player.h>
 	<enemy.h>
 	<platform.h>
 	<whip.h>
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\commons.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\commons.h
 	<math.h>
 	<GL/gl.h>
 	<iostream>
 	<time.h>
+	<SNDS/irrKlang.h>
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\commons.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\commons.cpp
 	"commons.h"
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\enemy.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\enemy.cpp
 	"enemy.h"
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\enemy.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\enemy.h
 	<string>
 	<GL/glut.h>
 	<textureLoader.h>
 	<positions.h>
 	<time.h>
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\textureloader.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\textureloader.h
 	<iostream>
 	<SOIL.h>
 	<GL/gl.h>
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\positions.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\positions.h
 
-1682741874 source:d:\gamedev 2023\projects\lso\laso-hero\src\inputs.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\inputs.cpp
 	"inputs.h"
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\inputs.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\inputs.h
 	<windows.h>
 	<model.h>
 	<player.h>
@@ -730,62 +731,62 @@
 	<enemy.h>
 	<powerups.h>
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\model.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\model.h
 	<windows.h>
 	<GL/glut.h>
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\player.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\player.h
 	<textureLoader.h>
 	<commons.h>
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\title.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\title.h
 	<textureLoader.h>
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\whip.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\whip.h
 	<commons.h>
 	<textureLoader.h>
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\parallax.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\parallax.h
 	<textureLoader.h>
 	<time.h>
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\lvl1.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\lvl1.h
 	<commons.h>
 	<platform.h>
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\platform.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\platform.h
 	<commons.h>
 	<textureLoader.h>
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\light.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\light.cpp
 	"Light.h"
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\light.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\light.h
 	<GL/gl.h>
 	<scene.h>
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\model.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\model.cpp
 	"model.h"
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\parallax.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\parallax.cpp
 	"parallax.h"
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\platform.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\platform.cpp
 	"platform.h"
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\player.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\player.cpp
 	"player.h"
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\positions.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\positions.cpp
 	"positions.h"
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\textureloader.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\textureloader.cpp
 	"textureLoader.h"
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\title.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\title.cpp
 	"title.h"
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\whip.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\whip.cpp
 	"whip.h"
 
 1675127686 d:\gamedev 2023\common\include\gl\glut.h
@@ -815,7 +816,7 @@
 
 1682373962 
 
-1682744134 source:d:\gamedev 2023\projects\lso\laso-hero\src\scene.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\scene.cpp
 	"scene.h"
 	"Light.h"
 	"model.h"
@@ -831,15 +832,16 @@
 	<lvl1.h>
 	<ui.h>
 	<powerups.h>
+	<sounds.h>
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\ui.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\ui.h
 	<textureLoader.h>
 	<player.h>
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\ui.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\ui.cpp
 	"ui.h"
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\lvl1.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\lvl1.cpp
 	"lvl1.h"
 
 1682394362 source:c:\users\maakuarsenal\desktop\gamedev\laso-hero\src\fonts.cpp
@@ -1419,19 +1421,19 @@
 	<textureLoader.h>
 	<player.h>
 
-1682740032 source:d:\gamedev 2023\projects\lso\laso-hero\src\bullet.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\bullet.cpp
 	"bullet.h"
 
-1682740032 d:\gamedev 2023\projects\lso\laso-hero\include\bullet.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\bullet.h
 	<textureLoader.h>
 	<commons.h>
 
-1682745976 d:\gamedev 2023\projects\lso\laso-hero\include\powerups.h
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\powerups.h
 	<commons.h>
 	<textureLoader.h>
 	<positions.h>
 
-1682745828 source:d:\gamedev 2023\projects\lso\laso-hero\src\powerups.cpp
+1682981966 source:d:\gamedev 2023\projects\lso\laso-hero\src\powerups.cpp
 	"powerups.h"
 
 1682892264 c:\users\oskiez\desktop\graphics\laso-hero\include\powerups.h
@@ -1544,4 +1546,104 @@
 
 1682978242 c:\users\derek\desktop\vscode\laso-hero\include\sounds.h
 	<commons.h>
+
+1682981964 d:\gamedev 2023\projects\lso\laso-hero\include\sounds.h
+	<commons.h>
+
+1517331846 d:\gamedev 2023\common\include\snds\irrklang.h
+	"ik_irrKlangTypes.h"
+	"ik_vec3d.h"
+	"ik_IRefCounted.h"
+	"ik_IVirtualRefCounted.h"
+	"ik_ESoundOutputDrivers.h"
+	"ik_ESoundEngineOptions.h"
+	"ik_EStreamModes.h"
+	"ik_SAudioStreamFormat.h"
+	"ik_ISoundEngine.h"
+	"ik_ISoundSource.h"
+	"ik_ISound.h"
+	"ik_IAudioStream.h"
+	"ik_IAudioStreamLoader.h"
+	"ik_ISoundEffectControl.h"
+	"ik_ISoundStopEventReceiver.h"
+	"ik_IFileFactory.h"
+	"ik_IFileReader.h"
+	"ik_ISoundDeviceList.h"
+	"ik_IAudioRecorder.h"
+	"ik_ISoundMixedOutputReceiver.h"
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_irrklangtypes.h
+	<wchar.h>
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_vec3d.h
+	<math.h>
+	"ik_irrKlangTypes.h"
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_irefcounted.h
+	"ik_irrKlangTypes.h"
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_ivirtualrefcounted.h
+	"ik_irrKlangTypes.h"
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_esoundoutputdrivers.h
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_esoundengineoptions.h
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_estreammodes.h
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_saudiostreamformat.h
+	"ik_IRefCounted.h"
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_isoundengine.h
+	"ik_IRefCounted.h"
+	"ik_vec3d.h"
+	"ik_ISoundSource.h"
+	"ik_ISound.h"
+	"ik_EStreamModes.h"
+	"ik_IFileFactory.h"
+	"ik_ISoundMixedOutputReceiver.h"
+
+1517252432 d:\gamedev 2023\common\include\snds\ik_isoundsource.h
+	"ik_IVirtualRefCounted.h"
+	"ik_vec3d.h"
+	"ik_EStreamModes.h"
+	"ik_SAudioStreamFormat.h"
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_isound.h
+	"ik_IVirtualRefCounted.h"
+	"ik_ISoundEffectControl.h"
+	"ik_vec3d.h"
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_isoundeffectcontrol.h
+	"ik_IVirtualRefCounted.h"
+	"ik_vec3d.h"
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_ifilefactory.h
+	"ik_IRefCounted.h"
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_isoundmixedoutputreceiver.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_iaudiostream.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_iaudiostreamloader.h
+	"ik_IRefCounted.h"
+	"ik_IFileReader.h"
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_ifilereader.h
+	"ik_IRefCounted.h"
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_isoundstopeventreceiver.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1517252408 d:\gamedev 2023\common\include\snds\ik_isounddevicelist.h
+	"ik_IRefCounted.h"
+
+1517252424 d:\gamedev 2023\common\include\snds\ik_iaudiorecorder.h
+	"ik_IRefCounted.h"
+	"ik_ISoundSource.h"
 
