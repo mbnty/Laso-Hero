@@ -227,7 +227,7 @@ int scene::drawScene()
 
                         if (!spec->isDropped) {
                             spec->dropPowerUp(spearman[i].enemyPosition);
-                            spec->powPos.z = -2.0;
+                            spec->act = spec->IDLE;
                             spec->isDropped = true;
                         }
                     }
@@ -243,7 +243,7 @@ int scene::drawScene()
 
                         if (!spec->isDropped) {
                             spec->dropPowerUp(spearman[i].enemyPosition);
-                            spec->powPos.z = -2.0;
+                            spec->act = spec->IDLE;
                             spec->isDropped = true;
                         }
                     }
@@ -256,16 +256,9 @@ int scene::drawScene()
         }
 
         if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
-            spec->isHit++;
-            spec->act = spec->PICKUP;
-            //cout << "in pickup" << endl;
-            //cout << spec->powPos.x << ", " << spec->powPos.y << ", " << spec->powPos.z << endl;
-        }
-
-        if(spec->isHit == 1){
-            //cout << "in hit" << endl;
-            //cout << spec->powPos.x << ", " << spec->powPos.y << ", " << spec->powPos.z << endl;
             ply->ammo++;
+            spec->act = spec->PICKUP;
+            spec->actions();
         }
 
         glPushMatrix();
@@ -737,6 +730,8 @@ int scene::initScene()
 
     spec->powTexture("images/ammo.png");
     spec->initPowerUp(spec->powTex);
+
+    wep->initWhip("images/whip.png");
 
     //initialization of the images for the platforms
     //level 1
