@@ -24,6 +24,7 @@ whip* wep = new whip();
 checkCollision *hit = new checkCollision();
 ui *Hud = new ui();
 powerups *spec = new powerups();
+sounds *snds = new sounds();
 
 parallax prLx[10];
 bullet ammo[6];
@@ -56,6 +57,8 @@ platform *pl33 = new platform();
 platform *pl34 = new platform();
 platform *pl35 = new platform();
 
+
+
 int numBullet;
 int level = 0;
 int numOfEn = 5;
@@ -81,6 +84,7 @@ int scene::drawScene()
     glLoadIdentity();
 
     if (scne == TITLE) {
+        snds->playSound("sounds/menu.mp3");
         glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
         tl->drawTitle(screenWidth, screenHeight);
@@ -446,38 +450,49 @@ int scene::drawScene()
             ply->actions(ply->IDLE);
         glPopMatrix();
 
-        //check to see if player is not on platform
-        if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl21))
-        {   //scuffed version of getting on the platform
-            ply->t = 8.2;
-            ply->actions(ply->JUMP);
-            ply->groundValue = -0.65;
-        }
         //check if collision with top of platform 1
         if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl21))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl21->pos.y +(0.25 * pl21->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 2
-        if ((ply->pPos.y ) >= (pl22->pos.y +(0.25 * pl22->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl22))
+        else if ((ply->pPos.y ) >= (pl22->pos.y +(0.25 * pl22->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl22))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl22->pos.y +(0.25 * pl22->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 3
-        if ((ply->pPos.y ) >= (pl23->pos.y +(0.25 * pl23->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl23))
+        else if ((ply->pPos.y ) >= (pl23->pos.y +(0.25 * pl23->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl23))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl23->pos.y +(0.25 * pl23->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 4
-        if ((ply->pPos.y ) >= (pl24->pos.y +(0.25 * pl24->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl24))
+        else if ((ply->pPos.y ) >= (pl24->pos.y +(0.25 * pl24->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl24))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl24->pos.y +(0.25 * pl24->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 5
-        if ((ply->pPos.y ) >= (pl25->pos.y +(0.25 * pl25->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl25))
+        else if ((ply->pPos.y ) >= (pl25->pos.y +(0.25 * pl25->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl25))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl25->pos.y +(0.25 * pl25->scaleSize.y)) + 0.4;
         }
+
+        //case for falling off platform
+        else if (ply->onPlat == true)
+        {
+            ply->t = 8.2;
+            ply->groundValue = -0.65;
+            ply->actions(ply->JUMP);
+        }
+
 
         glPushMatrix();
         wep->drawWhip();
@@ -573,38 +588,49 @@ int scene::drawScene()
         }
         */
 
-        //check to see if player is not on platform
-        if ((ply->pPos.y ) >= (pl31->pos.y +(0.25 * pl31->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl31))
-        {   //scuffed version of getting on the platform
-            ply->t = 8.2;
-            ply->actions(ply->JUMP);
-            ply->groundValue = -0.65;
-        }
         //check if collision with top of platform 1
         if ((ply->pPos.y ) >= (pl31->pos.y +(0.25 * pl31->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl31))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl31->pos.y +(0.25 * pl31->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 2
-        if ((ply->pPos.y ) >= (pl32->pos.y +(0.25 * pl32->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl32))
+        else if ((ply->pPos.y ) >= (pl32->pos.y +(0.25 * pl32->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl32))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl32->pos.y +(0.25 * pl32->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 3
-        if ((ply->pPos.y ) >= (pl33->pos.y +(0.25 * pl33->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl33))
+        else if ((ply->pPos.y ) >= (pl33->pos.y +(0.25 * pl33->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl33))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl33->pos.y +(0.25 * pl33->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 4
-        if ((ply->pPos.y ) >= (pl34->pos.y +(0.25 * pl34->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl34))
+        else if ((ply->pPos.y ) >= (pl34->pos.y +(0.25 * pl34->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl34))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl34->pos.y +(0.25 * pl34->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 5
-        if ((ply->pPos.y ) >= (pl35->pos.y +(0.25 * pl35->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl35))
+        else if ((ply->pPos.y ) >= (pl35->pos.y +(0.25 * pl35->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl35))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl35->pos.y +(0.25 * pl35->scaleSize.y)) + 0.4;
         }
+
+        //case for falling off platform
+        else if (ply->onPlat == true)
+        {
+            ply->t = 8.2;
+            ply->groundValue = -0.65;
+            ply->actions(ply->JUMP);
+        }
+
 
         glPushMatrix();
         wep->drawWhip();
@@ -783,6 +809,8 @@ int scene::initScene()
 
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
+
+    snds->initSound();
 
     start = run = clock();
 
