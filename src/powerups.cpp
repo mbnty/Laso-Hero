@@ -13,7 +13,6 @@ powerups::powerups()
 
     isHit = 0;
     act = INIT;
-    isDropped = false;
 }
 
 powerups::~powerups()
@@ -62,16 +61,28 @@ void powerups::drawSquare()
     glEnd();
 }
 
-int powerups::dropPowerUp(pos3 pos)
+void powerups::dropBullet(pos3 pos)
 {
-    int chance = (int)rand()%5; //20% drop chance
-    //if(chance == 0){ //if certain chance reached, drop the powerup
+    int chance = (int)(rand()%100);
+    if(chance < 35){ //if certain chance reached, drop the bullet
         isDropped = true;
         powPos.x = pos.x;
         powPos.y = pos.y - 0.4;
         powPos.z = -1.0;
-    //}
+    }
 }
+
+void powerups::dropHealth(pos3 pos)
+{
+    int chance = (int)(rand()%100);
+    if(chance < 21){ //if certain chance reached, drop the health
+        isDropped = true;
+        powPos.x = pos.x;
+        powPos.y = pos.y - 0.4;
+        powPos.z = -1.0;
+    }
+}
+
 
 void powerups::actions()
 {
@@ -91,7 +102,6 @@ void powerups::actions()
     case PICKUP:
         powPos.x = 10.0;
         powPos.y = 15.0;
-        isDropped = false;
         isHit = 0;
         break;
     }

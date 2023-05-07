@@ -22,6 +22,7 @@ class player
         acts actionTrigger;
 
         int health, ammo;
+        int MAX_HEALTH, MAX_AMMO;
 
         char playerDir;  //to find out where player is heading
 
