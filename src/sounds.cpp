@@ -12,7 +12,7 @@ sounds::~sounds()
 
 void sounds::playMusic(char* file)
 {
-    engine->play2D(file, true);    //play file and true to run on a loop
+    engine->play2D(file,true);    //play file and true to run on a loop
 }
 
 void sounds::playSound(char* file)

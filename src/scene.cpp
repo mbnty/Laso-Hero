@@ -933,6 +933,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             if (scne == LV1 || scne == LV2 || scne == LV3) {
                 numBullet = ply->ammo - 1;
                 if (numBullet >= 0) {
+                    snds->playSound("sounds/shot.mp3");
                     ammo[numBullet].placeBullet(ply->pPos);
                     if (ply->playerDir == 'L')
                         ammo[numBullet].act = ammo->MOVEL;
