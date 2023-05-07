@@ -16,7 +16,7 @@ enemy::enemy()
     enemyRotation.x = enemyRotation.y = enemyRotation.z = 0;
     movement = IDLE;
 
-    enemySpeed.x = 0.01;
+    enemySpeed.x = 0.03;
     enemySpeed.y = 0.0;
 
     isHit = false;
@@ -28,6 +28,7 @@ enemy::enemy()
     groundValue = -0.25;
 
     currTime = clock();
+    attackTimer = clock();
 
     indexTexture = 1;
 
@@ -138,6 +139,40 @@ void enemy::setAsSpear()
     vFramesInd[8] = 6; //Run
     vFramesInd[9] = 5; //Run+Attack
 }
+
+void enemy::enemyAIManager(player* ply, bool canAttack, bool canMove)
+{
+    if(movement == DIE || movement == ATTACK){//Draws death animation
+            drawEnemy();
+    }
+    else if(canAttack == true){
+        if(clock() - attackTimer > 3000){
+            movement = ATTACK;
+            attackTimer = clock();
+        }else if (enDir = 'L'){
+            movement = WALKL;
+        }else{
+            movement = WALKR;
+        }
+    }
+    else if(enemyPosition.x < 0.90 && enemyPosition.x > -0.90){ //Distance check
+        if(enemyPosition.x > ply->pPos.x && !isDead){
+            if(!canMove){// if enemy sees player: move toward player
+                movement = IDLE;
+            }else{
+                movement = WALKL;
+            }
+        }
+        else if(enemyPosition.x < ply->pPos.x && !isDead){
+            if(!canMove){
+                movement = IDLE;
+            }else{
+                movement = WALKR;
+            }
+        }
+    }
+}
+
 
 void enemy::actions()
 {

@@ -4,6 +4,7 @@
 #include<GL/glut.h>
 #include<textureLoader.h>
 #include<positions.h>
+#include<player.h>
 #include<time.h>
 
 class enemy
@@ -17,7 +18,8 @@ class enemy
         void initEnemy(GLuint, int, int);
         void enemySkin(char *);
         void enemySkinMulti(char *, GLuint &);
-        void checkPosition();
+        void enemyAIManager(player*, bool, bool);
+
 
         void setAsSpear();
 
@@ -55,7 +57,11 @@ class enemy
         bool isAttack;
 
         clock_t currTime;
+        clock_t attackTimer;
         clock_t DeathTimer;
+
+        static enemy self;
+
     protected:
 
     private:
