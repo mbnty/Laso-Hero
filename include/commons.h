@@ -2,6 +2,7 @@
 #define COMMONS_H
 #define GRVITY 9.81
 #define PI 3.14159
+#define MAX_DROPS 50000
 
 #include <math.h>
 #include <GL/gl.h>

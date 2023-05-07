@@ -68,8 +68,6 @@ void enemy::drawEnemy()
 
     glEnd();
 
-
-    actions();
     glPopMatrix();
 }
 

@@ -14,6 +14,7 @@
 #include <ui.h>
 #include <powerups.h>
 #include <sounds.h>
+#include <particles.h>
 
 model *startModel = new model();
 inputs *KbMs = new inputs();
@@ -26,6 +27,7 @@ ui *Hud = new ui();
 powerups *spec = new powerups();
 powerups *health = new powerups();
 sounds *snds = new sounds();
+particles *sand = new particles();
 
 parallax prLx[10];
 bullet ammo[6];
@@ -90,26 +92,50 @@ int scene::drawScene()
         glScaled(4.2, 4.2, 1.0);
         tl->drawTitle(screenWidth, screenHeight);
         glPopMatrix();
+
+        glPushMatrix();
+            sand->updateParticles();
+            sand->generateParticles(0, 0);
+            sand->drawParticles();
+        glPopMatrix();
     }
 
     else if(scne == HELP){
         glPushMatrix();
-        glScaled(3.33, 3.33, 1.0);
+        glScaled(4.2, 4.2, 1.0);
         prLx[5].drawSquare(screenWidth, screenHeight);
+        glPopMatrix();
+
+        glPushMatrix();
+            sand->updateParticles();
+            sand->generateParticles(0, 0);
+            sand->drawParticles();
         glPopMatrix();
     }
 
     else if(scne == CREDITS){
         glPushMatrix();
-        glScaled(3.33, 3.33, 1.0);
+        glScaled(4.2, 4.2, 1.0);
         prLx[6].drawSquare(screenWidth, screenHeight);
+        glPopMatrix();
+
+        glPushMatrix();
+            sand->updateParticles();
+            sand->generateParticles(0, 0);
+            sand->drawParticles();
         glPopMatrix();
     }
 
     else if(scne == CONTROLS){
         glPushMatrix();
-        glScaled(3.33, 3.33, 1.0);
+        glScaled(4.2, 4.2, 1.0);
         prLx[7].drawSquare(screenWidth, screenHeight);
+        glPopMatrix();
+
+        glPushMatrix();
+            sand->updateParticles();
+            sand->generateParticles(0, 0);
+            sand->drawParticles();
         glPopMatrix();
     }
 
@@ -138,6 +164,12 @@ int scene::drawScene()
         glTranslatef(0, -3, 0);
         tl->drawSquare(screenWidth, screenHeight, 5);
         glPopMatrix();
+
+        glPushMatrix();
+            sand->updateParticles();
+            sand->generateParticles(0, 0);
+            sand->drawParticles();
+        glPopMatrix();
     }
 
     else if (scne == LV1) {
@@ -150,7 +182,7 @@ int scene::drawScene()
 
         //matrix for the background parallax
         glPushMatrix();
-        glScaled(3.33,3.33,1.0);
+        glScaled(4.2, 4.2, 1.0);
         prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
@@ -211,6 +243,7 @@ int scene::drawScene()
         for(int i = 0; i < enemyCount1; i++){
             if(spearman[i].movement == spearman[i].DIE || spearman[i].movement == spearman[i].ATTACK){//Draws death animation
                     spearman[i].drawEnemy();
+                    spearman[i].actions();
             }
             else if(hit->QuadEnemytoPlayer(spearman[i],ply)){
                     spearman[i].movement = spearman[i].ATTACK;
@@ -271,6 +304,7 @@ int scene::drawScene()
 
             if(spearman[i].isHit == false){
                 spearman[i].drawEnemy();
+                spearman[i].actions();
             }
         }
 
@@ -399,7 +433,7 @@ int scene::drawScene()
 
     else if (scne == LV2) {
         glPushMatrix(); //matrix for the background parallax
-        glScaled(3.33,3.33,1.0);
+        glScaled(4.2, 4.2, 1.0);
         prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
@@ -538,7 +572,7 @@ int scene::drawScene()
 
     else if (scne == LV3) {
         glPushMatrix(); //matrix for the background parallax
-        glScaled(3.33,3.33,1.0);
+        glScaled(4.2, 4.2, 1.0);
         prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
@@ -681,14 +715,14 @@ int scene::drawScene()
 
     else if(scne == PAUSE){
         glPushMatrix(); //matrix for the background parallax
-        glScaled(3.33,3.33, 1.0);
+        glScaled(4.2, 4.2, 1.0);
         prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
         glPushMatrix();
-        glScalef(0.3, 0.3, 1);
+        glScalef(0.4, 0.4, 1);
         glTranslatef(0, 0, -1.9);
-        prLx[4].drawPopUp(screenWidth, screenHeight, 3);
+        prLx[4].drawPopUp(screenWidth, screenHeight);
         glPopMatrix();
 
         for(int i = 0; i < ply->health; i++){
@@ -704,6 +738,14 @@ int scene::drawScene()
             glPopMatrix();
         }
 
+        glPushMatrix();
+        ply->drawPlayer();
+        glPopMatrix();
+
+        glPushMatrix();
+        wep->drawWhip();
+        glPopMatrix();
+
         if (level == 1) {
             glPushMatrix(); // this martix holds the platforms
             pl1->drawPlatform();
@@ -717,20 +759,11 @@ int scene::drawScene()
             glPopMatrix();
 
             for (int i = 0; i < enemyCount1; i++) {
-                if (!spearman[i].isDead)
-                    spearman[i].movement = spearman->IDLE;
-                if (spearman[i].isHit == false)
+                if (!spearman[i].isDead) {
                     spearman[i].drawEnemy();
+                }
             }
         }
-
-        glPushMatrix();
-        ply->drawPlayer();
-        glPopMatrix();
-
-        glPushMatrix();
-        wep->drawWhip();
-        glPopMatrix();
     }
 }
 
@@ -758,7 +791,7 @@ int scene::initScene()
     prLx[1].initParallax("images/background1.jpg"); //initializing parallax with background image
     prLx[2].initParallax("images/background2.jpg");
     prLx[3].initParallax("images/background3.png");
-    prLx[4].initPopUp("images/Pause.png", 3); //pause screen popup
+    prLx[4].initPopUp("images/Pause.png"); //pause screen popup
     prLx[5].initParallax("images/helpScreen.png"); //help screen
     prLx[6].initParallax("images/creditScreen.png"); //credits screen
     prLx[7].initParallax("images/controlScreen.png"); //control screen
@@ -771,7 +804,7 @@ int scene::initScene()
     tl->initTitle("images/stop.png", 5);
 
     ammo[0].projTexture("images/bullet.png");
-    for (int i = 1; i < 6; i++) {
+    for (int i = 0; i < 6; i++) {
         ammo[i].initBullet(ammo[0].tex);
     }
 
@@ -832,6 +865,8 @@ int scene::initScene()
 
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
+
+    sand->generateParticles(0, 0);
 
     snds->initSound();
 
