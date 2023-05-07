@@ -11,6 +11,7 @@
 #include <lvl1.h>
 #include <enemy.h>
 #include <powerups.h>
+#include <sounds.h>
 
 class inputs
 {
@@ -28,7 +29,7 @@ class inputs
         void mousePlayer();
 
         void keyEnv(parallax &, float);
-        void keyPlayer(player*);
+        void keyPlayer(player*,sounds*);
         int keyTitle(title*);
         void keyWhip(whip*, player*);
         int keyPause();
