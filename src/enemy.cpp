@@ -14,17 +14,24 @@ enemy::enemy()
     enemyColor.z = 1.0;
 
     enemyRotation.x = enemyRotation.y = enemyRotation.z = 0;
-    movement = WALKL;
+    movement = IDLE;
 
     enemySpeed.x = 0.01;
     enemySpeed.y = 0.0;
 
     isHit = false;
     isDead = false;
+    isIdle = false;
+    isAttack = false;
+
+    enemyOffsetY = -0.4;
+    groundValue = -0.25;
 
     currTime = clock();
 
-    indexTexture = 0;
+    indexTexture = 1;
+
+    enDir = 'L';
 }
 
 enemy::~enemy()
@@ -34,7 +41,7 @@ enemy::~enemy()
 
 void enemy::drawEnemy()
 {
-    tLoad->binder(tex);
+    tLoad->binder(texInd[indexTexture]);
 
     glPushMatrix();
     glColor3f(enemyColor.x,enemyColor.y,enemyColor.z);
@@ -71,6 +78,10 @@ void enemy::placeEnemy(pos3 placement)
     enemyPosition.x = placement.x;
     enemyPosition.y = placement.y;
     enemyPosition.z = placement.z;
+
+    initialPosition.x = placement.x;
+    initialPosition.y = placement.y;
+    initialPosition.z = placement.z;
 }
 
 void enemy::initEnemy(GLuint tex, int verticalFrames, int horizontalFrames)
@@ -94,55 +105,169 @@ void enemy::enemySkin(char* fileName)
     tLoad->loadTexture(fileName,tex);
 }
 
+void enemy::enemySkinMulti(char* fileName, GLuint& Tex)
+{
+    tLoad->arrayTexLoader(fileName, Tex);
+}
+
+void enemy::setAsSpear()
+{
+    enemySkinMulti("images/Skeleton_Spearman/Walk.png", texInd[0]);
+    enemySkinMulti("images/Skeleton_Spearman/Idle.png", texInd[1]);
+    enemySkinMulti("images/Skeleton_Spearman/Attack_1.png", texInd[2]);
+    enemySkinMulti("images/Skeleton_Spearman/Attack_2.png", texInd[3]);
+    enemySkinMulti("images/Skeleton_Spearman/Hurt.png", texInd[4]);
+    enemySkinMulti("images/Skeleton_Spearman/Dead.png", texInd[5]);
+    enemySkinMulti("images/Skeleton_Spearman/Fall.png", texInd[6]);
+    enemySkinMulti("images/Skeleton_Spearman/Protect.png", texInd[7]);
+    enemySkinMulti("images/Skeleton_Spearman/Run.png", texInd[8]);
+    enemySkinMulti("images/Skeleton_Spearman/Run+attack.png", texInd[9]);
+
+    for(int i = 0; i < 10; i++){ //Horizontal Frames only 1 cause separate images
+        hFramesInd[i] = 1;
+    }
+
+    vFramesInd[0] = 7; //Walk
+    vFramesInd[1] = 7; //Idle
+    vFramesInd[2] = 4; //Attack 1
+    vFramesInd[3] = 4; //Attack 2
+    vFramesInd[4] = 3; //Hurt
+    vFramesInd[5] = 5; //Dead
+    vFramesInd[6] = 6; //Fall
+    vFramesInd[7] = 2; //Protect
+    vFramesInd[8] = 6; //Run
+    vFramesInd[9] = 5; //Run+Attack
+}
+
 void enemy::actions()
 {
     switch(movement){
     case IDLE: //stops the enemy from moving
+        indexTexture = 1;
+        if(isIdle == false){
+            if(enDir == 'L'){
+                xMax = 1.0/(float)vFramesInd[indexTexture];
+                xMin = 0.0;
+                yMax = 1.0/(float)hFramesInd[indexTexture];
+                yMin = 0.0;
+            }else{
+                xMin = 1.0/(float)vFramesInd[indexTexture];
+                xMax = 0.0;
+                yMax = 1.0/(float)hFramesInd[indexTexture];
+                yMin = 0.0;
+            }
+            isIdle = true;
+        }
+        if(clock() - currTime > 60){
+            xMax += 1.0/(float)vFramesInd[indexTexture];
+            xMin += 1.0/(float)vFramesInd[indexTexture];
+            currTime = clock();
+        }
         enemyPosition.x += 0;
         enemyPosition.y += 0;
         enemyPosition.z += 0;
         break;
     case WALKR:
+        indexTexture = 0;
+        isIdle = false;
         if(enDir != 'R'){
             enDir = 'R';
-            xMin = 1.0/(float)vFrames;
+            xMin = 1.0/(float)vFramesInd[indexTexture];
             xMax = 0.0;
-            yMax = 1.0/(float)hFrames;
+            yMax = 1.0/(float)hFramesInd[indexTexture];
             yMin = 0.0;
         }
 
         if(clock() - currTime > 60){
-            xMax += 1.0/(float)vFrames;
-            xMin += 1.0/(float)vFrames;
+            xMax += 1.0/(float)vFramesInd[indexTexture];
+            xMin += 1.0/(float)vFramesInd[indexTexture];
             enemyPosition.x += enemySpeed.x;
             currTime = clock();
         }
         break;
     case WALKL:
+        indexTexture = 0;
+        isIdle = false;
         if(enDir != 'L'){
             enDir = 'L';
-            xMax = 1.0/(float)vFrames;
+            xMax = 1.0/(float)vFramesInd[indexTexture];
             xMin = 0.0;
-            yMax = 1.0/(float)hFrames;
+            yMax = 1.0/(float)hFramesInd[indexTexture];
             yMin = 0.0;
         }
         if(clock() - currTime > 60){
-            xMax += 1.0/(float)vFrames;
-            xMin += 1.0/(float)vFrames;
+            xMax += 1.0/(float)vFramesInd[indexTexture];
+            xMin += 1.0/(float)vFramesInd[indexTexture];
             enemyPosition.x -= enemySpeed.x;
             currTime = clock();
         }
         break;
+    case ATTACK:
+        indexTexture = 2;
+        isIdle = false;
+        if(isAttack == false){
+            if(enDir == 'L'){
+                xMax = 1.0/(float)vFramesInd[indexTexture];
+                xMin = 0.0;
+                yMax = 1.0/(float)hFramesInd[indexTexture];
+                yMin = 0.0;
+            }else{
+                xMin = 1.0/(float)vFramesInd[indexTexture];
+                xMax = 0.0;
+                yMax = 1.0/(float)hFramesInd[indexTexture];
+                yMin = 0.0;
+            }
+            isAttack = true;
+        }
+        if(clock() - currTime > 180){
+            xMax += 1.0/(float)vFramesInd[indexTexture];
+            xMin += 1.0/(float)vFramesInd[indexTexture];
+            currTime = clock();
+            if(xMax >= 1.0 || xMin >= 1.0){
+                isAttack = false;
+                movement = IDLE;
+            }
+        }
+        break;
     case DIE:
+        indexTexture = 5;
+        isIdle = false;
         if(isDead == false){
             isDead = true;
-            enemyColor.y = 0.0;
-            enemyColor.z = 0.0;
-            enemyPosition.y -= 0.3;
-            enemyRotation.z = -90.0;
+            DeathTimer = clock();
+        }
+        if(enDir == 'L'){
+            xMax = 1.0/(float)vFramesInd[indexTexture];
+            xMin = 0.0;
+            yMax = 1.0/(float)hFramesInd[indexTexture];
+            yMin = 0.0;
+            enDir = 'A';
             currTime = clock();
         }
-        if(clock() - currTime >= 2000){
+        if(enDir == 'R'){
+            xMin = 1.0/(float)vFramesInd[indexTexture];
+            xMax = 0.0;
+            yMax = 1.0/(float)hFramesInd[indexTexture];
+            yMin = 0.0;
+            enDir = 'D';
+            currTime = clock();
+        }
+        if(clock() - currTime >= 60){
+            xMax += 1.0/(float)vFramesInd[indexTexture];
+            xMin += 1.0/(float)vFramesInd[indexTexture];
+            currTime = clock();
+            if(xMax >= 1.0){ // Final Frame
+                if(enDir == 'A'){
+                    xMax = 1.0;
+                    xMin = xMax - 1.0/vFramesInd[indexTexture];
+                }
+                if(enDir == 'D'){
+                    xMin = 1.0;
+                    xMax = xMin - 1.0/vFramesInd[indexTexture];
+                }
+            }
+        }
+        if(clock() - DeathTimer >= 2500 && isDead == true){
             enemyPosition.y = -10;
         }
         break;

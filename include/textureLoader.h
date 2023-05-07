@@ -16,6 +16,9 @@ class textureLoader
         void loadTexture(char *, GLuint &);  //to load images
         void binder(GLuint);                 //to bind images
 
+        void multiTexGen(int, GLuint &);         //used for multi image textures && Used for array GLuint only
+        void arrayTexLoader(char *, GLuint &);   //Same as loadTexture without GenTexture
+
         unsigned char *image;                //to hold image data
         int width, height;                   //image width and height
 

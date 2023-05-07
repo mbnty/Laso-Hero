@@ -19,6 +19,7 @@ class checkCollision
         bool isQuadCollisionPlatform(player*, platform*);
         bool isQuadCollisionEnemy(player*, enemy);
         bool isQuadCollisionWhip(whip*, enemy);
+        bool QuadEnemytoPlayer(enemy, player*);
 
 
     protected:

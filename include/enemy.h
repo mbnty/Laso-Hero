@@ -16,7 +16,10 @@ class enemy
         void placeEnemy(pos3);
         void initEnemy(GLuint, int, int);
         void enemySkin(char *);
+        void enemySkinMulti(char *, GLuint &);
         void checkPosition();
+
+        void setAsSpear();
 
         enum acts{IDLE, WALKR, WALKL, JUMP, ATTACK, DIE};
         void actions();
@@ -25,10 +28,16 @@ class enemy
         char enDir; //direction enemy is facing
 
         int hFrames;
+        int hFramesInd[10];
+
         int vFrames;
+        int vFramesInd[10];
 
         float xMax, yMax, xMin, yMin;
+        float enemyOffsetY;
+        float groundValue;
         pos3 enemyPosition;
+        pos3 initialPosition;
         pos2 enemySize;
         pos3 enemyColor;
         pos2 enemySpeed;
@@ -37,12 +46,16 @@ class enemy
 
         int indexTexture;
         GLuint tex;
+        GLuint texInd[10];
         textureLoader *tLoad = new textureLoader();
 
         bool isHit;
         bool isDead;
+        bool isIdle;
+        bool isAttack;
 
         clock_t currTime;
+        clock_t DeathTimer;
     protected:
 
     private:

@@ -204,12 +204,27 @@ int scene::drawScene()
 
         // draw enemies
         for(int i = 0; i < enemyCount1; i++){
-            if(spearman[i].enemyPosition.x > ply->pPos.x && !spearman[i].isDead){
-                spearman[i].movement = spearman[i].WALKL;
+            if(spearman[i].movement == spearman[i].DIE || spearman[i].movement == spearman[i].ATTACK){//Draws death animation
+                    spearman[i].drawEnemy();
             }
-
-            else if(spearman[i].enemyPosition.x < ply->pPos.x && !spearman[i].isDead){
-                spearman[i].movement = spearman[i].WALKR;
+            else if(hit->QuadEnemytoPlayer(spearman[i],ply)){
+                    spearman[i].movement = spearman[i].ATTACK;
+            }
+            else if(spearman[i].enemyPosition.x < 0.90 && spearman[i].enemyPosition.x > -0.90){ //Distance check
+                if(spearman[i].enemyPosition.x > ply->pPos.x && !spearman[i].isDead){
+                    if(!hit->isLinearCollision(ply->pPos.y, spearman[i].enemyPosition.y + spearman[i].enemyOffsetY)){// if enemy sees player: move toward player
+                        spearman[i].movement = spearman[i].IDLE;
+                    }else{
+                        spearman[i].movement = spearman[i].WALKL;
+                    }
+                }
+                else if(spearman[i].enemyPosition.x < ply->pPos.x && !spearman[i].isDead){
+                    if(!hit->isLinearCollision(ply->pPos.y, spearman[i].enemyPosition.y + spearman[i].enemyOffsetY)){
+                        spearman[i].movement = spearman[i].IDLE;
+                    }else{
+                        spearman[i].movement = spearman[i].WALKR;
+                    }
+                }
             }
 
             if (!spearman[i].isDead && hit->isQuadCollisionEnemy(ply, spearman[i]) && clock() - ply->damage > 2000) {
@@ -233,7 +248,6 @@ int scene::drawScene()
                     }
                 }
             }
-
             if (wep->run == true) {
                 if (!spearman[i].isDead) {
                     if (hit->isQuadCollisionWhip(wep, spearman[i])) {
@@ -697,14 +711,9 @@ int scene::initScene()
 
     ply->playerInit("images/knight.png", 4, 4);
 
-    walker->enemySkin("images/Walk.png");
-    walker->initEnemy(walker->tex, 7, 1);
-    walker->placeEnemy(pos3{1.0,-0.25,-2.0});
-
-    spearman[0].enemySkin("images/Walk.png");
-
     for(int i = 0; i < enemyCount1; i++){
-        spearman[i].initEnemy(spearman[0].tex, 7, 1);
+        glGenTextures(10, spearman[i].texInd);
+        spearman[i].setAsSpear();
         spearman[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
     }
 
