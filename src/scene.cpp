@@ -24,6 +24,7 @@ whip* wep = new whip();
 checkCollision *hit = new checkCollision();
 ui *Hud = new ui();
 powerups *spec = new powerups();
+powerups *health = new powerups();
 sounds *snds = new sounds();
 
 parallax prLx[10];
@@ -244,11 +245,11 @@ int scene::drawScene()
                         ammo[j].act = ammo->IDLE;
                         numOfEn--;
 
-                        if (!spec->isDropped) {
-                            spec->dropPowerUp(spearman[i].enemyPosition);
-                            spec->act = spec->IDLE;
-                            spec->isDropped = true;
-                        }
+                        spec->dropBullet(spearman[i].enemyPosition);
+                        spec->act = spec->IDLE;
+
+                        health->dropHealth(spearman[i].enemyPosition);
+                        health->act = health->IDLE;
                     }
                 }
             }
@@ -259,11 +260,11 @@ int scene::drawScene()
                         wep->wPos.y = 10.0;
                         numOfEn--;
 
-                        if (!spec->isDropped) {
-                            spec->dropPowerUp(spearman[i].enemyPosition);
-                            spec->act = spec->IDLE;
-                            spec->isDropped = true;
-                        }
+                        spec->dropBullet(spearman[i].enemyPosition);
+                        spec->act = spec->IDLE;
+
+                        health->dropHealth(spearman[i].enemyPosition);
+                        health->act = health->IDLE;
                     }
                 }
             }
@@ -273,14 +274,24 @@ int scene::drawScene()
             }
         }
 
-        if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
+        if(hit->isQuadCollisionPowerUp(ply, spec) && (ply->ammo < ply->MAX_AMMO)){
             ply->ammo++;
             spec->act = spec->PICKUP;
             spec->actions();
         }
 
+        if(hit->isQuadCollisionPowerUp(ply, health) && (ply->health < ply->MAX_HEALTH)){
+            ply->health++;
+            health->act = health->PICKUP;
+            health->actions();
+        }
+
         glPushMatrix();
         spec->drawSquare();
+        glPopMatrix();
+
+        glPushMatrix();
+        health->drawSquare();
         glPopMatrix();
 
         //check if collision with top of platform 1
@@ -381,6 +392,7 @@ int scene::drawScene()
             KbMs->keyEnvL1(sp3,0.05);
 
             KbMs->keyPowerUp(spec, 0.05);
+            KbMs->keyPowerUp(health, 0.05);
             run = clock();
         }
     }
@@ -568,10 +580,10 @@ int scene::drawScene()
             }
         }
 
-        if(walker->movement == walker->DIE){
-            spec->dropPowerUp(walker->enemyPosition);
-            spec->powPos.z = -2.0;
-        }
+        //if(walker->movement == walker->DIE){
+            //spec->dropPowerUp(walker->enemyPosition);
+            //spec->powPos.z = -2.0;
+        //}
 
         if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
             spec->isHit++;
@@ -765,6 +777,8 @@ int scene::initScene()
 
     spec->powTexture("images/ammo.png");
     spec->initPowerUp(spec->powTex);
+    health->powTexture("images/heart.png");
+    health->initPowerUp(health->powTex);
 
     wep->initWhip("images/whip.png");
 

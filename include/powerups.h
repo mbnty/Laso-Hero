@@ -13,7 +13,8 @@ class powerups
         void initPowerUp(GLuint);
         void drawSquare();
         void powTexture(char*);
-        int dropPowerUp(pos3);
+        void dropBullet(pos3);
+        void dropHealth(pos3);
 
         enum acts{INIT, IDLE, DROP, PICKUP, MOVEL, MOVER};
         acts act;

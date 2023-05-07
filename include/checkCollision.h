@@ -6,6 +6,7 @@
 #include <enemy.h>
 #include <platform.h>
 #include <whip.h>
+#include <powerups.h>
 
 class checkCollision
 {
@@ -19,6 +20,7 @@ class checkCollision
         bool isQuadCollisionPlatform(player*, platform*);
         bool isQuadCollisionEnemy(player*, enemy);
         bool isQuadCollisionWhip(whip*, enemy);
+        bool isQuadCollisionPowerUp(player*, powerups*);
         bool QuadEnemytoPlayer(enemy, player*);
 
 

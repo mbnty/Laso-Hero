@@ -11,6 +11,9 @@ player::player()
     health = 5; //max of 5
     ammo = 3; //max of 6
 
+    MAX_HEALTH = 6;
+    MAX_AMMO = 6;
+
     runSpeed = 0.01;
     jumpSpeed = 0;
     actionTrigger = IDLE;
