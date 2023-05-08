@@ -91,7 +91,7 @@ int scene::drawScene()
     glLoadIdentity();
 
     if (scne == TITLE) {
-        //snds->playSound("sounds/menu.mp3");
+        //snds->playMusic("sounds/menu.mp3");
         glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
         tl->drawTitle(screenWidth, screenHeight);
@@ -159,6 +159,8 @@ int scene::drawScene()
     }
 
     else if (scne == LV1) {
+        //snds->playSound("sounds/sound1.mp3");
+
         if (ply->health == 0)      // Close program once player dies *CHANGE LATER*
             //PostQuitMessage(0);
 
@@ -289,7 +291,7 @@ int scene::drawScene()
             ply->ammo++;
             spec->act = spec->PICKUP;
             spec->actions();
-            snds->playSound("sounds/item.mp3");
+            snds->playSound("sounds/item1.mp3");
         }
 
         if(hit->isQuadCollisionPowerUp(ply, health) && (ply->health < ply->MAX_HEALTH)){
