@@ -163,23 +163,6 @@ void inputs::keyWhip(whip* wep, player* ply)
     }
 }
 
-void inputs::keyBullet(bullet* ammo, player* ply)
-{
-    /*
-    if (wParam == VK_SPACE) {
-        int n = ply->ammo - 1;
-        if (n >= 0) {
-            ammo[n].placeBullet(ply->pPos);
-            if (ply->playerDir == 'L')
-                ammo[n].act = ammo->MOVEL;
-            else if (ply->playerDir == 'R')
-                ammo[n].act = ammo->MOVER;
-            ply->ammo--;
-        }
-    }
-    */
-}
-
 void inputs::keyUp()
 {
 

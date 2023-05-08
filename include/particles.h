@@ -32,7 +32,7 @@ class particles
         void resetParticles();
 
         void genJumpParticles(float, float);
-        void updateJumpParticles();
+        void updateJumpParticles(int);
 
         float drand48() { return (rand()%100 + 1) / 100.0; }
         int numDrops = 0;

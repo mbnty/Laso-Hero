@@ -64,6 +64,8 @@ platform *pl33 = new platform();
 platform *pl34 = new platform();
 platform *pl35 = new platform();
 
+platform *arrow = new platform();
+
 int numBullet;
 int level = 0;
 int numOfEn = 5;
@@ -161,6 +163,9 @@ int scene::drawScene()
             //PostQuitMessage(0);
 
         if (numOfEn == 0) {           // Move to level 2 once all enemies are killed
+            arrow->place(-4.8, 0, 1.5, 1);
+            spec->act = spec->IDLE;
+            health->act = health->IDLE;
             //scne = LV2;
         }
 
@@ -169,6 +174,7 @@ int scene::drawScene()
         glScaled(4.2, 4.2, 1.0);
         prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
+
 
         // draw hud
         for(int i = 0; i < ply->health; i++){
@@ -196,6 +202,8 @@ int scene::drawScene()
         sp1->drawPlatform();
         sp2->drawPlatform();
         sp3->drawPlatform();
+
+        arrow->drawPlatform();
         glPopMatrix();
 
         // draw bullet
@@ -219,7 +227,7 @@ int scene::drawScene()
         else if (ply->isIdle)
             ply->actions(ply->IDLE,snds, sand);
 
-        sand->updateJumpParticles();
+        sand->updateJumpParticles(1);
         sand->drawParticles();
 
         glPushMatrix();
@@ -386,22 +394,27 @@ int scene::drawScene()
         // Change scene if input
         if (clock() - run > 30) {
             KbMs->keyPlayer(ply, snds, sand);
-            KbMs->keyEnv(prLx[1], 0.005);
-            for (int i = 0; i < enemyCount1; i++)
-                KbMs->keyEnemy(spearman[i]);
 
-            KbMs->keyEnvL1(pl1,0.05);
-            KbMs->keyEnvL1(pl2,0.05);
-            KbMs->keyEnvL1(pl3,0.05);
-            KbMs->keyEnvL1(pl4,0.05);
-            KbMs->keyEnvL1(pl5,0.05);
+            if (pl1->pos.x < 3.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) {
+                KbMs->keyEnv(prLx[1], 0.005);
+                for (int i = 0; i < enemyCount1; i++)
+                    KbMs->keyEnemy(spearman[i]);
 
-            KbMs->keyEnvL1(sp1,0.05);
-            KbMs->keyEnvL1(sp2,0.05);
-            KbMs->keyEnvL1(sp3,0.05);
+                KbMs->keyEnvL1(pl1,0.05);
+                KbMs->keyEnvL1(pl2,0.05);
+                KbMs->keyEnvL1(pl3,0.05);
+                KbMs->keyEnvL1(pl4,0.05);
+                KbMs->keyEnvL1(pl5,0.05);
 
-            KbMs->keyPowerUp(spec, 0.05);
-            KbMs->keyPowerUp(health, 0.05);
+                KbMs->keyEnvL1(sp1,0.05);
+                KbMs->keyEnvL1(sp2,0.05);
+                KbMs->keyEnvL1(sp3,0.05);
+
+                KbMs->keyEnvL1(arrow, 0.05);
+
+                KbMs->keyPowerUp(spec, 0.05);
+                KbMs->keyPowerUp(health, 0.05);
+            }
             run = clock();
         }
     }
@@ -411,6 +424,9 @@ int scene::drawScene()
             //PostQuitMessage(0);
 
         if (numOfEn == 0) {           // Move to level 3 once all enemies are killed
+            arrow->place(-4.8, 0, 1.5, 1);
+            spec->act = spec->IDLE;
+            health->act = health->IDLE;
             //scne = LV3;
         }
 
@@ -441,6 +457,7 @@ int scene::drawScene()
         pl23->drawPlatform();
         pl24->drawPlatform();
         pl25->drawPlatform();
+        arrow->drawPlatform();
         glPopMatrix();
 
         // draw bullet
@@ -468,7 +485,7 @@ int scene::drawScene()
         ply->drawPlayer();
         glPopMatrix();
 
-        sand->updateJumpParticles();
+        sand->updateJumpParticles(2);
         sand->drawParticles();
 
         // Draw drops
@@ -554,16 +571,21 @@ int scene::drawScene()
         // Change scene if input
         if (clock() - run > 30) {
             KbMs->keyPlayer(ply, snds, sand);
-            KbMs->keyEnv(prLx[2], 0.005);
 
-            KbMs->keyEnvL1(pl21,0.05);
-            KbMs->keyEnvL1(pl22,0.05);
-            KbMs->keyEnvL1(pl23,0.05);
-            KbMs->keyEnvL1(pl24,0.05);
-            KbMs->keyEnvL1(pl25,0.05);
+            if (pl21->pos.x < 3.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) {
+                KbMs->keyEnv(prLx[2], 0.005);
 
-            KbMs->keyPowerUp(spec, 0.05);
-            KbMs->keyPowerUp(health, 0.05);
+                KbMs->keyEnvL1(pl21,0.05);
+                KbMs->keyEnvL1(pl22,0.05);
+                KbMs->keyEnvL1(pl23,0.05);
+                KbMs->keyEnvL1(pl24,0.05);
+                KbMs->keyEnvL1(pl25,0.05);
+
+                KbMs->keyEnvL1(arrow, 0.05);
+
+                KbMs->keyPowerUp(spec, 0.05);
+                KbMs->keyPowerUp(health, 0.05);
+            }
             run = clock();
         }
     }
@@ -603,6 +625,7 @@ int scene::drawScene()
         pl33->drawPlatform();
         pl34->drawPlatform();
         pl35->drawPlatform();
+        arrow->drawPlatform();
         glPopMatrix();
 
         // draw bullet
@@ -630,7 +653,7 @@ int scene::drawScene()
         ply->drawPlayer();
         glPopMatrix();
 
-        sand->updateJumpParticles();
+        sand->updateJumpParticles(3);
         sand->drawParticles();
 
         // Draw drops
@@ -716,16 +739,21 @@ int scene::drawScene()
         // Change scene if input
         if (clock() - run > 30) {
             KbMs->keyPlayer(ply, snds, sand);
-            KbMs->keyEnv(prLx[2], 0.005);
 
-            KbMs->keyEnvL1(pl31,0.05);
-            KbMs->keyEnvL1(pl32,0.05);
-            KbMs->keyEnvL1(pl33,0.05);
-            KbMs->keyEnvL1(pl34,0.05);
-            KbMs->keyEnvL1(pl35,0.05);
+            if (pl31->pos.x < 3.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) {
+                KbMs->keyEnv(prLx[3], 0.005);
 
-            KbMs->keyPowerUp(spec, 0.05);
-            KbMs->keyPowerUp(health, 0.05);
+                KbMs->keyEnvL1(pl31,0.05);
+                KbMs->keyEnvL1(pl32,0.05);
+                KbMs->keyEnvL1(pl33,0.05);
+                KbMs->keyEnvL1(pl34,0.05);
+                KbMs->keyEnvL1(pl35,0.05);
+
+                KbMs->keyEnvL1(arrow, 0.05);
+
+                KbMs->keyPowerUp(spec, 0.05);
+                KbMs->keyPowerUp(health, 0.05);
+            }
             run = clock();
         }
     }
@@ -774,6 +802,7 @@ int scene::drawScene()
             pl4->drawPlatform();
             pl5->drawPlatform();
             sp3->drawPlatform();
+            arrow->drawPlatform();
             glPopMatrix();
 
             for (int i = 0; i < enemyCount1; i++) {
@@ -790,6 +819,7 @@ int scene::drawScene()
             pl23->drawPlatform();
             pl24->drawPlatform();
             pl25->drawPlatform();
+            arrow->drawPlatform();
             glPopMatrix();
         }
 
@@ -800,6 +830,7 @@ int scene::drawScene()
             pl33->drawPlatform();
             pl34->drawPlatform();
             pl35->drawPlatform();
+            arrow->drawPlatform();
             glPopMatrix();
         }
     }
@@ -901,6 +932,9 @@ int scene::initScene()
     pl34->place(14.5,0,2,1);
     pl35->place(18,0,5,1);
 
+    arrow->initPlatform("images/right.png", 1, 1);
+    arrow->place(-4.8, 0, 1.5, 1);
+
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
 
@@ -966,10 +1000,12 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 else if (temp == 6) {
                     scne = LV2;
                     level = 2;
+                    sand->resetParticles();
                 }
                 else if (temp == 7) {
                     scne = LV3;
                     level = 3;
+                    sand->resetParticles();
                 }
             }
 

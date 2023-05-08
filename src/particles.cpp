@@ -92,29 +92,56 @@ void particles::genJumpParticles(float x, float y)
         drops[i].pos.x = x;
         drops[i].pos.y = y - 0.6;
         drops[i].pos.z = -3;
-        if (i % 2 == 0) {
-            drops[i].color.x = 0.45;
-            drops[i].color.y = 0.24;
-            drops[i].color.z = 0.05;
-        }
-        else {
-            drops[i].color.x = 1.0;
-            drops[i].color.y = 0.93;
-            drops[i].color.z = 0.36;
-        }
         drops[i].alpha = (float)(rand() % 100) / 10.0;
         dotSize = 3;
     }
     numDrops += newDrops;
 }
 
-void particles::updateJumpParticles()
+void particles::updateJumpParticles(int level)
 {
     for (int i = 0; i < MAX_DROPS; i++) {
         if (drops[i].alive) {
             drops[i].pos.x += sin(rand() % 360) * 0.015;
             drops[i].pos.y += cos((rand() % 90) * PI/180) * 0.003;
             drops[i].alpha -= 0.05;
+
+            if (level == 1) {
+                if (i % 2 == 0) {
+                    drops[i].color.x = 0.78;
+                    drops[i].color.y = 0.38;
+                    drops[i].color.z = 0.0;
+                }
+                else {
+                    drops[i].color.x = 1.0;
+                    drops[i].color.y = 0.72;
+                    drops[i].color.z = 0.32;
+                }
+            }
+            else if (level == 2) {
+                if (i % 2 == 0) {
+                    drops[i].color.x = 0.38;
+                    drops[i].color.y = 0.29;
+                    drops[i].color.z = 0.35;
+                }
+                else {
+                    drops[i].color.x = 0.79;
+                    drops[i].color.y = 0.64;
+                    drops[i].color.z = 0.13;
+                }
+            }
+            else if (level == 3) {
+                if (i % 2 == 0) {
+                    drops[i].color.x = 0.32;
+                    drops[i].color.y = 0.18;
+                    drops[i].color.z = 0.26;
+                }
+                else {
+                    drops[i].color.x = 0.51;
+                    drops[i].color.y = 0.56;
+                    drops[i].color.z = 0.69;
+                }
+            }
 
             if (drops[i].alpha <= 0) {
                 drops[i].alive = false;
