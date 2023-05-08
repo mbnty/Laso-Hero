@@ -185,14 +185,14 @@ void inputs::keyUp()
 
 }
 
-void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
+void inputs::mouseWhip(whip* wep, player* ply, double x, double y,sounds *sds)
 {
     prev_Mx = x;
     prev_My = y;
 
     switch(wParam) {
         case MK_LBUTTON:
-
+            //sds->playSound("sounds/whip1.mp3");
             wep->wPos.x = ply->pPos.x;
             wep->wPos.y = (ply->pPos.y - 0.15) * 0.67;
             wep->wPos.z = -2;
@@ -204,8 +204,10 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y)
                 wep->wEnd.x = 3.0;
                 wep->wEnd.y = 1.05;
             }
+
             wep->t = 0;
             wep->run = true;
+
             break;
 
         case MK_RBUTTON:

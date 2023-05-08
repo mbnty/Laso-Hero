@@ -37,7 +37,7 @@ class inputs
         void keyEnemy(enemy&);
 
         void keyUp();
-        void mouseWhip(whip*, player*, double, double);
+        void mouseWhip(whip*, player*, double, double,sounds*);
         void mouseMove(double, double);
 
         void keyBullet(bullet*, player*);
