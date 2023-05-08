@@ -463,6 +463,9 @@ int scene::drawScene()
         ply->drawPlayer();
         glPopMatrix();
 
+        sand->updateJumpParticles();
+        sand->drawParticles();
+
         // Draw drops
         if(hit->isQuadCollisionPowerUp(ply, spec) && (ply->ammo < ply->MAX_AMMO)){
             ply->ammo++;
@@ -548,6 +551,12 @@ int scene::drawScene()
             KbMs->keyPlayer(ply, snds, sand);
             KbMs->keyEnv(prLx[2], 0.005);
 
+            KbMs->keyEnvL1(pl21,0.05);
+            KbMs->keyEnvL1(pl22,0.05);
+            KbMs->keyEnvL1(pl23,0.05);
+            KbMs->keyEnvL1(pl24,0.05);
+            KbMs->keyEnvL1(pl25,0.05);
+
             KbMs->keyPowerUp(spec, 0.05);
             KbMs->keyPowerUp(health, 0.05);
             run = clock();
@@ -615,6 +624,9 @@ int scene::drawScene()
         glPushMatrix();
         ply->drawPlayer();
         glPopMatrix();
+
+        sand->updateJumpParticles();
+        sand->drawParticles();
 
         // Draw drops
         if(hit->isQuadCollisionPowerUp(ply, spec) && (ply->ammo < ply->MAX_AMMO)){
@@ -701,6 +713,12 @@ int scene::drawScene()
             KbMs->keyPlayer(ply, snds, sand);
             KbMs->keyEnv(prLx[2], 0.005);
 
+            KbMs->keyEnvL1(pl31,0.05);
+            KbMs->keyEnvL1(pl32,0.05);
+            KbMs->keyEnvL1(pl33,0.05);
+            KbMs->keyEnvL1(pl34,0.05);
+            KbMs->keyEnvL1(pl35,0.05);
+
             KbMs->keyPowerUp(spec, 0.05);
             KbMs->keyPowerUp(health, 0.05);
             run = clock();
@@ -715,7 +733,7 @@ int scene::drawScene()
         glPopMatrix();
 
         glPushMatrix();
-        glScalef(0.4, 0.4, 1);
+        glScalef(0.4, 0.5, 1);
         glTranslatef(0, 0, -1.9);
         prLx[4].drawPopUp(screenWidth, screenHeight);
         glPopMatrix();
