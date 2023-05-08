@@ -13,6 +13,7 @@ class particles
             bool alive;
             vec3 pos;
             vec3 dir;
+            vec3 color;
             float mass;
             float alpha;
 
@@ -28,8 +29,14 @@ class particles
         void updateParticles();
         void generateParticles(float, float);
 
+        void resetParticles();
+
+        void genJumpParticles(float, float);
+        void updateJumpParticles();
+
         float drand48() { return (rand()%100 + 1) / 100.0; }
         int numDrops = 0;
+        int dotSize;
 
     protected:
 

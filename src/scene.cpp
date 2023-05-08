@@ -25,13 +25,13 @@ whip* wep = new whip();
 checkCollision *hit = new checkCollision();
 ui *Hud = new ui();
 powerups *spec = new powerups();
+particles *sand = new particles();
 
 //Enemy Bool Triggers
 bool CanHit = false;
 bool EnMove = false;
 powerups *health = new powerups();
 sounds *snds = new sounds();
-particles *sand = new particles();
 
 parallax prLx[10];
 bullet ammo[6];
@@ -89,7 +89,7 @@ int scene::drawScene()
     glLoadIdentity();
 
     if (scne == TITLE) {
-        //snds->playMusic("sounds/menu.mp3");
+        //snds->playSound("sounds/menu.mp3");
         glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
         tl->drawTitle(screenWidth, screenHeight);
@@ -107,12 +107,6 @@ int scene::drawScene()
         glScaled(4.2, 4.2, 1.0);
         prLx[5].drawSquare(screenWidth, screenHeight);
         glPopMatrix();
-
-        glPushMatrix();
-            sand->updateParticles();
-            sand->generateParticles(0, 0);
-            sand->drawParticles();
-        glPopMatrix();
     }
 
     else if(scne == CREDITS){
@@ -120,24 +114,12 @@ int scene::drawScene()
         glScaled(4.2, 4.2, 1.0);
         prLx[6].drawSquare(screenWidth, screenHeight);
         glPopMatrix();
-
-        glPushMatrix();
-            sand->updateParticles();
-            sand->generateParticles(0, 0);
-            sand->drawParticles();
-        glPopMatrix();
     }
 
     else if(scne == CONTROLS){
         glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
         prLx[7].drawSquare(screenWidth, screenHeight);
-        glPopMatrix();
-
-        glPushMatrix();
-            sand->updateParticles();
-            sand->generateParticles(0, 0);
-            sand->drawParticles();
         glPopMatrix();
     }
 
@@ -233,9 +215,12 @@ int scene::drawScene()
         }
 
         if (ply->actionTrigger == ply->JUMP)
-            ply->actions(ply->JUMP,snds);
+            ply->actions(ply->JUMP,snds, sand);
         else if (ply->isIdle)
-            ply->actions(ply->IDLE,snds);
+            ply->actions(ply->IDLE,snds, sand);
+
+        sand->updateJumpParticles();
+        sand->drawParticles();
 
         glPushMatrix();
         ply->drawPlayer();
@@ -291,6 +276,7 @@ int scene::drawScene()
             }
         }
 
+        // Draw drops
         if(hit->isQuadCollisionPowerUp(ply, spec) && (ply->ammo < ply->MAX_AMMO)){
             ply->ammo++;
             spec->act = spec->PICKUP;
@@ -351,7 +337,7 @@ int scene::drawScene()
         {
             ply->t = 8.2;
             ply->groundValue = -0.65;
-            ply->actions(ply->JUMP,snds);
+            ply->actions(ply->JUMP,snds, sand);
         }
 
         //check if collision with spikes
@@ -392,8 +378,9 @@ int scene::drawScene()
             }
         }
 
+        // Change scene if input
         if (clock() - run > 30) {
-            KbMs->keyPlayer(ply,snds);
+            KbMs->keyPlayer(ply, snds, sand);
             KbMs->keyEnv(prLx[1], 0.005);
             for (int i = 0; i < enemyCount1; i++)
                 KbMs->keyEnemy(spearman[i]);
@@ -415,11 +402,20 @@ int scene::drawScene()
     }
 
     else if (scne == LV2) {
-        glPushMatrix(); //matrix for the background parallax
+        if (ply->health == 0)      // Close program once player dies *CHANGE LATER*
+            //PostQuitMessage(0);
+
+        if (numOfEn == 0) {           // Move to level 3 once all enemies are killed
+            //scne = LV3;
+        }
+
+        //matrix for the background parallax
+        glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
         prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
+        // draw hud
         for(int i = 0; i < ply->health; i++){
             glPushMatrix();
             glTranslatef(((Hud->xPos) + i)/3, Hud->yPos, 0);
@@ -442,99 +438,96 @@ int scene::drawScene()
         pl25->drawPlatform();
         glPopMatrix();
 
+        // draw bullet
         for (int i = 0; i < 6; i++) {
             glPushMatrix();
             ammo[i].drawBullet();
             glPopMatrix();
 
-            if (ammo[i].bPos.x >= 7.0 || ammo[i].bPos.x <= -7.0)
+            if (ammo[i].bPos.x >= 3 || ammo[i].bPos.x <= -3)
                 ammo[i].act = ammo->IDLE;
-
-            for(int i = 0; i < enemyCount1; i++){
-                if(spearman[i].movement != spearman[i].DIE){
-                    if (hit->isRadialCollision(ammo[i].bPos.x, spearman[i].enemyPosition.x, ammo[i].bPos.y, spearman[i].enemyPosition.y, 0.1, 0.5)) {
-                        spearman[i].movement = spearman[i].DIE;
-                        ammo[i].act = ammo->IDLE;
-                    }
-                }
-            }
-
-            if (walker->movement != walker->DIE) {
-                if (hit->isRadialCollision(ammo[i].bPos.x, walker->enemyPosition.x, ammo[i].bPos.y, walker->enemyPosition.y, 0.1, 0.5)) {
-                    walker->movement = walker->DIE;
-                    ammo[i].act = ammo->IDLE;
-                }
-            }
-
         }
 
-
-        if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
-            spec->isHit++;
-        }
-        if(spec->isHit == 1){
-            spec->act = spec->IDLE;
-            ply->ammo++;
-        }
-        glPushMatrix();
-        spec->drawSquare();
-        glPopMatrix();
-
+        // draw player
         if (ply->pColor.y < 1) {
             ply->pColor.y += 0.003;
             ply->pColor.z += 0.003;
         }
 
+        if (ply->actionTrigger == ply->JUMP)
+            ply->actions(ply->JUMP,snds, sand);
+        else if (ply->isIdle)
+            ply->actions(ply->IDLE,snds, sand);
+
         glPushMatrix();
         ply->drawPlayer();
-        if (ply->actionTrigger == ply->JUMP,snds)
-            ply->actions(ply->JUMP,snds);
-        else if (ply->actionTrigger == ply->IDLE)
-            ply->actions(ply->IDLE,snds);
         glPopMatrix();
 
-        //check to see if player is not on platform
-        if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl21))
-        {   //scuffed version of getting on the platform
-            ply->t = 8.2;
-            ply->actions(ply->JUMP,snds);
-            ply->groundValue = -0.65;
+        // Draw drops
+        if(hit->isQuadCollisionPowerUp(ply, spec) && (ply->ammo < ply->MAX_AMMO)){
+            ply->ammo++;
+            spec->act = spec->PICKUP;
+            spec->actions();
         }
+
+        if(hit->isQuadCollisionPowerUp(ply, health) && (ply->health < ply->MAX_HEALTH)){
+            ply->health++;
+            health->act = health->PICKUP;
+            health->actions();
+        }
+
+        glPushMatrix();
+        spec->drawSquare();
+        glPopMatrix();
+
+        glPushMatrix();
+        health->drawSquare();
+        glPopMatrix();
+
         //check if collision with top of platform 1
         if ((ply->pPos.y ) >= (pl21->pos.y +(0.25 * pl21->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl21))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl21->pos.y +(0.25 * pl21->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 2
-        if ((ply->pPos.y ) >= (pl22->pos.y +(0.25 * pl22->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl22))
+        else if ((ply->pPos.y ) >= (pl22->pos.y +(0.25 * pl22->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl22))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl22->pos.y +(0.25 * pl22->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 3
-        if ((ply->pPos.y ) >= (pl23->pos.y +(0.25 * pl23->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl23))
+        else if ((ply->pPos.y ) >= (pl23->pos.y +(0.25 * pl23->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl23))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl23->pos.y +(0.25 * pl23->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 4
-        if ((ply->pPos.y ) >= (pl24->pos.y +(0.25 * pl24->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl24))
+        else if ((ply->pPos.y ) >= (pl24->pos.y +(0.25 * pl24->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl24))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl24->pos.y +(0.25 * pl24->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 5
-        if ((ply->pPos.y ) >= (pl25->pos.y +(0.25 * pl25->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl25))
+        else if ((ply->pPos.y ) >= (pl25->pos.y +(0.25 * pl25->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl25))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl25->pos.y +(0.25 * pl25->scaleSize.y)) + 0.4;
         }
-
 
         //case for falling off platform
         else if (ply->onPlat == true)
         {
             ply->t = 8.2;
             ply->groundValue = -0.65;
-            ply->actions(ply->JUMP,snds);
+            ply->actions(ply->JUMP,snds, sand);
         }
 
+        // draw whip
         glPushMatrix();
         wep->drawWhip();
         glPopMatrix();
@@ -549,14 +542,33 @@ int scene::drawScene()
                 wep->run = false;
             }
         }
+
+        // Change scene if input
+        if (clock() - run > 30) {
+            KbMs->keyPlayer(ply, snds, sand);
+            KbMs->keyEnv(prLx[2], 0.005);
+
+            KbMs->keyPowerUp(spec, 0.05);
+            KbMs->keyPowerUp(health, 0.05);
+            run = clock();
+        }
     }
 
     else if (scne == LV3) {
-        glPushMatrix(); //matrix for the background parallax
+        if (ply->health == 0)      // Close program once player dies *CHANGE LATER*
+            //PostQuitMessage(0);
+
+        if (numOfEn == 0) {
+            //scne = ;
+        }
+
+        //matrix for the background parallax
+        glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
         prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
+        // draw hud
         for(int i = 0; i < ply->health; i++){
             glPushMatrix();
             glTranslatef(((Hud->xPos) + i)/3, Hud->yPos, 0);
@@ -579,86 +591,84 @@ int scene::drawScene()
         pl35->drawPlatform();
         glPopMatrix();
 
+        // draw bullet
         for (int i = 0; i < 6; i++) {
             glPushMatrix();
             ammo[i].drawBullet();
             glPopMatrix();
 
-            if (ammo[i].bPos.x >= 7.0 || ammo[i].bPos.x <= -7.0)
+            if (ammo[i].bPos.x >= 3 || ammo[i].bPos.x <= -3)
                 ammo[i].act = ammo->IDLE;
-
-            if (walker->movement != walker->DIE) {
-                if (hit->isRadialCollision(ammo[i].bPos.x, walker->enemyPosition.x, ammo[i].bPos.y, walker->enemyPosition.y, 0.1, 0.5)) {
-                    walker->movement = walker->DIE;
-                    ammo[i].act = ammo->IDLE;
-                }
-            }
         }
 
-        //if(walker->movement == walker->DIE){
-            //spec->dropPowerUp(walker->enemyPosition);
-            //spec->powPos.z = -2.0;
-        //}
-
-        if(hit->isLinearCollision(spec->powPos.x, ply->pPos.x)){
-            spec->isHit++;
-        }
-        if(spec->isHit == 1){
-            spec->act = spec->IDLE;
-            ply->ammo++;
-        }
-        glPushMatrix();
-        spec->drawSquare();
-        glPopMatrix();
-
+        // draw player
         if (ply->pColor.y < 1) {
             ply->pColor.y += 0.003;
             ply->pColor.z += 0.003;
         }
 
+        if (ply->actionTrigger == ply->JUMP)
+            ply->actions(ply->JUMP,snds, sand);
+        else if (ply->isIdle)
+            ply->actions(ply->IDLE,snds, sand);
+
         glPushMatrix();
         ply->drawPlayer();
-        if (ply->actionTrigger == ply->JUMP)
-            ply->actions(ply->JUMP,snds);
         glPopMatrix();
-        /*
-        if (!walker->isDead && hit->isQuadCollisionEnemy(ply, walker) && clock() - ply->damage > 2000) {
-            ply->pColor.y = 0; ply->pColor.z = 0;
-            ply->health--;
-            ply->damage = clock();
-        }
-        */
 
-        //check to see if player is not on platform
-        if ((ply->pPos.y ) >= (pl31->pos.y +(0.25 * pl31->scaleSize.y)) && !hit->isQuadCollisionPlatform(ply,pl31))
-        {   //scuffed version of getting on the platform
-            ply->t = 8.2;
-            ply->actions(ply->JUMP,snds);
-            ply->groundValue = -0.65;
+        // Draw drops
+        if(hit->isQuadCollisionPowerUp(ply, spec) && (ply->ammo < ply->MAX_AMMO)){
+            ply->ammo++;
+            spec->act = spec->PICKUP;
+            spec->actions();
         }
+
+        if(hit->isQuadCollisionPowerUp(ply, health) && (ply->health < ply->MAX_HEALTH)){
+            ply->health++;
+            health->act = health->PICKUP;
+            health->actions();
+        }
+
+        glPushMatrix();
+        spec->drawSquare();
+        glPopMatrix();
+
+        glPushMatrix();
+        health->drawSquare();
+        glPopMatrix();
+
         //check if collision with top of platform 1
         if ((ply->pPos.y ) >= (pl31->pos.y +(0.25 * pl31->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl31))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl31->pos.y +(0.25 * pl31->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 2
-        if ((ply->pPos.y ) >= (pl32->pos.y +(0.25 * pl32->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl32))
+        else if ((ply->pPos.y ) >= (pl32->pos.y +(0.25 * pl32->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl32))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl32->pos.y +(0.25 * pl32->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 3
-        if ((ply->pPos.y ) >= (pl33->pos.y +(0.25 * pl33->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl33))
+        else if ((ply->pPos.y ) >= (pl33->pos.y +(0.25 * pl33->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl33))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl33->pos.y +(0.25 * pl33->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 4
-        if ((ply->pPos.y ) >= (pl34->pos.y +(0.25 * pl34->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl34))
+        else if ((ply->pPos.y ) >= (pl34->pos.y +(0.25 * pl34->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl34))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl34->pos.y +(0.25 * pl34->scaleSize.y)) + 0.4;
         }
+
         //check if collision with top of platform 5
-        if ((ply->pPos.y ) >= (pl35->pos.y +(0.25 * pl35->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl35))
+        else if ((ply->pPos.y ) >= (pl35->pos.y +(0.25 * pl35->scaleSize.y)) && hit->isQuadCollisionPlatform(ply,pl35))
         {
+            ply->onPlat = true;
             ply->groundValue = (pl35->pos.y +(0.25 * pl35->scaleSize.y)) + 0.4;
         }
 
@@ -667,18 +677,15 @@ int scene::drawScene()
         {
             ply->t = 8.2;
             ply->groundValue = -0.65;
-            ply->actions(ply->JUMP,snds);
+            ply->actions(ply->JUMP,snds, sand);
         }
 
+        // draw whip
         glPushMatrix();
         wep->drawWhip();
         glPopMatrix();
 
         if (wep->run == true) {
-            //if (hit->isQuadCollisionWhip(wep, walker)) {
-                //walker->movement = walker->DIE;
-            //}
-
             if (wep->t < 1) {
                 wep->t += 0.01;
                 start = clock();
@@ -687,6 +694,16 @@ int scene::drawScene()
                 wep->wPos.y = 10.0;
                 wep->run = false;
             }
+        }
+
+        // Change scene if input
+        if (clock() - run > 30) {
+            KbMs->keyPlayer(ply, snds, sand);
+            KbMs->keyEnv(prLx[2], 0.005);
+
+            KbMs->keyPowerUp(spec, 0.05);
+            KbMs->keyPowerUp(health, 0.05);
+            run = clock();
         }
     }
 
@@ -741,6 +758,26 @@ int scene::drawScene()
                     spearman[i].drawEnemy();
                 }
             }
+        }
+
+        else if (level == 2) {
+            glPushMatrix();
+            pl21->drawPlatform();
+            pl22->drawPlatform();
+            pl23->drawPlatform();
+            pl24->drawPlatform();
+            pl25->drawPlatform();
+            glPopMatrix();
+        }
+
+        else if (level == 3) {
+            glPushMatrix();
+            pl31->drawPlatform();
+            pl32->drawPlatform();
+            pl33->drawPlatform();
+            pl34->drawPlatform();
+            pl35->drawPlatform();
+            glPopMatrix();
         }
     }
 }
@@ -875,8 +912,9 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_KEYDOWN:
             KbMs->keys[wParam] = true;
             if (scne == LV1 || scne == LV2 || scne == LV3) {
-                if (wParam == VK_UP || wParam == 0x57)
-                    ply->actions(ply->JUMP,snds);
+                if (wParam == VK_UP || wParam == 0x57) {
+                    ply->actions(ply->JUMP,snds, sand);
+                }
 
                 if(KbMs->keyPause() == 1){ //if H key is pressed
                     scne = PAUSE; //pause the game
@@ -891,6 +929,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 if (temp == 2) {
                     scne = LV1;
                     level = 1;
+                    sand->resetParticles();
                 }
                 else if (temp == 3) {
                     scne = HELP;
@@ -950,7 +989,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_KEYUP:
             KbMs->keys[wParam] = false;
             if (scne == LV1 || scne == LV2 || scne == LV3) {
-                ply->actions(ply->IDLE,snds);
+                ply->actions(ply->IDLE,snds, sand);
             }
             break;
 

@@ -4,6 +4,7 @@
 #include <textureLoader.h>
 #include <commons.h>
 #include <sounds.h>
+#include <particles.h>
 
 class player
 {
@@ -29,7 +30,7 @@ class player
 
         void drawPlayer();
         void playerInit(char *, int, int);
-        void actions(acts,sounds*);
+        void actions(acts, sounds*, particles*);
 
         int hFrames; //horizontal frames
         int vFrames; //vertical frames

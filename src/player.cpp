@@ -85,7 +85,7 @@ void player::playerInit(char* fileName, int vFrm, int hFrm)
     tLoad->loadTexture(fileName, tex);
 }
 
-void player::actions(acts action,sounds *sds)
+void player::actions(acts action, sounds *sds, particles* sand)
 {
     if(action == IDLE){
         if(playerDir == 'R' && isIdle == false){
@@ -159,7 +159,7 @@ void player::actions(acts action,sounds *sds)
         }
     }
     if(action == JUMP){
-        sds->playSound("sounds/jump.mp3");
+        //sds->playSound("sounds/jump.mp3");
         if(isIdle == true){
             yMax = 2.0/(float)hFrames;
             yMin = 1.0/(float)hFrames;
@@ -183,8 +183,10 @@ void player::actions(acts action,sounds *sds)
                 t = 1;
                 pPos.y = groundValue;
                 actionTrigger = IDLE;
-                actions(IDLE,sds);
+                actions(IDLE, sds, sand);
                 onPlat = false;
+
+                sand->genJumpParticles(pPos.x, pPos.y);
             }
             start = clock();
         }

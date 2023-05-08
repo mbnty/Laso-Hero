@@ -45,14 +45,14 @@ void inputs::keyModel(model*)
     }
 }
 
-void inputs::keyPlayer(player* ply,sounds *sds)
+void inputs::keyPlayer(player* ply, sounds *sds, particles* sand)
 {
     if(keys[VK_LEFT] || keys[0x41]){
-        ply->actions(ply->WALKL,sds);
+        ply->actions(ply->WALKL,sds, sand);
     }
 
     if(keys[VK_RIGHT] || keys[0x44]){
-        ply->actions(ply->WALKR,sds);
+        ply->actions(ply->WALKR,sds, sand);
     }
 }
 
