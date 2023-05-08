@@ -281,12 +281,14 @@ int scene::drawScene()
             ply->ammo++;
             spec->act = spec->PICKUP;
             spec->actions();
+            snds->playSound("sounds/item.mp3");
         }
 
         if(hit->isQuadCollisionPowerUp(ply, health) && (ply->health < ply->MAX_HEALTH)){
             ply->health++;
             health->act = health->PICKUP;
             health->actions();
+            snds->playSound("sounds/item.mp3");
         }
 
         glPushMatrix();
@@ -346,6 +348,7 @@ int scene::drawScene()
             ply->pColor.y = 0; ply->pColor.z = 0;
             ply->health--;
             ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
         }
 
         if (hit->isQuadCollisionPlatform(ply,sp2) && clock() - ply->damage > 2000)
@@ -353,6 +356,7 @@ int scene::drawScene()
             ply->pColor.y = 0; ply->pColor.z = 0;
             ply->health--;
             ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
         }
 
         if (hit->isQuadCollisionPlatform(ply,sp3) && clock() - ply->damage > 2000)
@@ -360,6 +364,7 @@ int scene::drawScene()
             ply->pColor.y = 0; ply->pColor.z = 0;
             ply->health--;
             ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
         }
 
         // draw whip
@@ -1013,7 +1018,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_LBUTTONDOWN:
             if (scne == LV1 || scne == LV2 || scne == LV3) {
-                KbMs->mouseWhip(wep, ply, LOWORD(lParam), HIWORD(lParam));
+                KbMs->mouseWhip(wep, ply, LOWORD(lParam), HIWORD(lParam),snds);
             }
             else if (scne == TITLE) {
                 scne = MENU;
