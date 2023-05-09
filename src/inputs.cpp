@@ -197,7 +197,7 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y,sounds *sds)
 
     switch(wParam) {
         case MK_LBUTTON:
-            //sds->playSound("sounds/whip1.mp3");
+            sds->playSound("sounds/whip.mp3");
             wep->wPos.x = ply->pPos.x;
             wep->wPos.y = ((ply->pPos.y - 0.15) * 0.67) - 0.1;
             wep->wPos.z = -2;

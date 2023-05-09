@@ -109,6 +109,7 @@ void player::actions(acts action, sounds *sds, particles* sand)
     }
 
     if(action == WALKR){
+        sds->playSound("sounds/walk.mp3");
         if(playerDir != 'R'){
             float tmp;
             tmp = xMax;
@@ -135,6 +136,7 @@ void player::actions(acts action, sounds *sds, particles* sand)
     }
 
     if(action == WALKL){
+        sds->playSound("sounds/walk.mp3");
         if(playerDir != 'L'){
             float tmp;
             tmp = xMax;
@@ -161,7 +163,7 @@ void player::actions(acts action, sounds *sds, particles* sand)
         }
     }
     if(action == JUMP){
-        //sds->playSound("sounds/jump.mp3");
+        sds->playSound("sounds/jump.mp3");
         if(isIdle == true){
             yMax = 2.0/(float)hFrames;
             yMin = 1.0/(float)hFrames;
