@@ -15,6 +15,7 @@
 #include <powerups.h>
 #include <sounds.h>
 #include <particles.h>
+#include <fonts.h>
 
 model *startModel = new model();
 inputs *KbMs = new inputs();
@@ -26,6 +27,8 @@ checkCollision *hit = new checkCollision();
 ui *Hud = new ui();
 powerups *spec = new powerups();
 particles *sand = new particles();
+fonts *F = new fonts();
+fonts *Fs = new fonts();
 
 //Enemy Bool Triggers
 bool CanHit = false;
@@ -186,7 +189,7 @@ int scene::drawScene()
     else if (scne == LV1) {
         //snds->playSound("sounds/sound1.mp3");
 
-        if (ply->health == 0)      // Close program once player dies *CHANGE LATER*
+        if (ply->health == 0){      // Close program once player dies *CHANGE LATER*
             //PostQuitMessage(0);
         }
 
@@ -201,6 +204,20 @@ int scene::drawScene()
             go->drawPlatform();
             horse->drawPlatform();
         }
+
+        if(!F->run){ //displays number of enemies remaining
+            F->pos.y = 0.62;
+            F->buildFonts(F->getZero(numOfEn));
+            Fs->buildFonts(Fs->getTens(numOfEn));
+            F->run = true;
+            Fs->run = true;
+        }
+
+        glPushMatrix();
+        glScalef(0.05, 0.07, 1);
+        glTranslatef(13.4, 7.5, -1.9);
+        prLx[8].drawPopUp(524, 93);
+        glPopMatrix();
 
         // draw hud
         for(int i = 0; i < ply->health; i++){
@@ -288,6 +305,10 @@ int scene::drawScene()
                         ammo[j].act = ammo->IDLE;
                         numOfEn--;
 
+                        F->pos.y = 0.6;
+                        F->buildFonts(F->getZero(numOfEn));
+                        Fs->buildFonts(Fs->getTens(numOfEn));
+
                         spec->dropBullet(spearman[i].enemyPosition);
                         spec->act = spec->IDLE;
 
@@ -302,6 +323,10 @@ int scene::drawScene()
                         spearman[i].movement = spearman->DIE;
                         wep->wPos.y = 10.0;
                         numOfEn--;
+
+                        F->pos.y = 0.6;
+                        F->buildFonts(F->getZero(numOfEn));
+                        Fs->buildFonts(Fs->getTens(numOfEn));
 
                         spec->dropBullet(spearman[i].enemyPosition);
                         spec->act = spec->IDLE;
@@ -434,6 +459,11 @@ int scene::drawScene()
                 wep->wPos.y = 10.0;
                 wep->run = false;
             }
+        }
+
+        for(int i, j = 0; i < F->cCnt, j < Fs->cCnt; i++, j++){
+            F->drawFonts(i, 0.04);
+            Fs->drawFonts(j, 0);
         }
 
         // Change scene if input
@@ -846,6 +876,12 @@ int scene::drawScene()
         prLx[4].drawPopUp(screenWidth, screenHeight);
         glPopMatrix();
 
+        glPushMatrix();
+        glScalef(0.05, 0.07, 1);
+        glTranslatef(13.4, 7.5, -1.9);
+        prLx[8].drawPopUp(524, 93);
+        glPopMatrix();
+
         for(int i = 0; i < ply->health; i++){
             glPushMatrix();
             glTranslatef(((Hud->xPos) + i)/3, Hud->yPos, 0);
@@ -866,6 +902,11 @@ int scene::drawScene()
         glPushMatrix();
         wep->drawWhip();
         glPopMatrix();
+
+        for(int i, j = 0; i < F->cCnt, j < Fs->cCnt; i++, j++){
+            F->drawFonts(i, 0.04);
+            Fs->drawFonts(j, 0);
+        }
 
         if (level == 1) {
             glPushMatrix(); // this martix holds the platforms
@@ -1027,6 +1068,11 @@ int scene::initScene()
 
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
+
+    prLx[8].initPopUp("images/enemyCounter.png");
+
+    F->initFonts("images/numbers.png");
+    Fs->initFonts("images/numbers.png");
 
     sand->generateParticles(0, 0);
 
