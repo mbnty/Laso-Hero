@@ -31,6 +31,7 @@ class inputs
         void keyEnv(parallax &, float);
         void keyPlayer(player*, sounds*, particles*);
         int keyTitle(title*);
+        int keyQuit(title*);
         void keyWhip(whip*, player*);
         int keyPause();
         void keyEnemy(enemy&);

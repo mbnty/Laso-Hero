@@ -41,7 +41,7 @@ class player
         GLuint tex;
         textureLoader *tLoad = new textureLoader();
 
-        clock_t start, damage;
+        clock_t start, frame, damage;
 
         float groundValue;
 

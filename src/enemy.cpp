@@ -142,6 +142,7 @@ void enemy::enemyAIManager(player* ply, bool canAttack, bool canMove)
 {
     if(movement == DIE || movement == ATTACK){//Draws death animation
             drawEnemy();
+            actions();
     }
     else if(canAttack == true){
         if(clock() - attackTimer > 3000){

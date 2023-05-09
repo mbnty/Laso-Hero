@@ -122,18 +122,21 @@ int inputs::keyTitle(title* tl)
 {
     switch(wParam) {
         case VK_DOWN:
+        case 0x53:
             if (tl->selection < 5) {
                 tl->selection++;
             }
             break;
 
         case VK_UP:
+        case 0x57:
             if (tl->selection > 2) {
                 tl->selection--;
             }
             break;
 
         case VK_SPACE:
+        case VK_RETURN:
             if (tl->selection >= 2 && tl->selection <= 5) {
                 return tl->selection;
             }
@@ -153,6 +156,25 @@ int inputs::keyTitle(title* tl)
             break;
     }
     return 0;
+}
+
+int inputs::keyQuit(title* tl) {
+    switch(wParam) {
+        case VK_LEFT:
+        case 0x41:
+            tl->selection = 6;
+            break;
+
+        case VK_RIGHT:
+        case 0x44:
+            tl->selection = 7;
+            break;
+
+        case VK_SPACE:
+        case VK_RETURN:
+            return tl->selection;
+            break;
+    }
 }
 
 void inputs::keyWhip(whip* wep, player* ply)
@@ -177,15 +199,15 @@ void inputs::mouseWhip(whip* wep, player* ply, double x, double y,sounds *sds)
         case MK_LBUTTON:
             //sds->playSound("sounds/whip1.mp3");
             wep->wPos.x = ply->pPos.x;
-            wep->wPos.y = (ply->pPos.y - 0.15) * 0.67;
+            wep->wPos.y = ((ply->pPos.y - 0.15) * 0.67) - 0.1;
             wep->wPos.z = -2;
             if (ply->playerDir == 'L') {
                 wep->wEnd.x = -3.0;
-                wep->wEnd.y = 1.05;
+                wep->wEnd.y = 1.1;
             }
             else if (ply->playerDir == 'R') {
                 wep->wEnd.x = 3.0;
-                wep->wEnd.y = 1.05;
+                wep->wEnd.y = 1.1;
             }
 
             wep->t = 0;

@@ -65,9 +65,11 @@ platform *pl34 = new platform();
 platform *pl35 = new platform();
 
 platform *arrow = new platform();
+platform *go = new platform();
+platform *horse = new platform();
 
 int numBullet;
-int level = 0;
+int level = 1;
 int numOfEn = 5;
 clock_t start;
 clock_t run;
@@ -125,6 +127,29 @@ int scene::drawScene()
         glPopMatrix();
     }
 
+    else if (scne == QUIT) {
+        glPushMatrix();
+        glScaled(4.2, 4.2, 1.0);
+        tl->drawMenu(screenWidth, screenHeight);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslatef(-2.0, -2.0, 0);
+        tl->drawSquare(screenWidth, screenHeight, 6);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslatef(2.0, -2.0, 0);
+        tl->drawSquare(screenWidth, screenHeight, 7);
+        glPopMatrix();
+
+        glPushMatrix();
+            sand->updateParticles();
+            sand->generateParticles(0, 0);
+            sand->drawParticles();
+        glPopMatrix();
+    }
+
     else if (scne == MENU) {
         glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
@@ -159,14 +184,8 @@ int scene::drawScene()
     }
 
     else if (scne == LV1) {
-        if (ply->health == 0)      // Close program once player dies *CHANGE LATER*
+        if (ply->health == 0) {      // Close program once player dies *CHANGE LATER*
             //PostQuitMessage(0);
-
-        if (numOfEn == 0) {           // Move to level 2 once all enemies are killed
-            arrow->place(-4.8, 0, 1.5, 1);
-            spec->act = spec->IDLE;
-            health->act = health->IDLE;
-            //scne = LV2;
         }
 
         //matrix for the background parallax
@@ -175,6 +194,11 @@ int scene::drawScene()
         prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
+        if (numOfEn == 0) {           // Spawn horse once all enemies are killed
+            horse->alpha = 1.0;
+            go->drawPlatform();
+            horse->drawPlatform();
+        }
 
         // draw hud
         for(int i = 0; i < ply->health; i++){
@@ -205,6 +229,14 @@ int scene::drawScene()
 
         arrow->drawPlatform();
         glPopMatrix();
+
+        arrow->alpha -= 0.005;
+        if (arrow->alpha <= 0)
+            arrow->alpha = 1.0;
+
+        go->alpha -= 0.005;
+        if (go->alpha <= 0)
+            go->alpha = 1.0;
 
         // draw bullet
         for (int i = 0; i < 6; i++) {
@@ -375,14 +407,25 @@ int scene::drawScene()
             snds->playSound("sounds/hurt.mp3");
         }
 
+        if (numOfEn == 0 && hit->isLinearCollision(ply->pPos.x, horse->pos.x))       // Move to level 2 once reach horse
+        {
+            arrow->place(-4.8, 0, 1.5, 1);
+            spec->act = spec->IDLE;
+            health->act = health->IDLE;
+            numOfEn = 5;
+            level++;
+            horse->alpha = 0.0;
+            scne = LV2;
+        }
+
         // draw whip
         glPushMatrix();
         wep->drawWhip();
         glPopMatrix();
 
         if (wep->run == true) {
-            if (wep->t < 1) {
-                wep->t += 0.01;
+            if (wep->t < 1 && clock() - start > 10) {
+                wep->t += 0.05;
                 start = clock();
             }
             else if (wep->t >= 1 && clock() - start > 120) {
@@ -395,7 +438,7 @@ int scene::drawScene()
         if (clock() - run > 30) {
             KbMs->keyPlayer(ply, snds, sand);
 
-            if (pl1->pos.x < 3.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) {
+            if ((pl1->pos.x < 3.0 || (!KbMs->keys[VK_LEFT] && !KbMs->keys[0x41])) && (pl5->pos.x > -5.0 || (!KbMs->keys[VK_RIGHT] && !KbMs->keys[0x44]))) {
                 KbMs->keyEnv(prLx[1], 0.005);
                 for (int i = 0; i < enemyCount1; i++)
                     KbMs->keyEnemy(spearman[i]);
@@ -411,6 +454,7 @@ int scene::drawScene()
                 KbMs->keyEnvL1(sp3,0.05);
 
                 KbMs->keyEnvL1(arrow, 0.05);
+                KbMs->keyEnvL1(horse, 0.05);
 
                 KbMs->keyPowerUp(spec, 0.05);
                 KbMs->keyPowerUp(health, 0.05);
@@ -420,14 +464,8 @@ int scene::drawScene()
     }
 
     else if (scne == LV2) {
-        if (ply->health == 0)      // Close program once player dies *CHANGE LATER*
+        if (ply->health == 0) {      // Close program once player dies *CHANGE LATER*
             //PostQuitMessage(0);
-
-        if (numOfEn == 0) {           // Move to level 3 once all enemies are killed
-            arrow->place(-4.8, 0, 1.5, 1);
-            spec->act = spec->IDLE;
-            health->act = health->IDLE;
-            //scne = LV3;
         }
 
         //matrix for the background parallax
@@ -435,6 +473,12 @@ int scene::drawScene()
         glScaled(4.2, 4.2, 1.0);
         prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
+
+        if (numOfEn == 0) {           // Spawn horse once all enemies are killed
+            horse->alpha = 1.0;
+            go->drawPlatform();
+            horse->drawPlatform();
+        }
 
         // draw hud
         for(int i = 0; i < ply->health; i++){
@@ -459,6 +503,14 @@ int scene::drawScene()
         pl25->drawPlatform();
         arrow->drawPlatform();
         glPopMatrix();
+
+        arrow->alpha -= 0.005;
+        if (arrow->alpha <= 0)
+            arrow->alpha = 1.0;
+
+        go->alpha -= 0.005;
+        if (go->alpha <= 0)
+            go->alpha = 1.0;
 
         // draw bullet
         for (int i = 0; i < 6; i++) {
@@ -552,14 +604,25 @@ int scene::drawScene()
             ply->actions(ply->JUMP,snds, sand);
         }
 
+        if (numOfEn == 0 && hit->isLinearCollision(ply->pPos.x, horse->pos.x))       // Move to level 2 once reach horse
+        {
+            arrow->place(-4.8, 0, 1.5, 1);
+            spec->act = spec->IDLE;
+            health->act = health->IDLE;
+            numOfEn = 5;
+            level++;
+            horse->alpha = 0.0;
+            scne = LV3;
+        }
+
         // draw whip
         glPushMatrix();
         wep->drawWhip();
         glPopMatrix();
 
-        if (wep->run == true) {
+        if (wep->run == true && clock() - start > 10) {
             if (wep->t < 1) {
-                wep->t += 0.01;
+                wep->t += 0.05;
                 start = clock();
             }
             else if (wep->t >= 1 && clock() - start > 120) {
@@ -572,7 +635,7 @@ int scene::drawScene()
         if (clock() - run > 30) {
             KbMs->keyPlayer(ply, snds, sand);
 
-            if (pl21->pos.x < 3.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) {
+            if ((pl21->pos.x < 3.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) && (pl25->pos.x > -5.0 || (!KbMs->keys[VK_RIGHT] && !KbMs->keys[0x44]))) {
                 KbMs->keyEnv(prLx[2], 0.005);
 
                 KbMs->keyEnvL1(pl21,0.05);
@@ -591,11 +654,12 @@ int scene::drawScene()
     }
 
     else if (scne == LV3) {
-        if (ply->health == 0)      // Close program once player dies *CHANGE LATER*
+        if (ply->health == 0) {      // Close program once player dies *CHANGE LATER*
             //PostQuitMessage(0);
+        }
 
         if (numOfEn == 0) {
-            //scne = ;
+            //horse->alpha = 1.0;
         }
 
         //matrix for the background parallax
@@ -627,6 +691,10 @@ int scene::drawScene()
         pl35->drawPlatform();
         arrow->drawPlatform();
         glPopMatrix();
+
+        arrow->alpha -= 0.005;
+        if (arrow->alpha <= 0)
+            arrow->alpha = 1.0;
 
         // draw bullet
         for (int i = 0; i < 6; i++) {
@@ -720,12 +788,17 @@ int scene::drawScene()
             ply->actions(ply->JUMP,snds, sand);
         }
 
+        if (numOfEn == 0 && hit->isLinearCollision(ply->pPos.x, horse->pos.x))
+        {
+
+        }
+
         // draw whip
         glPushMatrix();
         wep->drawWhip();
         glPopMatrix();
 
-        if (wep->run == true) {
+        if (wep->run == true && clock() - start > 10) {
             if (wep->t < 1) {
                 wep->t += 0.01;
                 start = clock();
@@ -740,7 +813,7 @@ int scene::drawScene()
         if (clock() - run > 30) {
             KbMs->keyPlayer(ply, snds, sand);
 
-            if (pl31->pos.x < 3.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) {
+            if ((pl31->pos.x < 3.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) && (pl35->pos.x > -5.0 || (!KbMs->keys[VK_RIGHT] && !KbMs->keys[0x44]))) {
                 KbMs->keyEnv(prLx[3], 0.005);
 
                 KbMs->keyEnvL1(pl31,0.05);
@@ -803,6 +876,8 @@ int scene::drawScene()
             pl5->drawPlatform();
             sp3->drawPlatform();
             arrow->drawPlatform();
+            horse->drawPlatform();
+            go->drawPlatform();
             glPopMatrix();
 
             for (int i = 0; i < enemyCount1; i++) {
@@ -820,6 +895,8 @@ int scene::drawScene()
             pl24->drawPlatform();
             pl25->drawPlatform();
             arrow->drawPlatform();
+            go->drawPlatform();
+            horse->drawPlatform();
             glPopMatrix();
         }
 
@@ -831,6 +908,8 @@ int scene::drawScene()
             pl34->drawPlatform();
             pl35->drawPlatform();
             arrow->drawPlatform();
+            go->drawPlatform();
+            horse->drawPlatform();
             glPopMatrix();
         }
     }
@@ -871,6 +950,8 @@ int scene::initScene()
     tl->initTitle("images/help.png", 3);
     tl->initTitle("images/credit.png", 4);
     tl->initTitle("images/stop.png", 5);
+    tl->initTitle("images/stop.png", 6);
+    tl->initTitle("images/start.png", 7);
 
     ammo[0].projTexture("images/bullet.png");
     for (int i = 0; i < 6; i++) {
@@ -935,6 +1016,13 @@ int scene::initScene()
     arrow->initPlatform("images/right.png", 1, 1);
     arrow->place(-4.8, 0, 1.5, 1);
 
+    go->initPlatform("images/right.png", 1, 1);
+    go->place(0.0, 0.0, 1.0, 0.5);
+
+    horse->initPlatform("images/horse.png", 1, 1);
+    horse->alpha = 0.0;
+    horse->place(22, -0.7, 2, 2);
+
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
 
@@ -979,14 +1067,20 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             }
 
             else if (scne == TITLE) {
+                tl->selection = 2;
                 scne = MENU;
             }
             else if (scne == MENU) {
                 int temp = KbMs->keyTitle(tl);
+                cout << temp << endl;
                 if (temp == 2) {
-                    scne = LV1;
-                    level = 1;
                     sand->resetParticles();
+                    if (level == 1)
+                        scne = LV1;
+                    else if (level == 2)
+                        scne = LV2;
+                    else if (level == 3)
+                        scne = LV3;
                 }
                 else if (temp == 3) {
                     scne = HELP;
@@ -995,7 +1089,8 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     scne = CREDITS;
                 }
                 else if (temp == 5) {
-                    PostQuitMessage(0);
+                    tl->selection = 3;
+                    scne = QUIT;
                 }
                 else if (temp == 6) {
                     scne = LV2;
@@ -1026,6 +1121,18 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             else if(scne == CREDITS){
                 if(KbMs->keyPause() == 2){ //if M is pressed
+                    scne = MENU;
+                }
+            }
+
+            else if (scne == QUIT) {
+                int temp = KbMs->keyQuit(tl);
+                cout << temp << endl;
+                if (temp == 6) {
+                    PostQuitMessage(0);
+                }
+                else if (temp == 7) {
+                    tl->selection = 2;
                     scne = MENU;
                 }
             }

@@ -15,6 +15,8 @@ platform::platform()
     scaleSize.x = 1.0;
     scaleSize.y = 1.0;
     scaleSize.z = 1.0;
+
+    alpha = 1.0;
 }
 
 platform::~platform()
@@ -28,7 +30,7 @@ void platform::drawPlatform()
     glPushMatrix();
     glTranslated(pos.x, pos.y, pos.z);
     glScalef(scaleSize.x,scaleSize.y,scaleSize.z);
-
+    glColor4f(1.0, 1.0, 1.0, alpha);
 
     glBegin(GL_QUADS);
 

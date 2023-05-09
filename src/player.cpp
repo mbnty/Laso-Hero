@@ -21,8 +21,7 @@ player::player()
     velocity = 65;
     theta = 30 * PI/180.0;
     t = 1;
-    start = clock();
-    damage = clock();
+    frame = start = damage = clock();
 
     playerDir = 'R';
 
@@ -102,10 +101,10 @@ void player::actions(acts action, sounds *sds, particles* sand)
             yMin = 0.0;
             isIdle = true;
         }
-        if(clock() - start >= 100){
+        if(clock() - frame >= 180){
             xMax += 1.0/(float)vFrames;
             xMin += 1.0/(float)vFrames;
-            start = clock();
+            frame = clock();
         }
     }
 
@@ -125,12 +124,13 @@ void player::actions(acts action, sounds *sds, particles* sand)
         }
 
         playerDir = 'R';
-        xMin += 1.0/(float)vFrames;
-        xMax += 1.0/(float)vFrames;
+        if (clock() - frame > 180) {
+            xMin += 1.0/(float)vFrames;
+            xMax += 1.0/(float)vFrames;
+        }
         if(xMax > 1){
             xMax = 1.0/(float)vFrames;
             xMin = 0.0;
-
         }
     }
 
@@ -150,8 +150,10 @@ void player::actions(acts action, sounds *sds, particles* sand)
         }
 
         playerDir = 'L';
-        xMin += 1.0/(float)vFrames;
-        xMax += 1.0/(float)vFrames;
+        if (clock() - frame > 180) {
+            xMin += 1.0/(float)vFrames;
+            xMax += 1.0/(float)vFrames;
+        }
 
         if(xMin > 1){
             xMax = 0.0/(float)vFrames;
@@ -170,9 +172,6 @@ void player::actions(acts action, sounds *sds, particles* sand)
             // Calculate jump speed
             jumpSpeed = (velocity * t * sin(theta) - 0.5 * GRVITY * t * t) / 700.0;
             pPos.y += jumpSpeed;
-
-            xMax += 1.0/(float)vFrames;
-            xMin += 1.0/(float)vFrames;
 
             if (pPos.y >= groundValue) {      // While in jump animation, update Timer
                 t += 0.2;

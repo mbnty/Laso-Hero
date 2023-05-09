@@ -13,6 +13,7 @@ class platform
         vec3 scaleSize;
         vec3 verts[4];
         vec3 pos;
+        GLfloat alpha;
         float xMax, yMax, xMin, yMin;
         int hFrames; //horizontal frames
         int vFrames; //vertical frames

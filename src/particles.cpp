@@ -93,7 +93,7 @@ void particles::genJumpParticles(float x, float y)
         drops[i].pos.y = y - 0.6;
         drops[i].pos.z = -3;
         drops[i].alpha = (float)(rand() % 100) / 10.0;
-        dotSize = 3;
+        dotSize = 5;
     }
     numDrops += newDrops;
 }
