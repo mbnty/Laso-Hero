@@ -132,7 +132,7 @@ int scene::drawScene()
     else if (scne == QUIT) {
         glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
-        tl->drawMenu(screenWidth, screenHeight);
+        prLx[9].drawSquare(screenWidth, screenHeight);
         glPopMatrix();
 
         glPushMatrix();
@@ -999,6 +999,7 @@ int scene::initScene()
     prLx[5].initParallax("images/helpScreen.png"); //help screen
     prLx[6].initParallax("images/creditScreen.png"); //credits screen
     prLx[7].initParallax("images/controlScreen.png"); //control screen
+    prLx[9].initParallax("images/quit.png");
 
     tl->initTitle("images/title.png", 0);
     tl->initTitle("images/menu.png", 1);
@@ -1006,8 +1007,8 @@ int scene::initScene()
     tl->initTitle("images/help.png", 3);
     tl->initTitle("images/credit.png", 4);
     tl->initTitle("images/stop.png", 5);
-    tl->initTitle("images/stop.png", 6);
-    tl->initTitle("images/start.png", 7);
+    tl->initTitle("images/yes.png", 6);
+    tl->initTitle("images/no.png", 7);
 
     ammo[0].projTexture("images/bullet.png");
     for (int i = 0; i < 6; i++) {
@@ -1133,7 +1134,6 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             }
             else if (scne == MENU) {
                 int temp = KbMs->keyTitle(tl);
-                cout << temp << endl;
                 if (temp == 2) {
                     sand->resetParticles();
                     if (level == 1)
@@ -1150,7 +1150,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     scne = CREDITS;
                 }
                 else if (temp == 5) {
-                    tl->selection = 3;
+                    tl->selection = 7;
                     scne = QUIT;
                 }
                 else if (temp == 6) {
@@ -1188,7 +1188,6 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             else if (scne == QUIT) {
                 int temp = KbMs->keyQuit(tl);
-                cout << temp << endl;
                 if (temp == 6) {
                     PostQuitMessage(0);
                 }
