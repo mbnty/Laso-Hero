@@ -23,6 +23,8 @@ enemy::enemy()
     isDead = false;
     isIdle = false;
     isAttack = false;
+    isSpawn = true;
+    enHP = 2;
 
     enemyOffsetY = -0.4;
     groundValue = -0.25;
@@ -138,13 +140,41 @@ void enemy::setAsSpear()
     vFramesInd[9] = 5; //Run+Attack
 }
 
-void enemy::enemyAIManager(player* ply, bool canAttack, bool canMove)
+bool enemy::enemyPlayerCollisionAttack(player* ply)
 {
-    if(movement == DIE || movement == ATTACK){//Draws death animation
+    bool collisionX = ply->pPos.x + 0.25 >= enemyPosition.x - 0.4 &&
+        enemyPosition.x + 0.5 >= ply->pPos.x - 0.25;
+    bool collisionY = ply->pPos.y + 0.4 >= enemyPosition.y - 0.5 &&
+        enemyPosition.y >= ply->pPos.y - 0.4;
+
+    return collisionX && collisionY;
+}
+
+bool enemy::enemyMoveCollisionLinear(player* ply)
+{
+    if((fabs(ply->pPos.y-(enemyPosition.y+enemyOffsetY))) < 0.05) return true;
+    else return false;
+}
+
+bool enemy::checkPlayerHit(player* ply)
+{
+    if(movement == ATTACK && enemyPlayerCollisionAttack(ply) && clock() - ply->damage > 2000){
+        ply->pColor.y = 0; ply->pColor.z = 0;
+        ply->health--;
+        ply->damage = clock();
+    }
+}
+
+void enemy::enemyAIManager(player* ply)
+{
+    if(movement == DIE || movement == ATTACK || movement == HURT){//Draws death animation
+            if(xMin >= 0.75 || xMax >= 0.75){
+                checkPlayerHit(ply);
+            }
             drawEnemy();
             actions();
     }
-    else if(canAttack == true){
+    else if(enemyPlayerCollisionAttack(ply)){
         if(clock() - attackTimer > 3000){
             movement = ATTACK;
             attackTimer = clock();
@@ -156,14 +186,14 @@ void enemy::enemyAIManager(player* ply, bool canAttack, bool canMove)
     }
     else if(enemyPosition.x < 0.90 && enemyPosition.x > -0.90){ //Distance check
         if(enemyPosition.x > ply->pPos.x && !isDead){
-            if(!canMove){// if enemy sees player: move toward player
+            if(!enemyMoveCollisionLinear(ply)){// if enemy sees player: move toward player
                 movement = IDLE;
             }else{
                 movement = WALKL;
             }
         }
         else if(enemyPosition.x < ply->pPos.x && !isDead){
-            if(!canMove){
+            if(!enemyMoveCollisionLinear(ply)){
                 movement = IDLE;
             }else{
                 movement = WALKR;
@@ -259,8 +289,39 @@ void enemy::actions()
             currTime = clock();
             if(xMax >= 1.0 || xMin >= 1.0){
                 isAttack = false;
-                movement = IDLE;
+
             }
+        }
+        break;
+    case HURT:
+        indexTexture = 4;
+        isIdle = false;
+        if(isHit == false){
+            if(enDir == 'L'){
+            xMax = 1.0/(float)vFramesInd[indexTexture];
+            xMin = 0.0;
+            yMax = 1.0/(float)hFramesInd[indexTexture];
+            yMin = 0.0;
+            currTime = clock();
+            }
+            if(enDir == 'R'){
+            xMin = 1.0/(float)vFramesInd[indexTexture];
+            xMax = 0.0;
+            yMax = 1.0/(float)hFramesInd[indexTexture];
+            yMin = 0.0;
+            currTime = clock();
+            }
+            isHit = true;
+        }
+        if(clock() - currTime >= 360){
+            xMax += 1.0/(float)vFramesInd[indexTexture];
+            xMin += 1.0/(float)vFramesInd[indexTexture];
+            currTime = clock();
+            if(xMax >= 1.0 || xMin >= 1.0){
+                movement = IDLE;
+                isHit = false;
+            }
+
         }
         break;
     case DIE:
@@ -291,7 +352,7 @@ void enemy::actions()
             xMin += 1.0/(float)vFramesInd[indexTexture];
             currTime = clock();
             if(xMax >= 1.0){ // Final Frame
-                if(enDir == 'A'){
+                if(enDir == 'A'){ //"Freezes" frame
                     xMax = 1.0;
                     xMin = xMax - 1.0/vFramesInd[indexTexture];
                 }

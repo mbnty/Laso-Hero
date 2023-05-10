@@ -18,7 +18,6 @@
 
 model *startModel = new model();
 inputs *KbMs = new inputs();
-enemy *walker = new enemy();
 player *ply = new player();
 title *tl = new title();
 whip* wep = new whip();
@@ -70,7 +69,7 @@ platform *horse = new platform();
 
 int numBullet;
 int level = 1;
-int numOfEn = 5;
+int numOfEn = enemyCount1; //Tracks Amount of Enemies
 clock_t start;
 clock_t run;
 
@@ -186,7 +185,7 @@ int scene::drawScene()
     else if (scne == LV1) {
         //snds->playSound("sounds/sound1.mp3");
 
-        if (ply->health == 0)      // Close program once player dies *CHANGE LATER*
+        if (ply->health == 0){      // Close program once player dies *CHANGE LATER*
             //PostQuitMessage(0);
         }
 
@@ -270,10 +269,8 @@ int scene::drawScene()
 
         // draw enemies
         for(int i = 0; i < enemyCount1; i++){
-            if(hit->QuadEnemytoPlayer(spearman[i],ply)){CanHit = true;}else{CanHit = false;} //Checks if Skelly can Attack
-            if(hit->isLinearCollision(ply->pPos.y, spearman[i].enemyPosition.y + spearman[i].enemyOffsetY)){EnMove = true;}else{EnMove = false;}
 
-            spearman[i].enemyAIManager(ply, CanHit, EnMove);
+            spearman[i].enemyAIManager(ply);
 
             if (!spearman[i].isDead && hit->isQuadCollisionEnemy(ply, spearman[i]) && clock() - ply->damage > 2000) {
                 ply->pColor.y = 0; ply->pColor.z = 0;
@@ -281,12 +278,15 @@ int scene::drawScene()
                 ply->damage = clock();
             }
 
-            for (int j = 0; j < 6; j++) {
+            for (int j = 0; j < 6; j++) { //Gun
                 if (!spearman[i].isDead) {
                     if (hit->isRadialCollision(ammo[j].bPos.x, spearman[i].enemyPosition.x, ammo[j].bPos.y, spearman[i].enemyPosition.y, 0.1, 0.5)) {
-                        spearman[i].movement = spearman->DIE;
+                        spearman[i].movement = spearman->HURT;
+                        spearman[i].enHP -= 2; //Gun Does more damage
+                        if(spearman[i].enHP <= 0){
+                            spearman[i].movement = spearman->DIE;
+                        }
                         ammo[j].act = ammo->IDLE;
-                        numOfEn--;
 
                         spec->dropBullet(spearman[i].enemyPosition);
                         spec->act = spec->IDLE;
@@ -296,12 +296,15 @@ int scene::drawScene()
                     }
                 }
             }
-            if (wep->run == true) {
+            if (wep->run == true) { //Whip
                 if (!spearman[i].isDead) {
                     if (hit->isQuadCollisionWhip(wep, spearman[i])) {
-                        spearman[i].movement = spearman->DIE;
+                        spearman[i].movement = spearman->HURT;
+                        spearman[i].enHP--;
+                        if(spearman[i].enHP <= 0){
+                            spearman[i].movement = spearman->DIE;
+                        }
                         wep->wPos.y = 10.0;
-                        numOfEn--;
 
                         spec->dropBullet(spearman[i].enemyPosition);
                         spec->act = spec->IDLE;
@@ -312,11 +315,19 @@ int scene::drawScene()
                 }
             }
 
-            if(spearman[i].isHit == false){
+            if(spearman[i].isSpawn == true){
                 spearman[i].drawEnemy();
                 spearman[i].actions();
             }
         }
+        int ECount = 0;
+        for(int i = 0; i < enemyCount1; i++){
+            if(spearman[i].movement != spearman->DIE){
+                ECount++;
+            }
+        }
+        numOfEn = ECount;
+
 
         // Draw drops
         if(hit->isQuadCollisionPowerUp(ply, spec) && (ply->ammo < ply->MAX_AMMO)){

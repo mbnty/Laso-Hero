@@ -5,6 +5,7 @@
 #include<textureLoader.h>
 #include<positions.h>
 #include<player.h>
+#include<sounds.h>
 #include<time.h>
 
 class enemy
@@ -18,12 +19,15 @@ class enemy
         void initEnemy(GLuint, int, int);
         void enemySkin(char *);
         void enemySkinMulti(char *, GLuint &);
-        void enemyAIManager(player*, bool, bool);
+        void enemyAIManager(player*);
+        bool enemyPlayerCollisionAttack(player*);
+        bool enemyMoveCollisionLinear(player*);
+        bool checkPlayerHit(player*);
 
 
         void setAsSpear();
 
-        enum acts{IDLE, WALKR, WALKL, JUMP, ATTACK, DIE};
+        enum acts{IDLE, WALKR, WALKL, JUMP, ATTACK, HURT, DIE};
         void actions();
         acts movement;
 
@@ -55,6 +59,8 @@ class enemy
         bool isDead;
         bool isIdle;
         bool isAttack;
+        bool isSpawn;
+        int enHP;
 
         clock_t currTime;
         clock_t attackTimer;
