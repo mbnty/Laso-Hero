@@ -122,11 +122,12 @@ void inputs::keyEnemy(enemy& en)
     }
 }
 
-int inputs::keyTitle(title* tl)
+int inputs::keyTitle(title* tl,sounds* sds)
 {
     switch(wParam) {
         case VK_DOWN:
         case 0x53:
+            sds->playSound("sounds/select.mp3");
             if (tl->selection < 5) {
                 tl->selection++;
             }
@@ -134,6 +135,7 @@ int inputs::keyTitle(title* tl)
 
         case VK_UP:
         case 0x57:
+            sds->playSound("sounds/select.mp3");
             if (tl->selection > 2) {
                 tl->selection--;
             }
@@ -141,6 +143,7 @@ int inputs::keyTitle(title* tl)
 
         case VK_SPACE:
         case VK_RETURN:
+            sds->playSound("sounds/select.mp3");
             if (tl->selection >= 2 && tl->selection <= 5) {
                 return tl->selection;
             }
@@ -162,20 +165,23 @@ int inputs::keyTitle(title* tl)
     return 0;
 }
 
-int inputs::keyQuit(title* tl) {
+int inputs::keyQuit(title* tl,sounds* sds) {
     switch(wParam) {
         case VK_LEFT:
         case 0x41:
+            sds->playSound("sounds/select.mp3");
             tl->selection = 6;
             break;
 
         case VK_RIGHT:
         case 0x44:
+            sds->playSound("sounds/select.mp3");
             tl->selection = 7;
             break;
 
         case VK_SPACE:
         case VK_RETURN:
+            sds->playSound("sounds/select.mp3");
             return tl->selection;
             break;
     }

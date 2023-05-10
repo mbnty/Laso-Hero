@@ -1332,16 +1332,18 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 }
 
                 if(KbMs->keyPause() == 1){ //if H key is pressed
+                    snds->playSound("sounds/select.mp3");
                     scne = PAUSE; //pause the game
                 }
             }
 
             else if (scne == TITLE) {
+                snds->playSound("sounds/select.mp3");
                 tl->selection = 2;
                 scne = MENU;
             }
             else if (scne == MENU) {
-                int temp = KbMs->keyTitle(tl);
+                int temp = KbMs->keyTitle(tl,snds);
                 if (temp == 2) {
                     sand->resetParticles();
                     if (level == 1)
@@ -1400,7 +1402,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             }
 
             else if (scne == QUIT) {
-                int temp = KbMs->keyQuit(tl);
+                int temp = KbMs->keyQuit(tl,snds);
                 if (temp == 6) {
                     PostQuitMessage(0);
                 }
