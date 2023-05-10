@@ -3,8 +3,8 @@
 enemy::enemy()
 {
     enemyPosition.x = 0.0;
-    enemyPosition.y = -0.25;
-    enemyPosition.z = -2;
+    enemyPosition.y = -0.65;
+    enemyPosition.z = -3;
 
     enemySize.x = 1.0;
     enemySize.y = 0.5;
@@ -14,7 +14,7 @@ enemy::enemy()
     enemyColor.z = 1.0;
 
     enemyRotation.x = enemyRotation.y = enemyRotation.z = 0;
-    movement = JUMP;
+    movement = IDLE;
 
     enemySpeed.x = 0.03;
     enemySpeed.y = 0.0;
@@ -24,7 +24,6 @@ enemy::enemy()
     isIdle = false;
     isAttack = false;
     isSpawn = true;
-    isJump = false;
     enHP = 2;
 
     enemyOffsetY = -0.4;
@@ -36,12 +35,6 @@ enemy::enemy()
     indexTexture = 1;
 
     enDir = 'L';
-
-    velocity = 30;
-    theta = 30 * PI/180.0;
-    t = 1;
-    jumpSpeed = 0;
-    airSpeed = 0.01;
 }
 
 enemy::~enemy()
@@ -169,13 +162,12 @@ bool enemy::checkPlayerHit(player* ply)
         ply->pColor.y = 0; ply->pColor.z = 0;
         ply->health--;
         ply->damage = clock();
-        snd->playSound("sounds/hurt.mp3");
     }
 }
 
 void enemy::enemyAIManager(player* ply)
 {
-    if(movement == DIE || movement == ATTACK || movement == HURT || movement == JUMP){//Draws death animation
+    if(movement == DIE || movement == ATTACK || movement == HURT){//Draws death animation
             if(xMin >= 0.75 || xMax >= 0.75){
                 checkPlayerHit(ply);
             }
@@ -192,7 +184,7 @@ void enemy::enemyAIManager(player* ply)
             movement = WALKR;
         }
     }
-    else if(enemyPosition.x < 0.90 && enemyPosition.x > -1.50){ //Distance check
+    else if(enemyPosition.x < 0.90 && enemyPosition.x > -0.90){ //Distance check
         if(enemyPosition.x > ply->pPos.x && !isDead){
             if(!enemyMoveCollisionLinear(ply)){// if enemy sees player: move toward player
                 movement = IDLE;
@@ -274,57 +266,6 @@ void enemy::actions()
             currTime = clock();
         }
         break;
-    case JUMP:
-        indexTexture = 6;
-        isIdle = false;
-        if(isJump == false){
-            if(enDir == 'L'){
-                xMax = 1.0/(float)vFramesInd[indexTexture];
-                xMin = 0.0;
-                yMax = 1.0/(float)hFramesInd[indexTexture];
-                yMin = 0.0;
-            }else{
-                xMin = 1.0/(float)vFramesInd[indexTexture];
-                xMax = 0.0;
-                yMax = 1.0/(float)hFramesInd[indexTexture];
-                yMin = 0.0;
-            }
-            isJump = true;
-        }
-        if(clock() - currTime >= 30){
-            jumpSpeed = (velocity * t * sin(theta) - 0.5 * GRVITY * t * t) / 700.0;
-            enemyPosition.y += jumpSpeed;
-            if(enDir == 'L'){
-                enemyPosition.x -= airSpeed;
-            }else{
-                enemyPosition.x += airSpeed;
-            }
-            if(clock() - jumpTimer > 60 && (xMax >= 1.0 || xMin >= 1.0)){
-                if(enDir == 'L'){
-                    xMax = 6.0/(float)vFramesInd[indexTexture];
-                    xMin = 5.0/(float)vFramesInd[indexTexture];
-
-                }else{
-                    xMax = 5.0/(float)vFramesInd[indexTexture];
-                    xMin = 6.0/(float)vFramesInd[indexTexture];
-                }
-                jumpTimer = clock();
-            }else if (clock() - jumpTimer > 60 && (xMax < 1.0 || xMin < 1.0)){
-                xMax += 1.0/(float)vFramesInd[indexTexture];
-                xMin += 1.0/(float)vFramesInd[indexTexture];
-                jumpTimer = clock();
-
-            }
-            if(enemyPosition.y >= groundValue){
-                t += 0.02;
-                movement = JUMP;
-            }else{
-                t = 1;
-                enemyPosition.y = groundValue;
-                movement = IDLE;
-            }
-        }
-        break;
     case ATTACK:
         indexTexture = 2;
         isIdle = false;
@@ -348,7 +289,7 @@ void enemy::actions()
             currTime = clock();
             if(xMax >= 1.0 || xMin >= 1.0){
                 isAttack = false;
-                movement = IDLE;
+
             }
         }
         break;
