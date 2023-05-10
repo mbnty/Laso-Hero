@@ -15,6 +15,7 @@ class sounds
         void playSound(char*);
         void pauseSound(char*);  //pause the sound when window minimized
         int initSound();       //initialization of sounds
+        void changeMusic(char*,char*);
 
     protected:
 
