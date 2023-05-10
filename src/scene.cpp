@@ -439,6 +439,7 @@ int scene::drawScene()
 
         if (numOfEn == 0 && hit->isLinearCollision(ply->pPos.x, horse->pos.x))       // Move to level 2 once reach horse
         {
+            snds->playSound("sounds/horse.mp3");
             arrow->place(-4.8, 0, 1.5, 1);
             spec->act = spec->IDLE;
             health->act = health->IDLE;
@@ -515,7 +516,7 @@ int scene::drawScene()
             horse->drawPlatform();
         }
 
-        // draw hud
+        //draw hud
         for(int i = 0; i < ply->health; i++){
             glPushMatrix();
             glTranslatef(((Hud->xPos) + i)/3, Hud->yPos, 0);
@@ -1080,6 +1081,7 @@ int scene::initScene()
     sand->generateParticles(0, 0);
 
     snds->initSound();
+    snds->playMusic("sounds/menu.mp3");
 
     start = run = clock();
 
