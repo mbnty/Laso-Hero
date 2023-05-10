@@ -23,6 +23,7 @@ class enemy
         bool enemyPlayerCollisionAttack(player*);
         bool enemyMoveCollisionLinear(player*);
         bool checkPlayerHit(player*);
+        bool enemyPlatformCollision(platform*);
 
 
         void setAsSpear();

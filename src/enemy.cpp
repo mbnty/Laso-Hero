@@ -14,7 +14,7 @@ enemy::enemy()
     enemyColor.z = 1.0;
 
     enemyRotation.x = enemyRotation.y = enemyRotation.z = 0;
-    movement = JUMP;
+    movement = IDLE;
 
     enemySpeed.x = 0.03;
     enemySpeed.y = 0.0;
@@ -145,6 +145,19 @@ void enemy::setAsSpear()
     vFramesInd[7] = 2; //Protect
     vFramesInd[8] = 6; //Run
     vFramesInd[9] = 5; //Run+Attack
+}
+
+bool enemy::enemyPlatformCollision(platform* plat)
+{
+
+    bool collisionX = plat->pos.x + (0.25 * plat->scaleSize.x) >= enemyPosition.x &&
+         enemyPosition.x >= plat->pos.x - (0.25 * plat->scaleSize.x);
+
+    // collision y-axis
+    bool collisionY = enemyPosition.y >= plat->pos.y - (0.25 * plat->scaleSize.y) &&
+        plat->pos.y + (0.25 * plat->scaleSize.y) >= enemyPosition.y - 0.5;
+
+    return collisionX && collisionY;
 }
 
 bool enemy::enemyPlayerCollisionAttack(player* ply)
