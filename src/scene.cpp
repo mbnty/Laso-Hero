@@ -321,6 +321,7 @@ int scene::drawScene()
                         spearman[i].enHP -= 2; //Gun Does more damage
                         if(spearman[i].enHP <= 0){
                             spearman[i].movement = spearman->DIE;
+                            snds->playSound("sounds/enemyDie.mp3");
                             numOfEn--;
                             F->pos.y = 0.6;
                             F->buildFonts(F->getZero(numOfEn));
@@ -340,9 +341,11 @@ int scene::drawScene()
                 if (!spearman[i].isDead) {
                     if (hit->isQuadCollisionWhip(wep, spearman[i])) {
                         spearman[i].movement = spearman->HURT;
+                        snds->playSound("sounds/enemyHurt.mp3");
                         spearman[i].enHP--;
                         if(spearman[i].enHP <= 0){
                             spearman[i].movement = spearman->DIE;
+                            snds->playSound("sounds/enemyDie.mp3");
                             numOfEn--;
                             F->pos.y = 0.6;
                             F->buildFonts(F->getZero(numOfEn));
