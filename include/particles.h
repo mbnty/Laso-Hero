@@ -34,6 +34,9 @@ class particles
         void genJumpParticles(float, float);
         void updateJumpParticles(int);
 
+        void genFireworks(float, float);
+        void updateFireworks();
+
         float drand48() { return (rand()%100 + 1) / 100.0; }
         int numDrops = 0;
         int dotSize;

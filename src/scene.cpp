@@ -482,8 +482,9 @@ int scene::drawScene()
             arrow->place(-4.8, 0, 1.5, 1);
             spec->act = spec->IDLE;
             health->act = health->IDLE;
-            //numOfEn = ;
+            numOfEn = 5;
             level++;
+            horse->place(22, -0.7, 2, 2);
             horse->alpha = 0.0;
             scne = LV2;
         }
@@ -697,6 +698,7 @@ int scene::drawScene()
         //check if collision with fire
         if (hit->isQuadCollisionPlatform(ply,fr1) && clock() - ply->damage > 2000)
         {
+            ply->actions(ply->HURT, snds, sand);
             ply->pColor.y = 0; ply->pColor.z = 0;
             ply->health--;
             ply->damage = clock();
@@ -711,6 +713,7 @@ int scene::drawScene()
             health->act = health->IDLE;
             numOfEn = 5;
             level++;
+            horse->place(22, -0.7, 2, 2);
             horse->alpha = 0.0;
             scne = LV3;
         }
@@ -916,13 +919,16 @@ int scene::drawScene()
         glPopMatrix();
 
         if (wep->run == true && clock() - start > 10) {
+            if (!ply->isJump)
+                ply->actions(ply->ATTACK, snds, sand);
             if (wep->t < 1) {
-                wep->t += 0.01;
+                wep->t += 0.05;
                 start = clock();
             }
             else if (wep->t >= 1 && clock() - start > 120) {
                 wep->wPos.y = 10.0;
                 wep->run = false;
+                ply->actions(ply->IDLE, snds, sand);
             }
         }
 
@@ -1058,6 +1064,13 @@ int scene::drawScene()
         prLx[9].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
 
+        glPushMatrix();
+            sand->drawParticles();
+            sand->genFireworks(3.5, 1.4);
+            sand->genFireworks(-3.5, 1.4);
+            sand->updateFireworks();
+        glPopMatrix();
+
         ply->actions(ply->IDLE, snds, sand);
 
         glPushMatrix();
@@ -1072,7 +1085,6 @@ int scene::drawScene()
         horse->alpha = 1.0;
         horse->drawPlatform();
         glPopMatrix();
-
     }
 
     else if(scne == LOSE){

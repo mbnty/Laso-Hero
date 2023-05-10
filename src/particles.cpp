@@ -17,7 +17,7 @@ void particles::drawParticles()
     glPushMatrix();
     glPointSize(dotSize);
     glBegin(GL_POINTS);
-    for (int i = 0; i < MAX_DROPS; i++) {
+    for (int i = 0; i < numDrops; i++) {
         if (drops[i].alive) {
             glColor4f(drops[i].color.x, drops[i].color.y, drops[i].color.z, 0.8);
             glVertex3f(drops[i].pos.x, drops[i].pos.y, drops[i].pos.z);
@@ -93,8 +93,8 @@ void particles::genJumpParticles(float x, float y)
         drops[i].pos.y = y - 0.6;
         drops[i].pos.z = -3;
         drops[i].alpha = (float)(rand() % 100) / 10.0;
-        dotSize = 5;
     }
+    dotSize = 5;
     numDrops += newDrops;
 }
 
@@ -150,6 +150,49 @@ void particles::updateJumpParticles(int level)
         }
     }
 }
+
+void particles::genFireworks(float x, float y)
+{
+    int newDrops = rand()%60 + 1;
+
+    // To make sure not exceed array
+    if (numDrops + newDrops > MAX_DROPS)
+        newDrops = MAX_DROPS - numDrops;
+
+    numDrops += newDrops;
+    for (int i = numDrops; i < numDrops + newDrops; i++) {
+        drops[i].alive = true;
+        drops[i].pos.x = x;
+        drops[i].pos.y = y;
+        drops[i].pos.z = -8;
+        drops[i].color.x = (float)rand()/(float)RAND_MAX;
+        drops[i].color.y = (float)rand()/(float)RAND_MAX;
+        drops[i].color.z = (float)rand()/(float)RAND_MAX;
+        drops[i].alpha = (float)(rand() % 100) / 10.0;
+        drops[i].velocity.x = sin(rand() % 360) * 0.015;
+        drops[i].velocity.y = cos(rand() % 360) * 0.015;
+    }
+    dotSize = 3;
+
+    numDrops += newDrops;
+    if (numDrops >= MAX_DROPS) {
+        numDrops = 0;
+    }
+}
+
+void particles::updateFireworks()
+{
+    for (int i = 0; i < numDrops; i++) {
+        drops[i].pos.x += drops[i].velocity.x;
+        drops[i].pos.y += drops[i].velocity.y;
+        drops[i].alpha -= 0.1;
+
+        if (drops[i].alpha <= 0) {
+            drops[i].alive = false;
+        }
+    }
+}
+
 
 void particles::resetParticles()
 {
