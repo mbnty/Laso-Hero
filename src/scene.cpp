@@ -35,10 +35,10 @@ bool EnMove = false;
 powerups *health = new powerups();
 sounds *snds = new sounds();
 
-parallax prLx[12];
+parallax prLx[10];
 bullet ammo[6];
 
-int const enemyCount1 = 5;
+int const enemyCount1 = 7;
 enemy spearman[enemyCount1];
 
 //objects for the platforms for the first level
@@ -132,7 +132,7 @@ int scene::drawScene()
     else if (scne == QUIT) {
         glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
-        prLx[11].drawSquare(screenWidth, screenHeight);
+        tl->drawMenu(screenWidth, screenHeight);
         glPopMatrix();
 
         glPushMatrix();
@@ -188,8 +188,8 @@ int scene::drawScene()
     else if (scne == LV1) {
         //snds->playSound("sounds/sound1.mp3");
 
-        if (ply->health == 0) { // Will need to reset everything in level
-            scne = LOSE;
+        if (ply->health == 0){      // Close program once player dies *CHANGE LATER*
+            //PostQuitMessage(0);
         }
 
         //matrix for the background parallax
@@ -344,16 +344,6 @@ int scene::drawScene()
                 spearman[i].actions();
             }
         }
-        /*
-        int ECount = enemyCount1;
-        for(int i = enemyCount1; i > 0; i--){
-            if(spearman[i].movement == spearman->DIE){
-                ECount--;
-                F->pos.y = 0.6;
-                F->buildFonts(F->getZero(ECount));
-                Fs->buildFonts(Fs->getTens(ECount));
-            }
-        }*/
 
 
         // Draw drops
@@ -509,8 +499,8 @@ int scene::drawScene()
     }
 
     else if (scne == LV2) {
-        if (ply->health == 0) {
-            scne = LOSE;
+        if (ply->health == 0) {      // Close program once player dies *CHANGE LATER*
+            //PostQuitMessage(0);
         }
 
         //matrix for the background parallax
@@ -699,8 +689,12 @@ int scene::drawScene()
     }
 
     else if (scne == LV3) {
-        if (ply->health == 0) {
-            scne = LOSE;
+        if (ply->health == 0) {      // Close program once player dies *CHANGE LATER*
+            //PostQuitMessage(0);
+        }
+
+        if (numOfEn == 0) {
+            //horse->alpha = 1.0;
         }
 
         //matrix for the background parallax
@@ -708,12 +702,6 @@ int scene::drawScene()
         glScaled(4.2, 4.2, 1.0);
         prLx[level].drawSquare(screenWidth,screenHeight);
         glPopMatrix();
-
-        if (numOfEn == 0) {           // Spawn horse once all enemies are killed
-            horse->alpha = 1.0;
-            go->drawPlatform();
-            horse->drawPlatform();
-        }
 
         // draw hud
         for(int i = 0; i < ply->health; i++){
@@ -837,9 +825,7 @@ int scene::drawScene()
 
         if (numOfEn == 0 && hit->isLinearCollision(ply->pPos.x, horse->pos.x))
         {
-            spec->act = spec->IDLE;
-            health->act = health->IDLE;
-            scne = WIN;
+
         }
 
         // draw whip
@@ -973,36 +959,6 @@ int scene::drawScene()
             glPopMatrix();
         }
     }
-
-    else if(scne == WIN){
-        glPushMatrix(); //matrix for the background parallax
-        glScaled(4.2, 4.2, 1.0);
-        prLx[9].drawSquare(screenWidth,screenHeight);
-        glPopMatrix();
-
-        ply->actions(ply->IDLE, snds, sand);
-
-        glPushMatrix();
-        glScalef(0.41, 0.41, 1.0);
-        glTranslatef(-0.2, 0.1, 0.0);
-        ply->drawPlayer();
-        glPopMatrix();
-
-        horse->place(0.0, -0.7, 2, 2);
-        glPushMatrix();
-        glScalef(0.56, 0.56, 1.0);
-        horse->alpha = 1.0;
-        horse->drawPlatform();
-        glPopMatrix();
-
-    }
-
-    else if(scne == LOSE){
-        glPushMatrix(); //matrix for the background parallax
-        glScaled(4.2, 4.2, 1.0);
-        prLx[10].drawSquare(screenWidth,screenHeight);
-        glPopMatrix();
-    }
 }
 
 int scene::initScene()
@@ -1033,10 +989,6 @@ int scene::initScene()
     prLx[5].initParallax("images/helpScreen.png"); //help screen
     prLx[6].initParallax("images/creditScreen.png"); //credits screen
     prLx[7].initParallax("images/controlScreen.png"); //control screen
-    prLx[8].initPopUp("images/enemyCounter.png");  //enemy counter on hud
-    prLx[9].initParallax("images/winScreen.png");  //win screen
-    prLx[10].initParallax("images/loseScreen.png");  //lose screen
-    prLx[11].initParallax("images/quit.png");
 
     tl->initTitle("images/title.png", 0);
     tl->initTitle("images/menu.png", 1);
@@ -1044,8 +996,8 @@ int scene::initScene()
     tl->initTitle("images/help.png", 3);
     tl->initTitle("images/credit.png", 4);
     tl->initTitle("images/stop.png", 5);
-    tl->initTitle("images/yes.png", 6);
-    tl->initTitle("images/no.png", 7);
+    tl->initTitle("images/stop.png", 6);
+    tl->initTitle("images/start.png", 7);
 
     ammo[0].projTexture("images/bullet.png");
     for (int i = 0; i < 6; i++) {
@@ -1120,6 +1072,8 @@ int scene::initScene()
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
 
+    prLx[8].initPopUp("images/enemyCounter.png");
+
     F->initFonts("images/numbers.png");
     Fs->initFonts("images/numbers.png");
 
@@ -1169,6 +1123,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             }
             else if (scne == MENU) {
                 int temp = KbMs->keyTitle(tl);
+                cout << temp << endl;
                 if (temp == 2) {
                     sand->resetParticles();
                     if (level == 1)
@@ -1185,7 +1140,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     scne = CREDITS;
                 }
                 else if (temp == 5) {
-                    tl->selection = 7;
+                    tl->selection = 3;
                     scne = QUIT;
                 }
                 else if (temp == 6) {
@@ -1223,6 +1178,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             else if (scne == QUIT) {
                 int temp = KbMs->keyQuit(tl);
+                cout << temp << endl;
                 if (temp == 6) {
                     PostQuitMessage(0);
                 }
@@ -1243,33 +1199,6 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 }
                 else if(KbMs->keyPause() == 2){
                     scne = MENU; //return to title screen
-                }
-            }
-            else if(scne == WIN){
-                if(KbMs->keyPause() == 2){ //if M is pressed
-                    scne = MENU;
-                }
-                if(KbMs->keyPause() == 3){ //if C is pressed
-                    scne = CREDITS;
-                }
-            }
-
-            else if(scne == LOSE){
-                if(KbMs->keyPause() == 2){ //if M is pressed
-                    scne = MENU;
-                }
-                if(KbMs->keyPause() == 4){ //if R is pressed
-                    switch(level){
-                    case 1:
-                        scne = LV1;
-                        break;
-                    case 2:
-                        scne = LV2;
-                        break;
-                    case 3:
-                        scne = LV3;
-                        break;
-                    }
                 }
             }
             break;

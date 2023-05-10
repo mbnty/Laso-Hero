@@ -18,7 +18,7 @@ class title
         int selection;
 
         textureLoader *bTex = new textureLoader();
-        GLuint tex[9];
+        GLuint tex[8];
 
     protected:
 

@@ -98,16 +98,12 @@ int inputs::keyPause()
             return 1;
             break;
 
-        case 0x4D: //check if M key is pressed
-            return 2;
+        case 0x4D:
+            return 2; //check if M key is pressed
             break;
 
         case 0x43: //check if C key is pressed
             return 3;
-            break;
-
-        case 0x52: //check if R key is pressed
-            return 4;
             break;
     }
 }
