@@ -37,3 +37,13 @@ int sounds::initSound()
     }
     return 1;
 }
+
+void sounds::changeMusic(char* bFile, char* nFile)
+{
+    if (engine->isCurrentlyPlaying(bFile))
+    {
+        engine->stopAllSounds();
+    }
+     engine->play2D(nFile,true);
+}
+

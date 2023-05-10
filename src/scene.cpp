@@ -34,6 +34,7 @@ bool CanHit = false;
 bool EnMove = false;
 powerups *health = new powerups();
 sounds *snds = new sounds();
+char* backGroundMusic;
 
 parallax prLx[12];
 bullet ammo[6];
@@ -58,6 +59,8 @@ platform *pl22 = new platform();
 platform *pl23 = new platform();
 platform *pl24 = new platform();
 platform *pl25 = new platform();
+
+platform *fr1 = new platform();
 
 //objects for the platforms for the second level
 platform *pl31 = new platform();
@@ -95,7 +98,7 @@ int scene::drawScene()
     glLoadIdentity();
 
     if (scne == TITLE) {
-        //snds->playMusic("sounds/menu.mp3");
+
         glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
         tl->drawTitle(screenWidth, screenHeight);
@@ -153,6 +156,12 @@ int scene::drawScene()
     }
 
     else if (scne == MENU) {
+        if (backGroundMusic != "sounds/menu.mp3")
+        {
+            snds->changeMusic(backGroundMusic,"sounds/menu.mp3");
+            backGroundMusic = "sounds/menu.mp3";
+        }
+
         glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
         tl->drawMenu(screenWidth, screenHeight);
@@ -186,7 +195,12 @@ int scene::drawScene()
     }
 
     else if (scne == LV1) {
-        //snds->playSound("sounds/sound1.mp3");
+        if (backGroundMusic != "sounds/level1.mp3")
+        {
+            snds->changeMusic(backGroundMusic,"sounds/level1.mp3");
+            backGroundMusic = "sounds/level1.mp3";
+        }
+
 
         if (ply->health == 0) { // Will need to reset everything in level
             scne = LOSE;
@@ -517,6 +531,12 @@ int scene::drawScene()
     }
 
     else if (scne == LV2) {
+        if (backGroundMusic != "sounds/level2.mp3")
+        {
+            snds->changeMusic(backGroundMusic,"sounds/level2.mp3");
+            backGroundMusic = "sounds/level2.mp3";
+        }
+
         if (ply->health == 0) {
             scne = LOSE;
         }
@@ -554,6 +574,7 @@ int scene::drawScene()
         pl23->drawPlatform();
         pl24->drawPlatform();
         pl25->drawPlatform();
+        fr1->drawPlatform();
         arrow->drawPlatform();
         glPopMatrix();
 
@@ -657,6 +678,15 @@ int scene::drawScene()
             ply->actions(ply->JUMP,snds, sand);
         }
 
+        //check if collision with fire
+        if (hit->isQuadCollisionPlatform(ply,fr1) && clock() - ply->damage > 2000)
+        {
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
+        }
+
         if (numOfEn == 0 && hit->isLinearCollision(ply->pPos.x, horse->pos.x))       // Move to level 2 once reach horse
         {
             snds->playSound("sounds/hurt.mp3");
@@ -698,6 +728,8 @@ int scene::drawScene()
                 KbMs->keyEnvL1(pl24,0.05);
                 KbMs->keyEnvL1(pl25,0.05);
 
+                KbMs->keyEnvL1(fr1,0.05);
+
                 KbMs->keyEnvL1(arrow, 0.05);
 
                 KbMs->keyPowerUp(spec, 0.05);
@@ -708,6 +740,12 @@ int scene::drawScene()
     }
 
     else if (scne == LV3) {
+        if (backGroundMusic != "sounds/level3.mp3")
+        {
+            snds->changeMusic(backGroundMusic,"sounds/level3.mp3");
+            backGroundMusic = "sounds/level3.mp3";
+        }
+
         if (ply->health == 0) {
             scne = LOSE;
         }
@@ -984,6 +1022,14 @@ int scene::drawScene()
     }
 
     else if(scne == WIN){
+
+        //check background music is playing and change if needed
+        if (backGroundMusic != "sounds/win.mp3")
+        {
+            snds->changeMusic(backGroundMusic,"sounds/win.mp3");
+            backGroundMusic = "sounds/win.mp3";
+        }
+
         glPushMatrix(); //matrix for the background parallax
         glScaled(4.2, 4.2, 1.0);
         prLx[9].drawSquare(screenWidth,screenHeight);
@@ -1007,6 +1053,12 @@ int scene::drawScene()
     }
 
     else if(scne == LOSE){
+        //check background music is playing and change if needed
+        if (backGroundMusic != "sounds/lose.mp3")
+        {
+            snds->changeMusic(backGroundMusic,"sounds/lose.mp3");
+            backGroundMusic = "sounds/lose.mp3";
+        }
         glPushMatrix(); //matrix for the background parallax
         glScaled(4.2, 4.2, 1.0);
         prLx[10].drawSquare(screenWidth,screenHeight);
@@ -1100,11 +1152,15 @@ int scene::initScene()
     pl24->initPlatform("images/platform2.png",1,1);
     pl25->initPlatform("images/platform2.png",1,1);
 
+    fr1->initPlatform("images/fire.png",1,1);
+
     pl21->place(0,0,5,1);
     pl22->place(6,0,3,1);
     pl23->place(10,0,2,1);
     pl24->place(14.5,0,2,1);
     pl25->place(18,0,5,1);
+
+    fr1->place(1,-1.0,1,0.5);
 
     //level 3
     pl31->initPlatform("images/platform3.png",1,1);
@@ -1138,6 +1194,8 @@ int scene::initScene()
     sand->generateParticles(0, 0);
 
     snds->initSound();
+    backGroundMusic = "sounds/menu.mp3";
+    snds->playMusic(backGroundMusic);
 
     start = run = clock();
 
