@@ -12,6 +12,9 @@ class whip
 
         void initWhip(char*);
         void drawWhip();
+
+        void resetWhip();
+
         vec3 wPos;
         vec3 wEnd;
         bool run;

@@ -63,6 +63,16 @@ void bullet::projTexture(char* fileName)
     tLoad->loadTexture(fileName, tex);
 }
 
+void bullet::resetBullet()
+{
+    bPos.x = 0.0;
+    bPos.y = 15.0;
+    bPos.z = -2.0;
+
+    act = IDLE;
+    start = clock();
+}
+
 void bullet::actions()
 {
     if (act == IDLE) {

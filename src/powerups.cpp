@@ -5,7 +5,7 @@ powerups::powerups()
     //ctor
     powPos.x = 10.0;
     powPos.y = 15.0;
-    powPos.z = -1.0;
+    powPos.z = -2.0;
 
     scaleSize.x = 1.0;
     scaleSize.y = 1.0;
@@ -39,36 +39,46 @@ void powerups::initPowerUp(GLuint powTex)
     this->powTex = powTex;
 }
 
+void powerups::resetPowerUp()
+{
+    powPos.x = 10.0;
+    powPos.y = 15.0;
+    powPos.z = -2.0;
+
+    isHit = 0;
+    act = INIT;
+}
+
 void powerups::drawSquare()
 {
     powLoad->binder(powTex);
 
-    glTranslated(powPos.x, powPos.y, powPos.z);
+    glTranslatef(powPos.x, powPos.y, powPos.z);
     glScalef(scaleSize.x,scaleSize.y,scaleSize.z);
 
     glBegin(GL_QUADS);
         glTexCoord2f(xMin, yMin);
-        glVertex3f(0.1, 0.1, -1.0);
+        glVertex3f(0.1, 0.1, 0.0);
 
         glTexCoord2f(xMax, yMin);
-        glVertex3f(-0.1, 0.1, -1.0);
+        glVertex3f(-0.1, 0.1, 0.0);
 
         glTexCoord2f(xMax, yMax);
-        glVertex3f(-0.1, -0.1, -1.0);
+        glVertex3f(-0.1, -0.1, 0.0);
 
         glTexCoord2f(xMin, yMax);
-        glVertex3f(0.1, -0.1, -1.0);
+        glVertex3f(0.1, -0.1, 0.0);
     glEnd();
 }
 
 void powerups::dropBullet(pos3 pos)
 {
     int chance = (int)(rand()%100);
-    if(chance < 35){ //if certain chance reached, drop the bullet
+    if(chance < 31){ //if certain chance reached, drop the bullet
         isDropped = true;
         powPos.x = pos.x;
         powPos.y = pos.y - 0.4;
-        powPos.z = -1.0;
+        powPos.z = -2.0;
     }
 }
 
@@ -79,7 +89,7 @@ void powerups::dropHealth(pos3 pos)
         isDropped = true;
         powPos.x = pos.x;
         powPos.y = pos.y - 0.4;
-        powPos.z = -1.0;
+        powPos.z = -2.0;
     }
 }
 

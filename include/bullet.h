@@ -15,6 +15,8 @@ class bullet
         void initBullet(GLuint);
         void projTexture(char *);
 
+        void resetBullet();
+
         enum acts{IDLE, MOVEL, MOVER};
         acts act;
         void actions();

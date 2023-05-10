@@ -6,6 +6,7 @@
 #include<positions.h>
 #include<player.h>
 #include<sounds.h>
+#include<particles.h>
 #include<platform.h>
 #include<time.h>
 
@@ -19,14 +20,16 @@ class enemy
         void initEnemy(GLuint, int, int);
         void enemySkin(char *);
         void enemySkinMulti(char *, GLuint &);
-        void enemyAIManager(player*);
+        void enemyAIManager(player*, sounds*, particles*);
         bool enemyPlayerCollisionAttack(player*);
         bool enemyMoveCollisionLinear(player*);
-        bool checkPlayerHit(player*);
+        bool checkPlayerHit(player*, sounds*, particles*);
         bool enemyPlatformCollision(platform*);
 
 
         void setAsSpear();
+
+        void resetEnemy();
 
         enum acts{IDLE, WALKR, WALKL, JUMP, FALL, ATTACK, HURT, DIE};
         void actions();
@@ -68,8 +71,6 @@ class enemy
         clock_t attackTimer;
         clock_t jumpTimer;
         clock_t DeathTimer;
-
-        sounds *snd = new sounds();
 
         float velocity;
         float theta;

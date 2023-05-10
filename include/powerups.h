@@ -16,6 +16,8 @@ class powerups
         void dropBullet(pos3);
         void dropHealth(pos3);
 
+        void resetPowerUp();
+
         enum acts{INIT, IDLE, DROP, PICKUP, MOVEL, MOVER};
         acts act;
         void actions();

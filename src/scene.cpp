@@ -188,9 +188,11 @@ int scene::drawScene()
     else if (scne == LV1) {
         //snds->playSound("sounds/sound1.mp3");
 
-        if (ply->health == 0) { // Will need to reset everything in level
+        if (ply->health == 0) {
+            resetScene();
             scne = LOSE;
         }
+
 
         //matrix for the background parallax
         glPushMatrix();
@@ -273,7 +275,9 @@ int scene::drawScene()
         }
 
         if (ply->actionTrigger == ply->JUMP)
-            ply->actions(ply->JUMP,snds, sand);
+            ply->actions(ply->JUMP, snds, sand);
+        else if (ply->actionTrigger == ply->HURT)
+            ply->actions(ply->HURT, snds, sand);
         else if (ply->isIdle)
             ply->actions(ply->IDLE,snds, sand);
 
@@ -287,9 +291,10 @@ int scene::drawScene()
         // draw enemies
         for(int i = 0; i < enemyCount1; i++){
 
-            spearman[i].enemyAIManager(ply);
+            spearman[i].enemyAIManager(ply, snds, sand);
 
             if (!spearman[i].isDead && hit->isQuadCollisionEnemy(ply, spearman[i]) && clock() - ply->damage > 2000) {
+                ply->actions(ply->HURT, snds, sand);
                 ply->pColor.y = 0; ply->pColor.z = 0;
                 ply->health--;
                 ply->damage = clock();
@@ -432,6 +437,7 @@ int scene::drawScene()
         //check if collision with spikes
         if (hit->isQuadCollisionPlatform(ply,sp1) && clock() - ply->damage > 2000)
         {
+            ply->actions(ply->HURT, snds, sand);
             ply->pColor.y = 0; ply->pColor.z = 0;
             ply->health--;
             ply->damage = clock();
@@ -440,6 +446,7 @@ int scene::drawScene()
 
         if (hit->isQuadCollisionPlatform(ply,sp2) && clock() - ply->damage > 2000)
         {
+            ply->actions(ply->HURT, snds, sand);
             ply->pColor.y = 0; ply->pColor.z = 0;
             ply->health--;
             ply->damage = clock();
@@ -448,6 +455,7 @@ int scene::drawScene()
 
         if (hit->isQuadCollisionPlatform(ply,sp3) && clock() - ply->damage > 2000)
         {
+            ply->actions(ply->HURT, snds, sand);
             ply->pColor.y = 0; ply->pColor.z = 0;
             ply->health--;
             ply->damage = clock();
@@ -460,7 +468,7 @@ int scene::drawScene()
             arrow->place(-4.8, 0, 1.5, 1);
             spec->act = spec->IDLE;
             health->act = health->IDLE;
-            numOfEn = 5;
+            //numOfEn = ;
             level++;
             horse->alpha = 0.0;
             scne = LV2;
@@ -471,14 +479,17 @@ int scene::drawScene()
         wep->drawWhip();
         glPopMatrix();
 
-        if (wep->run == true) {
-            if (wep->t < 1 && clock() - start > 10) {
+        if (wep->run == true && clock() - start > 10) {
+            if (!ply->isJump)
+                ply->actions(ply->ATTACK, snds, sand);
+            if (wep->t < 1) {
                 wep->t += 0.05;
                 start = clock();
             }
             else if (wep->t >= 1 && clock() - start > 120) {
                 wep->wPos.y = 10.0;
                 wep->run = false;
+                ply->actions(ply->IDLE, snds, sand);
             }
         }
 
@@ -489,35 +500,38 @@ int scene::drawScene()
 
         // Change scene if input
         if (clock() - run > 30) {
-            KbMs->keyPlayer(ply, snds, sand);
+            if (ply->actionTrigger != ply->HURT) {
+                KbMs->keyPlayer(ply, snds, sand);
 
-            if ((pl1->pos.x < 3.0 || (!KbMs->keys[VK_LEFT] && !KbMs->keys[0x41])) && (pl5->pos.x > -5.0 || (!KbMs->keys[VK_RIGHT] && !KbMs->keys[0x44]))) {
-                KbMs->keyEnv(prLx[1], 0.005);
-                for (int i = 0; i < enemyCount1; i++)
-                    KbMs->keyEnemy(spearman[i]);
+                if ((pl1->pos.x < 3.0 || (!KbMs->keys[VK_LEFT] && !KbMs->keys[0x41])) && (pl5->pos.x > -5.0 || (!KbMs->keys[VK_RIGHT] && !KbMs->keys[0x44]))) {
+                    KbMs->keyEnv(prLx[1], 0.005);
+                    for (int i = 0; i < enemyCount1; i++)
+                        KbMs->keyEnemy(spearman[i]);
 
-                KbMs->keyEnvL1(pl1,0.05);
-                KbMs->keyEnvL1(pl2,0.05);
-                KbMs->keyEnvL1(pl3,0.05);
-                KbMs->keyEnvL1(pl4,0.05);
-                KbMs->keyEnvL1(pl5,0.05);
+                    KbMs->keyEnvL1(pl1,0.05);
+                    KbMs->keyEnvL1(pl2,0.05);
+                    KbMs->keyEnvL1(pl3,0.05);
+                    KbMs->keyEnvL1(pl4,0.05);
+                    KbMs->keyEnvL1(pl5,0.05);
 
-                KbMs->keyEnvL1(sp1,0.05);
-                KbMs->keyEnvL1(sp2,0.05);
-                KbMs->keyEnvL1(sp3,0.05);
+                    KbMs->keyEnvL1(sp1,0.05);
+                    KbMs->keyEnvL1(sp2,0.05);
+                    KbMs->keyEnvL1(sp3,0.05);
 
-                KbMs->keyEnvL1(arrow, 0.05);
-                KbMs->keyEnvL1(horse, 0.05);
+                    KbMs->keyEnvL1(arrow, 0.05);
+                    KbMs->keyEnvL1(horse, 0.05);
 
-                KbMs->keyPowerUp(spec, 0.05);
-                KbMs->keyPowerUp(health, 0.05);
+                    KbMs->keyPowerUp(spec, 0.03);
+                    KbMs->keyPowerUp(health, 0.03);
+                }
+                run = clock();
             }
-            run = clock();
         }
     }
 
     else if (scne == LV2) {
         if (ply->health == 0) {
+            resetScene();
             scne = LOSE;
         }
 
@@ -583,6 +597,8 @@ int scene::drawScene()
 
         if (ply->actionTrigger == ply->JUMP)
             ply->actions(ply->JUMP,snds, sand);
+        else if (ply->actionTrigger == ply->HURT)
+            ply->actions(ply->HURT, snds, sand);
         else if (ply->isIdle)
             ply->actions(ply->IDLE,snds, sand);
 
@@ -675,6 +691,8 @@ int scene::drawScene()
         glPopMatrix();
 
         if (wep->run == true && clock() - start > 10) {
+            if (!ply->isJump)
+                ply->actions(ply->ATTACK, snds, sand);
             if (wep->t < 1) {
                 wep->t += 0.05;
                 start = clock();
@@ -682,33 +700,37 @@ int scene::drawScene()
             else if (wep->t >= 1 && clock() - start > 120) {
                 wep->wPos.y = 10.0;
                 wep->run = false;
+                ply->actions(ply->IDLE, snds, sand);
             }
         }
 
         // Change scene if input
         if (clock() - run > 30) {
-            KbMs->keyPlayer(ply, snds, sand);
+            if (ply->actionTrigger != ply->HURT) {
+                KbMs->keyPlayer(ply, snds, sand);
 
-            if ((pl21->pos.x < 3.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) && (pl25->pos.x > -5.0 || (!KbMs->keys[VK_RIGHT] && !KbMs->keys[0x44]))) {
-                KbMs->keyEnv(prLx[2], 0.005);
+                if ((pl21->pos.x < 3.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) && (pl25->pos.x > -5.0 || (!KbMs->keys[VK_RIGHT] && !KbMs->keys[0x44]))) {
+                    KbMs->keyEnv(prLx[2], 0.005);
 
-                KbMs->keyEnvL1(pl21,0.05);
-                KbMs->keyEnvL1(pl22,0.05);
-                KbMs->keyEnvL1(pl23,0.05);
-                KbMs->keyEnvL1(pl24,0.05);
-                KbMs->keyEnvL1(pl25,0.05);
+                    KbMs->keyEnvL1(pl21,0.05);
+                    KbMs->keyEnvL1(pl22,0.05);
+                    KbMs->keyEnvL1(pl23,0.05);
+                    KbMs->keyEnvL1(pl24,0.05);
+                    KbMs->keyEnvL1(pl25,0.05);
 
-                KbMs->keyEnvL1(arrow, 0.05);
+                    KbMs->keyEnvL1(arrow, 0.05);
 
-                KbMs->keyPowerUp(spec, 0.05);
-                KbMs->keyPowerUp(health, 0.05);
+                    KbMs->keyPowerUp(spec, 0.03);
+                    KbMs->keyPowerUp(health, 0.03);
+                }
+                run = clock();
             }
-            run = clock();
         }
     }
 
     else if (scne == LV3) {
         if (ply->health == 0) {
+            resetScene();
             scne = LOSE;
         }
 
@@ -770,6 +792,8 @@ int scene::drawScene()
 
         if (ply->actionTrigger == ply->JUMP)
             ply->actions(ply->JUMP,snds, sand);
+        else if (ply->actionTrigger == ply->HURT)
+            ply->actions(ply->HURT, snds, sand);
         else if (ply->isIdle)
             ply->actions(ply->IDLE,snds, sand);
 
@@ -846,11 +870,7 @@ int scene::drawScene()
 
         if (numOfEn == 0 && hit->isLinearCollision(ply->pPos.x, horse->pos.x))
         {
-<<<<<<< HEAD
-=======
-            spec->act = spec->IDLE;
-            health->act = health->IDLE;
->>>>>>> 75a8ffb852e8c95b0e2e19b51159a782288e1123
+            sand->generateParticles(0, 0);
             scne = WIN;
         }
 
@@ -872,23 +892,25 @@ int scene::drawScene()
 
         // Change scene if input
         if (clock() - run > 30) {
-            KbMs->keyPlayer(ply, snds, sand);
+            if (ply->actionTrigger != ply->HURT) {
+                KbMs->keyPlayer(ply, snds, sand);
 
-            if ((pl31->pos.x < 3.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) && (pl35->pos.x > -5.0 || (!KbMs->keys[VK_RIGHT] && !KbMs->keys[0x44]))) {
-                KbMs->keyEnv(prLx[3], 0.005);
+                if ((pl31->pos.x < 3.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) && (pl35->pos.x > -5.0 || (!KbMs->keys[VK_RIGHT] && !KbMs->keys[0x44]))) {
+                    KbMs->keyEnv(prLx[3], 0.005);
 
-                KbMs->keyEnvL1(pl31,0.05);
-                KbMs->keyEnvL1(pl32,0.05);
-                KbMs->keyEnvL1(pl33,0.05);
-                KbMs->keyEnvL1(pl34,0.05);
-                KbMs->keyEnvL1(pl35,0.05);
+                    KbMs->keyEnvL1(pl31,0.05);
+                    KbMs->keyEnvL1(pl32,0.05);
+                    KbMs->keyEnvL1(pl33,0.05);
+                    KbMs->keyEnvL1(pl34,0.05);
+                    KbMs->keyEnvL1(pl35,0.05);
 
-                KbMs->keyEnvL1(arrow, 0.05);
+                    KbMs->keyEnvL1(arrow, 0.05);
 
-                KbMs->keyPowerUp(spec, 0.05);
-                KbMs->keyPowerUp(health, 0.05);
+                    KbMs->keyPowerUp(spec, 0.03);
+                    KbMs->keyPowerUp(health, 0.03);
+                }
+                run = clock();
             }
-            run = clock();
         }
     }
 
@@ -1007,6 +1029,11 @@ int scene::drawScene()
         horse->drawPlatform();
         glPopMatrix();
 
+        glPushMatrix();
+            sand->updateParticles();
+            sand->generateParticles(0, 0);
+            sand->drawParticles();
+        glPopMatrix();
     }
 
     else if(scne == LOSE){
@@ -1161,6 +1188,71 @@ void scene::resizeSceneWin(GLsizei width, GLsizei height)
     glLoadIdentity();
 }
 
+void scene::resetScene()
+{
+    CanHit = false;
+    EnMove = false;
+
+    ply->resetPlayer();
+    for (int i = 0; i < 6; i++)
+        ammo[i].resetBullet();
+    spec->resetPowerUp();
+    health->resetPowerUp();
+    wep->resetWhip();
+    arrow->place(-4.8, 0, 1.5, 1);
+    go->place(0.0, 0.0, 1.0, 0.5);
+    horse->alpha = 0.0;
+    horse->place(22, -0.7, 2, 2);
+    sand->resetParticles();
+
+    if (level == 1) {
+        numOfEn = enemyCount1;
+        prLx[1].resetParallax();
+        for(int i = 0; i < enemyCount1; i++){
+            spearman[i].resetEnemy();
+            if(i % 2 == 0){
+                spearman[i].movement = spearman[i].JUMP;
+            }
+            glGenTextures(10, spearman[i].texInd);
+            spearman[i].setAsSpear();
+            spearman[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
+        }
+
+        pl1->place(0,0,5,1);
+        pl2->place(6,0,3,1);
+        pl3->place(10,0,2,1);
+        pl4->place(11.5,0,2,1);
+        pl5->place(18,0,5,1);
+
+        sp1->place(1,-1.0,1,0.5);
+        sp2->place(11,-1.0,1,0.5);
+        sp3->place(18,-1.0,2,0.5);
+    }
+
+    else if (level == 2) {
+        prLx[2].resetParallax();
+
+        pl21->place(0,0,5,1);
+        pl22->place(6,0,3,1);
+        pl23->place(10,0,2,1);
+        pl24->place(14.5,0,2,1);
+        pl25->place(18,0,5,1);
+    }
+
+    else if (level == 3) {
+        prLx[3].resetParallax();
+
+        pl31->place(0,0,5,1);
+        pl32->place(6,0,3,1);
+        pl33->place(10,0,2,1);
+        pl34->place(14.5,0,2,1);
+        pl35->place(18,0,5,1);
+    }
+
+    start = run = clock();
+}
+
+
 int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     KbMs->updateWParam(wParam);
@@ -1169,7 +1261,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_KEYDOWN:
             KbMs->keys[wParam] = true;
             if (scne == LV1 || scne == LV2 || scne == LV3) {
-                if (wParam == VK_UP || wParam == 0x57) {
+                if ((wParam == VK_UP || wParam == 0x57) && (ply->actionTrigger != ply->JUMP || ply->actionTrigger != ply->HURT)) {
                     ply->actions(ply->JUMP,snds, sand);
                 }
 
@@ -1204,13 +1296,18 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     scne = QUIT;
                 }
                 else if (temp == 6) {
-                    scne = LV2;
                     level = 2;
+                    scne = LV2;
                     sand->resetParticles();
                 }
                 else if (temp == 7) {
-                    scne = LV3;
                     level = 3;
+                    scne = LV3;
+                    sand->resetParticles();
+                }
+                else if (temp == 8) {
+                    level = 1;
+                    scne = LV1;
                     sand->resetParticles();
                 }
             }
@@ -1262,26 +1359,35 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             }
             else if(scne == WIN){
                 if(KbMs->keyPause() == 2){ //if M is pressed
+                    level = 1;
+                    resetScene();
                     scne = MENU;
                 }
                 if(KbMs->keyPause() == 3){ //if C is pressed
+                    level = 1;
+                    resetScene();
+                    resetScene();
                     scne = CREDITS;
                 }
             }
 
             else if(scne == LOSE){
                 if(KbMs->keyPause() == 2){ //if M is pressed
+                    resetScene();
                     scne = MENU;
                 }
                 if(KbMs->keyPause() == 4){ //if R is pressed
                     switch(level){
                     case 1:
+                        resetScene();
                         scne = LV1;
                         break;
                     case 2:
+                        resetScene();
                         scne = LV2;
                         break;
                     case 3:
+                        resetScene();
                         scne = LV3;
                         break;
                     }

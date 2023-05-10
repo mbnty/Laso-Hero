@@ -16,7 +16,7 @@ class player
         vec3 pColor;
         vec3 verts[4];
 
-        enum acts{IDLE, WALKR, WALKL, JUMP, ATTACK, DIE};
+        enum acts{IDLE, WALKR, WALKL, JUMP, ATTACK, HURT};
 
         float runSpeed;
         float jumpSpeed;
@@ -31,6 +31,8 @@ class player
         void drawPlayer();
         void playerInit(char *, int, int);
         void actions(acts, sounds*, particles*);
+
+        void resetPlayer();
 
         int hFrames; //horizontal frames
         int vFrames; //vertical frames
@@ -47,6 +49,7 @@ class player
 
         bool onPlat;
         bool isIdle;
+        bool isJump;
 
     protected:
 

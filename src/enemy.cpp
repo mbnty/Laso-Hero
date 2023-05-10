@@ -108,6 +108,43 @@ void enemy::initEnemy(GLuint tex, int verticalFrames, int horizontalFrames)
     this->tex = tex;
 }
 
+void enemy::resetEnemy()
+{
+    enemyPosition.x = 0.0;
+    enemyPosition.y = -0.25;
+    enemyPosition.z = -2;
+
+    enemySize.x = 1.0;
+    enemySize.y = 0.5;
+    movement = IDLE;
+
+    enemySpeed.x = 0.03;
+    enemySpeed.y = 0.0;
+
+    isHit = false;
+    isDead = false;
+    isIdle = false;
+    isAttack = false;
+    isSpawn = true;
+    isJump = false;
+    enHP = 2;
+
+    groundValue = -0.25;
+
+    currTime = clock();
+    attackTimer = clock();
+
+    indexTexture = 1;
+
+    enDir = 'L';
+
+    velocity = 30;
+    theta = 30 * PI/180.0;
+    t = 1;
+    jumpSpeed = 0;
+    airSpeed = 0.01;
+}
+
 void enemy::enemySkin(char* fileName)
 {
     tLoad->loadTexture(fileName,tex);
@@ -176,21 +213,22 @@ bool enemy::enemyMoveCollisionLinear(player* ply)
     else return false;
 }
 
-bool enemy::checkPlayerHit(player* ply)
+bool enemy::checkPlayerHit(player* ply, sounds* snds, particles* sand)
 {
     if(movement == ATTACK && enemyPlayerCollisionAttack(ply) && clock() - ply->damage > 2000){
+        ply->actions(ply->HURT, snds, sand);
         ply->pColor.y = 0; ply->pColor.z = 0;
         ply->health--;
         ply->damage = clock();
-        snd->playSound("sounds/hurt.mp3");
+        snds->playSound("sounds/hurt.mp3");
     }
 }
 
-void enemy::enemyAIManager(player* ply)
+void enemy::enemyAIManager(player* ply, sounds* snds, particles* sand)
 {
     if(movement == DIE || movement == ATTACK || movement == HURT || movement == JUMP){//Draws death animation
             if(xMin >= 0.75 || xMax >= 0.75){
-                checkPlayerHit(ply);
+                checkPlayerHit(ply, snds, sand);
             }
             drawEnemy();
             actions();

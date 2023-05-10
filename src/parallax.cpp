@@ -21,6 +21,16 @@ void parallax::initPopUp(char* fileName)
     bLoad->loadTexture(fileName, bTex);
 }
 
+void parallax::resetParallax()
+{
+    xMax = 1.0;
+    xMin = 0.0;
+    yMax = 0.0;
+    yMin = 1.0;
+
+    startTime = clock();
+}
+
 void parallax::drawPopUp(float width, float height)
 {
     glColor3f(1.0,1.0,1.0);

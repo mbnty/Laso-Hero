@@ -37,6 +37,7 @@ player::player()
 
     onPlat = false;
     isIdle = true;
+    isJump = false;
 }
 
 player::~player()
@@ -84,6 +85,32 @@ void player::playerInit(char* fileName, int vFrm, int hFrm)
     tLoad->loadTexture(fileName, tex);
 }
 
+void player::resetPlayer()
+{
+    health = 5;
+    ammo = 3;
+
+    runSpeed = 0.01;
+    jumpSpeed = 0;
+    actionTrigger = IDLE;
+
+    velocity = 65;
+    theta = 30 * PI/180.0;
+    t = 1;
+    frame = start = damage = clock();
+
+    playerDir = 'R';
+
+    pPos.x = 0;
+    pPos.y = -0.65;
+    pPos.z = -2;
+
+    groundValue = -0.65;
+
+    onPlat = false;
+    isIdle = true;
+}
+
 void player::actions(acts action, sounds *sds, particles* sand)
 {
     if(action == IDLE){
@@ -125,10 +152,12 @@ void player::actions(acts action, sounds *sds, particles* sand)
         }
 
         playerDir = 'R';
-        if (clock() - frame > 180) {
+        if (clock() - frame > 60) {
             xMin += 1.0/(float)vFrames;
             xMax += 1.0/(float)vFrames;
+            frame = clock();
         }
+
         if(xMax > 1){
             xMax = 1.0/(float)vFrames;
             xMin = 0.0;
@@ -152,9 +181,10 @@ void player::actions(acts action, sounds *sds, particles* sand)
         }
 
         playerDir = 'L';
-        if (clock() - frame > 180) {
+        if (clock() - frame > 60) {
             xMin += 1.0/(float)vFrames;
             xMax += 1.0/(float)vFrames;
+            frame = clock();
         }
 
         if(xMin > 1){
@@ -162,9 +192,32 @@ void player::actions(acts action, sounds *sds, particles* sand)
             xMin = 1.0/(float)vFrames;
         }
     }
-    if(action == ATTACK){
 
+    if(action == ATTACK) {
+        if (actionTrigger != ATTACK) {
+            if(playerDir == 'L'){
+                xMax = 0.0;
+                xMin = 1.0/(float)vFrames;
+            }
+            else if (playerDir == 'R') {
+                xMax = 1.0/(float)vFrames;
+                xMin = 0.0;
+            }
+        }
+
+        yMax = 3.0/(float)hFrames;
+        yMin = 2.0/(float)hFrames;
+        isIdle = false;
+
+        if (clock() - frame > 180) {
+            xMin += 1.0/(float)vFrames;
+            xMax += 1.0/(float)vFrames;
+            frame = clock();
+        }
+
+        actionTrigger = ATTACK;
     }
+
     if(action == JUMP){
         sds->playSound("sounds/jump.mp3");
         if(isIdle == true){
@@ -180,6 +233,7 @@ void player::actions(acts action, sounds *sds, particles* sand)
 
             if (pPos.y >= groundValue) {      // While in jump animation, update Timer
                 t += 0.2;
+                isJump = true;
                 actionTrigger = JUMP;   // Update actionTrigger
             }
 
@@ -189,6 +243,34 @@ void player::actions(acts action, sounds *sds, particles* sand)
                 actionTrigger = IDLE;
                 actions(IDLE, sds, sand);
                 onPlat = false;
+                isJump = false;
+
+                sand->genJumpParticles(pPos.x, pPos.y);
+            }
+            start = clock();
+        }
+    }
+
+    if (action == HURT) {
+        yMax = 4.0/(float)hFrames;
+        yMin = 3.0/(float)hFrames;
+        isIdle = false;
+
+        if (clock() - start > 30) {
+            // Calculate jump speed
+            jumpSpeed = (30 * t * sin(theta) - 0.5 * GRVITY * t * t) / 700.0;
+            pPos.y += jumpSpeed;
+
+            if (pPos.y >= groundValue) {      // While in jump animation, update Timer
+                t += 0.2;
+                actionTrigger = HURT;   // Update actionTrigger
+            }
+
+            else {                      // Once character reaches ground, reset Timer, character y position, and return to idle
+                t = 1;
+                pPos.y = groundValue;
+                actionTrigger = IDLE;
+                actions(IDLE, sds, sand);
 
                 sand->genJumpParticles(pPos.x, pPos.y);
             }

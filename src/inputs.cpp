@@ -148,7 +148,7 @@ int inputs::keyTitle(title* tl)
 
         case VK_NUMPAD1:
         case 0x31:
-            return 2;
+            return 8;
             break;
         case VK_NUMPAD2:
         case 0x32:

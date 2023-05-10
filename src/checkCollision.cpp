@@ -74,9 +74,9 @@ bool checkCollision::QuadEnemytoPlayer(enemy en, player* ply)
 bool checkCollision::isQuadCollisionPowerUp(player* ply, powerups* drop)
 {
     bool collisionX = ply->pPos.x + 0.15 >= drop->powPos.x - 0.1 &&
-        drop->powPos.x + 0.2 > ply->pPos.x - 0.15;
-    bool collisionY = ply->pPos.y + 0.4 >= drop->powPos.y - 0.5 &&
-        drop->powPos.y >= ply->pPos.y - 0.4;
+        drop->powPos.x + 0.1 >= ply->pPos.x - 0.15;
+    bool collisionY = ply->pPos.y + 0.4 >= drop->powPos.y - 0.1 &&
+        drop->powPos.y + 0.1 >= ply->pPos.y - 0.4;
 
     return collisionX && collisionY;
 }

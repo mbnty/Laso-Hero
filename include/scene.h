@@ -19,6 +19,8 @@ class scene
         int initScene();
         void resizeSceneWin(GLsizei, GLsizei);
 
+        void resetScene();
+
         int winMsg(HWND, UINT, WPARAM, LPARAM);
 
         float screenWidth,screenHeight;

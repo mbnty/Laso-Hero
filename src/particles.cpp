@@ -48,7 +48,7 @@ void particles::updateParticles()
 
 void particles::generateParticles(float x, float y)
 {
-    int newDrops = rand()%60 + 1;
+    int newDrops = rand()%30 + 1;
 
     // To make sure not exceed array
     if (numDrops + newDrops > MAX_DROPS)

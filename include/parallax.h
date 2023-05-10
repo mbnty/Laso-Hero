@@ -18,6 +18,8 @@ class parallax
 
         float xMax,xMin, yMax,yMin;         //used hold the points of the image
 
+        void resetParallax();
+
         GLuint bTex;                                 //texture handler
         textureLoader *bLoad = new textureLoader();  //create instance of texture loader
 
