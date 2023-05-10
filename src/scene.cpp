@@ -302,18 +302,18 @@ int scene::drawScene()
                         spearman[i].enHP -= 2; //Gun Does more damage
                         if(spearman[i].enHP <= 0){
                             spearman[i].movement = spearman->DIE;
+                            numOfEn--;
+                            F->pos.y = 0.6;
+                            F->buildFonts(F->getZero(numOfEn));
+                            Fs->buildFonts(Fs->getTens(numOfEn));
+
+                            spec->dropBullet(spearman[i].enemyPosition);
+                            spec->act = spec->IDLE;
+
+                            health->dropHealth(spearman[i].enemyPosition);
+                            health->act = health->IDLE;
                         }
                         ammo[j].act = ammo->IDLE;
-
-                        F->pos.y = 0.6;
-                        F->buildFonts(F->getZero(numOfEn));
-                        Fs->buildFonts(Fs->getTens(numOfEn));
-
-                        spec->dropBullet(spearman[i].enemyPosition);
-                        spec->act = spec->IDLE;
-
-                        health->dropHealth(spearman[i].enemyPosition);
-                        health->act = health->IDLE;
                     }
                 }
             }
@@ -324,18 +324,17 @@ int scene::drawScene()
                         spearman[i].enHP--;
                         if(spearman[i].enHP <= 0){
                             spearman[i].movement = spearman->DIE;
+                            numOfEn--;
+                            F->pos.y = 0.6;
+                            F->buildFonts(F->getZero(numOfEn));
+                            Fs->buildFonts(Fs->getTens(numOfEn));
+                            spec->dropBullet(spearman[i].enemyPosition);
+                            spec->act = spec->IDLE;
+
+                            health->dropHealth(spearman[i].enemyPosition);
+                            health->act = health->IDLE;
                         }
                         wep->wPos.y = 10.0;
-
-                        F->pos.y = 0.6;
-                        F->buildFonts(F->getZero(numOfEn));
-                        Fs->buildFonts(Fs->getTens(numOfEn));
-
-                        spec->dropBullet(spearman[i].enemyPosition);
-                        spec->act = spec->IDLE;
-
-                        health->dropHealth(spearman[i].enemyPosition);
-                        health->act = health->IDLE;
                     }
                 }
             }
@@ -345,6 +344,7 @@ int scene::drawScene()
                 spearman[i].actions();
             }
         }
+        /*
         int ECount = enemyCount1;
         for(int i = enemyCount1; i > 0; i--){
             if(spearman[i].movement == spearman->DIE){
@@ -353,7 +353,7 @@ int scene::drawScene()
                 F->buildFonts(F->getZero(ECount));
                 Fs->buildFonts(Fs->getTens(ECount));
             }
-        }
+        }*/
 
 
         // Draw drops
