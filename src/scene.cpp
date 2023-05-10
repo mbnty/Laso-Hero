@@ -205,7 +205,7 @@ int scene::drawScene()
         }
 
         if(!F->run){ //displays number of enemies remaining
-            F->pos.y = 0.62;
+            F->pos.y = 0.64;
             F->buildFonts(F->getZero(numOfEn));
             Fs->buildFonts(Fs->getTens(numOfEn));
             F->run = true;
@@ -345,13 +345,15 @@ int scene::drawScene()
                 spearman[i].actions();
             }
         }
-        int ECount = 0;
-        for(int i = 0; i < enemyCount1; i++){
-            if(spearman[i].movement != spearman->DIE){
-                ECount++;
+        int ECount = enemyCount1;
+        for(int i = enemyCount1; i > 0; i--){
+            if(spearman[i].movement == spearman->DIE){
+                ECount--;
+                F->pos.y = 0.6;
+                F->buildFonts(F->getZero(ECount));
+                Fs->buildFonts(Fs->getTens(ECount));
             }
         }
-        numOfEn = ECount;
 
 
         // Draw drops
