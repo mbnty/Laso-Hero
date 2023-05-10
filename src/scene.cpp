@@ -35,7 +35,7 @@ bool EnMove = false;
 powerups *health = new powerups();
 sounds *snds = new sounds();
 
-parallax prLx[10];
+parallax prLx[11];
 bullet ammo[6];
 
 int const enemyCount1 = 5;
@@ -205,7 +205,7 @@ int scene::drawScene()
         }
 
         if(!F->run){ //displays number of enemies remaining
-            F->pos.y = 0.64;
+            F->pos.y = 0.62;
             F->buildFonts(F->getZero(numOfEn));
             Fs->buildFonts(Fs->getTens(numOfEn));
             F->run = true;
@@ -969,6 +969,36 @@ int scene::drawScene()
             glPopMatrix();
         }
     }
+
+    else if(scne == WIN){
+        glPushMatrix(); //matrix for the background parallax
+        glScaled(4.2, 4.2, 1.0);
+        prLx[9].drawSquare(screenWidth,screenHeight);
+        glPopMatrix();
+
+        ply->actions(ply->IDLE, snds, sand);
+
+        glPushMatrix();
+        glScalef(0.41, 0.41, 1.0);
+        glTranslatef(-0.2, 0.1, 0.0);
+        ply->drawPlayer();
+        glPopMatrix();
+
+        horse->place(0.0, -0.7, 2, 2);
+        glPushMatrix();
+        glScalef(0.56, 0.56, 1.0);
+        horse->alpha = 1.0;
+        horse->drawPlatform();
+        glPopMatrix();
+
+    }
+
+    else if(scne == LOSE){
+        glPushMatrix(); //matrix for the background parallax
+        glScaled(4.2, 4.2, 1.0);
+        prLx[10].drawSquare(screenWidth,screenHeight);
+        glPopMatrix();
+    }
 }
 
 int scene::initScene()
@@ -999,6 +1029,9 @@ int scene::initScene()
     prLx[5].initParallax("images/helpScreen.png"); //help screen
     prLx[6].initParallax("images/creditScreen.png"); //credits screen
     prLx[7].initParallax("images/controlScreen.png"); //control screen
+    prLx[8].initPopUp("images/enemyCounter.png");  //enemy counter on hud
+    prLx[9].initParallax("images/winScreen.png");  //win screen
+    prLx[10].initParallax("images/loseScreen.png");  //lose screen
 
     tl->initTitle("images/title.png", 0);
     tl->initTitle("images/menu.png", 1);
@@ -1081,8 +1114,6 @@ int scene::initScene()
 
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
-
-    prLx[8].initPopUp("images/enemyCounter.png");
 
     F->initFonts("images/numbers.png");
     Fs->initFonts("images/numbers.png");
@@ -1209,6 +1240,33 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 }
                 else if(KbMs->keyPause() == 2){
                     scne = MENU; //return to title screen
+                }
+            }
+            else if(scne == WIN){
+                if(KbMs->keyPause() == 2){ //if M is pressed
+                    scne = MENU;
+                }
+                if(KbMs->keyPause() == 3){ //if C is pressed
+                    scne = CREDITS;
+                }
+            }
+
+            else if(scne == LOSE){
+                if(KbMs->keyPause() == 2){ //if M is pressed
+                    scne = MENU;
+                }
+                if(KbMs->keyPause() == 4){ //if R is pressed
+                    switch(level){
+                    case 1:
+                        scne = LV1;
+                        break;
+                    case 2:
+                        scne = LV2;
+                        break;
+                    case 3:
+                        scne = LV3;
+                        break;
+                    }
                 }
             }
             break;
