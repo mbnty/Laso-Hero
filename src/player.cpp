@@ -162,9 +162,6 @@ void player::actions(acts action, sounds *sds, particles* sand)
             xMin = 1.0/(float)vFrames;
         }
     }
-    if(action == ATTACK){
-
-    }
     if(action == JUMP){
         sds->playSound("sounds/jump.mp3");
         if(isIdle == true){
