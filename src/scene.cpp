@@ -38,7 +38,7 @@ sounds *snds = new sounds();
 parallax prLx[12];
 bullet ammo[6];
 
-int const enemyCount1 = 5;
+int const enemyCount1 = 7;
 enemy spearman[enemyCount1];
 
 //objects for the platforms for the first level
@@ -344,17 +344,6 @@ int scene::drawScene()
                 spearman[i].actions();
             }
         }
-        /*
-        int ECount = enemyCount1;
-        for(int i = enemyCount1; i > 0; i--){
-            if(spearman[i].movement == spearman->DIE){
-                ECount--;
-                F->pos.y = 0.6;
-                F->buildFonts(F->getZero(ECount));
-                Fs->buildFonts(Fs->getTens(ECount));
-            }
-        }*/
-
 
         // Draw drops
         if(hit->isQuadCollisionPowerUp(ply, spec) && (ply->ammo < ply->MAX_AMMO)){
@@ -420,6 +409,24 @@ int scene::drawScene()
             ply->t = 8.2;
             ply->groundValue = -0.65;
             ply->actions(ply->JUMP,snds, sand);
+        }
+
+        for(int i = 0; i < enemyCount1; i++){
+            if(spearman[i].enemyPlatformCollision(pl1)){
+                spearman[i].groundValue =  (pl1->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4;
+            }
+            if(spearman[i].enemyPlatformCollision(pl2)){
+                spearman[i].groundValue =  (pl2->pos.y +(0.25 * pl2->scaleSize.y)) + 0.4;
+            }
+            if(spearman[i].enemyPlatformCollision(pl3)){
+                spearman[i].groundValue =  (pl3->pos.y +(0.25 * pl3->scaleSize.y)) + 0.4;
+            }
+            if(spearman[i].enemyPlatformCollision(pl4)){
+                spearman[i].groundValue =  (pl4->pos.y +(0.25 * pl4->scaleSize.y)) + 0.4;
+            }
+            if(spearman[i].enemyPlatformCollision(pl5)){
+                spearman[i].groundValue =  (pl5->pos.y +(0.25 * pl5->scaleSize.y)) + 0.4;
+            }
         }
 
         //check if collision with spikes
@@ -1026,6 +1033,9 @@ int scene::initScene()
     ply->playerInit("images/knight.png", 4, 4);
 
     for(int i = 0; i < enemyCount1; i++){
+        if(i % 2 == 0){
+            spearman[i].movement = spearman[i].JUMP;
+        }
         glGenTextures(10, spearman[i].texInd);
         spearman[i].setAsSpear();
         spearman[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});

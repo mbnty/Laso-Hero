@@ -6,6 +6,7 @@
 #include<positions.h>
 #include<player.h>
 #include<sounds.h>
+#include<platform.h>
 #include<time.h>
 
 class enemy
@@ -13,7 +14,6 @@ class enemy
     public:
         enemy();
         virtual ~enemy();
-
         void drawEnemy();
         void placeEnemy(pos3);
         void initEnemy(GLuint, int, int);
@@ -23,11 +23,12 @@ class enemy
         bool enemyPlayerCollisionAttack(player*);
         bool enemyMoveCollisionLinear(player*);
         bool checkPlayerHit(player*);
+        bool enemyPlatformCollision(platform*);
 
 
         void setAsSpear();
 
-        enum acts{IDLE, WALKR, WALKL, JUMP, ATTACK, HURT, DIE};
+        enum acts{IDLE, WALKR, WALKL, JUMP, FALL, ATTACK, HURT, DIE};
         void actions();
         acts movement;
 
@@ -60,13 +61,21 @@ class enemy
         bool isIdle;
         bool isAttack;
         bool isSpawn;
+        bool isJump;
         int enHP;
 
         clock_t currTime;
         clock_t attackTimer;
+        clock_t jumpTimer;
         clock_t DeathTimer;
 
-        static enemy self;
+        sounds *snd = new sounds();
+
+        float velocity;
+        float theta;
+        float t;
+        float jumpSpeed;
+        float airSpeed;
 
     protected:
 
