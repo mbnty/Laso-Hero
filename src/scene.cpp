@@ -449,6 +449,7 @@ int scene::drawScene()
 
         if (numOfEn == 0 && hit->isLinearCollision(ply->pPos.x, horse->pos.x))       // Move to level 2 once reach horse
         {
+            snds->playSound("sounds/horse.mp3");
             arrow->place(-4.8, 0, 1.5, 1);
             spec->act = spec->IDLE;
             health->act = health->IDLE;
@@ -651,6 +652,7 @@ int scene::drawScene()
 
         if (numOfEn == 0 && hit->isLinearCollision(ply->pPos.x, horse->pos.x))       // Move to level 2 once reach horse
         {
+            snds->playSound("sounds/hurt.mp3");
             arrow->place(-4.8, 0, 1.5, 1);
             spec->act = spec->IDLE;
             health->act = health->IDLE;
