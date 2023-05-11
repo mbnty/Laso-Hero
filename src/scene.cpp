@@ -2048,6 +2048,10 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     scne = LV1;
                     sand->resetParticles();
                 }
+                else if (temp == 9) {
+                    scne = WIN;
+                    sand->resetParticles();
+                }
             }
 
             else if(scne == HELP){

@@ -150,16 +150,16 @@ int inputs::keyTitle(title* tl,sounds* sds)
             break;
 
         case VK_NUMPAD1:
-        case 0x31:
             return 8;
             break;
         case VK_NUMPAD2:
-        case 0x32:
             return 6;
             break;
         case VK_NUMPAD3:
-        case 0x33:
             return 7;
+            break;
+        case VK_NUMPAD4:
+            return 9;
             break;
     }
     return 0;
