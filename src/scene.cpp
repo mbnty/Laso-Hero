@@ -42,7 +42,7 @@ enemy spearman[enemyCount1];
 
 int const enemyCount2 = 11;
 int const spearsC2 = 8;
-int const warriorsC2 = 2;
+int const warriorsC2 = 3;
 enemy spearman2[spearsC2];
 enemy Warriors2[warriorsC2];
 
@@ -97,7 +97,6 @@ platform *go = new platform();
 platform *horse = new platform();
 
 int numBullet;
-float alpha = 1.0;
 int level = 1;
 int numOfEn = enemyCount1; //Tracks Amount of Enemies
 clock_t start;
@@ -115,6 +114,65 @@ scene::scene()
 scene::~scene()
 {
     //dtor
+}
+
+void scene::deleteScene()
+{
+    delete KbMs;
+    delete ply;
+    delete tl;
+    delete wep;
+    delete hit;
+    delete Hud;
+    delete spec;
+    delete sand;
+    delete F;
+    delete Fs;
+
+    delete health;
+    delete snds;
+    delete backGroundMusic;
+
+    delete pl1;
+    delete pl2;
+    delete pl3;
+    delete pl4;
+    delete pl5;
+
+    delete sp1;
+    delete sp2;
+    delete sp3;
+
+    delete pl21;
+    delete pl22;
+    delete pl23;
+    delete pl24;
+    delete pl25;
+
+    delete fr1;
+    delete fr2;
+    delete fr3;
+    delete fr4;
+    delete fr5;
+    delete fr6;
+
+    delete pl31;
+    delete pl32;
+    delete pl33;
+    delete pl34;
+    delete pl35;
+
+    delete th1;
+    delete th2;
+    delete th3;
+    delete th4;
+    delete th5;
+    delete th6;
+    delete th7;
+
+    delete arrow;
+    delete go;
+    delete horse;
 }
 
 int scene::drawScene()
@@ -188,9 +246,6 @@ int scene::drawScene()
         }
 
         glPushMatrix();
-        glColor4f(1.0, 1.0, 1.0, alpha);
-
-        glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
         tl->drawMenu(screenWidth, screenHeight);
         glPopMatrix();
@@ -219,8 +274,6 @@ int scene::drawScene()
             sand->updateParticles();
             sand->generateParticles(0, 0);
             sand->drawParticles();
-        glPopMatrix();
-
         glPopMatrix();
     }
 
@@ -461,26 +514,6 @@ int scene::drawScene()
             ply->actions(ply->JUMP,snds, sand);
         }
 
-        /*
-        for(int i = 0; i < enemyCount1; i++){
-            if(spearman[i].enemyPlatformCollision(pl1)){
-                spearman[i].groundValue =  (pl1->pos.y +(0.25 * pl1->scaleSize.y)) + 0.4;
-            }
-            if(spearman[i].enemyPlatformCollision(pl2)){
-                spearman[i].groundValue =  (pl2->pos.y +(0.25 * pl2->scaleSize.y)) + 0.4;
-            }
-            if(spearman[i].enemyPlatformCollision(pl3)){
-                spearman[i].groundValue =  (pl3->pos.y +(0.25 * pl3->scaleSize.y)) + 0.4;
-            }
-            if(spearman[i].enemyPlatformCollision(pl4)){
-                spearman[i].groundValue =  (pl4->pos.y +(0.25 * pl4->scaleSize.y)) + 0.4;
-            }
-            if(spearman[i].enemyPlatformCollision(pl5)){
-                spearman[i].groundValue =  (pl5->pos.y +(0.25 * pl5->scaleSize.y)) + 0.4;
-            }
-        }
-        */
-
         //check if collision with spikes
         if (hit->isQuadCollisionPlatform(ply,sp1) && clock() - ply->damage > 2000)
         {
@@ -515,7 +548,7 @@ int scene::drawScene()
             arrow->place(-4.8, 0, 1.5, 1);
             spec->act = spec->IDLE;
             health->act = health->IDLE;
-            numOfEn = 5;
+            numOfEn = enemyCount2;
             level++;
             horse->place(22, -0.7, 2, 2);
             horse->alpha = 0.0;
@@ -873,6 +906,7 @@ int scene::drawScene()
             ply->damage = clock();
             snds->playSound("sounds/hurt.mp3");
         }
+
         if (hit->isQuadCollisionPlatform(ply,fr2) && clock() - ply->damage > 2000)
         {
             ply->actions(ply->HURT, snds, sand);
@@ -881,6 +915,7 @@ int scene::drawScene()
             ply->damage = clock();
             snds->playSound("sounds/hurt.mp3");
         }
+
         if (hit->isQuadCollisionPlatform(ply,fr3) && clock() - ply->damage > 2000)
         {
             ply->actions(ply->HURT, snds, sand);
@@ -889,6 +924,7 @@ int scene::drawScene()
             ply->damage = clock();
             snds->playSound("sounds/hurt.mp3");
         }
+
         if (hit->isQuadCollisionPlatform(ply,fr4) && clock() - ply->damage > 2000)
         {
             ply->actions(ply->HURT, snds, sand);
@@ -897,6 +933,7 @@ int scene::drawScene()
             ply->damage = clock();
             snds->playSound("sounds/hurt.mp3");
         }
+
         if (hit->isQuadCollisionPlatform(ply,fr5) && clock() - ply->damage > 2000)
         {
             ply->actions(ply->HURT, snds, sand);
@@ -905,6 +942,7 @@ int scene::drawScene()
             ply->damage = clock();
             snds->playSound("sounds/hurt.mp3");
         }
+
         if (hit->isQuadCollisionPlatform(ply,fr6) && clock() - ply->damage > 2000)
         {
             ply->actions(ply->HURT, snds, sand);
@@ -916,11 +954,11 @@ int scene::drawScene()
 
         if (numOfEn == 0 && hit->isLinearCollision(ply->pPos.x, horse->pos.x))       // Move to level 2 once reach horse
         {
-            snds->playSound("sounds/hurt.mp3");
+            snds->playSound("sounds/horse.mp3");
             arrow->place(-4.8, 0, 1.5, 1);
             spec->act = spec->IDLE;
             health->act = health->IDLE;
-            numOfEn = 5;
+            numOfEn = enemyCount3;
             level++;
             horse->place(22, -0.7, 2, 2);
             horse->alpha = 0.0;
@@ -973,6 +1011,7 @@ int scene::drawScene()
                     KbMs->keyEnvL1(fr6, 0.05);
 
                     KbMs->keyEnvL1(arrow, 0.05);
+                    KbMs->keyEnvL1(horse, 0.05);
 
                     KbMs->keyPowerUp(spec, 0.05);
                     KbMs->keyPowerUp(health, 0.05);
@@ -1272,6 +1311,7 @@ int scene::drawScene()
             ply->damage = clock();
             snds->playSound("sounds/hurt.mp3");
         }
+
         if (hit->isQuadCollisionPlatform(ply,th2) && clock() - ply->damage > 2000)
         {
             ply->actions(ply->HURT, snds, sand);
@@ -1280,6 +1320,7 @@ int scene::drawScene()
             ply->damage = clock();
             snds->playSound("sounds/hurt.mp3");
         }
+
         if (hit->isQuadCollisionPlatform(ply,th3) && clock() - ply->damage > 2000)
         {
             ply->actions(ply->HURT, snds, sand);
@@ -1288,6 +1329,7 @@ int scene::drawScene()
             ply->damage = clock();
             snds->playSound("sounds/hurt.mp3");
         }
+
         if (hit->isQuadCollisionPlatform(ply,th4) && clock() - ply->damage > 2000)
         {
             ply->actions(ply->HURT, snds, sand);
@@ -1296,6 +1338,7 @@ int scene::drawScene()
             ply->damage = clock();
             snds->playSound("sounds/hurt.mp3");
         }
+
         if (hit->isQuadCollisionPlatform(ply,th5) && clock() - ply->damage > 2000)
         {
             ply->actions(ply->HURT, snds, sand);
@@ -1304,6 +1347,7 @@ int scene::drawScene()
             ply->damage = clock();
             snds->playSound("sounds/hurt.mp3");
         }
+
         if (hit->isQuadCollisionPlatform(ply,th6) && clock() - ply->damage > 2000)
         {
             ply->actions(ply->HURT, snds, sand);
@@ -1312,6 +1356,7 @@ int scene::drawScene()
             ply->damage = clock();
             snds->playSound("sounds/hurt.mp3");
         }
+
         if (hit->isQuadCollisionPlatform(ply,th7) && clock() - ply->damage > 2000)
         {
             ply->actions(ply->HURT, snds, sand);
@@ -1373,6 +1418,7 @@ int scene::drawScene()
                     KbMs->keyEnvL1(th7, 0.05);
 
                     KbMs->keyEnvL1(arrow, 0.05);
+                    KbMs->keyEnvL1(horse, 0.05);
 
                     KbMs->keyPowerUp(spec, 0.03);
                     KbMs->keyPowerUp(health, 0.03);
@@ -1407,6 +1453,7 @@ int scene::drawScene()
             Hud->drawSquare(screenWidth, screenHeight, 0);
             glPopMatrix();
         }
+
         for(int i = 0; i < ply->ammo; i++){
             glPushMatrix();
             glTranslatef(((Hud->xPos) + i)/3, 1.7, 0);
@@ -1466,6 +1513,18 @@ int scene::drawScene()
             go->drawPlatform();
             horse->drawPlatform();
             glPopMatrix();
+
+            for (int i = 0; i < spearsC2; i++) {
+                if (!spearman2[i].isDead) {
+                    spearman2[i].drawEnemy();
+                }
+            }
+
+            for (int i = 0; i < warriorsC2; i++) {
+                if (!Warriors2[i].isDead) {
+                    Warriors2[i].drawEnemy();
+                }
+            }
         }
 
         else if (level == 3) {
@@ -1485,6 +1544,18 @@ int scene::drawScene()
             arrow->drawPlatform();
             horse->drawPlatform();
             glPopMatrix();
+
+            for (int i = 0; i < spearsC3; i++) {
+                if (!spearman3[i].isDead) {
+                    spearman3[i].drawEnemy();
+                }
+            }
+
+            for (int i = 0; i < warriorsC3; i++) {
+                if (!Warriors3[i].isDead) {
+                    Warriors3[i].drawEnemy();
+                }
+            }
         }
     }
 
@@ -1554,33 +1625,29 @@ int scene::initScene()
 
     ply->playerInit("images/knight.png", 4, 4);
 
-    for(int i = 0; i < enemyCount1; i++){
     for(int i = 0; i < enemyCount1; i++){ //Enemy Creation
         glGenTextures(10, spearman[i].texInd);
         spearman[i].setAsSpear();
-        spearman[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
     }
 
     for(int i = 0; i < spearsC2; i++){
         glGenTextures(10, spearman2[i].texInd);
         spearman2[i].setAsSpear();
-        spearman2[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
     }
+
     for(int i = 0; i < warriorsC2; i++){
         glGenTextures(10, Warriors2[i].texInd);
         Warriors2[i].setAsWarrior();
-        Warriors2[i].placeEnemy(pos3{i + 3.0, -0.25, -2.0});
     }
 
     for(int i = 0; i < spearsC3; i++){
         glGenTextures(10, spearman3[i].texInd);
         spearman3[i].setAsSpear();
-        spearman3[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
     }
+
     for(int i = 0; i < warriorsC3; i++){
         glGenTextures(10, Warriors3[i].texInd);
         Warriors3[i].setAsWarrior();
-        Warriors3[i].placeEnemy(pos3{i + 3.0, -0.25, -2.0});
     }
 
     prLx[1].initParallax("images/background1.jpg"); //initializing parallax with background image
@@ -1642,19 +1709,6 @@ int scene::initScene()
     fr5->initPlatform("images/fire.png",1,1);
     fr6->initPlatform("images/fire.png",1,1);
 
-    pl21->place(2,0,5,1);
-    pl22->place(7,0,3,1);
-    pl23->place(11,0,2,1);
-    pl24->place(14.5,0,2,1);
-    pl25->place(18,0,5,1);
-
-    fr1->place(-1,-1.0,1,1);
-    fr2->place(5,-1.0,1,1);
-    fr3->place(10,-1.0,2,1);
-    fr4->place(14.5,-1.0,2,2.5);
-    fr5->place(17,0.65,1,2);
-    fr6->place(19,-0.7,1,2.5);
-
     //level 3
     pl31->initPlatform("images/platform3.png",1,1);
     pl32->initPlatform("images/platform3.png",1,1);
@@ -1669,20 +1723,6 @@ int scene::initScene()
     th5->initPlatform("images/thorns.png",1,1);
     th6->initPlatform("images/thorns.png",1,1);
     th7->initPlatform("images/thorns.png",1,1);
-
-    pl31->place(0,0,5,1);
-    pl32->place(6,0,3,1);
-    pl33->place(10,0,2,1);
-    pl34->place(14,0,2,1);
-    pl35->place(18,0,5,1);
-
-    th1->place(-1,-1.0,1,2);
-    th2->place(1,-1.0,1,2);
-    th3->place(3,-1.0,1,1.5);
-    th4->place(5,-1.0,1,2);
-    th5->place(10,-1.0,1,3);
-    th6->place(13.5,-1.0,1,1.5);
-    th7->place(18,-1.0,3,3);
 
     arrow->initPlatform("images/right.png", 1, 1);
 
@@ -1699,15 +1739,29 @@ int scene::initScene()
     sand->generateParticles(0, 0);
 
     snds->initSound();
-    backGroundMusic = "sounds/menu.mp3";
 
+    // Place objects in first initialization
     if (!isInit) {
-        for(int i = 0; i < enemyCount1; i++){
-            if(i % 2 == 0){
-                spearman[i].movement = spearman[i].JUMP;
-            }
+        for(int i = 0; i < enemyCount1; i++){ //Enemy Creation
             spearman[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
         }
+
+        for(int i = 0; i < spearsC2; i++){
+            spearman2[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
+        }
+
+        for(int i = 0; i < warriorsC2; i++){
+            Warriors2[i].placeEnemy(pos3{i + 3.0, -0.25, -2.0});
+        }
+
+        for(int i = 0; i < spearsC3; i++){
+            spearman3[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
+        }
+
+        for(int i = 0; i < warriorsC3; i++){
+            Warriors3[i].placeEnemy(pos3{i + 3.0, -0.25, -2.0});
+        }
+
         pl1->place(0,0,5,1);
         pl2->place(6,0,3,1);
         pl3->place(10,0,2,1);
@@ -1718,19 +1772,32 @@ int scene::initScene()
         sp2->place(11,-1.0,1,0.5);
         sp3->place(18,-1.0,2,0.5);
 
-        pl21->place(0,0,5,1);
-        pl22->place(6,0,3,1);
-        pl23->place(10,0,2,1);
+        pl21->place(2,0,5,1);
+        pl22->place(7,0,3,1);
+        pl23->place(11,0,2,1);
         pl24->place(14.5,0,2,1);
         pl25->place(18,0,5,1);
 
-        fr1->place(1,-1.0,1,0.5);
+        fr1->place(-1,-1.0,1,1);
+        fr2->place(5,-1.0,1,1);
+        fr3->place(10,-1.0,2,1);
+        fr4->place(14.5,-1.0,2,2.5);
+        fr5->place(17,0.65,1,2);
+        fr6->place(19,-0.7,1,2.5);
 
         pl31->place(0,0,5,1);
         pl32->place(6,0,3,1);
         pl33->place(10,0,2,1);
-        pl34->place(14.5,0,2,1);
+        pl34->place(14,0,2,1);
         pl35->place(18,0,5,1);
+
+        th1->place(-1,-1.0,1,2);
+        th2->place(1,-1.0,1,2);
+        th3->place(3,-1.0,1,1.5);
+        th4->place(5,-1.0,1,2);
+        th5->place(10,-1.0,1,3);
+        th6->place(13.5,-1.0,1,1.5);
+        th7->place(18,-1.0,3,3);
 
         arrow->place(-4.8, 0, 1.5, 1);
 
@@ -1739,6 +1806,7 @@ int scene::initScene()
         horse->alpha = 0.0;
         horse->place(22, -0.7, 2, 2);
 
+        backGroundMusic = "sounds/menu.mp3";
         snds->playMusic(backGroundMusic);
 
         isInit = true;
@@ -1785,8 +1853,6 @@ void scene::resetScene()
         prLx[1].resetParallax();
         for(int i = 0; i < enemyCount1; i++){
             spearman[i].resetEnemy();
-            glGenTextures(10, spearman[i].texInd);
-            spearman[i].setAsSpear();
             spearman[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
         }
 
@@ -1804,6 +1870,14 @@ void scene::resetScene()
     else if (level == 2) {
         prLx[2].resetParallax();
 
+        for(int i = 0; i < spearsC2; i++){
+            spearman2[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
+        }
+
+        for(int i = 0; i < warriorsC2; i++){
+            Warriors2[i].placeEnemy(pos3{i + 3.0, -0.25, -2.0});
+        }
+
         pl21->place(2,0,5,1);
         pl22->place(7,0,3,1);
         pl23->place(11,0,2,1);
@@ -1820,6 +1894,14 @@ void scene::resetScene()
 
     else if (level == 3) {
         prLx[3].resetParallax();
+
+        for(int i = 0; i < spearsC3; i++){
+            spearman3[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
+        }
+
+        for(int i = 0; i < warriorsC3; i++){
+            Warriors3[i].placeEnemy(pos3{i + 3.0, -0.25, -2.0});
+        }
 
         pl31->place(0,0,5,1);
         pl32->place(6,0,3,1);
@@ -1903,21 +1985,25 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             else if(scne == HELP){
                 if(KbMs->keyPause() == 2){ //if M is pressed
+                    snds->playSound("sounds/select.mp3");
                     scne = MENU;
                 }
                 if(KbMs->keyPause() == 3){ //if C is pressed
+                    snds->playSound("sounds/select.mp3");
                     scne = CONTROLS;
                 }
             }
 
             else if(scne == CONTROLS){
                 if(KbMs->keyPause() == 2){ //if M is pressed
+                    snds->playSound("sounds/select.mp3");
                     scne = MENU;
                 }
             }
 
             else if(scne == CREDITS){
                 if(KbMs->keyPause() == 2){ //if M is pressed
+                    snds->playSound("sounds/select.mp3");
                     scne = MENU;
                 }
             }

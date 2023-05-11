@@ -20,6 +20,7 @@ class scene
         void resizeSceneWin(GLsizei, GLsizei);
 
         void resetScene();
+        void deleteScene();
 
         int winMsg(HWND, UINT, WPARAM, LPARAM);
 

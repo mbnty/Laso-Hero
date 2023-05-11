@@ -316,10 +316,10 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
     int	fullscreenHeight = GetSystemMetrics(SM_CYSCREEN);
 
 	// Ask The User Which Screen Mode They Prefer
-	if (MessageBox(NULL,"Would You Like To Run In Fullscreen Mode?", "Start FullScreen?",MB_YESNO|MB_ICONQUESTION)==IDNO)
-	{
-		fullscreen=FALSE;							// Windowed Mode
-	}
+	//if (MessageBox(NULL,"Would You Like To Run In Fullscreen Mode?", "Start FullScreen?",MB_YESNO|MB_ICONQUESTION)==IDNO)
+	//{
+	//	fullscreen=FALSE;							// Windowed Mode
+	//}
 
 	// Create Our OpenGL Window
 	if (!CreateGLWindow("Game Engine Lesson 01",fullscreenWidth,fullscreenHeight,256,fullscreen))
@@ -369,6 +369,7 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
 	}
 
 	// Shutdown
+	Scene->deleteScene();
 	KillGLWindow();									// Kill The Window
 	return (msg.wParam);							// Exit The Program
 }
