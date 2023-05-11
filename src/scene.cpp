@@ -44,7 +44,7 @@ enemy spearman[enemyCount1];
 
 int const enemyCount2 = 11;
 int const spearsC2 = 8;
-int const warriorsC2 = 2;
+int const warriorsC2 = 3;
 enemy spearman2[spearsC2];
 enemy Warriors2[warriorsC2];
 
@@ -246,9 +246,9 @@ int scene::drawScene()
         }
 
         if(!F->run){ //displays number of enemies remaining
-            F->pos.y = 0.62;
-            F->buildFonts(F->getZero(numOfEn));
-            Fs->buildFonts(Fs->getTens(numOfEn));
+            F->pos.y = 0.6;
+            F->buildFonts(F->getZero(enemyCount1));
+            Fs->buildFonts(Fs->getTens(enemyCount1));
             F->run = true;
             Fs->run = true;
         }
@@ -510,10 +510,12 @@ int scene::drawScene()
             arrow->place(-4.8, 0, 1.5, 1);
             spec->act = spec->IDLE;
             health->act = health->IDLE;
-            numOfEn = 5;
+            numOfEn = enemyCount2;
             level++;
             horse->place(22, -0.7, 2, 2);
             horse->alpha = 0.0;
+            F->run = false;
+            Fs->run = false;
             scne = LV2;
         }
 
@@ -595,6 +597,20 @@ int scene::drawScene()
             go->drawPlatform();
             horse->drawPlatform();
         }
+
+        if(!F->run){ //displays number of enemies remaining
+            F->pos.y = 0.6;
+            F->buildFonts(F->getZero(numOfEn));
+            Fs->buildFonts(Fs->getTens(numOfEn));
+            F->run = true;
+            Fs->run = true;
+        }
+
+        glPushMatrix();
+        glScalef(0.05, 0.07, 1);
+        glTranslatef(13.4, 7.5, -1.9);
+        prLx[8].drawPopUp(524, 93);
+        glPopMatrix();
 
         // draw hud
         for(int i = 0; i < ply->health; i++){
@@ -915,10 +931,12 @@ int scene::drawScene()
             arrow->place(-4.8, 0, 1.5, 1);
             spec->act = spec->IDLE;
             health->act = health->IDLE;
-            numOfEn = 5;
+            numOfEn = enemyCount3;
             level++;
             horse->place(22, -0.7, 2, 2);
             horse->alpha = 0.0;
+            F->run = false;
+            Fs->run = false;
             scne = LV3;
         }
 
@@ -939,6 +957,11 @@ int scene::drawScene()
                 wep->run = false;
                 ply->actions(ply->IDLE, snds, sand);
             }
+        }
+
+        for(int i, j = 0; i < F->cCnt, j < Fs->cCnt; i++, j++){
+            F->drawFonts(i, 0.04);
+            Fs->drawFonts(j, 0);
         }
 
         // Change scene if input
@@ -968,6 +991,7 @@ int scene::drawScene()
                     KbMs->keyEnvL1(fr6, 0.05);
 
                     KbMs->keyEnvL1(arrow, 0.05);
+                    KbMs->keyEnvL1(horse, 0.05);
 
                     KbMs->keyPowerUp(spec, 0.05);
                     KbMs->keyPowerUp(health, 0.05);
@@ -1000,6 +1024,20 @@ int scene::drawScene()
             go->drawPlatform();
             horse->drawPlatform();
         }
+
+        if(!F->run){ //displays number of enemies remaining
+            F->pos.y = 0.6;
+            F->buildFonts(F->getZero(numOfEn));
+            Fs->buildFonts(Fs->getTens(numOfEn));
+            F->run = true;
+            Fs->run = true;
+        }
+
+        glPushMatrix();
+        glScalef(0.05, 0.07, 1);
+        glTranslatef(13.4, 7.5, -1.9);
+        prLx[8].drawPopUp(524, 93);
+        glPopMatrix();
 
         // draw hud
         for(int i = 0; i < ply->health; i++){
@@ -1340,6 +1378,11 @@ int scene::drawScene()
             }
         }
 
+        for(int i, j = 0; i < F->cCnt, j < Fs->cCnt; i++, j++){
+            F->drawFonts(i, 0.04);
+            Fs->drawFonts(j, 0);
+        }
+
         // Change scene if input
         if (clock() - run > 30) {
             if (ply->actionTrigger != ply->HURT) {
@@ -1368,6 +1411,7 @@ int scene::drawScene()
                     KbMs->keyEnvL1(th7, 0.05);
 
                     KbMs->keyEnvL1(arrow, 0.05);
+                    KbMs->keyEnvL1(horse, 0.05);
 
                     KbMs->keyPowerUp(spec, 0.03);
                     KbMs->keyPowerUp(health, 0.03);
