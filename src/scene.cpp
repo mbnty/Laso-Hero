@@ -1,6 +1,5 @@
 #include "scene.h"
 #include "Light.h"
-#include "model.h"
 #include "inputs.h"
 #include <enemy.h>
 #include <parallax.h>
@@ -17,7 +16,6 @@
 #include <particles.h>
 #include <fonts.h>
 
-model *startModel = new model();
 inputs *KbMs = new inputs();
 player *ply = new player();
 title *tl = new title();
@@ -74,10 +72,12 @@ platform *go = new platform();
 platform *horse = new platform();
 
 int numBullet;
+float alpha = 1.0;
 int level = 1;
 int numOfEn = enemyCount1; //Tracks Amount of Enemies
 clock_t start;
 clock_t run;
+bool isInit = false;
 
 scene::scene()
 {
@@ -163,6 +163,9 @@ int scene::drawScene()
         }
 
         glPushMatrix();
+        glColor4f(1.0, 1.0, 1.0, alpha);
+
+        glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
         tl->drawMenu(screenWidth, screenHeight);
         glPopMatrix();
@@ -191,6 +194,8 @@ int scene::drawScene()
             sand->updateParticles();
             sand->generateParticles(0, 0);
             sand->drawParticles();
+        glPopMatrix();
+
         glPopMatrix();
     }
 
@@ -1120,12 +1125,8 @@ int scene::initScene()
     ply->playerInit("images/knight.png", 4, 4);
 
     for(int i = 0; i < enemyCount1; i++){
-        if(i % 2 == 0){
-            spearman[i].movement = spearman[i].JUMP;
-        }
         glGenTextures(10, spearman[i].texInd);
         spearman[i].setAsSpear();
-        spearman[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
     }
 
     prLx[1].initParallax("images/background1.jpg"); //initializing parallax with background image
@@ -1173,16 +1174,6 @@ int scene::initScene()
     sp2->initPlatform("images/spikes.png",1,1);
     sp3->initPlatform("images/spikes.png",1,1);
 
-    pl1->place(0,0,5,1);
-    pl2->place(6,0,3,1);
-    pl3->place(10,0,2,1);
-    pl4->place(11.5,0,2,1);
-    pl5->place(18,0,5,1);
-
-    sp1->place(1,-1.0,1,0.5);
-    sp2->place(11,-1.0,1,0.5);
-    sp3->place(18,-1.0,2,0.5);
-
     //level 2
     pl21->initPlatform("images/platform2.png",1,1);
     pl22->initPlatform("images/platform2.png",1,1);
@@ -1192,14 +1183,6 @@ int scene::initScene()
 
     fr1->initPlatform("images/fire.png",1,1);
 
-    pl21->place(0,0,5,1);
-    pl22->place(6,0,3,1);
-    pl23->place(10,0,2,1);
-    pl24->place(14.5,0,2,1);
-    pl25->place(18,0,5,1);
-
-    fr1->place(1,-1.0,1,0.5);
-
     //level 3
     pl31->initPlatform("images/platform3.png",1,1);
     pl32->initPlatform("images/platform3.png",1,1);
@@ -1207,21 +1190,11 @@ int scene::initScene()
     pl34->initPlatform("images/platform3.png",1,1);
     pl35->initPlatform("images/platform3.png",1,1);
 
-    pl31->place(0,0,5,1);
-    pl32->place(6,0,3,1);
-    pl33->place(10,0,2,1);
-    pl34->place(14.5,0,2,1);
-    pl35->place(18,0,5,1);
-
     arrow->initPlatform("images/right.png", 1, 1);
-    arrow->place(-4.8, 0, 1.5, 1);
 
     go->initPlatform("images/right.png", 1, 1);
-    go->place(0.0, 0.0, 1.0, 0.5);
 
     horse->initPlatform("images/horse.png", 1, 1);
-    horse->alpha = 0.0;
-    horse->place(22, -0.7, 2, 2);
 
     Hud->initUi("images/heart.png", 0);
     Hud->initUi("images/ammo.png", 1);
@@ -1233,7 +1206,49 @@ int scene::initScene()
 
     snds->initSound();
     backGroundMusic = "sounds/menu.mp3";
-    snds->playMusic(backGroundMusic);
+
+    if (!isInit) {
+        for(int i = 0; i < enemyCount1; i++){
+            if(i % 2 == 0){
+                spearman[i].movement = spearman[i].JUMP;
+            }
+            spearman[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
+        }
+        pl1->place(0,0,5,1);
+        pl2->place(6,0,3,1);
+        pl3->place(10,0,2,1);
+        pl4->place(11.5,0,2,1);
+        pl5->place(18,0,5,1);
+
+        sp1->place(1,-1.0,1,0.5);
+        sp2->place(11,-1.0,1,0.5);
+        sp3->place(18,-1.0,2,0.5);
+
+        pl21->place(0,0,5,1);
+        pl22->place(6,0,3,1);
+        pl23->place(10,0,2,1);
+        pl24->place(14.5,0,2,1);
+        pl25->place(18,0,5,1);
+
+        fr1->place(1,-1.0,1,0.5);
+
+        pl31->place(0,0,5,1);
+        pl32->place(6,0,3,1);
+        pl33->place(10,0,2,1);
+        pl34->place(14.5,0,2,1);
+        pl35->place(18,0,5,1);
+
+        arrow->place(-4.8, 0, 1.5, 1);
+
+        go->place(0.0, 0.0, 1.0, 0.5);
+
+        horse->alpha = 0.0;
+        horse->place(22, -0.7, 2, 2);
+
+        snds->playMusic(backGroundMusic);
+
+        isInit = true;
+    }
 
     start = run = clock();
 
