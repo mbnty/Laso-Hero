@@ -155,8 +155,16 @@ void enemy::enemySkinMulti(char* fileName, GLuint& Tex)
     tLoad->arrayTexLoader(fileName, Tex);
 }
 
+void enemy::setStrong()
+{
+    enHP = 6;
+}
+
+
 void enemy::setAsSpear()
 {
+    isSpear = true;
+    isWar = false;
     enemySkinMulti("images/Skeleton_Spearman/Walk.png", texInd[0]);
     enemySkinMulti("images/Skeleton_Spearman/Idle.png", texInd[1]);
     enemySkinMulti("images/Skeleton_Spearman/Attack_1.png", texInd[2]);
@@ -182,6 +190,38 @@ void enemy::setAsSpear()
     vFramesInd[7] = 2; //Protect
     vFramesInd[8] = 6; //Run
     vFramesInd[9] = 5; //Run+Attack
+}
+
+void enemy::setAsWarrior()
+{
+    isSpear = false;
+    isWar = true;
+    enemySkinMulti("images/Skeleton_Warrior/Walk.png", texInd[0]);
+    enemySkinMulti("images/Skeleton_Warrior/Idle.png", texInd[1]);
+    enemySkinMulti("images/Skeleton_Warrior/Attack_1.png", texInd[2]);
+    enemySkinMulti("images/Skeleton_Warrior/Attack_2.png", texInd[3]);
+    enemySkinMulti("images/Skeleton_Warrior/Hurt.png", texInd[4]);
+    enemySkinMulti("images/Skeleton_Warrior/Dead.png", texInd[5]);
+    enemySkinMulti("images/Skeleton_Warrior/Attack_3.png", texInd[6]);
+    enemySkinMulti("images/Skeleton_Warrior/Protect.png", texInd[7]);
+    enemySkinMulti("images/Skeleton_Warrior/Run.png", texInd[8]);
+    enemySkinMulti("images/Skeleton_Warrior/Run+attack.png", texInd[9]);
+
+    for(int i = 0; i < 10; i++){ //Horizontal Frames only 1 cause separate images
+        hFramesInd[i] = 1;
+    }
+
+    vFramesInd[0] = 7; //Walk
+    vFramesInd[1] = 7; //Idle
+    vFramesInd[2] = 5; //Attack 1
+    vFramesInd[3] = 5; //Attack 2
+    vFramesInd[4] = 2; //Hurt
+    vFramesInd[5] = 4; //Dead
+    vFramesInd[6] = 4; //Attack 3
+    vFramesInd[7] = 1; //Protect
+    vFramesInd[8] = 8; //Run
+    vFramesInd[9] = 7; //Run+Attack
+    setStrong();
 }
 
 bool enemy::enemyPlatformCollision(platform* plat)
@@ -472,7 +512,8 @@ void enemy::actions()
                 }
             }
         }
-        if(clock() - DeathTimer >= 2500 && isDead == true){
+        if(clock() - DeathTimer >= 2000 && isDead == true){
+            isSpawn = false;
             enemyPosition.y = -10;
         }
         break;
