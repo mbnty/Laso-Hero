@@ -127,7 +127,10 @@ void enemy::resetEnemy()
     isAttack = false;
     isSpawn = true;
     isJump = false;
-    enHP = 2;
+    if (isWar == true)
+        enHP = 5;
+    else
+        enHP = 2;
 
     groundValue = -0.25;
 
@@ -277,9 +280,11 @@ void enemy::enemyAIManager(player* ply, sounds* snds, particles* sand)
         if(clock() - attackTimer > 3000){
             movement = ATTACK;
             attackTimer = clock();
-        }else if (enDir = 'L'){
+        }
+        else if (enDir == 'L'){
             movement = WALKL;
-        }else{
+        }
+        else{
             movement = WALKR;
         }
     }

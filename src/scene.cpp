@@ -102,6 +102,7 @@ int numOfEn = enemyCount1; //Tracks Amount of Enemies
 clock_t start;
 clock_t run;
 bool isInit = false;
+bool horseSpawn = false;
 
 scene::scene()
 {
@@ -301,6 +302,10 @@ int scene::drawScene()
             horse->alpha = 1.0;
             go->drawPlatform();
             horse->drawPlatform();
+            if (!horseSpawn) {
+                snds->playSound("sounds/horse.mp3");
+                horseSpawn = true;
+            }
         }
 
         if(!F->run){ //displays number of enemies remaining
@@ -544,7 +549,7 @@ int scene::drawScene()
 
         if (numOfEn == 0 && hit->isLinearCollision(ply->pPos.x, horse->pos.x))       // Move to level 2 once reach horse
         {
-            snds->playSound("sounds/horse.mp3");
+            horseSpawn = false;
             arrow->place(-4.8, 0, 1.5, 1);
             spec->act = spec->IDLE;
             health->act = health->IDLE;
@@ -634,6 +639,10 @@ int scene::drawScene()
             horse->alpha = 1.0;
             go->drawPlatform();
             horse->drawPlatform();
+            if (!horseSpawn) {
+                snds->playSound("sounds/horse.mp3");
+                horseSpawn = true;
+            }
         }
 
         if(!F->run){ //displays number of enemies remaining
@@ -970,7 +979,7 @@ int scene::drawScene()
 
         if (numOfEn == 0 && hit->isLinearCollision(ply->pPos.x, horse->pos.x))       // Move to level 2 once reach horse
         {
-            snds->playSound("sounds/horse.mp3");
+            horseSpawn = false;
             arrow->place(-4.8, 0, 1.5, 1);
             spec->act = spec->IDLE;
             health->act = health->IDLE;
@@ -1036,8 +1045,8 @@ int scene::drawScene()
                     KbMs->keyEnvL1(arrow, 0.05);
                     KbMs->keyEnvL1(horse, 0.05);
 
-                    KbMs->keyPowerUp(spec, 0.05);
-                    KbMs->keyPowerUp(health, 0.05);
+                    KbMs->keyPowerUp(spec, 0.03);
+                    KbMs->keyPowerUp(health, 0.03);
                 }
                 run = clock();
             }
@@ -1066,6 +1075,10 @@ int scene::drawScene()
             horse->alpha = 1.0;
             go->drawPlatform();
             horse->drawPlatform();
+            if (!horseSpawn) {
+                snds->playSound("sounds/horse.mp3");
+                horseSpawn = true;
+            }
         }
 
         if(!F->run){ //displays number of enemies remaining
@@ -1877,6 +1890,7 @@ void scene::resetScene()
 {
     CanHit = false;
     EnMove = false;
+    horseSpawn = false;
 
     F->run = false;
     Fs->run = false;
@@ -1981,7 +1995,7 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_KEYDOWN:
             KbMs->keys[wParam] = true;
             if (scne == LV1 || scne == LV2 || scne == LV3) {
-                if ((wParam == VK_UP || wParam == 0x57) && (ply->actionTrigger != ply->JUMP || ply->actionTrigger != ply->HURT)) {
+                if ((wParam == VK_UP || wParam == 0x57) && (ply->actionTrigger != ply->JUMP && ply->actionTrigger != ply->HURT)) {
                     ply->actions(ply->JUMP,snds, sand);
                 }
 
@@ -2132,7 +2146,8 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_LBUTTONDOWN:
             if (scne == LV1 || scne == LV2 || scne == LV3) {
-                KbMs->mouseWhip(wep, ply, LOWORD(lParam), HIWORD(lParam),snds);
+                if (ply->actionTrigger != ply->JUMP && ply->actionTrigger != ply->HURT)
+                    KbMs->mouseWhip(wep, ply, LOWORD(lParam), HIWORD(lParam),snds);
             }
             else if (scne == TITLE) {
                 scne = MENU;
