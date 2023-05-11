@@ -291,7 +291,6 @@ int scene::drawScene()
             scne = LOSE;
         }
 
-
         //matrix for the background parallax
         glPushMatrix();
         glScaled(4.2, 4.2, 1.0);
@@ -568,7 +567,7 @@ int scene::drawScene()
         glPopMatrix();
 
         if (wep->run == true && clock() - start > 10) {
-            if (!ply->isJump)
+            if (!ply->isJump && ply->actionTrigger != ply->HURT)
                 ply->actions(ply->ATTACK, snds, sand);
             if (wep->t < 1) {
                 wep->t += 0.05;
@@ -998,7 +997,7 @@ int scene::drawScene()
         glPopMatrix();
 
         if (wep->run == true && clock() - start > 10) {
-            if (!ply->isJump)
+            if (!ply->isJump && ply->actionTrigger != ply->HURT)
                 ply->actions(ply->ATTACK, snds, sand);
             if (wep->t < 1) {
                 wep->t += 0.05;
@@ -1427,7 +1426,7 @@ int scene::drawScene()
         glPopMatrix();
 
         if (wep->run == true && clock() - start > 10) {
-            if (!ply->isJump)
+            if (!ply->isJump && ply->actionTrigger != ply->HURT)
                 ply->actions(ply->ATTACK, snds, sand);
             if (wep->t < 1) {
                 wep->t += 0.05;
