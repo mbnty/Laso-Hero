@@ -61,13 +61,26 @@ platform *pl24 = new platform();
 platform *pl25 = new platform();
 
 platform *fr1 = new platform();
+platform *fr2 = new platform();
+platform *fr3 = new platform();
+platform *fr4 = new platform();
+platform *fr5 = new platform();
+platform *fr6 = new platform();
 
-//objects for the platforms for the second level
+//objects for the platforms for the third level
 platform *pl31 = new platform();
 platform *pl32 = new platform();
 platform *pl33 = new platform();
 platform *pl34 = new platform();
 platform *pl35 = new platform();
+
+platform *th1 = new platform();
+platform *th2 = new platform();
+platform *th3 = new platform();
+platform *th4 = new platform();
+platform *th5 = new platform();
+platform *th6 = new platform();
+platform *th7 = new platform();
 
 platform *arrow = new platform();
 platform *go = new platform();
@@ -256,11 +269,9 @@ int scene::drawScene()
         pl3->drawPlatform();
         pl4->drawPlatform();
         pl5->drawPlatform();
-
         sp1->drawPlatform();
         sp2->drawPlatform();
         sp3->drawPlatform();
-
         arrow->drawPlatform();
         glPopMatrix();
 
@@ -593,6 +604,11 @@ int scene::drawScene()
         pl24->drawPlatform();
         pl25->drawPlatform();
         fr1->drawPlatform();
+        fr2->drawPlatform();
+        fr3->drawPlatform();
+        fr4->drawPlatform();
+        fr5->drawPlatform();
+        fr6->drawPlatform();
         arrow->drawPlatform();
         glPopMatrix();
 
@@ -707,6 +723,46 @@ int scene::drawScene()
             ply->damage = clock();
             snds->playSound("sounds/hurt.mp3");
         }
+        if (hit->isQuadCollisionPlatform(ply,fr2) && clock() - ply->damage > 2000)
+        {
+            ply->actions(ply->HURT, snds, sand);
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
+        }
+        if (hit->isQuadCollisionPlatform(ply,fr3) && clock() - ply->damage > 2000)
+        {
+            ply->actions(ply->HURT, snds, sand);
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
+        }
+        if (hit->isQuadCollisionPlatform(ply,fr4) && clock() - ply->damage > 2000)
+        {
+            ply->actions(ply->HURT, snds, sand);
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
+        }
+        if (hit->isQuadCollisionPlatform(ply,fr5) && clock() - ply->damage > 2000)
+        {
+            ply->actions(ply->HURT, snds, sand);
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
+        }
+        if (hit->isQuadCollisionPlatform(ply,fr6) && clock() - ply->damage > 2000)
+        {
+            ply->actions(ply->HURT, snds, sand);
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
+        }
 
         if (numOfEn == 0 && hit->isLinearCollision(ply->pPos.x, horse->pos.x))       // Move to level 2 once reach horse
         {
@@ -755,6 +811,12 @@ int scene::drawScene()
                     KbMs->keyEnvL1(pl25,0.05);
 
                     KbMs->keyEnvL1(fr1, 0.05);
+                    KbMs->keyEnvL1(fr2, 0.05);
+                    KbMs->keyEnvL1(fr3, 0.05);
+                    KbMs->keyEnvL1(fr4, 0.05);
+                    KbMs->keyEnvL1(fr5, 0.05);
+                    KbMs->keyEnvL1(fr6, 0.05);
+
                     KbMs->keyEnvL1(arrow, 0.05);
 
                     KbMs->keyPowerUp(spec, 0.05);
@@ -810,6 +872,13 @@ int scene::drawScene()
         pl33->drawPlatform();
         pl34->drawPlatform();
         pl35->drawPlatform();
+        th1->drawPlatform();
+        th2->drawPlatform();
+        th3->drawPlatform();
+        th4->drawPlatform();
+        th5->drawPlatform();
+        th6->drawPlatform();
+        th7->drawPlatform();
         arrow->drawPlatform();
         glPopMatrix();
 
@@ -911,6 +980,64 @@ int scene::drawScene()
             ply->actions(ply->JUMP,snds, sand);
         }
 
+        //check if collision with thorns
+        if (hit->isQuadCollisionPlatform(ply,th1) && clock() - ply->damage > 2000)
+        {
+            ply->actions(ply->HURT, snds, sand);
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
+        }
+        if (hit->isQuadCollisionPlatform(ply,th2) && clock() - ply->damage > 2000)
+        {
+            ply->actions(ply->HURT, snds, sand);
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
+        }
+        if (hit->isQuadCollisionPlatform(ply,th3) && clock() - ply->damage > 2000)
+        {
+            ply->actions(ply->HURT, snds, sand);
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
+        }
+        if (hit->isQuadCollisionPlatform(ply,th4) && clock() - ply->damage > 2000)
+        {
+            ply->actions(ply->HURT, snds, sand);
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
+        }
+        if (hit->isQuadCollisionPlatform(ply,th5) && clock() - ply->damage > 2000)
+        {
+            ply->actions(ply->HURT, snds, sand);
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
+        }
+        if (hit->isQuadCollisionPlatform(ply,th6) && clock() - ply->damage > 2000)
+        {
+            ply->actions(ply->HURT, snds, sand);
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
+        }
+        if (hit->isQuadCollisionPlatform(ply,th7) && clock() - ply->damage > 2000)
+        {
+            ply->actions(ply->HURT, snds, sand);
+            ply->pColor.y = 0; ply->pColor.z = 0;
+            ply->health--;
+            ply->damage = clock();
+            snds->playSound("sounds/hurt.mp3");
+        }
+
         if (numOfEn == 0 && hit->isLinearCollision(ply->pPos.x, horse->pos.x))
         {
             scne = WIN;
@@ -948,6 +1075,14 @@ int scene::drawScene()
                     KbMs->keyEnvL1(pl33,0.05);
                     KbMs->keyEnvL1(pl34,0.05);
                     KbMs->keyEnvL1(pl35,0.05);
+
+                    KbMs->keyEnvL1(th1, 0.05);
+                    KbMs->keyEnvL1(th2, 0.05);
+                    KbMs->keyEnvL1(th3, 0.05);
+                    KbMs->keyEnvL1(th4, 0.05);
+                    KbMs->keyEnvL1(th5, 0.05);
+                    KbMs->keyEnvL1(th6, 0.05);
+                    KbMs->keyEnvL1(th7, 0.05);
 
                     KbMs->keyEnvL1(arrow, 0.05);
 
@@ -1007,12 +1142,12 @@ int scene::drawScene()
         if (level == 1) {
             glPushMatrix(); // this martix holds the platforms
             pl1->drawPlatform();
-            sp1->drawPlatform();
             pl2->drawPlatform();
             pl3->drawPlatform();
-            sp2->drawPlatform();
             pl4->drawPlatform();
             pl5->drawPlatform();
+            sp1->drawPlatform();
+            sp2->drawPlatform();
             sp3->drawPlatform();
             arrow->drawPlatform();
             horse->drawPlatform();
@@ -1033,6 +1168,12 @@ int scene::drawScene()
             pl23->drawPlatform();
             pl24->drawPlatform();
             pl25->drawPlatform();
+            fr1->drawPlatform();
+            fr2->drawPlatform();
+            fr3->drawPlatform();
+            fr4->drawPlatform();
+            fr5->drawPlatform();
+            fr6->drawPlatform();
             arrow->drawPlatform();
             go->drawPlatform();
             horse->drawPlatform();
@@ -1046,8 +1187,14 @@ int scene::drawScene()
             pl33->drawPlatform();
             pl34->drawPlatform();
             pl35->drawPlatform();
+            th1->drawPlatform();
+            th2->drawPlatform();
+            th3->drawPlatform();
+            th4->drawPlatform();
+            th5->drawPlatform();
+            th6->drawPlatform();
+            th7->drawPlatform();
             arrow->drawPlatform();
-            go->drawPlatform();
             horse->drawPlatform();
             glPopMatrix();
         }
@@ -1191,14 +1338,24 @@ int scene::initScene()
     pl25->initPlatform("images/platform2.png",1,1);
 
     fr1->initPlatform("images/fire.png",1,1);
+    fr2->initPlatform("images/fire.png",1,1);
+    fr3->initPlatform("images/fire.png",1,1);
+    fr4->initPlatform("images/fire.png",1,1);
+    fr5->initPlatform("images/fire.png",1,1);
+    fr6->initPlatform("images/fire.png",1,1);
 
-    pl21->place(0,0,5,1);
-    pl22->place(6,0,3,1);
-    pl23->place(10,0,2,1);
+    pl21->place(2,0,5,1);
+    pl22->place(7,0,3,1);
+    pl23->place(11,0,2,1);
     pl24->place(14.5,0,2,1);
     pl25->place(18,0,5,1);
 
-    fr1->place(1,-1.0,1,0.5);
+    fr1->place(-1,-1.0,1,1);
+    fr2->place(5,-1.0,1,1);
+    fr3->place(10,-1.0,2,1);
+    fr4->place(14.5,-1.0,2,2.5);
+    fr5->place(17,0.65,1,2);
+    fr6->place(19,-0.7,1,2.5);
 
     //level 3
     pl31->initPlatform("images/platform3.png",1,1);
@@ -1207,11 +1364,27 @@ int scene::initScene()
     pl34->initPlatform("images/platform3.png",1,1);
     pl35->initPlatform("images/platform3.png",1,1);
 
+    th1->initPlatform("images/thorns.png",1,1);
+    th2->initPlatform("images/thorns.png",1,1);
+    th3->initPlatform("images/thorns.png",1,1);
+    th4->initPlatform("images/thorns.png",1,1);
+    th5->initPlatform("images/thorns.png",1,1);
+    th6->initPlatform("images/thorns.png",1,1);
+    th7->initPlatform("images/thorns.png",1,1);
+
     pl31->place(0,0,5,1);
     pl32->place(6,0,3,1);
     pl33->place(10,0,2,1);
-    pl34->place(14.5,0,2,1);
+    pl34->place(14,0,2,1);
     pl35->place(18,0,5,1);
+
+    th1->place(-1,-1.0,1,2);
+    th2->place(1,-1.0,1,2);
+    th3->place(3,-1.0,1,1.5);
+    th4->place(5,-1.0,1,2);
+    th5->place(10,-1.0,1,3);
+    th6->place(13.5,-1.0,1,1.5);
+    th7->place(18,-1.0,3,3);
 
     arrow->initPlatform("images/right.png", 1, 1);
     arrow->place(-4.8, 0, 1.5, 1);
@@ -1298,11 +1471,18 @@ void scene::resetScene()
     else if (level == 2) {
         prLx[2].resetParallax();
 
-        pl21->place(0,0,5,1);
-        pl22->place(6,0,3,1);
-        pl23->place(10,0,2,1);
+        pl21->place(2,0,5,1);
+        pl22->place(7,0,3,1);
+        pl23->place(11,0,2,1);
         pl24->place(14.5,0,2,1);
         pl25->place(18,0,5,1);
+
+        fr1->place(-1,-1.0,1,1);
+        fr2->place(5,-1.0,1,1);
+        fr3->place(10,-1.0,2,1);
+        fr4->place(14.5,-1.0,2,2.5);
+        fr5->place(17,0.65,1,2);
+        fr6->place(19,-0.7,1,2.5);
     }
 
     else if (level == 3) {
@@ -1311,8 +1491,16 @@ void scene::resetScene()
         pl31->place(0,0,5,1);
         pl32->place(6,0,3,1);
         pl33->place(10,0,2,1);
-        pl34->place(14.5,0,2,1);
+        pl34->place(14,0,2,1);
         pl35->place(18,0,5,1);
+
+        th1->place(-1,-1.0,1,2);
+        th2->place(1,-1.0,1,2);
+        th3->place(3,-1.0,1,1.5);
+        th4->place(5,-1.0,1,2);
+        th5->place(10,-1.0,1,3);
+        th6->place(13.5,-1.0,1,1.5);
+        th7->place(18,-1.0,3,3);
     }
 
     start = run = clock();
