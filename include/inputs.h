@@ -2,12 +2,10 @@
 #define INPUTS_H
 
 #include <windows.h>
-#include <model.h>
 #include <player.h>
 #include <title.h>
 #include <whip.h>
 #include <parallax.h>
-#include <lvl1.h>
 #include <enemy.h>
 #include <powerups.h>
 #include <sounds.h>
@@ -22,8 +20,6 @@ class inputs
         bool keys[256] = { false };
 
         void getRealMouse(int, int);
-
-        void keyModel(model*);
 
         void keyPlayer();
         void mousePlayer();

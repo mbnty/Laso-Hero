@@ -9,7 +9,6 @@
 #include <bullet.h>
 #include <checkCollision.h>
 #include <platform.h>
-#include <lvl1.h>
 #include <ui.h>
 #include <powerups.h>
 #include <sounds.h>

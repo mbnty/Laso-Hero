@@ -28,23 +28,6 @@ void inputs::getRealMouse(int x, int y) {
     gluUnProject(winX, winY, winZ, modelView, projectionMat, viewPort, &realX, &realY, &realZ);
 }
 
-void inputs::keyModel(model*)
-{
-    switch(wParam) {
-        case VK_LEFT:       // Action for model by pressing "Left" key
-            break;
-
-        case VK_RIGHT:      // Action for model by pressing "Right" key
-            break;
-
-        case VK_UP:         // Action for model by pressing "Up" key
-            break;
-
-        case VK_DOWN:       // Action for model by pressing "Down" key
-            break;
-    }
-}
-
 void inputs::keyPlayer(player* ply, sounds *sds, particles* sand)
 {
     if(keys[VK_LEFT] || keys[0x41]){
