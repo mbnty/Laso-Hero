@@ -28,6 +28,8 @@ class enemy
 
 
         void setAsSpear();
+        void setAsWarrior();
+        void setStrong();
 
         void resetEnemy();
 
@@ -66,6 +68,9 @@ class enemy
         bool isSpawn;
         bool isJump;
         int enHP;
+
+        bool isSpear;
+        bool isWar;
 
         clock_t currTime;
         clock_t attackTimer;
