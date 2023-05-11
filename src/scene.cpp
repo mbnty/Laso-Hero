@@ -304,9 +304,9 @@ int scene::drawScene()
         }
 
         if(!F->run){ //displays number of enemies remaining
-            F->pos.y = 0.62;
-            F->buildFonts(F->getZero(numOfEn));
-            Fs->buildFonts(Fs->getTens(numOfEn));
+            F->pos.y = 0.6;
+            F->buildFonts(F->getZero(enemyCount1));
+            Fs->buildFonts(Fs->getTens(enemyCount1));
             F->run = true;
             Fs->run = true;
         }
@@ -552,6 +552,8 @@ int scene::drawScene()
             level++;
             horse->place(22, -0.7, 2, 2);
             horse->alpha = 0.0;
+            F->run = false;
+            Fs->run = false;
             scne = LV2;
         }
 
@@ -633,6 +635,20 @@ int scene::drawScene()
             go->drawPlatform();
             horse->drawPlatform();
         }
+
+        if(!F->run){ //displays number of enemies remaining
+            F->pos.y = 0.6;
+            F->buildFonts(F->getZero(numOfEn));
+            Fs->buildFonts(Fs->getTens(numOfEn));
+            F->run = true;
+            Fs->run = true;
+        }
+
+        glPushMatrix();
+        glScalef(0.05, 0.07, 1);
+        glTranslatef(13.4, 7.5, -1.9);
+        prLx[8].drawPopUp(524, 93);
+        glPopMatrix();
 
         // draw hud
         for(int i = 0; i < ply->health; i++){
@@ -962,6 +978,8 @@ int scene::drawScene()
             level++;
             horse->place(22, -0.7, 2, 2);
             horse->alpha = 0.0;
+            F->run = false;
+            Fs->run = false;
             scne = LV3;
         }
 
@@ -982,6 +1000,11 @@ int scene::drawScene()
                 wep->run = false;
                 ply->actions(ply->IDLE, snds, sand);
             }
+        }
+
+        for(int i, j = 0; i < F->cCnt, j < Fs->cCnt; i++, j++){
+            F->drawFonts(i, 0.04);
+            Fs->drawFonts(j, 0);
         }
 
         // Change scene if input
@@ -1044,6 +1067,20 @@ int scene::drawScene()
             go->drawPlatform();
             horse->drawPlatform();
         }
+
+        if(!F->run){ //displays number of enemies remaining
+            F->pos.y = 0.6;
+            F->buildFonts(F->getZero(numOfEn));
+            Fs->buildFonts(Fs->getTens(numOfEn));
+            F->run = true;
+            Fs->run = true;
+        }
+
+        glPushMatrix();
+        glScalef(0.05, 0.07, 1);
+        glTranslatef(13.4, 7.5, -1.9);
+        prLx[8].drawPopUp(524, 93);
+        glPopMatrix();
 
         // draw hud
         for(int i = 0; i < ply->health; i++){
@@ -1388,6 +1425,11 @@ int scene::drawScene()
                 wep->run = false;
                 ply->actions(ply->IDLE, snds, sand);
             }
+        }
+
+        for(int i, j = 0; i < F->cCnt, j < Fs->cCnt; i++, j++){
+            F->drawFonts(i, 0.04);
+            Fs->drawFonts(j, 0);
         }
 
         // Change scene if input

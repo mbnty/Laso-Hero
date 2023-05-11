@@ -89,30 +89,35 @@ void fonts::buildFonts(char *str)
             xMax = 1.0/5.0;
             yMin = 1.0/2.0;
             yMax = 1.0;
+            pos.y += 0.02;
             break;
         case '6':
             xMin = 1.0/5.0;
             xMax = 2.0/5.0;
             yMin = 1.0/2.0;
             yMax = 1.0;
+            pos.y += 0.02;
             break;
         case '7':
             xMin = 2.0/5.0;
             xMax = 3.0/5.0;
             yMin = 1.0/2.0;
             yMax = 1.0;
+            pos.y += 0.02;
             break;
         case '8':
             xMin = 3.0/5.0;
             xMax = 4.0/5.0;
             yMin = 1.0/2.0;
             yMax = 1.0;
+            pos.y += 0.02;
             break;
         case '9':
             xMin = 4.0/5.0;
             xMax = 5.0/5.0;
             yMin = 1.0/2.0;
             yMax = 1.0;
+            pos.y += 0.02;
             break;
         }
         cCnt++;
