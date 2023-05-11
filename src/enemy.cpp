@@ -110,9 +110,9 @@ void enemy::initEnemy(GLuint tex, int verticalFrames, int horizontalFrames)
 
 void enemy::resetEnemy()
 {
-    enemyPosition.x = 0.0;
-    enemyPosition.y = -0.25;
-    enemyPosition.z = -2;
+    enemyPosition.x = initialPosition.x;
+    enemyPosition.y = initialPosition.y;
+    enemyPosition.z = initialPosition.z;
 
     enemySize.x = 1.0;
     enemySize.y = 0.5;
@@ -157,7 +157,7 @@ void enemy::enemySkinMulti(char* fileName, GLuint& Tex)
 
 void enemy::setStrong()
 {
-    enHP = 6;
+    enHP = 5;
 }
 
 

@@ -1012,7 +1012,7 @@ int scene::drawScene()
             if (ply->actionTrigger != ply->HURT) {
                 KbMs->keyPlayer(ply, snds, sand);
 
-                if ((pl21->pos.x < 3.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) && (pl25->pos.x > -5.0 || (!KbMs->keys[VK_RIGHT] && !KbMs->keys[0x44]))) {
+                if ((pl21->pos.x < 5.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) && (pl25->pos.x > -5.0 || (!KbMs->keys[VK_RIGHT] && !KbMs->keys[0x44]))) {
                     KbMs->keyEnv(prLx[2], 0.005);
                     for (int i = 0; i < spearsC2; i++)
                         KbMs->keyEnemy(spearman2[i]);
@@ -1224,7 +1224,7 @@ int scene::drawScene()
                     if (hit->isRadialCollision(ammo[j].bPos.x, Warriors3[i].enemyPosition.x, ammo[j].bPos.y, Warriors3[i].enemyPosition.y, 0.1, 0.5)) {
                         Warriors3[i].movement = Warriors3->HURT;
                         Warriors3[i].enHP -= 2; //Gun Does more damage
-                        if(Warriors2[i].enHP <= 0){
+                        if(Warriors3[i].enHP <= 0){
                             Warriors3[i].movement = Warriors3->DIE;
                             snds->playSound("sounds/enemyDie.mp3");
                             numOfEn--;
@@ -1439,10 +1439,10 @@ int scene::drawScene()
 
                 if ((pl31->pos.x < 3.0 || !KbMs->keys[VK_LEFT] && !KbMs->keys[0x41]) && (pl35->pos.x > -5.0 || (!KbMs->keys[VK_RIGHT] && !KbMs->keys[0x44]))) {
                     KbMs->keyEnv(prLx[3], 0.005);
-                    for (int i = 0; i < spearsC2; i++)
+                    for (int i = 0; i < spearsC3; i++)
                         KbMs->keyEnemy(spearman3[i]);
 
-                    for (int i = 0; i < warriorsC2; i++)
+                    for (int i = 0; i < warriorsC3; i++)
                         KbMs->keyEnemy(Warriors3[i]);
 
                     KbMs->keyEnvL1(pl31,0.05);
@@ -1878,6 +1878,9 @@ void scene::resetScene()
     CanHit = false;
     EnMove = false;
 
+    F->run = false;
+    Fs->run = false;
+
     ply->resetPlayer();
     for (int i = 0; i < 6; i++)
         ammo[i].resetBullet();
@@ -1911,12 +1914,15 @@ void scene::resetScene()
 
     else if (level == 2) {
         prLx[2].resetParallax();
+        numOfEn = enemyCount2;
 
         for(int i = 0; i < spearsC2; i++){
+            spearman2[i].resetEnemy();
             spearman2[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
         }
 
         for(int i = 0; i < warriorsC2; i++){
+            Warriors2[i].resetEnemy();
             Warriors2[i].placeEnemy(pos3{i + 3.0, -0.25, -2.0});
         }
 
@@ -1936,12 +1942,15 @@ void scene::resetScene()
 
     else if (level == 3) {
         prLx[3].resetParallax();
+        numOfEn = enemyCount3;
 
         for(int i = 0; i < spearsC3; i++){
+            spearman3[i].resetEnemy();
             spearman3[i].placeEnemy(pos3{i + 2.0, -0.25, -2.0});
         }
 
         for(int i = 0; i < warriorsC3; i++){
+            Warriors3[i].resetEnemy();
             Warriors3[i].placeEnemy(pos3{i + 3.0, -0.25, -2.0});
         }
 
@@ -2010,16 +2019,19 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 }
                 else if (temp == 6) {
                     level = 2;
+                    numOfEn = enemyCount2;
                     scne = LV2;
                     sand->resetParticles();
                 }
                 else if (temp == 7) {
                     level = 3;
+                    numOfEn = enemyCount3;
                     scne = LV3;
                     sand->resetParticles();
                 }
                 else if (temp == 8) {
                     level = 1;
+                    numOfEn = enemyCount1;
                     scne = LV1;
                     sand->resetParticles();
                 }
