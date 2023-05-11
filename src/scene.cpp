@@ -308,8 +308,8 @@ int scene::drawScene()
 
         if(!F->run){ //displays number of enemies remaining
             F->pos.y = 0.6;
-            F->buildFonts(F->getZero(enemyCount1));
-            Fs->buildFonts(Fs->getTens(enemyCount1));
+            F->buildFonts(F->getZero(numOfEn));
+            Fs->buildFonts(Fs->getTens(numOfEn));
             F->run = true;
             Fs->run = true;
         }
@@ -579,8 +579,11 @@ int scene::drawScene()
             }
         }
 
-        for(int i, j = 0; i < F->cCnt, j < Fs->cCnt; i++, j++){
+        for(int i = 0; i < F->cCnt; i++){
             F->drawFonts(i, 0.04);
+        }
+
+        for (int j = 0; j < Fs->cCnt; j++) {
             Fs->drawFonts(j, 0);
         }
 
@@ -1009,8 +1012,11 @@ int scene::drawScene()
             }
         }
 
-        for(int i, j = 0; i < F->cCnt, j < Fs->cCnt; i++, j++){
+        for(int i = 0; i < F->cCnt; i++){
             F->drawFonts(i, 0.04);
+        }
+
+        for (int j = 0; j < Fs->cCnt; j++) {
             Fs->drawFonts(j, 0);
         }
 
@@ -1438,8 +1444,11 @@ int scene::drawScene()
             }
         }
 
-        for(int i, j = 0; i < F->cCnt, j < Fs->cCnt; i++, j++){
+        for(int i = 0; i < F->cCnt; i++){
             F->drawFonts(i, 0.04);
+        }
+
+        for (int j = 0; j < Fs->cCnt; j++) {
             Fs->drawFonts(j, 0);
         }
 
@@ -2032,24 +2041,24 @@ int scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 else if (temp == 6) {
                     level = 2;
                     numOfEn = enemyCount2;
-                    scne = LV2;
                     sand->resetParticles();
+                    scne = LV2;
                 }
                 else if (temp == 7) {
                     level = 3;
                     numOfEn = enemyCount3;
-                    scne = LV3;
                     sand->resetParticles();
+                    scne = LV3;
                 }
                 else if (temp == 8) {
                     level = 1;
                     numOfEn = enemyCount1;
-                    scne = LV1;
                     sand->resetParticles();
+                    scne = LV1;
                 }
                 else if (temp == 9) {
-                    scne = WIN;
                     sand->resetParticles();
+                    scne = WIN;
                 }
             }
 

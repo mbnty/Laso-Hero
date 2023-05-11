@@ -14,6 +14,7 @@ fonts::fonts()
 fonts::~fonts()
 {
     //dtor
+
 }
 
 void fonts::initFonts(char *Filename)
