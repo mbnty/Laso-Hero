@@ -308,8 +308,8 @@ int scene::drawScene()
 
         if(!F->run){ //displays number of enemies remaining
             F->pos.y = 0.6;
-            F->buildFonts(F->getZero(numOfEn));
-            Fs->buildFonts(Fs->getTens(numOfEn));
+            F->buildFonts(numOfEn % 10);
+            Fs->buildFonts(numOfEn / 10);
             F->run = true;
             Fs->run = true;
         }
@@ -408,8 +408,8 @@ int scene::drawScene()
                             snds->playSound("sounds/enemyDie.mp3");
                             numOfEn--;
                             F->pos.y = 0.6;
-                            F->buildFonts(F->getZero(numOfEn));
-                            Fs->buildFonts(Fs->getTens(numOfEn));
+                            F->buildFonts(numOfEn % 10);
+                            Fs->buildFonts(numOfEn / 10);
 
                             spec->dropBullet(spearman[i].enemyPosition);
                             spec->act = spec->IDLE;
@@ -432,8 +432,8 @@ int scene::drawScene()
                             snds->playSound("sounds/enemyDie.mp3");
                             numOfEn--;
                             F->pos.y = 0.6;
-                            F->buildFonts(F->getZero(numOfEn));
-                            Fs->buildFonts(Fs->getTens(numOfEn));
+                            F->buildFonts(numOfEn % 10);
+                            Fs->buildFonts(numOfEn / 10);
                             spec->dropBullet(spearman[i].enemyPosition);
                             spec->act = spec->IDLE;
 
@@ -648,8 +648,8 @@ int scene::drawScene()
 
         if(!F->run){ //displays number of enemies remaining
             F->pos.y = 0.6;
-            F->buildFonts(F->getZero(numOfEn));
-            Fs->buildFonts(Fs->getTens(numOfEn));
+            F->buildFonts(numOfEn % 10);
+            Fs->buildFonts(numOfEn / 10);
             F->run = true;
             Fs->run = true;
         }
@@ -748,8 +748,8 @@ int scene::drawScene()
                             snds->playSound("sounds/enemyDie.mp3");
                             numOfEn--;
                             F->pos.y = 0.6;
-                            F->buildFonts(F->getZero(numOfEn));
-                            Fs->buildFonts(Fs->getTens(numOfEn));
+                            F->buildFonts(numOfEn % 10);
+                            Fs->buildFonts(numOfEn / 10);
 
                             spec->dropBullet(spearman2[i].enemyPosition);
                             spec->act = spec->IDLE;
@@ -772,8 +772,8 @@ int scene::drawScene()
                             snds->playSound("sounds/enemyDie.mp3");
                             numOfEn--;
                             F->pos.y = 0.6;
-                            F->buildFonts(F->getZero(numOfEn));
-                            Fs->buildFonts(Fs->getTens(numOfEn));
+                            F->buildFonts(numOfEn % 10);
+                            Fs->buildFonts(numOfEn / 10);
                             spec->dropBullet(spearman2[i].enemyPosition);
                             spec->act = spec->IDLE;
 
@@ -812,8 +812,8 @@ int scene::drawScene()
                             snds->playSound("sounds/enemyDie.mp3");
                             numOfEn--;
                             F->pos.y = 0.6;
-                            F->buildFonts(F->getZero(numOfEn));
-                            Fs->buildFonts(Fs->getTens(numOfEn));
+                            F->buildFonts(numOfEn % 10);
+                            Fs->buildFonts(numOfEn / 10);
 
                             spec->dropBullet(Warriors2[i].enemyPosition);
                             spec->act = spec->IDLE;
@@ -836,8 +836,8 @@ int scene::drawScene()
                             snds->playSound("sounds/enemyDie.mp3");
                             numOfEn--;
                             F->pos.y = 0.6;
-                            F->buildFonts(F->getZero(numOfEn));
-                            Fs->buildFonts(Fs->getTens(numOfEn));
+                            F->buildFonts(numOfEn % 10);
+                            Fs->buildFonts(numOfEn / 10);
                             spec->dropBullet(Warriors2[i].enemyPosition);
                             spec->act = spec->IDLE;
 
@@ -1087,8 +1087,8 @@ int scene::drawScene()
 
         if(!F->run){ //displays number of enemies remaining
             F->pos.y = 0.6;
-            F->buildFonts(F->getZero(numOfEn));
-            Fs->buildFonts(Fs->getTens(numOfEn));
+            F->buildFonts(numOfEn % 10);
+            Fs->buildFonts(numOfEn / 10);
             F->run = true;
             Fs->run = true;
         }
@@ -1182,8 +1182,8 @@ int scene::drawScene()
                             snds->playSound("sounds/enemyDie.mp3");
                             numOfEn--;
                             F->pos.y = 0.6;
-                            F->buildFonts(F->getZero(numOfEn));
-                            Fs->buildFonts(Fs->getTens(numOfEn));
+                            F->buildFonts(numOfEn % 10);
+                            Fs->buildFonts(numOfEn / 10);
 
                             spec->dropBullet(spearman3[i].enemyPosition);
                             spec->act = spec->IDLE;
@@ -1206,8 +1206,8 @@ int scene::drawScene()
                             snds->playSound("sounds/enemyDie.mp3");
                             numOfEn--;
                             F->pos.y = 0.6;
-                            F->buildFonts(F->getZero(numOfEn));
-                            Fs->buildFonts(Fs->getTens(numOfEn));
+                            F->buildFonts(numOfEn % 10);
+                            Fs->buildFonts(numOfEn / 10);
                             spec->dropBullet(spearman3[i].enemyPosition);
                             spec->act = spec->IDLE;
 
@@ -1246,8 +1246,8 @@ int scene::drawScene()
                             snds->playSound("sounds/enemyDie.mp3");
                             numOfEn--;
                             F->pos.y = 0.6;
-                            F->buildFonts(F->getZero(numOfEn));
-                            Fs->buildFonts(Fs->getTens(numOfEn));
+                            F->buildFonts(numOfEn % 10);
+                            Fs->buildFonts(numOfEn / 10);
 
                             spec->dropBullet(Warriors3[i].enemyPosition);
                             spec->act = spec->IDLE;
@@ -1270,8 +1270,8 @@ int scene::drawScene()
                             snds->playSound("sounds/enemyDie.mp3");
                             numOfEn--;
                             F->pos.y = 0.6;
-                            F->buildFonts(F->getZero(numOfEn));
-                            Fs->buildFonts(Fs->getTens(numOfEn));
+                            F->buildFonts(numOfEn % 10);
+                            Fs->buildFonts(numOfEn / 10);
                             spec->dropBullet(Warriors3[i].enemyPosition);
                             spec->act = spec->IDLE;
 

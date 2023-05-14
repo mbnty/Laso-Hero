@@ -18,10 +18,8 @@ class fonts
         virtual ~fonts();
 
         void initFonts(char *);
-        void buildFonts(char *);
+        void buildFonts(int);
         void drawFonts(int, float);
-        char* getTens(int);
-        char* getZero(int);
 
         float xMin, xMax, yMin, yMax;
         charset C[1024];
